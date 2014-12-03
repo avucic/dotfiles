@@ -1,0 +1,17 @@
+.idea
+.rvmrc
+.DS_Store
+*~
+doc
+doc/*
+#public/assets/*
+demo.rb
+test.rb
+*.sublime-project
+*.sublime-workspace
+.gem
+.powenv
+repl.rb
+LtPrinter
+.log
+lt_client.log

@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/Users/alex/Work/Mastered/mastered/app'
+let g:netrw_dirhist_2='/Users/alex/Work/Mastered/mastered/app/controllers'
+let g:netrw_dirhist_3='/Users/alex/Work/Mastered/mastered'
+let g:netrw_dirhist_4='/Users/alex/Work/Mastered/mastered/app'
+let g:netrw_dirhist_5='/Users/alex/Work/Mastered/mastered/app/controllers'

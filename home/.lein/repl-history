@@ -1,0 +1,472 @@
+exit
+(+ 6 7)
+exit
+(
+  (fn [message]  (print message))
+  "Hello"
+  )
+(* 5 5)
+(
+ (fn messagenr [params]
+  (print params)) 
+ "Mille")
+(. System exit 0)
+(+ 5 6)
+(. System exit 0)
+(binding [*ns* (or (find-ns 'sublime.core) (find-ns 'user))] (load-string ""))
+(binding [*ns* (or (find-ns 'sublime.core) (find-ns 'user))] (load-string "(mile \"ide kuci\")"))
+(. System exit 0)
+(accrue.db.data.quantumcharts/fetch-save-symbols)
+(require 'accrue.db.data.quantumcharts)
+(import accrue.db.data.quantumcharts)
+(import 'accrue.db.data.quantumcharts)
+(. System exit 0)
+(load-string "(in-ns 'so/timbre")
+(load-file "/Users/alex/Work/NuOctave/ai/project.clj")
+(. System exit 0)
+(* 7 8)
+(browser-repl)
+(load-string "(in-ns 'e")
+(load-string "(in-ns 'e)")
+(binding [*ns* (or (find-ns 'modern-cljs.core) (find-ns 'user))] (load-string "(in-ns 'modern-cljs.core)"))
+handler
+(. System exit 0)
+(browser-repl)
+(. System exit 0)
+(System/exit 0)
+(start-server)
+exit
+(defrecord Person [fname lname address])
+Person
+(:fname Person)
+(assoc Person :fname "Mile")
+(def u (Person. "Mile"))
+(defrecord Person [fname lname address])
+(def u (Person. "Mile" "peris", "sdsad"))
+(:fname u)
+exit
+(:require [bookmark as b])
+(:require [dropongo.entities.bookmark as b])
+(require 'dropongo.entities.bookmark)
+(in-ns 'dropongo.entities.bookmark)
+(bookmark/create {
+                  :title "sadadasd"
+                  :url "asdasdasdads"
+                  :user_id 1
+                  })
+(create {
+                  :title "sadadasd"
+                  :url "asdasdasdads"
+                  :user_id 1
+                  })
+(let [r 'user/reset] (if (find-var r) ((resolve r)) (clojure.tools.namespace.repl/refresh :after r)))
+(create {
+                  :title "sadadasd"
+                  :url "asdasdasdads"
+                  :user_id 1
+                  })
+(create {
+                  :title "sadadasd"
+                  :url "asdasdasdads"
+                  :user_id 1
+                  })
+(let [r 'user/reset] (if (find-var r) ((resolve r)) (clojure.tools.namespace.repl/refresh :after r)))
+list
+exit 
+(. System exit 0)
+(in-ns 'dropongo.db.core)
+(fetch-all :bookmarks :where {:id 5})
+(defdb db (config))
+(let [r 'user/reset] (if (find-var r) ((resolve r)) (clojure.tools.namespace.repl/refresh :after r)))
+(defdb db (config))
+(korma/core/defdb db (config))
+(let [r 'user/reset] (if (find-var r) ((resolve r)) (clojure.tools.namespace.repl/refresh :after r)))
+>exit 
+exit
+(in-ns 'dropongo.db.schema)
+tables
+(tables)
+(let [r 'user/reset] (if (find-var r) ((resolve r)) (clojure.tools.namespace.repl/refresh :after r)))
+(in-ns 'dropongo.db.schema)
+tables
+exit
+(autotest)
+(binding [*ns* (or (find-ns 'dropongo.db.bookmarks-test) (find-ns 'user))] (load-string "(do (test-vars [#']) (println \"tested \"))"))
+(binding [*ns* (or (find-ns 'dropongo.db.bookmarks-test) (find-ns 'user))] (load-string "(do (test-vars [#'dropongo.db.bookmarks-test]) (println \"tested dropongo.db.bookmarks-test\"))"))
+(use 'midje.repl)
+(autotest)
+(load-facts)
+(in-ns 'dropongo.db.bookmarks-test)
+(load-facts)
+exit
+(. System exit 0)
+exit
+(use 'clojure.tools.trace)
+exit
+(doc partial)
+(doc #')
+(doc "#'")
+(doc #)
+(doc -->)
+(source ->)
+(seq 3 4)
+(conj [1 2] 3)
+exit
+(ns demo)
+{::demo/foo 3}
+demo/foo
+(demo/foo)
+:demo/foo
+exit
+(. System exit 0)
+(for [i (range -100 100)] [:option {:value (str i)} (str i "%")])
+exit
+(into (range 0 10) (range 10 100))
+(into (range 0 10) (range 10 100 10))
+(into (range 10 100 10) (range 0 10) )
+(merge (range 0 10) (range 10 100 10))
+(merge (vec (range 0 10)) (vec (range 10 100 10)))
+(conj (vec (range 0 10)) (vec (range 10 100 10)))
+(-> distinct conj (range 0 10)  range 10 100 10))
+(-> distinct conj (range 0 10)  (range 10 100 10))
+( distinct  (range 0 10)  (range 10 100 10))
+( distinct (conj (range 0 10)  (range 10 100 10)))
+(clojure.set/union (range 0 10) (range 10 100 10))
+(clojure.set/union (range 10 100 10) (range 0 10) )
+(sorted-set (clojure.set/union (range 10 100 10) (range 0 10) ))
+(sorted-set (clojure.set/union  (range 0 10) (range 10 100 10) ))
+(sorted-set (into  (range 0 10) (range 10 100 10) ))
+(sort (into  (range 0 10) (range 10 100 10) ))
+(sort (into  (range 0 10) (7.5 7.5) (range 10 100 10) ))
+ (into  (range 0 10) (7.5 7.5) (range 10 100 10) )
+(sort (into  (range 0 5) [7.5 7.5] (range 10 100 10) ))
+(sort (union  (range 0 5) [7.5 7.5] (range 10 100 10) ))
+(sort (clojure.core/union  (range 0 5) [7.5 7.5] (range 10 100 10) ))
+(sort (clojure.set/union  (range 0 5) [7.5 7.5] (range 10 100 10) ))
+exit 
+(def data (atom (
+                 {:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev :pattern-length 7 :history-ragnge 10
+                 )))
+(def data (atom (
+                 {:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev :pattern-length 7 :history-ragnge 10}
+                 )))
+(binding [*ns* (or (find-ns 'accrue.components.screener.table) (find-ns 'user))] (load-string "(load-file \"/tmp/selection.clj\")"))
+(binding [*ns* (or (find-ns 'accrue.components.screener.table) (find-ns 'user))] (load-string "(def data 
+  (atom ())"))
+(def data 
+  (atom (
+         {:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev :pattern-length 7 :history-ragnge 10}
+         ))
+@data 
+(:count @data)
+;
+)
+@data 
+> 
+(def data 
+  (atom (
+         {:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev :pattern-length 7 :history-ragnge 10}
+         ))
+)
+(def data 
+  (atom [
+         {:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev :pattern-length 7 :history-ragnge 10}
+         ]))
+({:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev :pattern-length 7 :history-ragnge 10})
+[{:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev :pattern-length 7 :history-ragnge 10}]
+(def data 
+  (atom [
+         {:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev 1.7 :pattern-length 7 :history-ragnge 10}
+         ]))
+@data 
+(def data 
+  (atom ({:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev 1.7 :pattern-length 7 :history-ragnge 10}
+         {:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev 1.7 :pattern-length 7 :history-ragnge 10}
+)))
+exit 
+(def data 
+  (atom [
+         {:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev 1.7 :pattern-length 7 :history-ragnge 10}
+         ]))
+@data 
+(items :count)
+(:count @data )
+(:length @data )
+(array-map [1 2] [3 4 5])
+(array-map {:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev 1.7 :pattern-length 7 :history-ragnge 10}  {:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev 1.7 :pattern-length 7 :history-ragnge 10})
+(def data 
+  (atom (array-map {:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev 1.7 :pattern-length 7 :history-ragnge 10}
+         {:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev 1.7 :pattern-length 7 :history-ragnge 10}
+)))
+(for [{d :date } @data]
+  (format "host: %s ; port: %s" d))
+(for [{d :date } @data]
+  (str "host: %s ; port: %s" d))
+(for [{d :date } @data]
+  (str "host" d))
+(for [{d :date } @data] (str "host" d))
+@edata
+@data
+(def data 
+  (atom [
+         {:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev 1.7 :pattern-length 7 :history-ragnge 10}
+]))
+(for [{d :date } @data] (str "host" d))
+exit 
+(def data 
+  (atom [
+         {:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev 1.7 :patlngt 7 :hisrng 10}
+]))
+(for [row @data]  (println row)) 
+(for [row @data]  (println (:date row)))
+exit 
+(def data 
+  (atom [
+         {:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev 1.7 :patlngt 7 :hisrng 10}
+]))
+(map #(setCell 0 %1 %2) (iterate inc 0) @data)
+(map #(println 0 %1 %2) (iterate inc 0) @data)
+(map #(println 0 %1 %) (iterate inc 0) @data)
+(map #(println 0 %1 ) (iterate inc 0) @data)
+println 0 %1 ) (iterate inc 0) @data)
+(def data 
+  (atom [
+         {:date "09/24" :symbol "AAP:" :win "100" :avg "3.1" :hi "6.6" :low "-3.0" :std-dev 1.7 :patlngt 7 :hisrng 10}
+]))
+(map #(println 0 %1 %2) (iterate inc 0) @data)
+> 
+(map #(println 0 %1 %2) (iterate inc 0) @data) 
+(map #(println 0 "ar1" %1  "ar2" %2) (iterate inc 0) @data)
+(map #(println "ar1" %1  "ar2" %2) (iterate inc 0) @data)
+(map #(println  "ar2" %2) (iterate inc 0) @data)
+(def foo [{:keys [date symbol win avg hi low std-dev patlngt hisrng]}] (println date))
+(defn foo [{:keys [date symbol win avg hi low std-dev patlngt hisrng]}] (println date))
+(map #(foo  %2) (iterate inc 0) @data)
+exit
+(defn foo [e & data])
+(defn foo [e & data] (println data))
+(foo 1 [1] [2] [3])
+exit
+ (union
+    [[-1 "all"]]
+    (for [i (range 1 101)] [(str i) (str "≤ " i "%")])
+    [["1000" "Average G/L ≥ 1.0 * Standard Deviation"]
+     ["1500" "Average G/L ≥ 1.5 * Standard Deviation"]
+     ["2000" "Average G/L ≥ 2.0 * Standard Deviation"]
+     ["2500" "Average G/L ≥ 2.5 * Standard Deviation"]
+     ["3000" "Average G/L ≥ 3.0 * Standard Deviation"]
+     ["4000" "Average G/L ≥ 4.0 * Standard Deviation"]
+     ["5000" "Average G/L ≥ 5.0 * Standard Deviation"]
+     ["7500" "Average G/L ≥ 7.5 * Standard Deviation"]
+     ["10000" "Average G/L ≥ 10.0 * Standard Deviation"]
+     ["20000" "Average G/L ≥ 20.0 * Standard Deviation"]
+     ["30000" "Average G/L ≥ 30.0 * Standard Deviation"]]) )
+(use 'clojure.set)
+ (union
+    [[-1 "all"]]
+    (for [i (range 1 101)] [(str i) (str "≤ " i "%")])
+    [["1000" "Average G/L ≥ 1.0 * Standard Deviation"]
+     ["1500" "Average G/L ≥ 1.5 * Standard Deviation"]
+     ["2000" "Average G/L ≥ 2.0 * Standard Deviation"]
+     ["2500" "Average G/L ≥ 2.5 * Standard Deviation"]
+     ["3000" "Average G/L ≥ 3.0 * Standard Deviation"]
+     ["4000" "Average G/L ≥ 4.0 * Standard Deviation"]
+     ["5000" "Average G/L ≥ 5.0 * Standard Deviation"]
+     ["7500" "Average G/L ≥ 7.5 * Standard Deviation"]
+     ["10000" "Average G/L ≥ 10.0 * Standard Deviation"]
+     ["20000" "Average G/L ≥ 20.0 * Standard Deviation"]
+     ["30000" "Average G/L ≥ 30.0 * Standard Deviation"]]) )
+ (union
+    [[-1 "all"]]
+    (for [i (range 1 101)] [(str i) (str "≤ " i "%")])
+    [["1000" "Average G/L ≥ 1.0 * Standard Deviation"]
+     ["1500" "Average G/L ≥ 1.5 * Standard Deviation"]
+     ["2000" "Average G/L ≥ 2.0 * Standard Deviation"]
+     ["2500" "Average G/L ≥ 2.5 * Standard Deviation"]
+     ["3000" "Average G/L ≥ 3.0 * Standard Deviation"]
+     ["4000" "Average G/L ≥ 4.0 * Standard Deviation"]
+     ["5000" "Average G/L ≥ 5.0 * Standard Deviation"]
+     ["7500" "Average G/L ≥ 7.5 * Standard Deviation"]
+     ["10000" "Average G/L ≥ 10.0 * Standard Deviation"]
+     ["20000" "Average G/L ≥ 20.0 * Standard Deviation"]
+     ["30000" "Average G/L ≥ 30.0 * Standard Deviation"]]) 
+ (merge
+    [[-1 "all"]]
+    (for [i (range 1 101)] [(str i) (str "≤ " i "%")])
+    [["1000" "Average G/L ≥ 1.0 * Standard Deviation"]
+     ["1500" "Average G/L ≥ 1.5 * Standard Deviation"]
+     ["2000" "Average G/L ≥ 2.0 * Standard Deviation"]
+     ["2500" "Average G/L ≥ 2.5 * Standard Deviation"]
+     ["3000" "Average G/L ≥ 3.0 * Standard Deviation"]
+     ["4000" "Average G/L ≥ 4.0 * Standard Deviation"]
+     ["5000" "Average G/L ≥ 5.0 * Standard Deviation"]
+     ["7500" "Average G/L ≥ 7.5 * Standard Deviation"]
+     ["10000" "Average G/L ≥ 10.0 * Standard Deviation"]
+     ["20000" "Average G/L ≥ 20.0 * Standard Deviation"]
+     ["30000" "Average G/L ≥ 30.0 * Standard Deviation"]])
+ (merge
+    ([-1 "all"])
+    (for [i (range 1 101)] [(str i) (str "≤ " i "%")])
+    [["1000" "Average G/L ≥ 1.0 * Standard Deviation"]
+     ["1500" "Average G/L ≥ 1.5 * Standard Deviation"]
+     ["2000" "Average G/L ≥ 2.0 * Standard Deviation"]
+     ["2500" "Average G/L ≥ 2.5 * Standard Deviation"]
+     ["3000" "Average G/L ≥ 3.0 * Standard Deviation"]
+     ["4000" "Average G/L ≥ 4.0 * Standard Deviation"]
+     ["5000" "Average G/L ≥ 5.0 * Standard Deviation"]
+     ["7500" "Average G/L ≥ 7.5 * Standard Deviation"]
+     ["10000" "Average G/L ≥ 10.0 * Standard Deviation"]
+     ["20000" "Average G/L ≥ 20.0 * Standard Deviation"]
+     ["30000" "Average G/L ≥ 30.0 * Standard Deviation"]])
+ (merge
+    #{[-1 "all"]}
+    (for [i (range 1 101)] [(str i) (str "≤ " i "%")])
+    [["1000" "Average G/L ≥ 1.0 * Standard Deviation"]
+     ["1500" "Average G/L ≥ 1.5 * Standard Deviation"]
+     ["2000" "Average G/L ≥ 2.0 * Standard Deviation"]
+     ["2500" "Average G/L ≥ 2.5 * Standard Deviation"]
+     ["3000" "Average G/L ≥ 3.0 * Standard Deviation"]
+     ["4000" "Average G/L ≥ 4.0 * Standard Deviation"]
+     ["5000" "Average G/L ≥ 5.0 * Standard Deviation"]
+     ["7500" "Average G/L ≥ 7.5 * Standard Deviation"]
+     ["10000" "Average G/L ≥ 10.0 * Standard Deviation"]
+     ["20000" "Average G/L ≥ 20.0 * Standard Deviation"]
+     ["30000" "Average G/L ≥ 30.0 * Standard Deviation"]])
+ (merge
+    #{-1 "all"}
+    (for [i (range 1 101)] [(str i) (str "≤ " i "%")])
+    [["1000" "Average G/L ≥ 1.0 * Standard Deviation"]
+     ["1500" "Average G/L ≥ 1.5 * Standard Deviation"]
+     ["2000" "Average G/L ≥ 2.0 * Standard Deviation"]
+     ["2500" "Average G/L ≥ 2.5 * Standard Deviation"]
+     ["3000" "Average G/L ≥ 3.0 * Standard Deviation"]
+     ["4000" "Average G/L ≥ 4.0 * Standard Deviation"]
+     ["5000" "Average G/L ≥ 5.0 * Standard Deviation"]
+     ["7500" "Average G/L ≥ 7.5 * Standard Deviation"]
+     ["10000" "Average G/L ≥ 10.0 * Standard Deviation"]
+     ["20000" "Average G/L ≥ 20.0 * Standard Deviation"]
+     ["30000" "Average G/L ≥ 30.0 * Standard Deviation"]])
+ (-> sort union
+    [[-1 "all"]]
+    (for [i (range 1 101)] [(str i) (str "≤ " i "%")])
+    [["1000" "Average G/L ≥ 1.0 * Standard Deviation"]
+     ["1500" "Average G/L ≥ 1.5 * Standard Deviation"]
+     ["2000" "Average G/L ≥ 2.0 * Standard Deviation"]
+     ["2500" "Average G/L ≥ 2.5 * Standard Deviation"]
+     ["3000" "Average G/L ≥ 3.0 * Standard Deviation"]
+     ["4000" "Average G/L ≥ 4.0 * Standard Deviation"]
+     ["5000" "Average G/L ≥ 5.0 * Standard Deviation"]
+     ["7500" "Average G/L ≥ 7.5 * Standard Deviation"]
+     ["10000" "Average G/L ≥ 10.0 * Standard Deviation"]
+     ["20000" "Average G/L ≥ 20.0 * Standard Deviation"]
+     ["30000" "Average G/L ≥ 30.0 * Standard Deviation"]])
+ ( sort (union
+    [[-1 "all"]]
+    (for [i (range 1 101)] [(str i) (str "≤ " i "%")])
+    [["1000" "Average G/L ≥ 1.0 * Standard Deviation"]
+     ["1500" "Average G/L ≥ 1.5 * Standard Deviation"]
+     ["2000" "Average G/L ≥ 2.0 * Standard Deviation"]
+     ["2500" "Average G/L ≥ 2.5 * Standard Deviation"]
+     ["3000" "Average G/L ≥ 3.0 * Standard Deviation"]
+     ["4000" "Average G/L ≥ 4.0 * Standard Deviation"]
+     ["5000" "Average G/L ≥ 5.0 * Standard Deviation"]
+     ["7500" "Average G/L ≥ 7.5 * Standard Deviation"]
+     ["10000" "Average G/L ≥ 10.0 * Standard Deviation"]
+     ["20000" "Average G/L ≥ 20.0 * Standard Deviation"]
+     ["30000" "Average G/L ≥ 30.0 * Standard Deviation"]]))
+(into [] [-1 "all"] )
+(into [] [-1 "all"] (for [i (range 1 101)] [(str i) (str "≤ " i "%")]))
+(into [] [[-1 "all"]] [(for [i (range 1 101)] [(str i) (str "≤ " i "%")])])
+> 
+[(for [i (range 1 101)] [(str i) (str "≤ " i "%")]
+(for [i (range 1 101)] [(str i) (str "≤ " i "%")
+extend-protocol
+,
+)
+[(for [i (range 1 101)] [(str i) (str "≤ " i "%")]
+)
+(for [i (range 1 101)] [(str i) (str "≤ " i "%")
+RuntimeException
+exit 
+exit
+)
+exit 
+(/1500 1000)
+(/ 1500 1000)
+(/ 9 3)
+(/ 1500 100)
+(/ 1500 1000)
+(float (/ 1500 1000))
+02
+user=> (format "%.3f" (/ 1500 1000))
+02
+user=> (format "%.3f" (/ 1500 1000))
+(float (/ 1500 1000))
+(format "%.1f" (float (/ 1500 1000)))
+(format "%.1f" (float (/ 1000 1000)))
+(float (/ 1500 1000) "%.1f")
+exit 
+(merge {} {:id 3} )
+(def mile (atom {}))
+(swap! @mile merge {:id 4})
+(swap! @mile assoc {:id 4})
+(swap! @mile assoc :id 4 )
+(swap! @mile assoc   @mile  :id 4 )
+(swap! mile assoc     :id 4 )
+mile
+exit
+(defn substring-matcher
+  [data]
+  (.log js/console data)
+  (fn[q,cb]
+    (filter #(re-matches (re-pattern q )  %) data) ))
+(defn substring-matcher
+  [data]
+  (fn[q,cb]
+    (filter #(re-matches (re-pattern q )  %) data) ))
+(-> substring-matcher ["aaa" "bbbb"] )
+(substring-matcher ["aaa" "bbbb"] )
+#(substring-matcher ["aaa" "bbbb"] )
+(filter #(re-matches (re-pattern q )  %) data)
+(filter #(re-matches (re-pattern "AA" )  %) ["AAA" "BB" "A"])
+(re-pattern "AA" )
+(re-pattern "(?i)AA" )
+(filter #(re-matches (re-pattern "(?i)AA" )  %) ["AAA" "BB" "A"])
+(filter #(re-matches (re-pattern "AAA" )  %) ["AAA" "BB" "A"])
+(filter #(re-find (re-pattern "AAA" )  %) ["AAA" "BB" "A"])
+(filter #(re-find (re-pattern "AA" )  %) ["AAA" "BB" "A"])
+(filter #(re-find (re-pattern "A" )  %) ["AAA" "BB" "A"])
+(filter #(re-find (re-pattern "a" )  %) ["AAA" "BB" "A"])
+(filter #(re-find (re-pattern "(?i)a" )  %) ["AAA" "BB" "A"])
+EXIT
+exit 
+exit
+(defn get-type[t]
+  t)
+(defmulti affiliate-fee get-type)
+(defmethod affiliate-fee :bookmark [user]
+  (println "bookmark"))
+(defmethod affiliate-fee :folder [user]
+  (println "folder"))
+(defmethod affiliate-fee :default [user]
+ (println "Not found"))
+(affiliate-fee  :bookmark {} )
+(affiliate-fee  :bookmark )
+(defmethod affiliate-fee :bookmark [user] (println "booooooooooookmark"))
+(affiliate-fee  :bookmark )
+(affiliate-fee  :bookm )
+exit
+(defmulti get (fn[t] t))
+(defmethod get :bookmark []
+  (pr "booooooooook"))
+(defmethod get :default []
+  (pr "Bot found"))
+(get :bookmark)
+(get :bookmark 3)
+(defmulti get (fn[t] t))
+(defmethod get :bookmark [_]
+  (pr "booooooooook"))
+(defmethod get :default [_]
+  (pr "Bot found"))
+(get :bookmark)
+exit
