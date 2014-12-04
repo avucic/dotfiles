@@ -121,10 +121,10 @@ set nowrap                " don't wrap text
 let mapleader=","
 map <leader>w <Plug>(easymotion-w)
 " remove arrows
-" noremap <Up> <NOP>
-" noremap <Down> <NOP>
-" noremap <Left> <NOP>
-" noremap <Right> <NOP>
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
 
 " if bufwinnr(1)
 "   map > <C-W>>
