@@ -17,7 +17,82 @@
 " 01. General                                                                "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible         " get rid of Vi compatibility mode. SET FIRST!
-execute pathogen#infect()
+" execute pathogen#infect()
+filetype off
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+set tags=./tags,tags
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+Plugin 'chriskempson/base16-vim'
+Plugin 'rking/ag.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'godlygeek/tabular'
+Plugin 'edkolev/tmuxline.vim'
+Plugin 'bling/vim-airline'
+Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'tpope/vim-bundler'
+Bundle "mattn/emmet-vim"
+Bundle "tpope/vim-commentary"
+Bundle 'matchit.zip'
+Bundle 'MatchTag'
+Bundle 'Valloric/MatchTagAlways'
+Bundle 'majutsushi/tagbar'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-surround'
+Bundle 'rizzatti/funcoo.vim'
+Bundle 'rizzatti/dash.vim'
+
+
+" Snippets
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "garbas/vim-snipmate"
+
+Bundle "honza/vim-snippets"
+
+" Programming
+Bundle "jQuery"
+" Language Additions
+" Ruby
+Bundle 'tpope/vim-rails'
+Plugin 'thoughtbot/vim-rspec'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'tpope/vim-haml'
+Bundle 'tpope/vim-rake'
+Bundle 'tpope/vim-cucumber'
+Bundle 't9md/vim-ruby-xmpfilter'
+Bundle 'tpope/vim-dispatch'
+" JavaScript
+Bundle 'pangloss/vim-javascript'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'leshill/vim-json'
+" HTML
+Bundle 'mustache/vim-mustache-handlebars'
+Bundle 'othree/html5.vim'
+Bundle 'indenthtml.vim'
+
+" Clojure
+" Bundle 'vim-scripts/VimClojure'
+Bundle 'guns/vim-clojure-static'
+Bundle 'tpope/vim-fireplace.git'
+Bundle 'tpope/vim-classpath.git'
+Bundle 'guns/vim-clojure-highlight'
+" Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'guns/vim-sexp'
+
+" Syntax highlight
+Bundle "cucumber.zip"
+Bundle "Markdown"
+
+call vundle#end()            " required
+filetype plugin indent on    " required
 
 augroup myvimrchooks
 au!
@@ -29,10 +104,29 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 filetype plugin indent on " filetype detection[ON] plugin[ON] indent[ON]
 
-" In Makefiles DO NOT use spaces instead of tabs
-autocmd FileType make setlocal noexpandtab
-" In Ruby files, use 2 spaces instead of 4 for tabs
-autocmd FileType ruby setlocal sw=2 ts=2 sts=2
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
+autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
+autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
+autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
+
+" xmpfilter
+nmap <buffer> <F5> <Plug>(xmpfilter-run)
+xmap <buffer> <F5> <Plug>(xmpfilter-run)
+imap <buffer> <F5> <Plug>(xmpfilter-run)
+
+nmap <buffer> <F4> <Plug>(xmpfilter-mark)
+xmap <buffer> <F4> <Plug>(xmpfilter-mark)
+imap <buffer> <F4> <Plug>(xmpfilter-mark)
 
 " autocmd vimenter * NERDTree
 
@@ -114,7 +208,8 @@ set expandtab             " use spaces instead of tabs
 set smartindent           " automatically insert one extra level of indentation
 set smarttab              " use tabs at the start of a line, spaces elsewhere
 set nowrap                " don't wrap text
-
+set pastetoggle=<F2>      " toggle paste formating
+" set cursorline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 06. Custom Commands                                                        "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -126,32 +221,18 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
-" if bufwinnr(1)
-"   map > <C-W>>
-"   map < <C-W><
-"   map + <C-W>+
-"   map - <C-W>-
-" endif
-
-" remap switching panes
-" nnoremap <Right> <C-w>l
-" nnoremap <Left> <C-w>h
-" nnoremap <Up> <C-w>k
-" nnoremap <Down> <C-w>j
-
-
+nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
+" shortcut to switching between splts
 nnoremap <C-l> <C-w>l
 nnoremap <C-h> <C-w>h
 nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
 
-
-" map <C-j> <C-W>j
-" map <C-k> <C-W>k
-" map <C-h> <C-W>h
-" map <C-l> <C-W>l
-" map <Shif-|> <C-W>vdd
-" map <C--> <C-W>s
+nmap <S-Enter> O<Esc>
+nmap <CR> o<Esc>
+" folding
+nnoremap <Space> za
 
 set splitbelow
 set splitright
