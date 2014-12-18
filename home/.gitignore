@@ -15,3 +15,5 @@ repl.rb
 LtPrinter
 .log
 lt_client.log
+*.swp
+*.swo

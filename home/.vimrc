@@ -48,6 +48,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-surround'
 Bundle 'rizzatti/funcoo.vim'
 Bundle 'rizzatti/dash.vim'
+Bundle 'Valloric/YouCompleteMe'
 
 
 " Snippets
@@ -69,6 +70,7 @@ Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-cucumber'
 Bundle 't9md/vim-ruby-xmpfilter'
 Bundle 'tpope/vim-dispatch'
+Bundle 'bruno-/vim-ruby-fold'
 " JavaScript
 Bundle 'pangloss/vim-javascript'
 Bundle 'kchmck/vim-coffee-script'
@@ -209,6 +211,7 @@ set smartindent           " automatically insert one extra level of indentation
 set smarttab              " use tabs at the start of a line, spaces elsewhere
 set nowrap                " don't wrap text
 set pastetoggle=<F2>      " toggle paste formating
+set iskeyword-=.
 " set cursorline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 06. Custom Commands                                                        "

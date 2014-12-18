@@ -2,9 +2,13 @@ function! GetClojureFold()
       if getline(v:lnum) =~ '^\s*(defn.*\s'
             return ">2"
       elseif getline(v:lnum) =~ '^\s*(defmacro.*\s'
-            return ">2"
+            return ">1"
       elseif getline(v:lnum) =~ '^\s*(defmethod.*\s'
-            return ">2"
+            return ">1"
+      elseif getline(v:lnum) =~ '^\s*(facts.*\s'
+            return ">1"
+      elseif getline(v:lnum) =~ '^\s*(fact.*\s'
+            return ">3"
       elseif getline(v:lnum) =~ '^\s*;;;.*\s'
             return ">1"
       elseif getline(v:lnum) =~ '^\s*$'
