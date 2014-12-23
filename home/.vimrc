@@ -49,14 +49,12 @@ Plugin 'tpope/vim-surround'
 Bundle 'rizzatti/funcoo.vim'
 Bundle 'rizzatti/dash.vim'
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'breuckelen/vim-resize'
 
 
 " Snippets
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
-
-Bundle "honza/vim-snippets"
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 
 " Programming
 Bundle "jQuery"
@@ -85,7 +83,7 @@ Bundle 'indenthtml.vim'
 Bundle 'guns/vim-clojure-static'
 Bundle 'tpope/vim-fireplace.git'
 Bundle 'tpope/vim-classpath.git'
-Bundle 'guns/vim-clojure-highlight'
+" Bundle 'guns/vim-clojure-highlight'
 " Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'guns/vim-sexp'
 
@@ -118,7 +116,7 @@ autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
-autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
+autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,mako source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
 
 " xmpfilter
@@ -179,6 +177,21 @@ let g:indent_guides_guide_size =1
 let g:airline_powerline_fonts = 1
 " Nerdtree
 set guioptions-=L         " remove scrollbar for NERDTree
+
+" UtilSnipets
+function! g:UltiSnips_Complete()
+  call UltiSnips#ExpandSnippetOrJump()
+  if g:ulti_expand_or_jump_res == 0
+    if pumvisible()
+      return "\<C-N>"
+    else
+      return "\<TAB>"
+    endif
+  endif
+
+  return ""
+endfunction
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 04. Vim UI                                                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -211,7 +224,6 @@ set smartindent           " automatically insert one extra level of indentation
 set smarttab              " use tabs at the start of a line, spaces elsewhere
 set nowrap                " don't wrap text
 set pastetoggle=<F2>      " toggle paste formating
-set iskeyword-=.
 " set cursorline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 06. Custom Commands                                                        "
@@ -219,13 +231,13 @@ set iskeyword-=.
 let mapleader=","
 map <leader>w <Plug>(easymotion-w)
 " remove arrows
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+" noremap <Up> <NOP>
+" noremap <Down> <NOP>
+" noremap <Left> <NOP>
+" noremap <Right> <NOP>
 
-nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
+" nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
+" nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
 " shortcut to switching between splts
 nnoremap <C-l> <C-w>l
 nnoremap <C-h> <C-w>h
