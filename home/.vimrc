@@ -1,4 +1,4 @@
-  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   Filename: .vimrc                                                         "
 " Maintainer: Aleksandar Vucic  <vucinjo@gmail.com>                          "
 "        URL: http://github.com/avstudio/dotfiles                            "
@@ -46,10 +46,14 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-surround'
+Plugin 'terryma/vim-expand-region'
+Plugin 'jiangmiao/auto-pairs.git'
+Plugin 'mkitt/tabline.vim'
 Bundle 'rizzatti/funcoo.vim'
 Bundle 'rizzatti/dash.vim'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'breuckelen/vim-resize'
+Bundle 'AndrewRadev/splitjoin.vim'
 
 
 " Snippets
@@ -64,6 +68,7 @@ Bundle 'tpope/vim-rails'
 Plugin 'thoughtbot/vim-rspec'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-haml'
+Bundle 'skalnik/vim-vroom'
 Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-cucumber'
 Bundle 't9md/vim-ruby-xmpfilter'
@@ -224,25 +229,42 @@ set smartindent           " automatically insert one extra level of indentation
 set smarttab              " use tabs at the start of a line, spaces elsewhere
 set nowrap                " don't wrap text
 set pastetoggle=<F2>      " toggle paste formating
+set formatoptions+=r      " continue comments
 " set cursorline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 06. Custom Commands                                                        "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader=","
-map <leader>w <Plug>(easymotion-w)
-" remove arrows
-" noremap <Up> <NOP>
-" noremap <Down> <NOP>
-" noremap <Left> <NOP>
-" noremap <Right> <NOP>
+" let mapleader=","
+let mapleader = "\<Space>"
 
-" nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
-" nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
-" shortcut to switching between splts
+" split keys
 nnoremap <C-l> <C-w>l
 nnoremap <C-h> <C-w>h
 nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
+
+" search-and-replace
+" It allows to use the following search-and-replace flow:
+" search things usual way using /something
+" hit cs, replace first match, and hit <Esc>
+" hit n.n.n.n.n. reviewing and replacing all matches
+vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+omap s :normal vs<CR>
+
+"tabs navigation
+" CTRL-Tab is next tab
+noremap <C-Tab> :<C-U>tabnext<CR>
+inoremap <C-Tab> <C-\><C-N>:tabnext<CR>
+cnoremap <C-Tab> <C-C>:tabnext<CR>
+" CTRL-SHIFT-Tab is previous tab
+noremap <C-S-Tab> :<C-U>tabprevious<CR>
+inoremap <C-S-Tab> <C-\><C-N>:tabprevious<CR>
+cnoremap <C-S-Tab> <C-C>:tabprevious<CR>
+
+" vim-expand-regon
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 
 nmap <S-Enter> O<Esc>
 nmap <CR> o<Esc>
@@ -251,3 +273,21 @@ nnoremap <Space> za
 
 set splitbelow
 set splitright
+
+" vp doesn't replace paste buffer
+function! RestoreRegister()
+  let @" = s:restore_reg
+  return ''
+endfunction
+function! s:Repl()
+  let s:restore_reg = @"
+  return "p@=RestoreRegister()\<cr>"
+endfunction
+vmap <silent> <expr> p <sid>Repl()
+
+" Make Ctrl-P plugin a lot faster for Git projects
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+let g:ctrlp_use_caching = 0
+
+" Splitjoin plugin keybinding
+nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
