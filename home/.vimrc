@@ -216,6 +216,7 @@ set nocompatible          " be iMproved, required
 " set hlsearch
 set cpoptions+=$          " Mark editable area and dollar sign et the end
 set laststatus=2
+set hidden                " allow to move to the next buffer even file is changed
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 05. Text Formatting/Layout                                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
