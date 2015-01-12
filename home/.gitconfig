@@ -6,18 +6,34 @@
 	name = Aleksandar Vucic
 	email = vucinjo@gmail.com
 [alias]
-	lg1 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)— %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
-	lg2 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)— %an%C(reset)' --abbrev-commit
-	lg = !"git lg1"
+  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+  ld = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short --graph
+  ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+	l = !"git ld"
   s = status
   co = checkout
   br = branch
   gc='git commit'
-  gca='git commit --amend'
+  gca='commit --amend'
   unstage = reset HEAD --
-  l = log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
   ll = log --stat --abbrev-commit
   alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
+  aa = add --all
+  bv = branch -vv
+  ba = branch -ra
+  bd = branch -d
+  ca = commit --amend
+  cb = checkout -b
+  cm = commit -a --amend -C HEAD
+  ci = commit -a -v
+  co = checkout
+  di = diff
+  mm = merge --no-ff
+  st = status --short --branch
+  tg = tag -a 
+  pu = push --tags
+  un = reset --hard HEAD  
+  uh = reset --hard HEAD^
 
 exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
 

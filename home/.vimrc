@@ -231,11 +231,19 @@ set nowrap                " don't wrap text
 set pastetoggle=<F2>      " toggle paste formating
 set formatoptions+=r      " continue comments
 " set cursorline
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 06. Custom Commands                                                        "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let mapleader=","
-let mapleader = "\<Space>"
+let mapleader=","
+" let mapleader = "\<Space>"
+
+"folding settings
+" set foldmethod=syntax   "fold based on indent
+" set foldnestmax=10      "deepest fold is 10 levels
+" set nofoldenable        "dont fold by default
+" set foldlevel=1         "this is just what i use
+nnoremap <Space> za
 
 " split keys
 nnoremap <C-l> <C-w>l
@@ -268,8 +276,6 @@ vmap <C-v> <Plug>(expand_region_shrink)
 
 nmap <S-Enter> O<Esc>
 nmap <CR> o<Esc>
-" folding
-nnoremap <Space> za
 
 set splitbelow
 set splitright
