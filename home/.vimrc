@@ -74,6 +74,7 @@ Bundle 'tpope/vim-cucumber'
 Bundle 't9md/vim-ruby-xmpfilter'
 Bundle 'tpope/vim-dispatch'
 Bundle 'bruno-/vim-ruby-fold'
+Bundle 'nelstrom/vim-markdown-folding'
 " JavaScript
 Bundle 'pangloss/vim-javascript'
 Bundle 'kchmck/vim-coffee-script'
@@ -235,15 +236,43 @@ set formatoptions+=r      " continue comments
 
 "folding settings
 set foldenable            " enable folding
-set foldmethod=syntax     " fold based on indent
+" set foldmethod=syntax
 set foldnestmax=10        " deepest fold is 10 levels
-set foldlevel=0           " close all by default
+set foldlevel=1           " start with first level opened
+function! GetFold()
+      if getline(v:lnum) =~ '^\s*$'
+            return ">2"
+      elseif getline(v:lnum) =~ '^\s*;;;.*\s'
+            return ">1"
+      elseif getline(v:lnum) =~ '^\s*///.*\s'
+            return ">1"
+      elseif getline(v:lnum) =~ '^\s*###.*\s'
+            return ">1"
+      " elseif getline(v:lnum) =~ '^\s*$'
+      "       let my_cljnum = v:lnum
+      "       let my_cljmax = line("$")
+      "       while (1)
+      "             let my_cljnum = my_cljnum + 1
+      "             if my_cljnum > my_cljmax
+      "                   return "<1"
+      "             endif
 
-" set foldopen=block,hor,mark,percent,quickfix,tag " what movements open folds
-" function SimpleFoldText() " {
-"     return getline(v:foldstart).' '
-" endfunction " }
-" set foldtext=SimpleFoldText() " Custom fold text function (cleaner than default)
+      "             let my_cljdata = getline(my_cljnum)
+
+      "             " If we match an empty line, stop folding
+      "             if my_cljdata =~ '^$'
+      "                   return "<1"
+      "             else
+      "                   return "="
+      "             endif
+      "       endwhile
+      else
+            return "="
+      endif
+endfunction
+set foldexpr=GetFold()
+set foldmethod=expr
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 06. Custom Commands                                                        "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
