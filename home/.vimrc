@@ -233,17 +233,23 @@ set pastetoggle=<F2>      " toggle paste formating
 set formatoptions+=r      " continue comments
 " set cursorline
 
+"folding settings
+set foldenable            " enable folding
+set foldmethod=syntax     " fold based on indent
+set foldnestmax=10        " deepest fold is 10 levels
+set foldlevel=0           " close all by default
+
+" set foldopen=block,hor,mark,percent,quickfix,tag " what movements open folds
+" function SimpleFoldText() " {
+"     return getline(v:foldstart).' '
+" endfunction " }
+" set foldtext=SimpleFoldText() " Custom fold text function (cleaner than default)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 06. Custom Commands                                                        "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=","
 " let mapleader = "\<Space>"
 
-"folding settings
-" set foldmethod=syntax   "fold based on indent
-" set foldnestmax=10      "deepest fold is 10 levels
-" set nofoldenable        "dont fold by default
-" set foldlevel=1         "this is just what i use
 nnoremap <Space> za
 
 " split keys

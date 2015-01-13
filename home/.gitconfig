@@ -14,7 +14,6 @@
   co = checkout
   br = branch
   gc='git commit'
-  gca='commit --amend'
   unstage = reset HEAD --
   ll = log --stat --abbrev-commit
   alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
