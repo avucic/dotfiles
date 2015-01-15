@@ -36,8 +36,12 @@
 
 exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
 
+; [diff]
+; 	tool = diffmerge
 [diff]
-	tool = diffmerge
+  tool = vimdiff
+[difftool]
+  prompt = false
 [difftool "diffmerge"]
 	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
 [merge]

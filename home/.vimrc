@@ -315,3 +315,6 @@ let g:ctrlp_use_caching = 0
 
 " Splitjoin plugin keybinding
 nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
+
+" Nerdtree
+nmap <leader>e :NERDTreeToggle<cr>
