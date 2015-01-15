@@ -54,6 +54,7 @@ Bundle 'rizzatti/dash.vim'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'breuckelen/vim-resize'
 Bundle 'AndrewRadev/splitjoin.vim'
+Bundle 'bendavis78/vim-polymer'
 
 
 " Snippets
@@ -78,7 +79,7 @@ Bundle 'nelstrom/vim-markdown-folding'
 " JavaScript
 Bundle 'pangloss/vim-javascript'
 Bundle 'kchmck/vim-coffee-script'
-Bundle 'leshill/vim-json'
+Bundle 'elzr/vim-json'
 " HTML
 Bundle 'mustache/vim-mustache-handlebars'
 Bundle 'othree/html5.vim'
@@ -155,8 +156,8 @@ endif
 "set guifont=Monaco:h14
 set guifont=Monaco\ for\ Powerline:h14
 " Prettify JSON files
-autocmd BufRead,BufNewFile *.json set filetype=json
-autocmd Syntax json sou ~/.vim/syntax/json.vim
+" autocmd BufRead,BufNewFile *.json set filetype=json
+" autocmd Syntax json sou ~/.vim/syntax/json.vim
 
 " Prettify Vagrantfile
 autocmd BufRead,BufNewFile Vagrantfile set filetype=ruby
@@ -237,41 +238,22 @@ set formatoptions+=r      " continue comments
 "folding settings
 set foldenable            " enable folding
 " set foldmethod=syntax
+set foldexpr=GetFold()
+set foldmethod=expr
 set foldnestmax=10        " deepest fold is 10 levels
-set foldlevel=1           " start with first level opened
+set foldlevel=0           " close all folds by default
 function! GetFold()
-      if getline(v:lnum) =~ '^\s*$'
-            return ">2"
-      elseif getline(v:lnum) =~ '^\s*;;;.*\s'
+      if getline(v:lnum) =~ '^\s*;;;.*\s'
             return ">1"
       elseif getline(v:lnum) =~ '^\s*///.*\s'
             return ">1"
       elseif getline(v:lnum) =~ '^\s*###.*\s'
             return ">1"
-      " elseif getline(v:lnum) =~ '^\s*$'
-      "       let my_cljnum = v:lnum
-      "       let my_cljmax = line("$")
-      "       while (1)
-      "             let my_cljnum = my_cljnum + 1
-      "             if my_cljnum > my_cljmax
-      "                   return "<1"
-      "             endif
-
-      "             let my_cljdata = getline(my_cljnum)
-
-      "             " If we match an empty line, stop folding
-      "             if my_cljdata =~ '^$'
-      "                   return "<1"
-      "             else
-      "                   return "="
-      "             endif
-      "       endwhile
       else
+            indent(v:lnum)
             return "="
       endif
 endfunction
-set foldexpr=GetFold()
-set foldmethod=expr
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 06. Custom Commands                                                        "
