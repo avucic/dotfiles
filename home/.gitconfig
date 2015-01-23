@@ -1,7 +1,7 @@
 [core]
 	excludesfile = /Users/alex/.gitignore
 	autocrlf = input
-	editor = mvim
+	editor = mvim -f
 [user]
 	name = Aleksandar Vucic
 	email = vucinjo@gmail.com
@@ -29,29 +29,27 @@
   di = diff
   mm = merge --no-ff
   st = status --short --branch
-  tg = tag -a 
+  tg = tag -a
   pu = push --tags
-  un = reset --hard HEAD  
+  un = reset --hard HEAD
   uh = reset --hard HEAD^
 
 exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
 
 ; [diff]
 ; 	tool = diffmerge
-[diff]
-  tool = vimdiff
-[difftool]
-  prompt = false
-[difftool "diffmerge"]
-	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
-[merge]
-	tool = mimdiff
-	conflictstyle = diff3
-[mergetool "diffmerge"]
-	cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
-	trustExitCode = true
-[mergetool]
-	keepBackup = false
+; [difftool]
+;   prompt = false
+; [difftool "diffmerge"]
+; 	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
+; [merge]
+; 	tool = mimdiff
+; 	conflictstyle = diff3
+; [mergetool "diffmerge"]
+; 	cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
+; 	trustExitCode = true
+; [mergetool]
+; 	keepBackup = false
 [color]
 	ui = true
 [push]
@@ -60,6 +58,22 @@ exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
 	required = true
 	clean = git media clean %f
 	smudge = git media smudge %f
-
 [fetch]
 	prune = true
+
+[diff]
+  tool = mvimdiff
+[difftool]
+  prompt = false
+[difftool "mvimdiff"]
+  prompt = false
+  cmd = mvim -f -d \"$LOCAL\" \"$REMOTE\"
+
+[merge]
+	tool = gvimdiff2
+[mergetool]
+    keepBackup = false
+; [mergetool "mvimdiff"]
+;     trustExitCode = false
+; [mergetool "gvimdiff"]
+; 	cmd = gvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"

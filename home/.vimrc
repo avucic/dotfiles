@@ -29,7 +29,6 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'rking/ag.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'bling/vim-airline'
@@ -51,15 +50,17 @@ Plugin 'jiangmiao/auto-pairs.git'
 Plugin 'mkitt/tabline.vim'
 Bundle 'rizzatti/funcoo.vim'
 Bundle 'rizzatti/dash.vim'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'breuckelen/vim-resize'
+" Bundle 'Valloric/YouCompleteMe'
+Bundle 'Shougo/neocomplcache.vim'
+Bundle 'Shougo/neosnippet'
+Bundle 'Shougo/neosnippet-snippets'
 Bundle 'AndrewRadev/splitjoin.vim'
 Bundle 'bendavis78/vim-polymer'
-
+Bundle 'Lokaltog/vim-easymotion'
 
 " Snippets
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+" Plugin 'SirVer/ultisnips'
+" Plugin 'honza/vim-snippets'
 
 " Programming
 Bundle "jQuery"
@@ -71,7 +72,6 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-haml'
 Bundle 'skalnik/vim-vroom'
 Bundle 'tpope/vim-rake'
-Bundle 'tpope/vim-cucumber'
 Bundle 't9md/vim-ruby-xmpfilter'
 Bundle 'tpope/vim-dispatch'
 Bundle 'bruno-/vim-ruby-fold'
@@ -90,12 +90,10 @@ Bundle 'indenthtml.vim'
 Bundle 'guns/vim-clojure-static'
 Bundle 'tpope/vim-fireplace.git'
 Bundle 'tpope/vim-classpath.git'
-" Bundle 'guns/vim-clojure-highlight'
-" Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'guns/vim-sexp'
 
 " Syntax highlight
-Bundle "cucumber.zip"
+Plugin 'cakebaker/scss-syntax.vim'
 Bundle "Markdown"
 
 call vundle#end()            " required
@@ -134,11 +132,6 @@ imap <buffer> <F5> <Plug>(xmpfilter-run)
 nmap <buffer> <F4> <Plug>(xmpfilter-mark)
 xmap <buffer> <F4> <Plug>(xmpfilter-mark)
 imap <buffer> <F4> <Plug>(xmpfilter-mark)
-
-" autocmd vimenter * NERDTree
-
-" Enable omnicompletion (to use, hold Ctrl+X then Ctrl+O while in Insert mode.
-set ofu=syntaxcomplete#Complete
 set spell spelllang=en_us
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -171,10 +164,6 @@ augroup END
 " Highlight characters that go over 80 columns (by drawing a border on the 81st)
 if exists('+colorcolumn')
   set colorcolumn=81
-  highlight ColorColumn ctermbg=red
-else
-  highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-  match OverLength /\%81v.\+/
 endif
 
 " vin indent guideline
@@ -184,21 +173,6 @@ let g:indent_guides_guide_size =1
 let g:airline_powerline_fonts = 1
 " Nerdtree
 set guioptions-=L         " remove scrollbar for NERDTree
-
-" UtilSnipets
-function! g:UltiSnips_Complete()
-  call UltiSnips#ExpandSnippetOrJump()
-  if g:ulti_expand_or_jump_res == 0
-    if pumvisible()
-      return "\<C-N>"
-    else
-      return "\<TAB>"
-    endif
-  endif
-
-  return ""
-endfunction
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 04. Vim UI                                                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -241,7 +215,11 @@ set foldenable            " enable folding
 set foldexpr=GetFold()
 set foldmethod=expr
 set foldnestmax=10        " deepest fold is 10 levels
-set foldlevel=0           " close all folds by default
+set foldlevel=1           " close all folds by default
+set splitbelow
+set splitright
+set listchars=tab:▸\ ,eol:¬
+
 function! GetFold()
       if getline(v:lnum) =~ '^\s*;;;.*\s'
             return ">1"
@@ -260,7 +238,6 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=","
 " let mapleader = "\<Space>"
-
 nnoremap <Space> za
 
 " split keys
@@ -269,14 +246,19 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
 
+map <Leader>p $p                        " paste at the end of line
+map <Leader>P ^ph                       " paste at the begining of line
+map <Leader>pp $<space>p                " paste at the end of line and make one space
+nnoremap <esc> :noh<return><esc>        " clear highlight
+nmap <Leader>bb :ls<CR>:buffer<Space>   " show buffers
 " search-and-replace
 " It allows to use the following search-and-replace flow:
 " search things usual way using /something
 " hit cs, replace first match, and hit <Esc>
 " hit n.n.n.n.n. reviewing and replacing all matches
-vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
-    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
-omap s :normal vs<CR>
+" vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+"     \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+" omap s :normal vs<CR>
 
 "tabs navigation
 " CTRL-Tab is next tab
@@ -295,8 +277,33 @@ vmap <C-v> <Plug>(expand_region_shrink)
 nmap <S-Enter> O<Esc>
 nmap <CR> o<Esc>
 
-set splitbelow
-set splitright
+" Splitjoin plugin keybinding
+nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
+
+" Nerdtree
+nmap <leader>[ :NERDTreeToggle<cr>
+" Splitjoin
+nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
+
+" Easymotion
+map <Leader> <Plug>(easymotion-prefix)
+
+" Tagbar
+nmap <Leader>] :TagbarToggle<CR>
+nmap <Leader>]] :TagbarOpenAutoClose<CR>
+" NeoComplete
+let g:acp_enableAtStartup = 0
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_min_syntax_length = 3
+imap <S-tab>     <Plug>(neosnippet_expand_or_jump)
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType ruby setlocal omnifunc=rubycomplete#CompleteRuby
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " vp doesn't replace paste buffer
 function! RestoreRegister()
@@ -313,8 +320,3 @@ vmap <silent> <expr> p <sid>Repl()
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 let g:ctrlp_use_caching = 0
 
-" Splitjoin plugin keybinding
-nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
-
-" Nerdtree
-nmap <leader>e :NERDTreeToggle<cr>
