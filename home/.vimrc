@@ -296,6 +296,8 @@ let g:acp_enableAtStartup = 0
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_force_overwrite_completefunc = 1
+
 imap <S-tab>     <Plug>(neosnippet_expand_or_jump)
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
