@@ -29,7 +29,7 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'rking/ag.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'godlygeek/tabular'
+Plugin 'junegunn/vim-easy-align'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'bling/vim-airline'
 Plugin 'ntpeters/vim-better-whitespace'
@@ -50,7 +50,7 @@ Plugin 'jiangmiao/auto-pairs.git'
 Plugin 'mkitt/tabline.vim'
 Bundle 'rizzatti/funcoo.vim'
 Bundle 'rizzatti/dash.vim'
-" Bundle 'Valloric/YouCompleteMe'
+Bundle 'sjl/gundo.vim'
 Bundle 'Shougo/neocomplcache.vim'
 Bundle 'Shougo/neosnippet'
 Bundle 'Shougo/neosnippet-snippets'
@@ -91,6 +91,7 @@ Bundle 'guns/vim-clojure-static'
 Bundle 'tpope/vim-fireplace.git'
 Bundle 'tpope/vim-classpath.git'
 Bundle 'guns/vim-sexp'
+Bundle 'gberenfield/cljfold.vim'
 
 " Syntax highlight
 Plugin 'cakebaker/scss-syntax.vim'
@@ -124,14 +125,6 @@ autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=
 autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,mako source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
 
-" xmpfilter
-nmap <buffer> <F5> <Plug>(xmpfilter-run)
-xmap <buffer> <F5> <Plug>(xmpfilter-run)
-imap <buffer> <F5> <Plug>(xmpfilter-run)
-
-nmap <buffer> <F4> <Plug>(xmpfilter-mark)
-xmap <buffer> <F4> <Plug>(xmpfilter-mark)
-imap <buffer> <F4> <Plug>(xmpfilter-mark)
 set spell spelllang=en_us
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -147,7 +140,7 @@ elseif &t_Co == 256
   " colorscheme twilight256
 endif
 "set guifont=Monaco:h14
-set guifont=Monaco\ for\ Powerline:h14
+set guifont=Monaco\ for\ Powerline:h13
 " Prettify JSON files
 " autocmd BufRead,BufNewFile *.json set filetype=json
 " autocmd Syntax json sou ~/.vim/syntax/json.vim
@@ -211,27 +204,26 @@ set formatoptions+=r      " continue comments
 
 "folding settings
 set foldenable            " enable folding
-" set foldmethod=syntax
-set foldexpr=GetFold()
-set foldmethod=expr
+set foldmethod=syntax
+" set foldmethod=expr
+" set foldexpr=GetFold()
 set foldnestmax=10        " deepest fold is 10 levels
 set foldlevel=1           " close all folds by default
 set splitbelow
 set splitright
 set listchars=tab:▸\ ,eol:¬
 
-function! GetFold()
-      if getline(v:lnum) =~ '^\s*;;;.*\s'
-            return ">1"
-      elseif getline(v:lnum) =~ '^\s*///.*\s'
-            return ">1"
-      elseif getline(v:lnum) =~ '^\s*###.*\s'
-            return ">1"
-      else
-            indent(v:lnum)
-            return "="
-      endif
-endfunction
+" function! GetFold()
+"       if getline(v:lnum) =~ '^\s*;;;.*\s'
+"             return ">1"
+"       elseif getline(v:lnum) =~ '^\s*///.*\s'
+"             return ">1"
+"       elseif getline(v:lnum) =~ '^\s*###.*\s'
+"             return ">1"
+"       else
+"            (v:lnum)
+"       endif
+" endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 06. Custom Commands                                                        "
@@ -239,6 +231,16 @@ endfunction
 let mapleader=","
 " let mapleader = "\<Space>"
 nnoremap <Space> za
+nmap <Leader>v :tabedit ~/.vimrc<CR>
+nmap <Leader>g :GundoToggle<CR>
+
+" Bubble single lines
+nmap <C-Up> ddkP
+nmap <C-Down> ddp
+
+" Bubble multiple lines
+vmap <C-Up> xkP`[V`]
+vmap <C-Down> xp`[V`]
 
 " split keys
 nnoremap <C-l> <C-w>l
@@ -291,6 +293,12 @@ map <Leader> <Plug>(easymotion-prefix)
 " Tagbar
 nmap <Leader>] :TagbarToggle<CR>
 nmap <Leader>]] :TagbarOpenAutoClose<CR>
+
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
 " NeoComplete
 let g:acp_enableAtStartup = 0
 let g:neocomplcache_enable_at_startup = 1
@@ -298,7 +306,16 @@ let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_force_overwrite_completefunc = 1
 
+" xmpfilter
+nmap <buffer> <F5> <Plug>(xmpfilter-run)
+xmap <buffer> <F5> <Plug>(xmpfilter-run)
+imap <buffer> <F5> <Plug>(xmpfilter-run)
+
+nmap <buffer> <F4> <Plug>(xmpfilter-mark)
+xmap <buffer> <F4> <Plug>(xmpfilter-mark)
+imap <buffer> <F4> <Plug>(xmpfilter-mark)
 imap <S-tab>     <Plug>(neosnippet_expand_or_jump)
+
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType ruby setlocal omnifunc=rubycomplete#CompleteRuby
