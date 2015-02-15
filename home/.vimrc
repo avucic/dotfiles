@@ -57,10 +57,7 @@ Bundle 'Shougo/neosnippet-snippets'
 Bundle 'AndrewRadev/splitjoin.vim'
 Bundle 'bendavis78/vim-polymer'
 Bundle 'Lokaltog/vim-easymotion'
-
-" Snippets
-" Plugin 'SirVer/ultisnips'
-" Plugin 'honza/vim-snippets'
+Bundle 'yegappan/mru'
 
 " Programming
 Bundle "jQuery"
@@ -109,30 +106,14 @@ augroup END
 " 02. Events                                                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 filetype plugin indent on " filetype detection[ON] plugin[ON] indent[ON]
-
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
-autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
-autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,mako source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
-autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
-
 set spell spelllang=en_us
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 03. Theme/Colors                                                           "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256              " enable 256-color mode.
 syntax enable             " enable syntax highlighting (previously syntax on).
 set background=dark
+
 if has("gui_running")
   colorscheme  base16-twilight
 elseif &t_Co == 256
@@ -160,10 +141,10 @@ if exists('+colorcolumn')
 endif
 
 " vin indent guideline
-let g:indent_guides_start_level =2
-let g:indent_guides_guide_size =1
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size  = 1
 " Vim Airline
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts   = 1
 " Nerdtree
 set guioptions-=L         " remove scrollbar for NERDTree
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -174,7 +155,7 @@ set numberwidth=6         " make the number gutter 6 characters wide
 set cul                   " highlight current line
 set laststatus=2          " last window always has a statusline
 "set nohlsearch            " Don't continue to highlight searched phrases.
-set hlsearch            " Don't continue to highlight searched phrases.
+set hlsearch              " Don't continue to highlight searched phrases.
 set incsearch             " But do highlight as you type your search.
 set ignorecase            " Make searches case-insensitive.
 set ruler                 " Always show info along bottom.
@@ -212,7 +193,7 @@ set foldlevel=1           " close all folds by default
 set splitbelow
 set splitright
 set listchars=tab:▸\ ,eol:¬
-
+autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
 " function! GetFold()
 "       if getline(v:lnum) =~ '^\s*;;;.*\s'
 "             return ">1"
@@ -231,16 +212,16 @@ set listchars=tab:▸\ ,eol:¬
 let mapleader=","
 " let mapleader = "\<Space>"
 nnoremap <Space> za
-nmap <Leader>v :tabedit ~/.vimrc<CR>
-nmap <Leader>g :GundoToggle<CR>
+nmap     <Leader>v :tabedit ~/.vimrc<CR>
+nmap     <Leader>g :GundoToggle<CR>
 
 " Bubble single lines
-nmap <C-Up> ddkP
-nmap <C-Down> ddp
+nmap     <C-Up> ddkP
+nmap     <C-Down> ddp
 
 " Bubble multiple lines
-vmap <C-Up> xkP`[V`]
-vmap <C-Down> xp`[V`]
+vmap     <C-Up> xkP`[V`]
+vmap     <C-Down> xp`[V`]
 
 " split keys
 nnoremap <C-l> <C-w>l
@@ -248,11 +229,11 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
 
-map <Leader>p $p                        " paste at the end of line
-map <Leader>P ^ph                       " paste at the begining of line
-map <Leader>pp $<space>p                " paste at the end of line and make one space
+map      <Leader>p $p                        " paste at the end of line
+map      <Leader>P ^ph                       " paste at the begining of line
+map      <Leader>pp $<space>p                " paste at the end of line and make one space
 nnoremap <esc> :noh<return><esc>        " clear highlight
-nmap <Leader>bb :ls<CR>:buffer<Space>   " show buffers
+nmap     <Leader>bb :ls<CR>:buffer<Space>   " show buffers
 " search-and-replace
 " It allows to use the following search-and-replace flow:
 " search things usual way using /something
@@ -264,11 +245,11 @@ nmap <Leader>bb :ls<CR>:buffer<Space>   " show buffers
 
 "tabs navigation
 " CTRL-Tab is next tab
-noremap <C-Tab> :<C-U>tabnext<CR>
+noremap  <C-Tab> :<C-U>tabnext<CR>
 inoremap <C-Tab> <C-\><C-N>:tabnext<CR>
 cnoremap <C-Tab> <C-C>:tabnext<CR>
 " CTRL-SHIFT-Tab is previous tab
-noremap <C-S-Tab> :<C-U>tabprevious<CR>
+noremap  <C-S-Tab> :<C-U>tabprevious<CR>
 inoremap <C-S-Tab> <C-\><C-N>:tabprevious<CR>
 cnoremap <C-S-Tab> <C-C>:tabprevious<CR>
 
@@ -300,29 +281,37 @@ vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " NeoComplete
-let g:acp_enableAtStartup = 0
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_min_syntax_length = 3
+let g:acp_enableAtStartup                        = 0
+let g:neocomplcache_enable_at_startup            = 1
+let g:neocomplcache_enable_smart_case            = 1
+let g:neocomplcache_min_syntax_length            = 3
 let g:neocomplcache_force_overwrite_completefunc = 1
+
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+autocmd FileType python        set omnifunc=pythoncomplete#Complete
+autocmd FileType clojure       set omnifunc=clojurecomplete#Complete
+autocmd FileType javascript    set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html,markdown set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css           set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml           set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php           set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c             set omnifunc=ccomplete#Complete
+autocmd FileType ruby,eruby    set omnifunc=rubycomplete#Complete
+autocmd FileType ruby,eruby    let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby    let g:rubycomplete_rails = 1
+autocmd FileType ruby,eruby    let g:rubycomplete_classes_in_global = 1
+" autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
+" autocmd FileType html,xhtml,xml,jinjahtml,mako source ~/.vim/bundle/vim-closetag/plugin/closetag.vim
 
 " xmpfilter
 nmap <buffer> <F5> <Plug>(xmpfilter-run)
 xmap <buffer> <F5> <Plug>(xmpfilter-run)
 imap <buffer> <F5> <Plug>(xmpfilter-run)
-
 nmap <buffer> <F4> <Plug>(xmpfilter-mark)
 xmap <buffer> <F4> <Plug>(xmpfilter-mark)
 imap <buffer> <F4> <Plug>(xmpfilter-mark)
 imap <S-tab>     <Plug>(neosnippet_expand_or_jump)
-
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType ruby setlocal omnifunc=rubycomplete#CompleteRuby
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " vp doesn't replace paste buffer
 function! RestoreRegister()
