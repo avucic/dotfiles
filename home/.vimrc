@@ -34,7 +34,6 @@ Plugin 'edkolev/tmuxline.vim'
 Plugin 'bling/vim-airline'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'tpope/vim-bundler'
-Bundle "mattn/emmet-vim"
 Bundle "tpope/vim-commentary"
 Bundle 'matchit.zip'
 Bundle 'MatchTag'
@@ -51,11 +50,15 @@ Plugin 'mkitt/tabline.vim'
 Bundle 'rizzatti/funcoo.vim'
 Bundle 'rizzatti/dash.vim'
 Bundle 'sjl/gundo.vim'
+Bundle 'tommcdo/vim-exchange.git'
+
 Bundle 'Shougo/neocomplcache.vim'
 Bundle 'Shougo/neosnippet'
-Bundle 'Shougo/neosnippet-snippets'
-Bundle 'AndrewRadev/splitjoin.vim'
-Bundle 'bendavis78/vim-polymer'
+" Bundle 'JazzCore/neocomplcache-ultisnips'
+Plugin 'SirVer/ultisnips'
+
+" Bundle 'AndrewRadev/splitjoin.vim'
+" Bundle 'bendavis78/vim-polymer'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'yegappan/mru'
 
@@ -120,7 +123,7 @@ elseif &t_Co == 256
   colorscheme  base16-twilight
   " colorscheme twilight256
 endif
-"set guifont=Monaco:h14
+" set guifont=Monaco:h14
 set guifont=Monaco\ for\ Powerline:h13
 " Prettify JSON files
 " autocmd BufRead,BufNewFile *.json set filetype=json
@@ -246,11 +249,11 @@ nmap     <Leader>bb :ls<CR>:buffer<Space>   " show buffers
 "tabs navigation
 " CTRL-Tab is next tab
 noremap  <C-Tab> :<C-U>tabnext<CR>
-inoremap <C-Tab> <C-\><C-N>:tabnext<CR>
+" inoremap <C-Tab> <C-\><C-N>:tabnext<CR>
 cnoremap <C-Tab> <C-C>:tabnext<CR>
 " CTRL-SHIFT-Tab is previous tab
 noremap  <C-S-Tab> :<C-U>tabprevious<CR>
-inoremap <C-S-Tab> <C-\><C-N>:tabprevious<CR>
+" inoremap <C-S-Tab> <C-\><C-N>:tabprevious<CR>
 cnoremap <C-S-Tab> <C-C>:tabprevious<CR>
 
 " vim-expand-regon
@@ -287,22 +290,19 @@ let g:neocomplcache_enable_smart_case            = 1
 let g:neocomplcache_min_syntax_length            = 3
 let g:neocomplcache_force_overwrite_completefunc = 1
 
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" let g:UltiSnipsExpandTrigger       = "<tab>"
+" let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-autocmd FileType python        set omnifunc=pythoncomplete#Complete
-autocmd FileType clojure       set omnifunc=clojurecomplete#Complete
-autocmd FileType javascript    set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html,markdown set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css           set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml           set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php           set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c             set omnifunc=ccomplete#Complete
-autocmd FileType ruby,eruby    set omnifunc=rubycomplete#Complete
-autocmd FileType ruby,eruby    let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby    let g:rubycomplete_rails = 1
-autocmd FileType ruby,eruby    let g:rubycomplete_classes_in_global = 1
-" autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
-" autocmd FileType html,xhtml,xml,jinjahtml,mako source ~/.vim/bundle/vim-closetag/plugin/closetag.vim
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+imap <S-tab>     <Plug>(neosnippet_expand_or_jump)
+
+let g:UltiSnipsExpandTrigger         = "<s-tab>"
+let g:UltiSnipsListSnippets          = "<c-tab>"
+let g:UltiSnipsJumpForwardTrigger    = "<s-tab>"
+let g:UltiSnipsJumpBackwardTrigger   = "<c-k>"
+" Make sure my plugins override the default ones:
+let g:UltiSnipsDontReverseSearchPath = "1"
 
 " xmpfilter
 nmap <buffer> <F5> <Plug>(xmpfilter-run)
@@ -311,7 +311,6 @@ imap <buffer> <F5> <Plug>(xmpfilter-run)
 nmap <buffer> <F4> <Plug>(xmpfilter-mark)
 xmap <buffer> <F4> <Plug>(xmpfilter-mark)
 imap <buffer> <F4> <Plug>(xmpfilter-mark)
-imap <S-tab>     <Plug>(neosnippet_expand_or_jump)
 
 " vp doesn't replace paste buffer
 function! RestoreRegister()
