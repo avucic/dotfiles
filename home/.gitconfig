@@ -77,3 +77,7 @@ exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
 ;     trustExitCode = false
 ; [mergetool "gvimdiff"]
 ; 	cmd = gvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+[filter "hawser"]
+	clean = git hawser clean %f
+	smudge = git hawser smudge %f
+	required = true

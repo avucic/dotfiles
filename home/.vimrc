@@ -26,24 +26,27 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 Plugin 'chriskempson/base16-vim'
-Plugin 'rking/ag.vim'
+Plugin 'rking/ag.vim' " search Plugin
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'bling/vim-airline'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'tpope/vim-bundler'
 Bundle "tpope/vim-commentary"
+Bundle "tpope/vim-unimpaired"
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-abolish'
 Bundle 'matchit.zip'
 Bundle 'MatchTag'
 Bundle 'Valloric/MatchTagAlways'
 Bundle 'majutsushi/tagbar'
-Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'tpope/vim-surround'
 Plugin 'terryma/vim-expand-region'
 Plugin 'jiangmiao/auto-pairs.git'
 Plugin 'mkitt/tabline.vim'
@@ -51,6 +54,8 @@ Bundle 'rizzatti/funcoo.vim'
 Bundle 'rizzatti/dash.vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'tommcdo/vim-exchange.git'
+Bundle 'nelstrom/vim-qargs'
+Bundle 'nelstrom/vim-visual-star-search'
 
 Bundle 'Shougo/neocomplcache.vim'
 Bundle 'Shougo/neosnippet'
@@ -76,6 +81,7 @@ Bundle 't9md/vim-ruby-xmpfilter'
 Bundle 'tpope/vim-dispatch'
 Bundle 'bruno-/vim-ruby-fold'
 Bundle 'nelstrom/vim-markdown-folding'
+Bundle 'jgdavey/vim-blockle.git'
 " JavaScript
 Bundle 'pangloss/vim-javascript'
 Bundle 'kchmck/vim-coffee-script'
@@ -124,7 +130,7 @@ elseif &t_Co == 256
   " colorscheme twilight256
 endif
 " set guifont=Monaco:h14
-set guifont=Monaco\ for\ Powerline:h13
+set guifont=Monaco\ for\ Powerline:h12
 " Prettify JSON files
 " autocmd BufRead,BufNewFile *.json set filetype=json
 " autocmd Syntax json sou ~/.vim/syntax/json.vim
@@ -232,6 +238,18 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
 
+" command line navigation
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+" cnoremap <A-b> <S-Left>
+" cnoremap <A-f> <S-Right>
+cnoremap <Leader>b <S-Left>
+cnoremap <Leader>f <S-Right>
+
 map      <Leader>p $p                        " paste at the end of line
 map      <Leader>P ^ph                       " paste at the begining of line
 map      <Leader>pp $<space>p                " paste at the end of line and make one space
@@ -267,7 +285,7 @@ nmap <CR> o<Esc>
 nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
 
 " Nerdtree
-nmap <leader>[ :NERDTreeToggle<cr>
+nmap <leader>[ :NERDTreeTabsToggle<cr>
 " Splitjoin
 nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
 
@@ -282,6 +300,9 @@ nmap <Leader>]] :TagbarOpenAutoClose<CR>
 vmap <Enter> <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+" blockle 
+let g:blockle_mapping = '<Leader>bb'
 
 " NeoComplete
 let g:acp_enableAtStartup                        = 0

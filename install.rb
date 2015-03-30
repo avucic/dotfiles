@@ -17,3 +17,4 @@ def linkify source_path, target_path
   end
 end
 linkify File.join( File.expand_path(File.dirname(__FILE__)), 'home' ), ENV['HOME']
+system "git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim"
