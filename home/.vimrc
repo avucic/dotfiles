@@ -22,6 +22,7 @@ filetype off
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 set tags=./tags,tags
+set clipboard=unnamed
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
@@ -40,6 +41,7 @@ Bundle "tpope/vim-unimpaired"
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-jdaddy'
 Bundle 'matchit.zip'
 Bundle 'MatchTag'
 Bundle 'Valloric/MatchTagAlways'
@@ -56,6 +58,7 @@ Bundle 'sjl/gundo.vim'
 Bundle 'tommcdo/vim-exchange.git'
 Bundle 'nelstrom/vim-qargs'
 Bundle 'nelstrom/vim-visual-star-search'
+Bundle 'jeetsukumaran/vim-buffergator'
 
 Bundle 'Shougo/neocomplcache.vim'
 Bundle 'Shougo/neosnippet'
@@ -65,7 +68,6 @@ Plugin 'SirVer/ultisnips'
 " Bundle 'AndrewRadev/splitjoin.vim'
 " Bundle 'bendavis78/vim-polymer'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'yegappan/mru'
 
 " Programming
 Bundle "jQuery"
@@ -176,6 +178,19 @@ set nocompatible          " be iMproved, required
 set cpoptions+=$          " Mark editable area and dollar sign et the end
 set laststatus=2
 set hidden                " allow to move to the next buffer even file is changed
+if has("gui_running")
+  " GUI is running or is about to start.
+  " Maximize gvim window (for an alternative on Windows, see simalt below).
+  set lines=999 columns=999
+else
+  " This is console Vim.
+  if exists("+lines")
+    set lines=50
+  endif
+  if exists("+columns")
+    set columns=100
+  endif
+endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 05. Text Formatting/Layout                                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -198,9 +213,10 @@ set foldmethod=syntax
 " set foldmethod=expr
 " set foldexpr=GetFold()
 set foldnestmax=10        " deepest fold is 10 levels
-set foldlevel=1           " close all folds by default
+set foldlevel=2           " close all folds by default
 set splitbelow
 set splitright
+set macmeta
 set listchars=tab:▸\ ,eol:¬
 autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
 " function! GetFold()
@@ -218,6 +234,17 @@ autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 06. Custom Commands                                                        "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ map <silent> <Leader>cl      :set                  cursorline! <CR>
+imap <silent> <Leader>cl <Esc>:set                  cursorline! <CR>a
+ map <silent> <Leader>cc      :set   cursorcolumn!              <CR>
+imap <silent> <Leader>cc <Esc>:set   cursorcolumn!              <CR>a
+ map <silent> <Leader>ct      :set   cursorcolumn!  cursorline! <CR>
+imap <silent> <Leader>ct <Esc>:set   cursorcolumn!  cursorline! <CR>a
+ map <silent> <Leader>co      :set   cursorcolumn   cursorline  <CR>
+imap <silent> <Leader>co <Esc>:set   cursorcolumn   cursorline  <CR>a
+ map <silent> <Leader>cn      :set nocursorcolumn nocursorline  <CR>
+imap <silent> <Leader>cn <Esc>:set nocursorcolumn nocursorline  <CR>a
+
 let mapleader=","
 " let mapleader = "\<Space>"
 nnoremap <Space> za
@@ -245,16 +272,17 @@ cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
-" cnoremap <A-b> <S-Left>
-" cnoremap <A-f> <S-Right>
-cnoremap <Leader>b <S-Left>
-cnoremap <Leader>f <S-Right>
+cnoremap <M-b> <S-Left>
+cnoremap <M-f> <S-Right>
+" cnoremap <Leader>b <S-Left>
+" cnoremap <Leader>f <S-Right>
 
 map      <Leader>p $p                        " paste at the end of line
 map      <Leader>P ^ph                       " paste at the begining of line
 map      <Leader>pp $<space>p                " paste at the end of line and make one space
 nnoremap <esc> :noh<return><esc>        " clear highlight
 nmap     <Leader>bb :ls<CR>:buffer<Space>   " show buffers
+
 " search-and-replace
 " It allows to use the following search-and-replace flow:
 " search things usual way using /something
@@ -265,14 +293,20 @@ nmap     <Leader>bb :ls<CR>:buffer<Space>   " show buffers
 " omap s :normal vs<CR>
 
 "tabs navigation
-" CTRL-Tab is next tab
+nnoremap th  :tabfirst<CR>
+nnoremap tj  :tabnext<CR>
+nnoremap tk  :tabprev<CR>
+nnoremap tl  :tablast<CR>
+nnoremap tt  :tabedit<Space>
+nnoremap tn  :tabnext<Space>
+nnoremap tm  :tabm<Space>
+nnoremap td  :tabclose<CR>
 noremap  <C-Tab> :<C-U>tabnext<CR>
-" inoremap <C-Tab> <C-\><C-N>:tabnext<CR>
 cnoremap <C-Tab> <C-C>:tabnext<CR>
-" CTRL-SHIFT-Tab is previous tab
 noremap  <C-S-Tab> :<C-U>tabprevious<CR>
-" inoremap <C-S-Tab> <C-\><C-N>:tabprevious<CR>
 cnoremap <C-S-Tab> <C-C>:tabprevious<CR>
+nnoremap <C-t> :tabnew<Space>
+inoremap <C-t> <Esc>:tabnew<Space>
 
 " vim-expand-regon
 vmap v <Plug>(expand_region_expand)
@@ -286,6 +320,8 @@ nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
 
 " Nerdtree
 nmap <leader>[ :NERDTreeTabsToggle<cr>
+" nmap <leader>[ :NERDTreeToggle<cr>
+
 " Splitjoin
 nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
 
@@ -301,7 +337,7 @@ vmap <Enter> <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" blockle 
+" blockle
 let g:blockle_mapping = '<Leader>bb'
 
 " NeoComplete
@@ -345,6 +381,7 @@ endfunction
 vmap <silent> <expr> p <sid>Repl()
 
 " Make Ctrl-P plugin a lot faster for Git projects
+" nnoremap <c-p> :CtrlPMixed<cr>
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 let g:ctrlp_use_caching = 0
 
