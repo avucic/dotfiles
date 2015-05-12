@@ -17,5 +17,6 @@ LtPrinter
 lt_client.log
 *.swp
 *.swo
+.swn
 todo
 .virb/*

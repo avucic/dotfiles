@@ -1,4 +1,4 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   Filename: .vimrc                                                         "
 " Maintainer: Aleksandar Vucic  <vucinjo@gmail.com>                          "
 "        URL: http://github.com/avstudio/dotfiles                            "
@@ -40,7 +40,6 @@ Bundle "tpope/vim-commentary"
 Bundle "tpope/vim-unimpaired"
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-jdaddy'
 Bundle 'matchit.zip'
 Bundle 'MatchTag'
@@ -58,7 +57,8 @@ Bundle 'sjl/gundo.vim'
 Bundle 'tommcdo/vim-exchange.git'
 Bundle 'nelstrom/vim-qargs'
 Bundle 'nelstrom/vim-visual-star-search'
-Bundle 'jeetsukumaran/vim-buffergator'
+Plugin 'tpope/vim-abolish' " text inflection and case  manipulation
+" Bundle 'jeetsukumaran/vim-buffergator'
 
 Bundle 'Shougo/neocomplcache.vim'
 Bundle 'Shougo/neosnippet'
@@ -213,7 +213,8 @@ set foldmethod=syntax
 " set foldmethod=expr
 " set foldexpr=GetFold()
 set foldnestmax=10        " deepest fold is 10 levels
-set foldlevel=2           " close all folds by default
+set foldlevel=99          " close all folds by default
+set foldlevelstart=99
 set splitbelow
 set splitright
 set macmeta
@@ -277,11 +278,12 @@ cnoremap <M-f> <S-Right>
 " cnoremap <Leader>b <S-Left>
 " cnoremap <Leader>f <S-Right>
 
-map      <Leader>p $p                        " paste at the end of line
-map      <Leader>P ^ph                       " paste at the begining of line
-map      <Leader>pp $<space>p                " paste at the end of line and make one space
-nnoremap <esc> :noh<return><esc>        " clear highlight
-nmap     <Leader>bb :ls<CR>:buffer<Space>   " show buffers
+map      <Leader>p $p                             " paste at the end of line
+map      <Leader>P ^ph                            " paste at the begining of line
+map      <Leader>pp $<space>p                     " paste at the end of line and make one space
+nnoremap <esc> :noh<return><esc>                  " clear highlight
+nmap     <Leader>bb :ls<CR>:buffer<Space>         " show buffers
+nnoremap <Leader>s :StripWhitespace<return><esc>  " clear whitespace 
 
 " search-and-replace
 " It allows to use the following search-and-replace flow:
