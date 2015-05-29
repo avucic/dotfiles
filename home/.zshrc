@@ -70,3 +70,4 @@ eval "$(rbenv init - --no-rehash)"
 ## Android SDK
 ##
 export ANDROID_SDK=/usr/local/Cellar/android-sdk/
+source /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
