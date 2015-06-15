@@ -26,6 +26,8 @@ set clipboard=unnamed
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'sjl/vitality.vim'                          "fix courser for vim
 Plugin 'chriskempson/base16-vim'
 Plugin 'rking/ag.vim' " search Plugin
 Plugin 'kien/ctrlp.vim'
@@ -103,6 +105,7 @@ Bundle 'gberenfield/cljfold.vim'
 
 " Syntax highlight
 Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'slim-template/vim-slim'
 Bundle "Markdown"
 
 call vundle#end()            " required
@@ -217,7 +220,11 @@ set foldlevel=99          " close all folds by default
 set foldlevelstart=99
 set splitbelow
 set splitright
-set macmeta
+
+if has("gui_running")
+  set macmeta            "meta key combinations for VIM on OS X
+end
+
 set listchars=tab:▸\ ,eol:¬
 autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
 " function! GetFold()
@@ -283,10 +290,10 @@ map      <Leader>P ^ph                            " paste at the begining of lin
 map      <Leader>pp $<space>p                     " paste at the end of line and make one space
 nnoremap <esc> :noh<return><esc>                  " clear highlight
 nmap     <Leader>bb :ls<CR>:buffer<Space>         " show buffers
-nnoremap <Leader>s :StripWhitespace<return><esc>  " clear whitespace 
-
+nnoremap <Leader>s :StripWhitespace<return><esc>  " clear whitespace
+noremap % v%                                      "jump to a matching opening or closing parenthesis and select
 " search-and-replace
-" It allows to use the following search-and-replace flow:
+" it allows to use the following search-and-replace flow:
 " search things usual way using /something
 " hit cs, replace first match, and hit <Esc>
 " hit n.n.n.n.n. reviewing and replacing all matches
@@ -386,4 +393,3 @@ vmap <silent> <expr> p <sid>Repl()
 " nnoremap <c-p> :CtrlPMixed<cr>
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 let g:ctrlp_use_caching = 0
-
