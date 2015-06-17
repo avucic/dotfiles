@@ -27,6 +27,8 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'xolox/vim-notes'
+Plugin 'xolox/vim-misc'
 Plugin 'sjl/vitality.vim'                          "fix courser for vim
 Plugin 'chriskempson/base16-vim'
 Plugin 'rking/ag.vim' " search Plugin
