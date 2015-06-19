@@ -188,6 +188,7 @@ if has("gui_running")
   " Maximize gvim window (for an alternative on Windows, see simalt below).
   set lines=999 columns=999
 else
+  set lazyredraw
   " This is console Vim.
   " if exists("+lines")
   "   set lines=50
