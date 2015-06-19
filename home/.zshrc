@@ -59,6 +59,7 @@ alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome  --
 # alias vim='nocorrect vim'
 alias gv='mvim --remote-silent'
 alias tmux="TERM=screen-256color-bce tmux"
+alias vim='/usr/local/Cellar/macvim/7.4-76/MacVim.app/Contents/MacOS/Vim'
 export DISABLE_AUTO_TITLE=true
 
 export PATH="$HOME/.rbenv/bin:$PATH"

@@ -189,12 +189,12 @@ if has("gui_running")
   set lines=999 columns=999
 else
   " This is console Vim.
-  if exists("+lines")
-    set lines=50
-  endif
-  if exists("+columns")
-    set columns=100
-  endif
+  " if exists("+lines")
+  "   set lines=50
+  " endif
+  " if exists("+columns")
+  "   set columns=100
+  " endif
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 05. Text Formatting/Layout                                                 "
@@ -274,6 +274,10 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-h> <C-w>h
 nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
+" fix nvim bug
+if has('nvim')
+     nmap <BS> <C-W>h
+ endif
 
 " command line navigation
 cnoremap <C-a> <Home>
