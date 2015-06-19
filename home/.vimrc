@@ -66,7 +66,6 @@ Plugin 'tpope/vim-abolish' " text inflection and case  manipulation
 
 Bundle 'Shougo/neocomplcache.vim'
 Bundle 'Shougo/neosnippet'
-" Bundle 'JazzCore/neocomplcache-ultisnips'
 Plugin 'SirVer/ultisnips'
 
 " Bundle 'AndrewRadev/splitjoin.vim'
@@ -138,12 +137,6 @@ elseif &t_Co == 256
 endif
 " set guifont=Monaco:h14
 set guifont=Monaco\ for\ Powerline:h12
-" Prettify JSON files
-" autocmd BufRead,BufNewFile *.json set filetype=json
-" autocmd Syntax json sou ~/.vim/syntax/json.vim
-
-" Prettify Vagrantfile
-autocmd BufRead,BufNewFile Vagrantfile set filetype=ruby
 
 " Prettify Markdown files
 augroup markdown
@@ -167,7 +160,7 @@ set guioptions-=L         " remove scrollbar for NERDTree
 " 04. Vim UI                                                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set number                " show line numbers
-set numberwidth=6         " make the number gutter 6 characters wide
+set numberwidth=5         " make the number gutter 6 characters wide
 set cul                   " highlight current line
 set laststatus=2          " last window always has a statusline
 "set nohlsearch            " Don't continue to highlight searched phrases.
@@ -176,9 +169,7 @@ set incsearch             " But do highlight as you type your search.
 set ignorecase            " Make searches case-insensitive.
 set ruler                 " Always show info along bottom.
 set showmatch
-" set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \%h%m%r%=%-40(bytval=0x%B,%n%Y%)\%P
 set visualbell
-set nocompatible          " be iMproved, required
 " set hlsearch
 set cpoptions+=$          " Mark editable area and dollar sign et the end
 set laststatus=2
@@ -189,13 +180,6 @@ if has("gui_running")
   set lines=999 columns=999
 else
   set lazyredraw
-  " This is console Vim.
-  " if exists("+lines")
-  "   set lines=50
-  " endif
-  " if exists("+columns")
-  "   set columns=100
-  " endif
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 05. Text Formatting/Layout                                                 "
@@ -224,27 +208,36 @@ set foldlevelstart=99
 set splitbelow
 set splitright
 
-if has("gui_running")
+if has("gui_macvim")
   set macmeta            "meta key combinations for VIM on OS X
 end
 
 set listchars=tab:▸\ ,eol:¬
-autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
-" function! GetFold()
-"       if getline(v:lnum) =~ '^\s*;;;.*\s'
-"             return ">1"
-"       elseif getline(v:lnum) =~ '^\s*///.*\s'
-"             return ">1"
-"       elseif getline(v:lnum) =~ '^\s*###.*\s'
-"             return ">1"
-"       else
-"            (v:lnum)
-"       endif
-" endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 06. Custom Commands                                                        "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let mapleader=","
+
+if has("nvim")
+  tnoremap <esc><esc> <C-\><C-n>
+  " move from the neovim terminal window to somewhere else
+  " tnoremap <c-h> <c-\><c-n><c-w>h
+  " tnoremap <c-j> <c-\><c-n><c-w>j
+  " tnoremap <c-k> <c-\><c-n><c-w>k
+  " tnoremap <C-l> <C-\><C-n><C-w>l
+
+  " Open terminal and run lein figwheel
+  nmap <Leader>term <C-w>v:terminal<CR>lein figwheel<CR><C-\><C-n><C-w>p
+  " Evaluate anything from the visual mode in the next window
+  vmap <buffer> ,e y<C-w>wpi<CR><C-\><C-n><C-w>p
+  " Evaluate outer most form
+  nmap <buffer> ,e ^v%,e
+  " Evaluate buffer"
+  nmap <buffer> ,eb ggVG,e
+end
+
+
  map <silent> <Leader>cl      :set                  cursorline! <CR>
 imap <silent> <Leader>cl <Esc>:set                  cursorline! <CR>a
  map <silent> <Leader>cc      :set   cursorcolumn!              <CR>
@@ -256,8 +249,6 @@ imap <silent> <Leader>co <Esc>:set   cursorcolumn   cursorline  <CR>a
  map <silent> <Leader>cn      :set nocursorcolumn nocursorline  <CR>
 imap <silent> <Leader>cn <Esc>:set nocursorcolumn nocursorline  <CR>a
 
-let mapleader=","
-" let mapleader = "\<Space>"
 nnoremap <Space> za
 nmap     <Leader>v :tabedit ~/.vimrc<CR>
 nmap     <Leader>g :GundoToggle<CR>
@@ -299,14 +290,6 @@ nnoremap <esc> :noh<return><esc>                  " clear highlight
 nmap     <Leader>bb :ls<CR>:buffer<Space>         " show buffers
 nnoremap <Leader>s :StripWhitespace<return><esc>  " clear whitespace
 noremap % v%                                      "jump to a matching opening or closing parenthesis and select
-" search-and-replace
-" it allows to use the following search-and-replace flow:
-" search things usual way using /something
-" hit cs, replace first match, and hit <Esc>
-" hit n.n.n.n.n. reviewing and replacing all matches
-" vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
-"     \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
-" omap s :normal vs<CR>
 
 "tabs navigation
 nnoremap th  :tabfirst<CR>
@@ -338,9 +321,6 @@ nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
 nmap <leader>[ :NERDTreeTabsToggle<cr>
 " nmap <leader>[ :NERDTreeToggle<cr>
 
-" Splitjoin
-nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
-
 " Easymotion
 map <Leader> <Plug>(easymotion-prefix)
 
@@ -362,10 +342,6 @@ let g:neocomplcache_enable_at_startup            = 1
 let g:neocomplcache_enable_smart_case            = 1
 let g:neocomplcache_min_syntax_length            = 3
 let g:neocomplcache_force_overwrite_completefunc = 1
-
-" let g:UltiSnipsExpandTrigger       = "<tab>"
-" let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 imap <S-tab>     <Plug>(neosnippet_expand_or_jump)
