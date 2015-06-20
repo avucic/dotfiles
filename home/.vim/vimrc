@@ -297,6 +297,9 @@ nnoremap <Leader>s :StripWhitespace<return><esc>  " clear whitespace
 noremap % v%                                      "jump to a matching opening or closing parenthesis and select
 
 "tabs navigation
+nnoremap <C-t> :tabnew<Space>
+inoremap <C-t> <Esc>:tabnew<Space>
+
 nnoremap th  :tabfirst<CR>
 nnoremap tj  :tabnext<CR>
 nnoremap tk  :tabprev<CR>
@@ -305,12 +308,10 @@ nnoremap tt  :tabedit<Space>
 nnoremap tn  :tabnext<Space>
 nnoremap tm  :tabm<Space>
 nnoremap td  :tabclose<CR>
-noremap  <C-Tab> :<C-U>tabnext<CR>
-cnoremap <C-Tab> <C-C>:tabnext<CR>
-noremap  <C-S-Tab> :<C-U>tabprevious<CR>
-cnoremap <C-S-Tab> <C-C>:tabprevious<CR>
-nnoremap <C-t> :tabnew<Space>
-inoremap <C-t> <Esc>:tabnew<Space>
+
+nnoremap <C-S-tab> :tabprevious<CR>
+nnoremap <C-tab>   :tabnext<CR>
+nnoremap <C-t>     :tabnew<CR>
 
 " vim-expand-regon
 vmap v <Plug>(expand_region_expand)
@@ -321,6 +322,7 @@ nmap <CR> o<Esc>
 
 " Splitjoin plugin keybinding
 nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
+
 
 " Nerdtree
 nmap <leader>[ :NERDTreeTabsToggle<cr>
