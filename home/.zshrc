@@ -45,7 +45,7 @@ homebrew=/usr/local/bin:/usr/local/sbin
 export PATH=$homebrew:$PATH
 
 rbenv-clean(){gem list | cut -d" " -f1 | xargs gem uninstall -aIx}
-
+export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 export MAIL_INTERCEPTOR_EMAIL="contact@vucicaleksandar.com"

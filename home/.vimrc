@@ -34,7 +34,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'xolox/vim-notes'
 Plugin 'xolox/vim-misc'
-Plugin 'sjl/vitality.vim'                          "fix courser for vim
+" Plugin 'sjl/vitality.vim'                          "fix courser for vim
 Plugin 'chriskempson/base16-vim'
 Plugin 'rking/ag.vim' " search Plugin
 Plugin 'kien/ctrlp.vim'
@@ -235,6 +235,21 @@ imap <silent> <Leader>co <Esc>:set   cursorcolumn   cursorline  <CR>a
  map <silent> <Leader>cn      :set nocursorcolumn nocursorline  <CR>
 imap <silent> <Leader>cn <Esc>:set nocursorcolumn nocursorline  <CR>a
 
+if bufwinnr(1)
+  map + <C-W>+
+  map - <C-W>-
+  " map > <C-W>>
+  " map < <C-W><
+endif
+
+" split keys
+nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-k> <C-w>k
+nnoremap <C-j> <C-w>j
+" open aka terminal split
+nmap <C-w>d :bot split<CR>
+
 nnoremap <Space> za
 nmap     <Leader>v :tabedit ~/.vimrc<CR>
 nmap     <Leader>g :GundoToggle<CR>
@@ -247,11 +262,6 @@ nmap     <C-Down> ddp
 vmap     <C-Up> xkP`[V`]
 vmap     <C-Down> xp`[V`]
 
-" split keys
-nnoremap <C-l> <C-w>l
-nnoremap <C-h> <C-w>h
-nnoremap <C-k> <C-w>k
-nnoremap <C-j> <C-w>j
 
 " command line navigation
 cnoremap <C-a> <Home>
@@ -310,8 +320,8 @@ nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
 
 
 " Nerdtree
-nmap <leader>[ :NERDTreeTabsToggle<cr>
-" nmap <leader>[ :NERDTreeToggle<cr>
+" nmap <leader>[ :NERDTreeTabsToggle<cr>
+nmap <leader>[ :NERDTreeToggle<cr>
 
 " Easymotion
 map <Leader> <Plug>(easymotion-prefix)
