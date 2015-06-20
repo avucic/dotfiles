@@ -224,25 +224,6 @@ set listchars=tab:▸\ ,eol:¬
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=","
 
-if has("nvim")
-  tnoremap <esc><esc> <C-\><C-n>
-  " move from the neovim terminal window to somewhere else
-  " tnoremap <c-h> <c-\><c-n><c-w>h
-  " tnoremap <c-j> <c-\><c-n><c-w>j
-  " tnoremap <c-k> <c-\><c-n><c-w>k
-  " tnoremap <C-l> <C-\><C-n><C-w>l
-
-  " Open terminal and run lein figwheel
-  nmap <Leader>term <C-w>v:terminal<CR>lein figwheel<CR><C-\><C-n><C-w>p
-  " Evaluate anything from the visual mode in the next window
-  vmap <buffer> ,e y<C-w>wpi<CR><C-\><C-n><C-w>p
-  " Evaluate outer most form
-  nmap <buffer> ,e ^v%,e
-  " Evaluate buffer"
-  nmap <buffer> ,eb ggVG,e
-end
-
-
  map <silent> <Leader>cl      :set                  cursorline! <CR>
 imap <silent> <Leader>cl <Esc>:set                  cursorline! <CR>a
  map <silent> <Leader>cc      :set   cursorcolumn!              <CR>
@@ -271,10 +252,6 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-h> <C-w>h
 nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
-" fix nvim bug
-if has('nvim')
-     nmap <BS> <C-W>h
- endif
 
 " command line navigation
 cnoremap <C-a> <Home>
@@ -309,9 +286,17 @@ nnoremap tn  :tabnext<Space>
 nnoremap tm  :tabm<Space>
 nnoremap td  :tabclose<CR>
 
-nnoremap <C-S-tab> :tabprevious<CR>
-nnoremap <C-tab>   :tabnext<CR>
-nnoremap <C-t>     :tabnew<CR>
+" nnoremap <C-S-tab> :tabprevious<CR>
+" nnoremap <C-tab>   :tabnext<CR>
+" nnoremap <C-t>     :tabnew<CR>
+
+noremap <C-Tab> :<C-U>tabnext<CR>
+inoremap <C-Tab> <C-\><C-N>:tabnext<CR>
+cnoremap <C-Tab> <C-C>:tabnext<CR>
+" CTRL-SHIFT-Tab is previous tab
+noremap <C-S-Tab> :<C-U>tabprevious<CR>
+inoremap <C-S-Tab> <C-\><C-N>:tabprevious<CR>
+cnoremap <C-S-Tab> <C-C>:tabprevious<CR>
 
 " vim-expand-regon
 vmap v <Plug>(expand_region_expand)
