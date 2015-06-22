@@ -14,7 +14,7 @@ tnoremap <c-j> <c-\><c-n><c-w>j
 tnoremap <c-k> <c-\><c-n><c-w>k
 tnoremap <C-l> <C-\><C-n><C-w>l
 
-tnoremap <esc><esc> <C-\><C-n>
+tnoremap <Esc><Esc> <C-\><C-n>
 
 nmap     <Leader>v :tabedit ~/.nvimrc<CR>
 

@@ -249,6 +249,7 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
 " open aka terminal split
 nmap <C-w>d :bot split<CR>
+nnoremap <C-w>d :botright split <bar> :resize 10<CR>
 
 nnoremap <Space> za
 nmap     <Leader>v :tabedit ~/.vimrc<CR>
