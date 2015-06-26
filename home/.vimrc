@@ -67,6 +67,7 @@ Bundle 'tommcdo/vim-exchange.git'
 Bundle 'nelstrom/vim-qargs'
 Bundle 'nelstrom/vim-visual-star-search'
 Plugin 'tpope/vim-abolish' " text inflection and case  manipulation
+Plugin 'mattn/googletranslate-vim' " text inflection and case  manipulation
 " Bundle 'jeetsukumaran/vim-buffergator'
 
 Bundle 'Shougo/neocomplcache.vim'
@@ -104,7 +105,6 @@ Bundle 'indenthtml.vim'
 " Clojure
 " Bundle 'vim-scripts/VimClojure'
 Bundle 'guns/vim-clojure-static'
-Bundle 'tpope/vim-fireplace.git'
 Bundle 'tpope/vim-classpath.git'
 Bundle 'guns/vim-sexp'
 Bundle 'gberenfield/cljfold.vim'
@@ -112,6 +112,7 @@ Bundle 'gberenfield/cljfold.vim'
 " Syntax highlight
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'slim-template/vim-slim'
+Plugin 'groenewege/vim-less'
 Bundle "Markdown"
 
 call vundle#end()            " required
