@@ -2,7 +2,8 @@
 if [ -x /usr/libexec/path_helper ]; then
 	eval `/usr/libexec/path_helper -s`
 fi
-
+# vim mode
+bindkey -v
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
@@ -35,7 +36,7 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse )
-plugins=(rails git textmate ruby alex osx)
+plugins=(rails git textmate ruby alex osx zsh-syntax-highlighting git-flow)
 
 source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
@@ -59,7 +60,7 @@ alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome  --
 # alias vim='nocorrect vim'
 alias gv='mvim --remote-silent'
 alias tmux="TERM=screen-256color-bce tmux"
-alias vim='/usr/local/Cellar/macvim/7.4-76/MacVim.app/Contents/MacOS/Vim'
+# alias vim='/usr/local/Cellar/macvim/7.4-76/MacVim.app/Contents/MacOS/Vim'
 export DISABLE_AUTO_TITLE=true
 
 export PATH="$HOME/.rbenv/bin:$PATH"

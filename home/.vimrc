@@ -1,4 +1,5 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 "   Filename: .vimrc                                                         "
 " Maintainer: Aleksandar Vucic  <vucinjo@gmail.com>                          "
 "        URL: http://github.com/avstudio/dotfiles                            "
@@ -34,6 +35,8 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'xolox/vim-notes'
 Plugin 'xolox/vim-misc'
+
+Plugin 'triglav/vim-visual-increment'
 " Plugin 'sjl/vitality.vim'                          "fix courser for vim
 Plugin 'chriskempson/base16-vim'
 Plugin 'rking/ag.vim' " search Plugin
@@ -67,7 +70,7 @@ Bundle 'tommcdo/vim-exchange.git'
 Bundle 'nelstrom/vim-qargs'
 Bundle 'nelstrom/vim-visual-star-search'
 Plugin 'tpope/vim-abolish' " text inflection and case  manipulation
-Plugin 'mattn/googletranslate-vim' " text inflection and case  manipulation
+" Plugin 'vim-scripts/PA_translator' " text inflection and case  manipulation
 " Bundle 'jeetsukumaran/vim-buffergator'
 
 Bundle 'Shougo/neocomplcache.vim'
@@ -82,6 +85,7 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle "jQuery"
 " Language Additions
 " Ruby
+Bundle 'tpope/vim-rbenv'
 Bundle 'tpope/vim-rails'
 Plugin 'thoughtbot/vim-rspec'
 Bundle 'vim-ruby/vim-ruby'
@@ -108,6 +112,8 @@ Bundle 'guns/vim-clojure-static'
 Bundle 'tpope/vim-classpath.git'
 Bundle 'guns/vim-sexp'
 Bundle 'gberenfield/cljfold.vim'
+" Php
+Plugin  'StanAngeloff/php.vim'
 
 " Syntax highlight
 Plugin 'cakebaker/scss-syntax.vim'
@@ -331,6 +337,9 @@ map <Leader> <Plug>(easymotion-prefix)
 " Tagbar
 nmap <Leader>] :TagbarToggle<CR>
 nmap <Leader>]] :TagbarOpenAutoClose<CR>
+
+" vim-notes
+let g:notes_directories = ['~/Google\ Drive/Notes/']
 
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
