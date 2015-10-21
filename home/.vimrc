@@ -112,6 +112,7 @@ Bundle 'guns/vim-clojure-static'
 Bundle 'tpope/vim-classpath.git'
 Bundle 'guns/vim-sexp'
 Bundle 'gberenfield/cljfold.vim'
+Bundle 'tpope/vim-fireplace'
 " Php
 Plugin  'StanAngeloff/php.vim'
 
