@@ -52,6 +52,7 @@ export PATH="/usr/local/heroku/bin:$PATH"
 export MAIL_INTERCEPTOR_EMAIL="contact@vucicaleksandar.com"
 export GNUTERM=x11
 export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 export EDITOR=subl
 export NODE_PATH=/usr/local/lib/node_modules
 

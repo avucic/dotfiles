@@ -1,4 +1,5 @@
 source ~/.vimrc
+set backupdir=/tmp
 augroup terminal
   autocmd TermOpen * setlocal nospell
 augroup END

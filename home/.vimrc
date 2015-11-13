@@ -21,8 +21,9 @@ set nocompatible         " get rid of Vi compatibility mode. SET FIRST!
 " execute pathogen#infect()
 filetype off
 " set the runtime path to include Vundle and initialize
+
 if has("nvim")
-  set rtp+=~/.nvim/bundle/Vundle.vim
+  set rtp+=~/.config/nvim/bundle/Vundle.vim
 else
   set rtp+=~/.vim/bundle/Vundle.vim
 end
