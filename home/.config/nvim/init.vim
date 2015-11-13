@@ -1,6 +1,6 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"   Filename: .vimrc                                                         "
+"   Filename: init.vim                                                         "
 " Maintainer: Aleksandar Vucic  <vucinjo@gmail.com>                          "
 "        URL: http://github.com/avstudio/dotfiles                            "
 "                                                                            "
@@ -22,11 +22,7 @@ set nocompatible         " get rid of Vi compatibility mode. SET FIRST!
 filetype off
 " set the runtime path to include Vundle and initialize
 
-if has("nvim")
-  set rtp+=~/.config/nvim/bundle/Vundle.vim
-else
-  set rtp+=~/.vim/bundle/Vundle.vim
-end
+set rtp+=~/.config/nvim/bundle/Vundle.vim
 
 set tags=./tags,tags
 set clipboard=unnamed
@@ -128,7 +124,7 @@ filetype plugin indent on    " required
 
 augroup myvimrchooks
 au!
-  autocmd bufwritepost .vimrc source $HOME/.vimrc
+  autocmd bufwritepost init.vim source $HOME/.config/nvim/init.vim
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -143,8 +139,8 @@ set t_Co=256              " enable 256-color mode.
 syntax enable             " enable syntax highlighting (previously syntax on).
 set background=dark
 
+colorscheme  base16-twilight
 if has("gui_running")
-  colorscheme  base16-twilight
 elseif &t_Co == 256
   colorscheme  base16-twilight
   " colorscheme twilight256
@@ -391,6 +387,9 @@ vmap <silent> <expr> p <sid>Repl()
 " nnoremap <c-p> :CtrlPMixed<cr>
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 let g:ctrlp_use_caching = 0
+
+" **************************************************************************
+" nvim specific
 " **************************************************************************
 set backupdir=/tmp
 augroup terminal
