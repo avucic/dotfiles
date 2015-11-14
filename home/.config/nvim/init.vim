@@ -139,14 +139,14 @@ set t_Co=256              " enable 256-color mode.
 syntax enable             " enable syntax highlighting (previously syntax on).
 set background=dark
 
-colorscheme  base16-twilight
 if has("gui_running")
+  colorscheme  base16-twilight
 elseif &t_Co == 256
   colorscheme  base16-twilight
   " colorscheme twilight256
 endif
 " set guifont=Monaco:h14
-set guifont=Monaco\ for\ Powerline:h12
+set guifont=Monaco\ for\ Powerline:h12:w
 
 " Prettify Markdown files
 augroup markdown
