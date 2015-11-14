@@ -66,6 +66,9 @@ export DISABLE_AUTO_TITLE=true
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init - --no-rehash)"
+export PATH="$HOME/Library/Python/3.5/bin:$PATH"
+# BASE16_SHELL="$HOME/.config/base16-shell/base16-twilight.dark.sh"
+# [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 #export ANDROID_HOME=/usr/local/opt/android-sdk
 
 

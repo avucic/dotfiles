@@ -136,8 +136,10 @@ set spell spelllang=en_us
 " 03. Theme/Colors                                                           "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256              " enable 256-color mode.
-syntax enable             " enable syntax highlighting (previously syntax on).
+" let base16colorspace=256
+" set term=screen-256color
 set background=dark
+syntax enable             " enable syntax highlighting (previously syntax on).
 
 if has("gui_running")
   colorscheme  base16-twilight
@@ -396,11 +398,6 @@ augroup terminal
   autocmd TermOpen * setlocal nospell
 augroup END
 
-augroup myvimrchooks
-au!
-  autocmd bufwritepost .nvimrc source $HOME/.nvimrc
-augroup END
-
 " move from the neovim terminal window to somewhere else
 tnoremap <c-h> <c-\><c-n><c-w>h
 tnoremap <c-j> <c-\><c-n><c-w>j
@@ -409,7 +406,7 @@ tnoremap <c-l> <C-\><C-n><C-w>l
 
 tnoremap <Esc><Esc> <C-\><C-n>
 
-nmap     <Leader>v :tabedit ~/.nvimrc<CR>
+nmap     <Leader>v :tabedit ~/.config/nvim/init.vim<CR>
 
 " Useful maps
 " hide/close all terminals
