@@ -66,11 +66,15 @@ export DISABLE_AUTO_TITLE=true
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init - --no-rehash)"
-#export ANDROID_HOME=/usr/local/opt/android-sdk
 
 
 ##
 ## Android SDK
 ##
 export ANDROID_SDK=/usr/local/Cellar/android-sdk/
-source /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
+
+##
+## Python
+##
+export PATH="$HOME/./Library/Python/3.5/bin:$PATH"
+source ./Library/Python/3.5/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
