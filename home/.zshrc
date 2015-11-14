@@ -76,5 +76,5 @@ export ANDROID_SDK=/usr/local/Cellar/android-sdk/
 ##
 ## Python
 ##
-export PATH="$HOME/./Library/Python/3.5/bin:$PATH"
-source ./Library/Python/3.5/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
+export PATH="$HOME/Library/Python/3.5/bin:$PATH"
+source ~/Library/Python/3.5/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
