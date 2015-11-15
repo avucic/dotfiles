@@ -72,6 +72,7 @@ Plugin 'tpope/vim-abolish' " text inflection and case  manipulation
 
 Bundle 'Shougo/neocomplcache.vim'
 Bundle 'Shougo/neosnippet'
+Bundle 'Shougo/neosnippet-snippets'
 Plugin 'SirVer/ultisnips'
 
 " Bundle 'AndrewRadev/splitjoin.vim'
