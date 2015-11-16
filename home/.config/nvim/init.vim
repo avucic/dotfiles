@@ -148,6 +148,7 @@ elseif &t_Co == 256
   colorscheme  base16-twilight
   " colorscheme twilight256
 endif
+
 " set guifont=Monaco:h14
 set guifont=Monaco\ for\ Powerline:h12:w
 

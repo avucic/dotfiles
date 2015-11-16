@@ -1,7 +1,7 @@
 [core]
 	excludesfile = /Users/alex/.gitignore
 	autocrlf = input
-	editor = mvim -f -v
+	editor = nvim -f -v
 [user]
 	name = Aleksandar Vucic
 	email = vucinjo@gmail.com
@@ -35,21 +35,6 @@
   uh = reset --hard HEAD^
 
 exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
-
-; [diff]
-; 	tool = diffmerge
-; [difftool]
-;   prompt = false
-; [difftool "diffmerge"]
-; 	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
-; [merge]
-; 	tool = mimdiff
-; 	conflictstyle = diff3
-; [mergetool "diffmerge"]
-; 	cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
-; 	trustExitCode = true
-; [mergetool]
-; 	keepBackup = false
 [color]
 	ui = true
 [push]
@@ -60,28 +45,9 @@ exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
 	smudge = git media smudge %f
 [fetch]
 	prune = true
-
-[diff]
-  tool = mvimdiff
-[difftool]
-  prompt = false
-[difftool "mvimdiff"]
-  prompt = false
-  cmd = mvim -v -f -d \"$LOCAL\" \"$REMOTE\"
-
 [merge]
-	tool = gvimdiff2
+	tool = fugitive
 [mergetool]
-    keepBackup = false
-; [mergetool "mvimdiff"]
-;     trustExitCode = false
-; [mergetool "gvimdiff"]
-; 	cmd = gvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
-[filter "hawser"]
-	clean = git hawser clean %f
-	smudge = git hawser smudge %f
-	required = true
-[filter "lfs"]
-	clean = git lfs clean %f
-	smudge = git lfs smudge %f
-	required = true
+	keepBackup = false
+[mergetool "fugitive"]
+	cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
