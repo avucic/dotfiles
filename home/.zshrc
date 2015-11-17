@@ -61,6 +61,8 @@ export NODE_PATH=/usr/local/lib/node_modules
 
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome  --args --disable-web-security &"
 alias n='nvim'
+alias ta='tmux a -t'
+alias tn='tmux new -s'
 alias tmux="TERM=screen-256color-bce tmux"
 # alias vim='/usr/local/Cellar/macvim/7.4-76/MacVim.app/Contents/MacOS/Vim'
 export DISABLE_AUTO_TITLE=true
