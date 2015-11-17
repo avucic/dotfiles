@@ -1,7 +1,7 @@
 [core]
 	excludesfile = /Users/alex/.gitignore
 	autocrlf = input
-	editor = nvim -f -v
+	editor = nvim
 [user]
 	name = Aleksandar Vucic
 	email = vucinjo@gmail.com
