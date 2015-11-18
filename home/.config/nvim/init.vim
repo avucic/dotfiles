@@ -94,7 +94,8 @@ Bundle 't9md/vim-ruby-xmpfilter'
 Bundle 'tpope/vim-dispatch'
 Bundle 'bruno-/vim-ruby-fold'
 Bundle 'nelstrom/vim-markdown-folding'
-Bundle 'jgdavey/vim-blockle.git'
+Bundle 'jgdavey/vim-blockle'
+Bundle 'tpope/vim-endwise'
 " JavaScript
 Bundle 'pangloss/vim-javascript'
 Bundle 'kchmck/vim-coffee-script'
@@ -376,6 +377,7 @@ nmap <buffer> <F4> <Plug>(xmpfilter-mark)
 xmap <buffer> <F4> <Plug>(xmpfilter-mark)
 imap <buffer> <F4> <Plug>(xmpfilter-mark)
 
+
 " vp doesn't replace paste buffer
 function! RestoreRegister()
   let @" = s:restore_reg
@@ -391,6 +393,9 @@ vmap <silent> <expr> p <sid>Repl()
 " nnoremap <c-p> :CtrlPMixed<cr>
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 let g:ctrlp_use_caching = 0
+
+" syntastic
+let g:syntastic_always_populate_loc_list = 1
 
 " **************************************************************************
 " nvim specific
