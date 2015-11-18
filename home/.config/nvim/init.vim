@@ -67,6 +67,7 @@ Bundle 'tommcdo/vim-exchange.git'
 Bundle 'nelstrom/vim-qargs'
 Bundle 'nelstrom/vim-visual-star-search'
 Plugin 'tpope/vim-abolish' " text inflection and case  manipulation
+Plugin 'scrooloose/syntastic'
 " Plugin 'vim-scripts/PA_translator' " text inflection and case  manipulation
 " Bundle 'jeetsukumaran/vim-buffergator'
 
@@ -395,7 +396,14 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-stand
 let g:ctrlp_use_caching = 0
 
 " syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
 let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " **************************************************************************
 " nvim specific
