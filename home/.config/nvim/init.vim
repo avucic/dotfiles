@@ -193,7 +193,7 @@ set hidden                " allow to move to the next buffer even file is change
 if has("gui_running")
   " GUI is running or is about to start.
   " Maximize gvim window (for an alternative on Windows, see simalt below).
-  set lines=999 columns=999
+  " set lines=999 columns=999
 else
   set lazyredraw
 endif
@@ -406,7 +406,8 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_error_symbol = "✗"
 let g:syntastic_warning_symbol = "⚠"
-
+let g:syntastic_coffee_checkers = ['coffeelint', 'coffee']
+" let g:syntastic_coffee_coffeelint_args = "--csv --file [absolute path to]/coffeelint.json"
 " **************************************************************************
 " nvim specific
 " **************************************************************************
