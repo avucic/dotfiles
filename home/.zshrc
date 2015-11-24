@@ -63,6 +63,7 @@ alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome  --
 alias n='nvim'
 alias r='rails'
 alias rk='rake'
+alias t='tmux'
 alias ta='tmux a -t'
 alias tn='tmux new -s'
 alias tmux="TERM=screen-256color-bce tmux"
