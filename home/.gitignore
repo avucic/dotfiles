@@ -20,3 +20,4 @@ lt_client.log
 .swn
 todo
 .virb/*
+.env
