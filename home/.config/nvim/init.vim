@@ -1,143 +1,131 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"   Filename: init.vim                                                         "
+"   Filename: init.vim                                                       "
 " Maintainer: Aleksandar Vucic  <vucinjo@gmail.com>                          "
 "        URL: http://github.com/avstudio/dotfiles                            "
 "                                                                            "
-"                                                                            "
-" Sections:                                                                  "
-"   01. General ................. General Vim behavior                       "
-"   02. Events .................. General autocmd events                     "
-"   03. Theme/Colors ............ Colors, fonts, etc.                        "
-"   04. Vim UI .................. User interface behavior                    "
-"   05. Text Formatting/Layout .. Text, tab, indentation related             "
-"   06. Custom Commands ......... Any custom command aliases                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 01. General                                                                "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible         " get rid of Vi compatibility mode. SET FIRST!
-" execute pathogen#infect()
+"01. General:{{{
+set nocompatible
 filetype off
-" set the runtime path to include Vundle and initialize
-
-set rtp+=~/.config/nvim/bundle/Vundle.vim
 
 set tags=./tags,tags
 set clipboard=unnamed
-call vundle#begin()
+set spell spelllang=en_us
 
-Plugin 'gmarik/Vundle.vim'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'xolox/vim-notes'
-Plugin 'xolox/vim-misc'
-
-Plugin 'triglav/vim-visual-increment'
-" Plugin 'sjl/vitality.vim'                          "fix courser for vim
-Plugin 'chriskempson/base16-vim'
-Plugin 'rking/ag.vim' " search Plugin
-Plugin 'kien/ctrlp.vim'
-Plugin 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'edkolev/tmuxline.vim'
-Plugin 'bling/vim-airline'
-Plugin 'ntpeters/vim-better-whitespace'
-Plugin 'tpope/vim-bundler'
-Bundle "tpope/vim-commentary"
-Bundle "tpope/vim-unimpaired"
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-jdaddy'
-Bundle 'matchit.zip'
-Bundle 'MatchTag'
-Bundle 'Valloric/MatchTagAlways'
-Bundle 'majutsushi/tagbar'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'terryma/vim-expand-region'
-Plugin 'jiangmiao/auto-pairs.git'
-Plugin 'mkitt/tabline.vim'
-Bundle 'rizzatti/funcoo.vim'
-Bundle 'rizzatti/dash.vim'
-Bundle 'sjl/gundo.vim'
-Bundle 'tommcdo/vim-exchange.git'
-Bundle 'nelstrom/vim-qargs'
-Bundle 'nelstrom/vim-visual-star-search'
-Plugin 'tpope/vim-abolish' " text inflection and case  manipulation
-Plugin 'scrooloose/syntastic'
-" Plugin 'vim-scripts/PA_translator' " text inflection and case  manipulation
-" Bundle 'jeetsukumaran/vim-buffergator'
-
-Bundle 'Shougo/neocomplcache.vim'
-Bundle 'Shougo/neosnippet'
-Bundle 'Shougo/neosnippet-snippets'
-Plugin 'SirVer/ultisnips'
-
-" Bundle 'AndrewRadev/splitjoin.vim'
-" Bundle 'bendavis78/vim-polymer'
-Bundle 'Lokaltog/vim-easymotion'
-
-" Programming
-Bundle "jQuery"
-" Language Additions
-" Ruby
-Bundle 'tpope/vim-rbenv'
-Bundle 'tpope/vim-rails'
-Plugin 'thoughtbot/vim-rspec'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-haml'
-Bundle 'skalnik/vim-vroom'
-Bundle 'tpope/vim-rake'
-Bundle 't9md/vim-ruby-xmpfilter'
-Bundle 'tpope/vim-dispatch'
-Bundle 'bruno-/vim-ruby-fold'
-Bundle 'nelstrom/vim-markdown-folding'
-Bundle 'jgdavey/vim-blockle'
-Bundle 'tpope/vim-endwise'
-" JavaScript
-Bundle 'pangloss/vim-javascript'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'elzr/vim-json'
-" HTML
-Bundle 'mustache/vim-mustache-handlebars'
-Bundle 'othree/html5.vim'
-Bundle 'indenthtml.vim'
-
-" Clojure
-" Bundle 'vim-scripts/VimClojure'
-Bundle 'guns/vim-clojure-static'
-Bundle 'tpope/vim-classpath.git'
-Bundle 'guns/vim-sexp'
-Bundle 'gberenfield/cljfold.vim'
-Bundle 'tpope/vim-fireplace'
-" Php
-Plugin  'StanAngeloff/php.vim'
-
-" Syntax highlight
-Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'slim-template/vim-slim'
-Plugin 'groenewege/vim-less'
-Bundle "Markdown"
-
-call vundle#end()            " required
 filetype plugin indent on    " required
-
 augroup myvimrchooks
 au!
   autocmd bufwritepost init.vim source $HOME/.config/nvim/init.vim
 augroup END
+let mapleader=","
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 02. Events                                                                 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-filetype plugin indent on " filetype detection[ON] plugin[ON] indent[ON]
-set spell spelllang=en_us
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 03. Theme/Colors                                                           "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" nvim specific
+" **************************************************************************
+set backupdir=/tmp
+augroup terminal
+  autocmd TermOpen * setlocal nospell
+augroup END
+"}}}
+
+"02. Plugins:{{{
+call plug#begin()
+" General {{{2
+Plug 'editorconfig/editorconfig-vim'
+Plug 'xolox/vim-notes',                           { 'on':  'Note' }
+Plug 'xolox/vim-misc'
+Plug 'triglav/vim-visual-increment'
+Plug 'chriskempson/base16-vim'
+Plug 'rking/ag.vim',                              { 'on':  'Ag' }
+Plug 'kien/ctrlp.vim'
+Plug 'scrooloose/nerdtree',                       { 'on':  'NERDTreeToggle' }
+Plug 'jistr/vim-nerdtree-tabs',                   { 'on':  'NERDTreeToggle' }
+Plug 'junegunn/vim-easy-align'
+Plug 'edkolev/tmuxline.vim'
+Plug 'bling/vim-airline'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-jdaddy'
+Plug 'matchit.zip'
+Plug 'MatchTag'
+Plug 'Valloric/MatchTagAlways'
+Plug 'majutsushi/tagbar'
+Plug 'airblade/vim-gitgutter'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-expand-region'
+Plug 'jiangmiao/auto-pairs'
+Plug 'mkitt/tabline.vim'
+Plug 'rizzatti/funcoo.vim'
+Plug 'rizzatti/dash.vim'
+Plug 'sjl/gundo.vim'
+Plug 'tommcdo/vim-exchange'
+Plug 'nelstrom/vim-qargs'
+Plug 'nelstrom/vim-visual-star-search'
+Plug 'tpope/vim-abolish' " text inflection and case  manipulation
+Plug 'scrooloose/syntastic'
+Plug 'kshenoy/vim-signature'
+Plug 'gregsexton/gitv'
+" Plug 'jeetsukumaran/vim-buffergator'
+Plug 'Shougo/neocomplcache.vim' | 
+  Plug 'Shougo/neosnippet' | 
+  Plug 'Shougo/neosnippet-snippets' |
+  Plug 'SirVer/ultisnips'
+" Plug 'AndrewRadev/splitjoin.vim'
+" Plug 'bendavis78/vim-polymer'
+Plug 'Lokaltog/vim-easymotion'
+" Plug 'cazador481/fakeclip.neovim'
+"}}}
+" Ruby {{{2
+Plug 'tpope/vim-rbenv',                           { 'for': 'ruby' }
+Plug 'tpope/vim-rails',                           { 'for': 'ruby' }
+Plug 'thoughtbot/vim-rspec',                      { 'for': 'ruby' }
+Plug 'vim-ruby/vim-ruby',                         { 'for': 'ruby' }
+Plug 'tpope/vim-haml',                            { 'for': 'ruby' }
+Plug 'skalnik/vim-vroom',                         { 'for': 'ruby' }
+Plug 'tpope/vim-rake',                            { 'for': 'ruby' }
+Plug 't9md/vim-ruby-xmpfilter',                   { 'for': 'ruby' }
+Plug 'tpope/vim-dispatch',                        { 'for': 'ruby' }
+Plug 'bruno-/vim-ruby-fold',                      { 'for': 'ruby' }
+Plug 'nelstrom/vim-markdown-folding',             { 'for': 'ruby' }
+Plug 'jgdavey/vim-blockle',                       { 'for': 'ruby' }
+Plug 'tpope/vim-endwise',                         { 'for': 'ruby' }
+"}}}
+" JavaScript {{{2
+Plug 'pangloss/vim-javascript',                   { 'for': 'javascript' }
+Plug 'kchmck/vim-coffee-script',                  { 'for': 'coffee' }
+Plug 'elzr/vim-json',                             { 'for': 'json' }
+Plug 'jQuery'
+"}}}
+" HTML {{{2
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'othree/html5.vim'
+Plug 'indenthtml.vim'
+"}}}
+" Clojure {{{2
+Plug 'guns/vim-clojure-static',                   { 'for': 'clojure' }
+Plug 'tpope/vim-classpath',                       { 'for': 'clojure' }
+Plug 'guns/vim-sexp',                             { 'for': 'clojure' }
+Plug 'gberenfield/cljfold.vim',                   { 'for': 'clojure' }
+Plug 'tpope/vim-fireplace',                       { 'for': 'clojure' }
+"}}}
+" Php {{{2
+Plug  'StanAngeloff/php.vim',                     { 'for': 'php' }
+"}}}
+" Syntax highlight{{{2
+Plug 'cakebaker/scss-syntax.vim'
+Plug 'slim-template/vim-slim'
+Plug 'groenewege/vim-less'
+Plug 'Markdown'
+"}}}
+
+call plug#end()
+"}}}                                                                "
+
+" 03. Theme/Colors:{{{
 set t_Co=256              " enable 256-color mode.
 " let base16colorspace=256
 " set term=screen-256color
@@ -148,7 +136,6 @@ if has("gui_running")
   colorscheme  base16-twilight
 elseif &t_Co == 256
   colorscheme  base16-twilight
-  " colorscheme twilight256
 endif
 
 " set guifont=Monaco:h14
@@ -172,9 +159,9 @@ let g:indent_guides_guide_size  = 1
 let g:airline_powerline_fonts   = 1
 " Nerdtree
 set guioptions-=L         " remove scrollbar for NERDTree
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 04. Vim UI                                                                 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}                                                           "
+
+" 04. Vim UI:{{{
 set number                " show line numbers
 set numberwidth=5         " make the number gutter 6 characters wide
 set cul                   " highlight current line
@@ -197,9 +184,9 @@ if has("gui_running")
 else
   set lazyredraw
 endif
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 05. Text Formatting/Layout                                                 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}                                                                "
+
+" 05. Text Formatting/Layout:{{{
 set autoindent            " auto-indent
 set tabstop=2             " tab spacing
 set softtabstop=2         " unify
@@ -211,31 +198,71 @@ set smarttab              " use tabs at the start of a line, spaces elsewhere
 set nowrap                " don't wrap text
 set pastetoggle=<F2>      " toggle paste formating
 set formatoptions+=r      " continue comments
+set listchars=tab:▸\ ,eol:¬
 " set cursorline
 
 "folding settings
 set foldenable            " enable folding
-set foldmethod=syntax
-" set foldmethod=expr
-" set foldexpr=GetFold()
-set foldnestmax=10        " deepest fold is 10 levels
-set foldlevel=99          " close all folds by default
-set foldlevelstart=99
-set splitbelow
-set splitright
+set foldmethod=marker
+" " set foldmethod=expr
+" " set foldexpr=GetFold()
+" set foldnestmax=10        " deepest fold is 10 levels
+" set foldlevel=99          " close all folds by default
+" set foldlevelstart=99
+"
+nmap <Leader>ff :call <SID>ToggleFold()<CR>
+function! s:ToggleFold()
+    if &foldmethod == 'marker'
+        let &l:foldmethod = 'syntax'
+    else
+        let &l:foldmethod = 'marker'
+    endif
+    echo 'foldmethod is now ' . &l:foldmethod
+endfunction
 
 if has("gui_macvim")
   set macmeta            "meta key combinations for VIM on OS X
 end
 
-set listchars=tab:▸\ ,eol:¬
+if bufwinnr(1)
+  map + <C-W>+
+  map - <C-W>-
+  " map > <C-W>>
+  " map < <C-W><
+endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 06. Custom Commands                                                        "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader=","
 
- map <silent> <Leader>cl      :set                  cursorline! <CR>
+
+" split
+set splitbelow
+set splitright
+nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-k> <C-w>k
+nnoremap <C-j> <C-w>j
+" open aka terminal split
+nmap <C-w>d :bot split<CR>
+nnoremap <C-w>d :bot split <bar> :resize 10<CR>
+
+" vp doesn't replace paste buffer
+function! RestoreRegister()
+  let @" = s:restore_reg
+  return ''
+endfunction
+function! s:Repl()
+  let s:restore_reg = @"
+  return "p@=RestoreRegister()\<cr>"
+endfunction
+vmap <silent> <expr> p <sid>Repl()
+" }}}                                                 "
+
+" 06. Custom Mappings:{{{
+nmap     <Leader>v :tabedit ~/.config/nvim/init.vim<CR>
+" new line
+nmap <S-Enter> O<Esc>
+nmap <CR> o<Esc>
+
+" cursor
 imap <silent> <Leader>cl <Esc>:set                  cursorline! <CR>a
  map <silent> <Leader>cc      :set   cursorcolumn!              <CR>
 imap <silent> <Leader>cc <Esc>:set   cursorcolumn!              <CR>a
@@ -246,35 +273,14 @@ imap <silent> <Leader>co <Esc>:set   cursorcolumn   cursorline  <CR>a
  map <silent> <Leader>cn      :set nocursorcolumn nocursorline  <CR>
 imap <silent> <Leader>cn <Esc>:set nocursorcolumn nocursorline  <CR>a
 
-if bufwinnr(1)
-  map + <C-W>+
-  map - <C-W>-
-  " map > <C-W>>
-  " map < <C-W><
-endif
-
-" split keys
-nnoremap <C-l> <C-w>l
-nnoremap <C-h> <C-w>h
-nnoremap <C-k> <C-w>k
-nnoremap <C-j> <C-w>j
-" open aka terminal split
-nmap <C-w>d :bot split<CR>
-nnoremap <C-w>d :bot split <bar> :resize 10<CR>
-
+" folding
 nnoremap <Space> za
-nmap     <Leader>v :tabedit ~/.vimrc<CR>
-nmap     <Leader>g :GundoToggle<CR>
-
 " Bubble single lines
 nmap     <C-Up> ddkP
 nmap     <C-Down> ddp
-
 " Bubble multiple lines
 vmap     <C-Up> xkP`[V`]
 vmap     <C-Down> xp`[V`]
-
-
 " command line navigation
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
@@ -286,7 +292,6 @@ cnoremap <M-b> <S-Left>
 cnoremap <M-f> <S-Right>
 " cnoremap <Leader>b <S-Left>
 " cnoremap <Leader>f <S-Right>
-
 map      <Leader>p $p                             " paste at the end of line
 map      <Leader>P ^ph                            " paste at the begining of line
 map      <Leader>pp $<space>p                     " paste at the end of line and make one space
@@ -298,7 +303,6 @@ noremap % v%                                      "jump to a matching opening or
 "tabs navigation
 nnoremap <C-t> :tabnew<Space>
 inoremap <C-t> <Esc>:tabnew<Space>
-
 nnoremap th  :tabfirst<CR>
 nnoremap tj  :tabnext<CR>
 nnoremap tk  :tabprev<CR>
@@ -307,11 +311,9 @@ nnoremap tt  :tabedit<Space>
 nnoremap tn  :tabnext<Space>
 nnoremap tm  :tabm<Space>
 nnoremap td  :tabclose<CR>
-
 " nnoremap <C-S-tab> :tabprevious<CR>
 " nnoremap <C-tab>   :tabnext<CR>
 " nnoremap <C-t>     :tabnew<CR>
-
 noremap <C-Tab> :<C-U>tabnext<CR>
 inoremap <C-Tab> <C-\><C-N>:tabnext<CR>
 cnoremap <C-Tab> <C-C>:tabnext<CR>
@@ -319,13 +321,12 @@ cnoremap <C-Tab> <C-C>:tabnext<CR>
 noremap <C-S-Tab> :<C-U>tabprevious<CR>
 inoremap <C-S-Tab> <C-\><C-N>:tabprevious<CR>
 cnoremap <C-S-Tab> <C-C>:tabprevious<CR>
+" }}}                                                       "
 
+" 07. Plugin specific Commands and Mappings:{{{
 " vim-expand-regon
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
-
-nmap <S-Enter> O<Esc>
-nmap <CR> o<Esc>
 
 " Splitjoin plugin keybinding
 nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
@@ -378,28 +379,18 @@ nmap <buffer> <F4> <Plug>(xmpfilter-mark)
 xmap <buffer> <F4> <Plug>(xmpfilter-mark)
 imap <buffer> <F4> <Plug>(xmpfilter-mark)
 
-
-" vp doesn't replace paste buffer
-function! RestoreRegister()
-  let @" = s:restore_reg
-  return ''
-endfunction
-function! s:Repl()
-  let s:restore_reg = @"
-  return "p@=RestoreRegister()\<cr>"
-endfunction
-vmap <silent> <expr> p <sid>Repl()
-
 " Make Ctrl-P plugin a lot faster for Git projects
 " nnoremap <c-p> :CtrlPMixed<cr>
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 let g:ctrlp_use_caching = 0
 
+" gundo
+nmap     <Leader>g :GundoToggle<CR>
+
 " syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -409,14 +400,9 @@ let g:syntastic_error_symbol = "⚠"
 let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_coffee_checkers = ['coffeelint', 'coffee']
 " let g:syntastic_coffee_coffeelint_args = "--csv --file [absolute path to]/coffeelint.json"
-" **************************************************************************
+
 " nvim specific
 " **************************************************************************
-set backupdir=/tmp
-augroup terminal
-  autocmd TermOpen * setlocal nospell
-augroup END
-
 " move from the neovim terminal window to somewhere else
 tnoremap <c-h> <c-\><c-n><c-w>h
 tnoremap <c-j> <c-\><c-n><c-w>j
@@ -424,8 +410,6 @@ tnoremap <c-k> <c-\><c-n><c-w>k
 tnoremap <c-l> <C-\><C-n><C-w>l
 
 tnoremap <Esc><Esc> <C-\><C-n>
-
-nmap     <Leader>v :tabedit ~/.config/nvim/init.vim<CR>
 
 " Useful maps
 " hide/close all terminals
@@ -446,3 +430,4 @@ nmap <buffer> ,e ^v%,e
 nmap <buffer> ,eb ggVG,e
 " fix nvim bug
 nmap <BS> <C-W>h
+" }}}                                                       "
