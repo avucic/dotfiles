@@ -57,7 +57,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'terryma/vim-expand-region'
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
+Plug 'Raimondi/delimitMate'
 Plug 'mkitt/tabline.vim'
 Plug 'rizzatti/funcoo.vim'
 Plug 'rizzatti/dash.vim'
@@ -231,8 +232,6 @@ if bufwinnr(1)
   " map < <C-W><
 endif
 
-
-
 " split
 set splitbelow
 set splitright
@@ -272,6 +271,13 @@ imap <silent> <Leader>ct <Esc>:set   cursorcolumn!  cursorline! <CR>a
 imap <silent> <Leader>co <Esc>:set   cursorcolumn   cursorline  <CR>a
  map <silent> <Leader>cn      :set nocursorcolumn nocursorline  <CR>
 imap <silent> <Leader>cn <Esc>:set nocursorcolumn nocursorline  <CR>a
+
+" quick search fom visual
+vnoremap // y/<C-R>"<CR>"
+
+" next/prev quicklist item
+nmap <c-b> :cprevious<CR>
+nmap <c-n> :cnext<CR>
 
 " folding
 nnoremap <Space> za
