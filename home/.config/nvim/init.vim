@@ -17,7 +17,7 @@ augroup myvimrchooks
 au!
   autocmd bufwritepost init.vim source $HOME/.config/nvim/init.vim
 augroup END
-let mapleader=","
+let mapleader="\<Space>"
 
 " nvim specific
 " **************************************************************************
