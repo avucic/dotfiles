@@ -57,8 +57,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'terryma/vim-expand-region'
-" Plug 'jiangmiao/auto-pairs'
-Plug 'Raimondi/delimitMate'
+Plug 'jiangmiao/auto-pairs'
+" Plug 'Raimondi/delimitMate'
 Plug 'mkitt/tabline.vim'
 Plug 'rizzatti/funcoo.vim'
 Plug 'rizzatti/dash.vim'
@@ -209,7 +209,7 @@ set foldmethod=marker
 " " set foldexpr=GetFold()
 " set foldnestmax=10        " deepest fold is 10 levels
 " set foldlevel=99          " close all folds by default
-" set foldlevelstart=99
+set foldlevelstart=2
 "
 nmap <Leader>ff :call <SID>ToggleFold()<CR>
 function! s:ToggleFold()
@@ -271,6 +271,20 @@ imap <silent> <Leader>ct <Esc>:set   cursorcolumn!  cursorline! <CR>a
 imap <silent> <Leader>co <Esc>:set   cursorcolumn   cursorline  <CR>a
  map <silent> <Leader>cn      :set nocursorcolumn nocursorline  <CR>
 imap <silent> <Leader>cn <Esc>:set nocursorcolumn nocursorline  <CR>a
+
+
+"=== pry ===
+" quickfix list for breakpoints
+nmap <Leader>i :Ag binding.pry<CR>
+" …also, Insert Mode as bpry<space>
+iabbr bpry require'pry';binding.pry
+" And admit that the typos happen:
+iabbr bpry require'pry';binding.pry
+" Add the pry debug line with \bp (or <Space>bp, if you did: map <Space> <Leader> )
+map <Leader>bp orequire'pry';binding.pry<esc>:w<cr>
+" Alias for one-handed operation:
+map <Leader><Leader>p <Leader>bp
+"===========================
 
 " quick search fom visual
 vnoremap // y/<C-R>"<CR>"
@@ -337,10 +351,14 @@ vmap <C-v> <Plug>(expand_region_shrink)
 " Splitjoin plugin keybinding
 nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
 
+" Syntastic
+" let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+nnoremap <Leader>ee :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
 " Nerdtree
 " nmap <leader>[ :NERDTreeTabsToggle<cr>
 nmap <leader>[ :NERDTreeToggle<cr>
+map <leader>r :NERDTreeFind<cr>
 
 " Easymotion
 map <Leader> <Plug>(easymotion-prefix)
@@ -406,6 +424,24 @@ let g:syntastic_error_symbol = "⚠"
 let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_coffee_checkers = ['coffeelint', 'coffee']
 " let g:syntastic_coffee_coffeelint_args = "--csv --file [absolute path to]/coffeelint.json"
+
+" Fugitive
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit -v -q<CR>
+nnoremap <leader>ga :Gcommit --amend<CR>
+nnoremap <leader>gt :Gcommit -v -q %<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>ge :Gedit<CR>
+nnoremap <leader>gr :Gread<CR>
+nnoremap <leader>gw :Gwrite<CR><CR>
+nnoremap <leader>gl :silent! Glog<CR>
+nnoremap <leader>gp :Ggrep<Space>
+nnoremap <leader>gm :Gmove<Space>
+nnoremap <leader>gb :Git branch<Space>
+nnoremap <leader>go :Git checkout<Space>
+nnoremap <leader>gps :Dispatch! git push<CR>
+nnoremap <leader>gpl :Dispatch! git pull<CR>
+
 
 " nvim specific
 " **************************************************************************
