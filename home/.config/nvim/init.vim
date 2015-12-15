@@ -57,8 +57,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'terryma/vim-expand-region'
-Plug 'jiangmiao/auto-pairs'
-" Plug 'Raimondi/delimitMate'
+" Plug 'jiangmiao/auto-pairs'
+Plug 'Raimondi/delimitMate'
 Plug 'mkitt/tabline.vim'
 Plug 'rizzatti/funcoo.vim'
 Plug 'rizzatti/dash.vim'
@@ -430,7 +430,8 @@ nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gc :Gcommit -v -q<CR>
 nnoremap <leader>ga :Gcommit --amend<CR>
 nnoremap <leader>gt :Gcommit -v -q %<CR>
-nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gd :Gvdiff<CR>
+nnoremap <leader>gD :Git diff<CR>
 nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>gr :Gread<CR>
 nnoremap <leader>gw :Gwrite<CR><CR>

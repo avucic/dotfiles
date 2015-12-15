@@ -51,3 +51,5 @@ exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
 	keepBackup = false
 [mergetool "fugitive"]
 	cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
+[rebase]
+	autosquash = true
