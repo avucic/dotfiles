@@ -16,7 +16,14 @@ filetype plugin indent on    " required
 augroup myvimrchooks
 au!
   autocmd bufwritepost init.vim source $HOME/.config/nvim/init.vim
+  " Restore cursor position
+  autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
 augroup END
+
+
 let mapleader="\<Space>"
 
 " nvim specific
@@ -68,7 +75,7 @@ Plug 'nelstrom/vim-qargs'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'tpope/vim-abolish' " text inflection and case  manipulation
 Plug 'scrooloose/syntastic'
-Plug 'kshenoy/vim-signature'
+Plug 'kshenoy/vim-signature' "vim marks
 Plug 'gregsexton/gitv'
 " Plug 'jeetsukumaran/vim-buffergator'
 Plug 'Shougo/neocomplcache.vim' | 
@@ -294,7 +301,7 @@ nmap <c-b> :cprevious<CR>
 nmap <c-n> :cnext<CR>
 
 " folding
-nnoremap <Space> za
+nnoremap <Leader><Space> za
 " Bubble single lines
 nmap     <C-Up> ddkP
 nmap     <C-Down> ddp

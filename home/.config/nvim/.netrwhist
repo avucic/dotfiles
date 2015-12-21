@@ -1,11 +1,3 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/Users/alex/Work/Mastered/mastered/app'
-let g:netrw_dirhist_2='/Users/alex/Work/Mastered/mastered/app/controllers'
-let g:netrw_dirhist_3='/Users/alex/Work/Mastered/mastered'
-let g:netrw_dirhist_4='/Users/alex/Work/Mastered/mastered/app'
-let g:netrw_dirhist_5='/Users/alex/Work/Mastered/mastered/app/controllers'
-let g:netrw_dirhist_6='/Users/alex/Work/Dropongo/Development/dropongo/test/dropongo/routes'
-let g:netrw_dirhist_7='/Users/alex/dotfiles'
-let g:netrw_dirhist_8='/Users/alex/dotfiles/home'
-let g:netrw_dirhist_9='/Users/alex/dotfiles'
+let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_1='ftp://uniquewe@vucicaleksandar.com/public_html/enaf.rs/wp/wp-content/themes/enaf/'

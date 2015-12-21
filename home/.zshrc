@@ -56,7 +56,7 @@ export MAIL_INTERCEPTOR_EMAIL="contact@vucicaleksandar.com"
 export GNUTERM=x11
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export EDITOR=subl
+export EDITOR=nvim
 export NODE_PATH=/usr/local/lib/node_modules
 
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome  --args --disable-web-security &"

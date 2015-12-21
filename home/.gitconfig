@@ -1,5 +1,5 @@
 [core]
-	excludesfile = /Users/alex/.gitignore
+	excludesfile = /Users/vucinjo/.gitignore
 	autocrlf = input
 	editor = nvim
 [user]
