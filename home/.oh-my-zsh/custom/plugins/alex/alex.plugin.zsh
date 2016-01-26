@@ -10,6 +10,10 @@ df() { cd ~/dotfiles/$1; }
 _df() { _files -W ~/dotfiles/ -/; }
 compdef _df df
 
+wb() { cd ~/Work/WiseBubble/$1; }
+_wb() { _files -W ~/Work/WiseBubble/ -/; }
+compdef _wb wb
+
 
 
 

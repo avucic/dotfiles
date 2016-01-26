@@ -269,16 +269,9 @@ nmap <S-Enter> O<Esc>
 nmap <CR> o<Esc>
 
 " cursor
-imap <silent> <Leader>cl <Esc>:set                  cursorline! <CR>a
- map <silent> <Leader>cc      :set   cursorcolumn!              <CR>
-imap <silent> <Leader>cc <Esc>:set   cursorcolumn!              <CR>a
- map <silent> <Leader>ct      :set   cursorcolumn!  cursorline! <CR>
-imap <silent> <Leader>ct <Esc>:set   cursorcolumn!  cursorline! <CR>a
- map <silent> <Leader>co      :set   cursorcolumn   cursorline  <CR>
-imap <silent> <Leader>co <Esc>:set   cursorcolumn   cursorline  <CR>a
- map <silent> <Leader>cn      :set nocursorcolumn nocursorline  <CR>
-imap <silent> <Leader>cn <Esc>:set nocursorcolumn nocursorline  <CR>a
-
+nmap <silent> <Leader>cl <Esc>:set                  cursorline! <CR>a
+nmap <silent> <Leader>cc      :set   cursorcolumn!              <CR>
+nmap <silent> <Leader>cn      :set nocursorcolumn nocursorline  <CR>
 
 "=== pry ===
 " quickfix list for breakpoints
