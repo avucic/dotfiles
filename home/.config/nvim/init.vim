@@ -25,7 +25,7 @@ augroup END
 
 
 let mapleader="\<Space>"
-
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 " nvim specific
 " **************************************************************************
 set backupdir=/tmp

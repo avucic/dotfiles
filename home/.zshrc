@@ -50,6 +50,10 @@ rbenv-clean(){gem list | cut -d" " -f1 | xargs gem uninstall -aIx}
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 export PATH="$HOME/dotfiles/bin:$PATH"
 
+### PG
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
+alias FIX_PG="declare -x PGDATA='/Users/vucinjo/Library/Application Support/Postgres/var-9.4' && pg_ctl restart -m immediate"
+
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 export MAIL_INTERCEPTOR_EMAIL="contact@vucicaleksandar.com"
