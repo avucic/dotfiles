@@ -74,12 +74,12 @@ Plug 'tommcdo/vim-exchange'
 Plug 'nelstrom/vim-qargs'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'tpope/vim-abolish' " text inflection and case  manipulation
-Plug 'scrooloose/syntastic'
+Plug 'benekastah/neomake'
 Plug 'kshenoy/vim-signature' "vim marks
 Plug 'gregsexton/gitv'
 " Plug 'jeetsukumaran/vim-buffergator'
-Plug 'Shougo/neocomplcache.vim' | 
-  Plug 'Shougo/neosnippet' | 
+Plug 'Shougo/neocomplcache.vim' |
+  Plug 'Shougo/neosnippet' |
   Plug 'Shougo/neosnippet-snippets' |
   Plug 'SirVer/ultisnips'
 " Plug 'AndrewRadev/splitjoin.vim'
@@ -239,6 +239,9 @@ if bufwinnr(1)
   " map < <C-W><
 endif
 
+" search for visually hightlighted text
+vnoremap <C-r> "0y<Esc>:%s/<C-r>0//g<left><left>
+
 " split
 set splitbelow
 set splitright
@@ -246,9 +249,15 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-h> <C-w>h
 nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
-" open aka terminal split
-nmap <C-w>d :bot split<CR>
-nnoremap <C-w>d :bot split <bar> :resize 10<CR>
+
+
+" open  terminal split
+" nmap <C-w>d :bot split<CR>
+" nnoremap <C-w>d :bot split <bar> :resize 10<CR>
+:tnoremap <Esc> <C-\><C-n>
+nnoremap <C-w>t  :below 10sp term://$SHELL<cr>i
+" Open terminal and run lein figwheel
+" nnoremap <C-w>t :botright split <bar> :resize 10 <bar> :terminal<CR>
 
 " vp doesn't replace paste buffer
 function! RestoreRegister()
@@ -351,9 +360,34 @@ vmap <C-v> <Plug>(expand_region_shrink)
 " Splitjoin plugin keybinding
 nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
 
+" Neomake
+autocmd! BufWritePost * Neomake
+let g:neomake_open_list = 1
+let g:neomake_warning_sign = {
+  \ 'text': '⚠',
+  \ 'texthl': 'WarningMsg',
+  \ }
+
+let g:neomake_error_sign = {
+  \ 'text': '✗',
+  \ 'texthl': 'ErrorMsg',
+  \ }
+
 " Syntastic
 " let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-nnoremap <Leader>ee :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+" nnoremap <Leader>ee :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" " let g:syntastic_error_symbol = "✗"
+" let g:syntastic_error_symbol = "⚠"
+" let g:syntastic_warning_symbol = "⚠"
+" let g:syntastic_coffee_checkers = ['coffeelint', 'coffee']
+" let g:syntastic_coffee_coffeelint_args = "--csv --file [absolute path to]/coffeelint.json"
 
 " Nerdtree
 " nmap <leader>[ :NERDTreeTabsToggle<cr>
@@ -411,20 +445,6 @@ let g:ctrlp_use_caching = 0
 " gundo
 nmap     <Leader>g :GundoToggle<CR>
 
-" syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-" let g:syntastic_error_symbol = "✗"
-let g:syntastic_error_symbol = "⚠"
-let g:syntastic_warning_symbol = "⚠"
-let g:syntastic_coffee_checkers = ['coffeelint', 'coffee']
-" let g:syntastic_coffee_coffeelint_args = "--csv --file [absolute path to]/coffeelint.json"
-
 " Fugitive
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gc :Gcommit -v -q<CR>
@@ -442,7 +462,7 @@ nnoremap <leader>gb :Git branch<Space>
 nnoremap <leader>go :Git checkout<Space>
 nnoremap <leader>gps :Dispatch! git push<CR>
 nnoremap <leader>gpl :Dispatch! git pull<CR>
-autocmd User fugitive 
+autocmd User fugitive
   \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
   \   nnoremap <buffer> .. :edit %:h<CR> |
   \ endif
@@ -465,8 +485,6 @@ nnoremap <silent> ,th :call neoterm#close_all()<cr>
 nnoremap <silent> ,tl :call neoterm#clear()<cr>
 " kills the current job (send a <c-c>)
 nnoremap <silent> ,tc :call neoterm#kill()<cr>
-" Open terminal and run lein figwheel
-nnoremap <C-w>t :botright split <bar> :resize 10 <bar> :terminal<CR>
 
 nmap <Leader>term <C-w>v:terminal<CR>lein figwheel<CR><C-\><C-n><C-w>p
 " Evaluate anything from the visual mode in the next window
