@@ -26,6 +26,7 @@ augroup END
 
 let mapleader="\<Space>"
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " nvim specific
 " **************************************************************************
 set backupdir=/tmp
@@ -49,6 +50,7 @@ Plug 'jistr/vim-nerdtree-tabs',                   { 'on':  'NERDTreeToggle' }
 Plug 'junegunn/vim-easy-align'
 Plug 'edkolev/tmuxline.vim'
 Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
@@ -86,6 +88,8 @@ Plug 'Shougo/neocomplcache.vim' |
 " Plug 'bendavis78/vim-polymer'
 Plug 'Lokaltog/vim-easymotion'
 " Plug 'cazador481/fakeclip.neovim'
+" Plug 'taiansu/nerdtree-ag'
+Plug 'kassio/neoterm'
 "}}}
 " Ruby {{{2
 Plug 'tpope/vim-rbenv',                           { 'for': 'ruby' }
@@ -163,10 +167,6 @@ endif
 " vin indent guideline
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size  = 1
-" Vim Airline
-let g:airline_powerline_fonts   = 1
-" Nerdtree
-set guioptions-=L         " remove scrollbar for NERDTree
 " }}}                                                           "
 
 " 04. Vim UI:{{{
@@ -249,15 +249,6 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-h> <C-w>h
 nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
-
-
-" open  terminal split
-" nmap <C-w>d :bot split<CR>
-" nnoremap <C-w>d :bot split <bar> :resize 10<CR>
-:tnoremap <Esc> <C-\><C-n>
-nnoremap <C-w>t  :below 10sp term://$SHELL<cr>i
-" Open terminal and run lein figwheel
-" nnoremap <C-w>t :botright split <bar> :resize 10 <bar> :terminal<CR>
 
 " vp doesn't replace paste buffer
 function! RestoreRegister()
@@ -373,26 +364,15 @@ let g:neomake_error_sign = {
   \ 'texthl': 'ErrorMsg',
   \ }
 
-" Syntastic
-" let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-" nnoremap <Leader>ee :SyntasticCheck<CR> :SyntasticToggleMode<CR>
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-" " let g:syntastic_error_symbol = "✗"
-" let g:syntastic_error_symbol = "⚠"
-" let g:syntastic_warning_symbol = "⚠"
-" let g:syntastic_coffee_checkers = ['coffeelint', 'coffee']
-" let g:syntastic_coffee_coffeelint_args = "--csv --file [absolute path to]/coffeelint.json"
-
 " Nerdtree
+set guioptions-=L         " remove scrollbar for NERDTree
 " nmap <leader>[ :NERDTreeTabsToggle<cr>
 nmap <leader>[ :NERDTreeToggle<cr>
 map <leader>r :NERDTreeFind<cr>
+
+" Vim Airline
+let g:airline_powerline_fonts   = 1
+let g:airline_theme='base16'
 
 " Easymotion
 map <Leader> <Plug>(easymotion-prefix)
@@ -428,6 +408,41 @@ let g:UltiSnipsJumpForwardTrigger    = "<s-tab>"
 let g:UltiSnipsJumpBackwardTrigger   = "<c-k>"
 " Make sure my plugins override the default ones:
 let g:UltiSnipsDontReverseSearchPath = "1"
+
+" Neoterm
+let g:neoterm_position = 'horizontal'
+let g:neoterm_automap_keys = ',tt'
+" open  terminal split
+" nmap <C-w>d :bot split<CR>
+" nnoremap <C-w>d :bot split <bar> :resize 10<CR>
+:tnoremap <Esc> <C-\><C-n>
+" nnoremap <C-w>t  :below 10sp term://$SHELL<cr>i
+" Open terminal and run lein figwheel
+" nnoremap <Leader>t :Topen<CR>
+nnoremap <silent> <f10> :TREPLSendFile<cr>
+nnoremap <silent> <f9> :TREPLSend<cr>
+vnoremap <silent> <f9> :TREPLSend<cr>
+" run set test lib
+nnoremap <silent> <Leader>rt :call neoterm#test#run('all')<cr>
+nnoremap <silent> <Leader>rf :call neoterm#test#run('file')<cr>
+nnoremap <silent> <Leader>rn :call neoterm#test#run('current')<cr>
+nnoremap <silent> <Leader>rr :call neoterm#test#rerun()<cr>
+
+" Useful maps
+" hide/close terminal
+nnoremap <silent> <Leader>th :call neoterm#close()<cr>
+" clear terminal
+nnoremap <silent> <Leader>tl :call neoterm#clear()<cr>
+" kills the current job (send a <c-c>)
+nnoremap <silent> <Leader>tc :call neoterm#kill()<cr>
+
+" Rails commands
+command! Troutes :T rake routes
+command! -nargs=+ Troute :T rake routes | grep <args>
+command! Tmigrate :T rake db:migrate
+
+" Git commands
+command! -nargs=+ Tg :T git <args>
 
 " xmpfilter
 nmap <buffer> <F5> <Plug>(xmpfilter-run)
@@ -477,14 +492,6 @@ tnoremap <c-k> <c-\><c-n><c-w>k
 tnoremap <c-l> <C-\><C-n><C-w>l
 
 tnoremap <Esc><Esc> <C-\><C-n>
-
-" Useful maps
-" hide/close all terminals
-nnoremap <silent> ,th :call neoterm#close_all()<cr>
-" clear terminal
-nnoremap <silent> ,tl :call neoterm#clear()<cr>
-" kills the current job (send a <c-c>)
-nnoremap <silent> ,tc :call neoterm#kill()<cr>
 
 nmap <Leader>term <C-w>v:terminal<CR>lein figwheel<CR><C-\><C-n><C-w>p
 " Evaluate anything from the visual mode in the next window
