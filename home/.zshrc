@@ -63,6 +63,9 @@ export LC_ALL=en_US.UTF-8
 export EDITOR=nvim
 export NODE_PATH=/usr/local/lib/node_modules
 
+### Android
+export PATH=$PATH:~/Library/Android/sdk/platform-tools/
+
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome  --args --disable-web-security &"
 alias n='nvim'
 alias r='rails'

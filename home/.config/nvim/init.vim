@@ -273,6 +273,9 @@ nmap <silent> <Leader>cl <Esc>:set                  cursorline! <CR>a
 nmap <silent> <Leader>cc      :set   cursorcolumn!              <CR>
 nmap <silent> <Leader>cn      :set nocursorcolumn nocursorline  <CR>
 
+" code formatting
+au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+
 "=== pry ===
 " quickfix list for breakpoints
 nmap <Leader>i :Ag binding.pry<CR>
@@ -368,7 +371,7 @@ let g:neomake_error_sign = {
 set guioptions-=L         " remove scrollbar for NERDTree
 " nmap <leader>[ :NERDTreeTabsToggle<cr>
 nmap <leader>[ :NERDTreeToggle<cr>
-map <leader>r :NERDTreeFind<cr>
+map <leader>nf :NERDTreeFind<cr>
 
 " Vim Airline
 let g:airline_powerline_fonts   = 1
@@ -419,9 +422,9 @@ let g:neoterm_automap_keys = ',tt'
 " nnoremap <C-w>t  :below 10sp term://$SHELL<cr>i
 " Open terminal and run lein figwheel
 " nnoremap <Leader>t :Topen<CR>
-nnoremap <silent> <f10> :TREPLSendFile<cr>
-nnoremap <silent> <f9> :TREPLSend<cr>
-vnoremap <silent> <f9> :TREPLSend<cr>
+nnoremap <silent> <Leader>tf :TREPLSendFile<cr>
+nnoremap <silent> <Leader>ts :TREPLSend<cr>
+vnoremap <silent> <Leader>ts :TREPLSend<cr>
 " run set test lib
 nnoremap <silent> <Leader>rt :call neoterm#test#run('all')<cr>
 nnoremap <silent> <Leader>rf :call neoterm#test#run('file')<cr>
