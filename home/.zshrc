@@ -93,3 +93,5 @@ export ANDROID_SDK=/usr/local/Cellar/android-sdk/
 ##
 export PATH="$HOME/Library/Python/3.5/bin:$PATH"
 source ~/Library/Python/3.5/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

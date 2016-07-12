@@ -89,7 +89,7 @@ Plug 'Shougo/neocomplcache.vim' |
 Plug 'Lokaltog/vim-easymotion'
 " Plug 'cazador481/fakeclip.neovim'
 " Plug 'taiansu/nerdtree-ag'
-Plug 'kassio/neoterm'
+Plug 'kassio/neoterm', { 'commit': '9e33da0a' }
 "}}}
 " Ruby {{{2
 Plug 'tpope/vim-rbenv',                           { 'for': 'ruby' }
