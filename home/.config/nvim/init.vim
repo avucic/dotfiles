@@ -275,6 +275,7 @@ nmap <silent> <Leader>cn      :set nocursorcolumn nocursorline  <CR>
 
 " code formatting
 au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+autocmd BufNewFile,BufRead *.slim set ft=slim
 
 "=== pry ===
 " quickfix list for breakpoints
@@ -369,9 +370,7 @@ let g:neomake_error_sign = {
 
 " Nerdtree
 set guioptions-=L         " remove scrollbar for NERDTree
-" nmap <leader>[ :NERDTreeTabsToggle<cr>
 nmap <leader>[ :NERDTreeToggle<cr>
-map <leader>nf :NERDTreeFind<cr>
 
 " Vim Airline
 let g:airline_powerline_fonts   = 1
