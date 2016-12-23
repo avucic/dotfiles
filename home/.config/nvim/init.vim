@@ -44,6 +44,7 @@ Plug 'xolox/vim-misc'
 Plug 'triglav/vim-visual-increment'
 Plug 'chriskempson/base16-vim'
 Plug 'rking/ag.vim',                              { 'on':  'Ag' }
+Plug 'taiansu/nerdtree-ag'
 Plug 'kien/ctrlp.vim'
 Plug 'scrooloose/nerdtree',                       { 'on':  'NERDTreeToggle' }
 Plug 'jistr/vim-nerdtree-tabs',                   { 'on':  'NERDTreeToggle' }
@@ -80,10 +81,14 @@ Plug 'benekastah/neomake'
 Plug 'kshenoy/vim-signature' "vim marks
 Plug 'gregsexton/gitv'
 " Plug 'jeetsukumaran/vim-buffergator'
-Plug 'Shougo/neocomplcache.vim' |
-  Plug 'Shougo/neosnippet' |
-  Plug 'Shougo/neosnippet-snippets' |
-  Plug 'SirVer/ultisnips'
+
+
+
+Plug 'Shougo/neocomplcache.vim'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'SirVer/ultisnips'
+
 " Plug 'AndrewRadev/splitjoin.vim'
 " Plug 'bendavis78/vim-polymer'
 Plug 'Lokaltog/vim-easymotion'
@@ -292,7 +297,8 @@ map <Leader><Leader>p <Leader>bp
 
 " quick search fom visual
 vnoremap // y/<C-R>"<CR>"
-
+" search and replace from visual
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left><Paste>
 " next/prev quicklist item
 nmap <c-b> :cprevious<CR>
 nmap <c-n> :cnext<CR>
@@ -402,12 +408,19 @@ let g:neocomplcache_min_syntax_length            = 3
 let g:neocomplcache_force_overwrite_completefunc = 1
 
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-imap <S-tab>     <Plug>(neosnippet_expand_or_jump)
+" imap <S-tab><Plug>(neosnippet_expand_or_jump)
+
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
 
 let g:UltiSnipsExpandTrigger         = "<s-tab>"
 let g:UltiSnipsListSnippets          = "<c-tab>"
 let g:UltiSnipsJumpForwardTrigger    = "<s-tab>"
 let g:UltiSnipsJumpBackwardTrigger   = "<c-k>"
+ 
+ 
 " Make sure my plugins override the default ones:
 let g:UltiSnipsDontReverseSearchPath = "1"
 
@@ -420,7 +433,7 @@ let g:neoterm_automap_keys = ',tt'
 :tnoremap <Esc> <C-\><C-n>
 " nnoremap <C-w>t  :below 10sp term://$SHELL<cr>i
 " Open terminal and run lein figwheel
-" nnoremap <Leader>t :Topen<CR>
+" nnoremap <Leader>tt :Topen<CR>
 nnoremap <silent> <Leader>tf :TREPLSendFile<cr>
 nnoremap <silent> <Leader>ts :TREPLSend<cr>
 vnoremap <silent> <Leader>ts :TREPLSend<cr>
@@ -484,6 +497,11 @@ autocmd User fugitive
   \   nnoremap <buffer> .. :edit %:h<CR> |
   \ endif
 autocmd BufReadPost fugitive://* set bufhidden=delete
+set diffopt+=vertical
+
+" vim gutter
+let g:gitgutter_max_signs=9999
+
 
 " nvim specific
 " **************************************************************************
