@@ -19,28 +19,22 @@ endsnippet
 
 snippet :, "Object Value JS"
 ${1:value_name}:${0:value},
-endsnippet
+	endsnippet
 
-snippet : "Object key key: 'value'"
-${1:key}: ${2:"${3:value}"}${4:, }
-endsnippet
+	snippet : "Object key key: 'value'"
+	${1:key}: ${2:"${3:value}"}${4:, }
+	endsnippet
 
-snippet proto "Prototype (proto)"
-${1:class_name}.prototype.${2:method_name} = function(${3:first_argument}) ,,{
-	${0:// body...}
-};
+	snippet proto "Prototype (proto)"
+	${1:class_name}.prototype.${2:method_name} = function(${3:first_argument}) ,,{
+		${0:// body...}
+	};
 endsnippet
 
 snippet for "for loop"
 for ( ${1:i} = ${2:0}; $1 < ${3:things.length}; $1${4:++} ) {
 	$0
 }
-endsnippet
-
-snippet $each "jquery each loop"
-$("${1}").each(function(i,el){
-	$0
-});
 endsnippet
 
 snippet fun "function (fun)"
@@ -79,8 +73,8 @@ endsnippet
 
 snippet delegate "document delegate" w
 $(document).delegate('${1:#element}', '${2:event}', function(){
-  $0
-});
+		$0
+		});
 endsnippet
 
 snippet console "console log"
@@ -90,4 +84,19 @@ endsnippet
 snippet cl "console log"
 console.log( $1 );
 endsnippet
+
+snippet $each "jquery each loop"
+$("${1}").each(function(${2:i},${3:el}){
+		$0
+		});
+endsnippet
+
+snippet switch "switch function"
+switch (${1:#:var}) {
+	case ${2:#:val}:
+		${0:TARGET}
+		break;
+}
+endsnippet
+
 # vim:ft=snippets:
