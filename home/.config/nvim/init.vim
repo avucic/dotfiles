@@ -84,11 +84,14 @@ Plug 'gregsexton/gitv'
 
 
 
-Plug 'Shougo/neocomplcache.vim'
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
+" Plug 'Shougo/neocomplcache.vim'
+" Plug 'Shougo/neosnippet'
+" Plug 'Shougo/neosnippet-snippets'
 Plug 'SirVer/ultisnips'
-
+Plug 'honza/vim-snippets'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 " Plug 'AndrewRadev/splitjoin.vim'
 " Plug 'bendavis78/vim-polymer'
 Plug 'Lokaltog/vim-easymotion'
@@ -400,29 +403,20 @@ nmap ga <Plug>(EasyAlign)
 " blockle
 let g:blockle_mapping = '<Leader>bb'
 
-" NeoComplete
-let g:acp_enableAtStartup                        = 0
-let g:neocomplcache_enable_at_startup            = 1
-let g:neocomplcache_enable_smart_case            = 1
-let g:neocomplcache_min_syntax_length            = 3
-let g:neocomplcache_force_overwrite_completefunc = 1
-
+" deoplete config
+let g:deoplete#enable_at_startup = 1
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" imap <S-tab><Plug>(neosnippet_expand_or_jump)
-
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<tab>"
-" let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 
-let g:UltiSnipsExpandTrigger         = "<s-tab>"
-let g:UltiSnipsListSnippets          = "<c-tab>"
-let g:UltiSnipsJumpForwardTrigger    = "<s-tab>"
-let g:UltiSnipsJumpBackwardTrigger   = "<c-k>"
- 
- 
-" Make sure my plugins override the default ones:
-let g:UltiSnipsDontReverseSearchPath = "1"
+" let g:UltiSnipsExpandTrigger         = "<s-tab>"
+" let g:UltiSnipsListSnippets          = "<c-tab>"
+let g:UltiSnipsJumpForwardTrigger    = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger   = "<s-tab>"
+
+" tern
+let g:tern_request_timeout = 1
+let g:tern_show_signature_in_pum = 0
 
 " Neoterm
 let g:neoterm_position = 'horizontal'
