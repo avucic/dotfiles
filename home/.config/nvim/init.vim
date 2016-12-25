@@ -38,6 +38,7 @@ augroup END
 "02. Plugins:{{{
 call plug#begin()
 " General {{{2
+Plug 'tpope/vim-sensible'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'xolox/vim-notes',                           { 'on':  'Note' }
 Plug 'xolox/vim-misc'
@@ -194,13 +195,6 @@ set visualbell
 set cpoptions+=$          " Mark editable area and dollar sign et the end
 set laststatus=2
 set hidden                " allow to move to the next buffer even file is changed
-if has("gui_running")
-  " GUI is running or is about to start.
-  " Maximize gvim window (for an alternative on Windows, see simalt below).
-  " set lines=999 columns=999
-else
-  set lazyredraw
-endif
 " }}}                                                                "
 
 " 05. Text Formatting/Layout:{{{
@@ -406,21 +400,19 @@ let g:blockle_mapping = '<Leader>bb'
 
 " deoplete config
 let g:deoplete#enable_at_startup = 1
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = [
   \ 'tern#Complete',
   \ 'jspc#omni'
 \]
-set completeopt=longest,menuone,preview
-let g:deoplete#sources = {}
-let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
-let g:tern#command = ['tern']
-let g:tern#arguments = ['--persistent']
+" set completeopt=longest,menuone,preview
+" let g:tern#command = ['tern']
+" let g:tern#arguments = ['--persistent']
 " close the preview window when you're not using it
 let g:SuperTabClosePreviewOnPopupClose = 1
 autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-let g:UltiSnipsExpandTrigger="<S-tab>"
+let g:UltiSnipsExpandTrigger="<c-j>"
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " tern
