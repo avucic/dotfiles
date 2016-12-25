@@ -91,6 +91,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'ervandew/supertab'
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 " Plug 'AndrewRadev/splitjoin.vim'
 " Plug 'bendavis78/vim-polymer'
@@ -406,13 +407,21 @@ let g:blockle_mapping = '<Leader>bb'
 " deoplete config
 let g:deoplete#enable_at_startup = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+let g:deoplete#omni#functions = {}
+let g:deoplete#omni#functions.javascript = [
+  \ 'tern#Complete',
+  \ 'jspc#omni'
+\]
+set completeopt=longest,menuone,preview
+let g:deoplete#sources = {}
+let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
+let g:tern#command = ['tern']
+let g:tern#arguments = ['--persistent']
+" close the preview window when you're not using it
+let g:SuperTabClosePreviewOnPopupClose = 1
+autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+let g:UltiSnipsExpandTrigger="<S-tab>"
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-
-" let g:UltiSnipsExpandTrigger         = "<s-tab>"
-" let g:UltiSnipsListSnippets          = "<c-tab>"
-let g:UltiSnipsJumpForwardTrigger    = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger   = "<s-tab>"
 
 " tern
 let g:tern_request_timeout = 1
