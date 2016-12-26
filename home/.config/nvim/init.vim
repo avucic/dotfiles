@@ -83,11 +83,6 @@ Plug 'kshenoy/vim-signature' "vim marks
 Plug 'gregsexton/gitv'
 " Plug 'jeetsukumaran/vim-buffergator'
 
-
-
-" Plug 'Shougo/neocomplcache.vim'
-" Plug 'Shougo/neosnippet'
-" Plug 'Shougo/neosnippet-snippets'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -400,6 +395,14 @@ let g:blockle_mapping = '<Leader>bb'
 
 " deoplete config
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 1
+let g:deoplete#auto_complete_start_length = 1
+let g:deoplete#enable_refresh_always = 1
+let g:deoplete#max_list = 1000
+" let g:deoplete#enable_debug = 1
+" let g:deoplete#enable_profile = 1
+
+
 set completeopt=menuone,preview
 " close the preview window when you're not using it
 let g:SuperTabClosePreviewOnPopupClose = 1
