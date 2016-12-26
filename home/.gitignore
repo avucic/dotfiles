@@ -22,3 +22,4 @@ lt_client.log
 todo
 .virb/*
 .env
+.tern-*

@@ -400,21 +400,12 @@ let g:blockle_mapping = '<Leader>bb'
 
 " deoplete config
 let g:deoplete#enable_at_startup = 1
-" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-let g:deoplete#omni#functions = {}
-let g:deoplete#omni#functions.javascript = [
-  \ 'tern#Complete',
-  \ 'jspc#omni'
-\]
-" set completeopt=longest,menuone,preview
-" let g:tern#command = ['tern']
-" let g:tern#arguments = ['--persistent']
+set completeopt=menuone,preview
 " close the preview window when you're not using it
 let g:SuperTabClosePreviewOnPopupClose = 1
 autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 let g:UltiSnipsExpandTrigger="<c-j>"
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
 " tern
 let g:tern_request_timeout = 1
 let g:tern_show_signature_in_pum = 0
