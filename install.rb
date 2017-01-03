@@ -17,4 +17,4 @@ def linkify source_path, target_path
   end
 end
 linkify File.join( File.expand_path(File.dirname(__FILE__)), 'home' ), ENV['HOME']
-system "curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+# system "curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
