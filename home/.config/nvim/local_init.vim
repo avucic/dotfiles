@@ -1,13 +1,14 @@
-" 01. General {{{
+" General {{{
 " =============================================
-" Map leader to ,
-let mapleader="\<Space>"
-set clipboard=unnamed
-
+" set guifont=Monaco:h14
+set guifont=Monaco\ for\ Powerline:h12:w
+" split
+set splitbelow
+set splitright
+set nowrap
 " color
-if !exists('g:not_finish_vimplug')
-  colorscheme  base16-twilight
-endif
+colorscheme  base16-twilight
+
 let g:airline#extensions#tabline#enabled = 1
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
@@ -16,21 +17,28 @@ if exists('+colorcolumn')
   set colorcolumn=81
 endif
 
+set foldlevelstart=999
+" }}}
+
+" Code formatting {{{
+" =============================================
+au filetype xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+autocmd bufnewfile,bufread *.slim set ft=slim
+"}}}
+
+" Keymaps {{{
+" =============================================
 " clear higlight
 nnoremap <esc> :noh<return><esc>
-
-" open custom init file
-nmap     <Leader>v :tabedit ~/.config/nvim/local_init.vim<CR>
 
 " search for visually hightlighted text
 vnoremap <C-r> "0y<Esc>:%s/<C-r>0//g<left><left>
 
-" split
-set splitbelow
-set splitright
-
 " clear white space
-nnoremap <Leader>s :StripWhitespace<return><esc>  " clear whitespace
+nnoremap <Leader>s :FixWhitespacekj<return><esc>
+
+"" Clean search (highlight)
+nnoremap <esc> :noh<return><esc>
 
 " command line navigation
 cnoremap <C-a> <Home>
@@ -54,12 +62,6 @@ nnoremap tn  :tabnext<Space>
 nnoremap tm  :tabm<Space>
 nnoremap td  :tabclose<CR>
 
-"" Switching windows
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-noremap <C-h> <C-w>h
-
 " Toggle buffer
 nmap     <Leader>bb :ls<CR>:buffer<Space>         " show buffers
 
@@ -67,46 +69,44 @@ nmap     <Leader>bb :ls<CR>:buffer<Space>         " show buffers
 command! Troutes :T rake routes
 command! -nargs=+ Troute :T rake routes | grep <args>
 command! Tmigrate :T rake db:migrate
-"}}}
-
-" 03. Plugns {{{
-" =============================================
-" Vim Airline
-let g:airline_powerline_fonts   = 1
-let g:airline_theme='base16'
 
 " cursor
 nmap <silent> <Leader>cl <Esc>:set                  cursorline! <CR>a
 nmap <silent> <Leader>cc      :set   cursorcolumn!              <CR>
 nmap <silent> <Leader>cn      :set nocursorcolumn nocursorline  <CR>
+"}}}
+
+" Plugns {{{
+" =============================================
+
+" Vim Airline
+" ------------------------------------------------------------------------------
+" let g:airline_powerline_fonts   = 1
+let g:airline_theme='base16'
 
 " Nerdtree
+" ------------------------------------------------------------------------------
 nmap <leader>[ :NERDTreeToggle<cr>
 
 " Tagbar
+" ------------------------------------------------------------------------------
 nmap <Leader>] :TagbarToggle<CR>
 
 " vim-expand-regon
+" ------------------------------------------------------------------------------
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 " Undotree
-nmap     <Leader>h :UndotreeToggle<CR>
+" ------------------------------------------------------------------------------
+nmap <Leader>hh :UndotreeToggle<CR>
 
 " Splitjoin plugin keybinding
+" ------------------------------------------------------------------------------
 nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
 
-" Easymotion
-" map <Leader> <Plug>(easymotion-prefix)
-map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
-nmap s <Plug>(easymotion-overwin-f2)
-map <Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
-
-" deoplete config
+" Deoplete
+" ------------------------------------------------------------------------------
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
 let g:deoplete#auto_complete_start_length = 1
@@ -115,23 +115,32 @@ let g:deoplete#max_list = 1000
 set completeopt=menuone,preview
 " close the preview window when you're not using it
 let g:SuperTabClosePreviewOnPopupClose = 1
-autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 let g:UltiSnipsExpandTrigger="<c-j>"
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" tern
 let g:tern_request_timeout = 1
 let g:tern_show_signature_in_pum = 0
-
 " ultisnips
 let g:UltiSnipsExpandTrigger="<C-j>"
-let g:UltiSnipsJumpForwardTrigger="<s-tab>"
-let g:UltiSnipsJumpBackwardTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsEditSplit="vertical"
 
 " vim-notes
+" ------------------------------------------------------------------------------
 let g:notes_directories = ['~/Google\ Drive/Notes/']
 
+" SuperTab
+" ------------------------------------------------------------------------------
+let g:SuperTabDefaultCompletionType = "<c-n>"
+
+" EasyAlign
+" ------------------------------------------------------------------------------
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
 " Neoterm
+" ------------------------------------------------------------------------------
 let g:neoterm_position = 'horizontal'
 let g:neoterm_automap_keys = ',tt'
 :tnoremap <Esc> <C-\><C-n>
@@ -147,4 +156,39 @@ nnoremap <silent> <Leader>th :call neoterm#close()<cr>
 nnoremap <silent> <Leader>tl :call neoterm#clear()<cr>
 " kills the current job (send a <c-c>)
 nnoremap <silent> <Leader>tc :call neoterm#kill()<cr>
+
+" Limelight
+" ------------------------------------------------------------------------------
+let g:limelight_conceal_guifg = 'DarkGray'
+nmap <Leader>l :Limelight!!<CR>
+xmap <Leader>l :Limelight!!<CR>
+
+" Goyo (distraction-free)
+" ------------------------------------------------------------------------------
+let g:goyo_width="80%"
+nnoremap <Leader>g :Goyo<CR>
+function! s:goyo_enter()
+  set scrolloff=999
+endfunction
+function! s:goyo_leave()
+  set scrolloff=5
+endfunction
+
+" IndentLine
+" ------------------------------------------------------------------------------
+let g:indentLine_enabled = 0
+let g:indentLine_color_dark = 1
+nmap <Leader>i :IndentLinesToggle<CR>
+
+" Smooth Scroll
+" ------------------------------------------------------------------------------
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+
+" Syntastic Sass
+" ------------------------------------------------------------------------------
+let g:syntastic_sass_checkers=["sasslint"]
+let g:syntastic_scss_checkers=["sasslint"]
 "}}}
