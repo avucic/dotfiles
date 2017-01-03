@@ -23,6 +23,16 @@ au!
     \ endif
 augroup END
 
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
+" last position
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 
 let mapleader="\<Space>"
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
@@ -38,6 +48,8 @@ augroup END
 "02. Plugins:{{{
 call plug#begin()
 " General {{{2
+Plug 'sickill/vim-pasta'
+Plug 'terryma/vim-smooth-scroll'
 Plug 'tpope/vim-sensible'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'xolox/vim-notes',                           { 'on':  'Note' }
@@ -73,7 +85,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'mkitt/tabline.vim'
 Plug 'rizzatti/funcoo.vim'
 Plug 'rizzatti/dash.vim'
-Plug 'sjl/gundo.vim'
+Plug 'mbbill/undotree'
 Plug 'tommcdo/vim-exchange'
 Plug 'nelstrom/vim-qargs'
 Plug 'nelstrom/vim-visual-star-search'
@@ -81,17 +93,18 @@ Plug 'tpope/vim-abolish' " text inflection and case  manipulation
 Plug 'benekastah/neomake'
 Plug 'kshenoy/vim-signature' "vim marks
 Plug 'gregsexton/gitv'
-" Plug 'jeetsukumaran/vim-buffergator'
-
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 Plug 'ervandew/supertab'
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+Plug 'Lokaltog/vim-easymotion'
+Plug 'sts10/vim-zipper'
 " Plug 'AndrewRadev/splitjoin.vim'
 " Plug 'bendavis78/vim-polymer'
-Plug 'Lokaltog/vim-easymotion'
 " Plug 'cazador481/fakeclip.neovim'
 " Plug 'taiansu/nerdtree-ag'
 Plug 'kassio/neoterm', { 'commit': '9e33da0a' }
@@ -147,13 +160,11 @@ set t_Co=256              " enable 256-color mode.
 " let base16colorspace=256
 " set term=screen-256color
 set background=dark
+" set termguicolors
 syntax enable             " enable syntax highlighting (previously syntax on).
 
-if has("gui_running")
-  colorscheme  base16-twilight
-elseif &t_Co == 256
-  colorscheme  base16-twilight
-endif
+colorscheme  base16-twilight
+" colorscheme  base16-tomorrow-night
 
 " set guifont=Monaco:h14
 set guifont=Monaco\ for\ Powerline:h12:w
@@ -179,14 +190,14 @@ set number                " show line numbers
 set numberwidth=5         " make the number gutter 6 characters wide
 set cul                   " highlight current line
 set laststatus=2          " last window always has a statusline
-"set nohlsearch            " Don't continue to highlight searched phrases.
+"set nohlsearch           " Don't continue to highlight searched phrases.
 set hlsearch              " Don't continue to highlight searched phrases.
 set incsearch             " But do highlight as you type your search.
 set ignorecase            " Make searches case-insensitive.
 set ruler                 " Always show info along bottom.
 set showmatch
 set visualbell
-" set hlsearch
+set lazyredraw
 set cpoptions+=$          " Mark editable area and dollar sign et the end
 set laststatus=2
 set hidden                " allow to move to the next buffer even file is changed
@@ -208,23 +219,23 @@ set listchars=tab:▸\ ,eol:¬
 " set cursorline
 
 "folding settings
-set foldenable            " enable folding
-set foldmethod=marker
-" " set foldmethod=expr
-" " set foldexpr=GetFold()
+" set foldenable            " enable folding
+" set foldmethod=marker
+" set foldmethod=expr
+" set foldexpr=GetFold()
 " set foldnestmax=10        " deepest fold is 10 levels
 " set foldlevel=99          " close all folds by default
-set foldlevelstart=2
+set foldlevelstart=999
 "
-nmap <Leader>ff :call <SID>ToggleFold()<CR>
-function! s:ToggleFold()
-    if &foldmethod == 'marker'
-        let &l:foldmethod = 'syntax'
-    else
-        let &l:foldmethod = 'marker'
-    endif
-    echo 'foldmethod is now ' . &l:foldmethod
-endfunction
+" nmap <Leader>ff :call <SID>ToggleFold()<CR>
+" function! s:ToggleFold()
+"     if &foldmethod == 'marker'
+"         let &l:foldmethod = 'syntax'
+"     else
+"         let &l:foldmethod = 'marker'
+"     endif
+"     echo 'foldmethod is now ' . &l:foldmethod
+" endfunction
 
 if has("gui_macvim")
   set macmeta            "meta key combinations for VIM on OS X
@@ -376,7 +387,16 @@ let g:airline_powerline_fonts   = 1
 let g:airline_theme='base16'
 
 " Easymotion
-map <Leader> <Plug>(easymotion-prefix)
+" map <Leader> <Plug>(easymotion-prefix)
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+nmap s <Plug>(easymotion-overwin-f2)
+map <Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+
 
 " Tagbar
 nmap <Leader>] :TagbarToggle<CR>
@@ -461,8 +481,8 @@ imap <buffer> <F4> <Plug>(xmpfilter-mark)
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 let g:ctrlp_use_caching = 0
 
-" gundo
-nmap     <Leader>g :GundoToggle<CR>
+" Undotree
+nmap     <Leader>h :UndotreeToggle<CR>
 
 " Fugitive
 nnoremap <leader>gs :Gstatus<CR>
@@ -491,6 +511,25 @@ set diffopt+=vertical
 " vim gutter
 let g:gitgutter_max_signs=9999
 
+" limelight
+let g:limelight_conceal_guifg = 'DarkGray'
+nmap <Leader>l :Limelight!!<CR>
+xmap <Leader>l :Limelight!!<CR>
+" Goyo (distraction-free)
+let g:goyo_width="80%"
+nnoremap <Leader>g :Goyo<CR>
+function! s:goyo_enter()
+  set scrolloff=999
+endfunction
+function! s:goyo_leave()
+  set scrolloff=5
+endfunction
+
+" vim smooth scroll
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " nvim specific
 " **************************************************************************
@@ -511,4 +550,4 @@ nmap <buffer> ,e ^v%,e
 nmap <buffer> ,eb ggVG,e
 " fix nvim bug
 nmap <BS> <C-W>h
-" }}}                                                       "
+
