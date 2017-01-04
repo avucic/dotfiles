@@ -18,7 +18,6 @@ Plug 'nelstrom/vim-visual-star-search'
 
 " Look and feel
 Plug 'chriskempson/base16-vim'
-Plug 'terryma/vim-smooth-scroll'
 Plug 'edkolev/tmuxline.vim'
 Plug 'kshenoy/vim-signature' "vim marks
 

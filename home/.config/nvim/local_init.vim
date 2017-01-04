@@ -28,6 +28,8 @@ autocmd bufnewfile,bufread *.slim set ft=slim
 
 " Keymaps {{{
 " =============================================
+"jump to a matching opening or closing parenthesis and select
+noremap % v%
 " Edit vim config
 nmap     <Leader>nn :tabedit $MYVIMRC<CR>
 
@@ -182,13 +184,6 @@ endfunction
 let g:indentLine_enabled = 0
 let g:indentLine_color_dark = 1
 nmap <Leader>i :IndentLinesToggle<CR>
-
-" Smooth Scroll
-" ------------------------------------------------------------------------------
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " Syntastic Sass
 " ------------------------------------------------------------------------------
