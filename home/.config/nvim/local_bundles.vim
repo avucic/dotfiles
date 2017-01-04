@@ -22,7 +22,6 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'kshenoy/vim-signature' "vim marks
 
 " Text
-Plug 'sts10/vim-zipper' "Better folding
 Plug 'xolox/vim-notes'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/goyo.vim'  "Write free text
@@ -42,12 +41,12 @@ Plug 'Valloric/MatchTagAlways'
 " Ruby
 Plug 'tpope/vim-bundler'
 Plug 'slim-template/vim-slim'
+Plug 'bruno-/vim-ruby-fold'
 " Plug 'tpope/vim-rbenv',                           { 'for': 'ruby' }
 " Plug 'vim-ruby/vim-ruby',                         { 'for': 'ruby' }
 " Plug 'skalnik/vim-vroom',                         { 'for': 'ruby' }
 " Plug 't9md/vim-ruby-xmpfilter',                   { 'for': 'ruby' }
 " Plug 'tpope/vim-dispatch',                        { 'for': 'ruby' }
-" Plug 'bruno-/vim-ruby-fold',                      { 'for': 'ruby' }
 " Plug 'jgdavey/vim-blockle',                       { 'for': 'ruby' }
 " Plug 'tpope/vim-endwise',                         { 'for': 'ruby' }
 

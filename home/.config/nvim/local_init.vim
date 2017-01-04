@@ -16,8 +16,11 @@ let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 if exists('+colorcolumn')
   set colorcolumn=81
 endif
-
-set foldlevelstart=999
+" Folding
+set foldlevelstart=99
+set foldmethod=syntax
+set foldlevel=1
+autocmd FileType .vim set foldmethod=marker
 " }}}
 
 " Code formatting {{{
@@ -28,6 +31,11 @@ autocmd bufnewfile,bufread *.slim set ft=slim
 
 " Keymaps {{{
 " =============================================
+" Folding
+nnoremap <Leader>fs :set foldmethod=syntax<CR>
+nnoremap <Leader>fm :set foldmethod=marker<CR>
+nnoremap <Leader>fi :set foldmethod=indent<CR>
+
 "jump to a matching opening or closing parenthesis and select
 noremap % v%
 " Edit vim config
