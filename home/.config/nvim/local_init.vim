@@ -28,6 +28,9 @@ autocmd bufnewfile,bufread *.slim set ft=slim
 
 " Keymaps {{{
 " =============================================
+" Edit vim config
+nmap     <Leader>nn :tabedit $MYVIMRC<CR>
+
 " clear higlight
 nnoremap <esc> :noh<return><esc>
 
@@ -35,7 +38,7 @@ nnoremap <esc> :noh<return><esc>
 vnoremap <C-r> "0y<Esc>:%s/<C-r>0//g<left><left>
 
 " clear white space
-nnoremap <Leader>s :FixWhitespacekj<return><esc>
+nnoremap <Leader>s :FixWhitespace<return><esc>
 
 "" Clean search (highlight)
 nnoremap <esc> :noh<return><esc>
@@ -160,8 +163,8 @@ nnoremap <silent> <Leader>tc :call neoterm#kill()<cr>
 " Limelight
 " ------------------------------------------------------------------------------
 let g:limelight_conceal_guifg = 'DarkGray'
-nmap <Leader>l :Limelight!!<CR>
-xmap <Leader>l :Limelight!!<CR>
+nmap <Leader>l <Plug>(Limelight)
+xmap <Leader>l <Plug>(Limelight)
 
 " Goyo (distraction-free)
 " ------------------------------------------------------------------------------
