@@ -35,9 +35,6 @@ Plug 'tpope/vim-surround'
 " Syntax
 Plug 'gcorne/vim-sass-lint'
 
-" HTML
-Plug 'Valloric/MatchTagAlways'
-
 " Ruby
 Plug 'tpope/vim-bundler'
 Plug 'slim-template/vim-slim'
@@ -49,6 +46,10 @@ Plug 'bruno-/vim-ruby-fold'
 " Plug 'tpope/vim-dispatch',                        { 'for': 'ruby' }
 " Plug 'jgdavey/vim-blockle',                       { 'for': 'ruby' }
 " Plug 'tpope/vim-endwise',                         { 'for': 'ruby' }
+
+" HTML
+Plug 'Valloric/MatchTagAlways'
+Plug 'davydovanton/vim-html2slim'
 
 " JSON
 Plug 'tpope/vim-jdaddy' "json mappings

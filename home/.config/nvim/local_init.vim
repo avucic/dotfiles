@@ -197,4 +197,5 @@ nmap <Leader>i :IndentLinesToggle<CR>
 " ------------------------------------------------------------------------------
 let g:syntastic_sass_checkers=["sasslint"]
 let g:syntastic_scss_checkers=["sasslint"]
+let g:ruby_host_prog = '/home/rotsen/.rubies/ruby-2.3.1/bin/ruby'
 "}}}
