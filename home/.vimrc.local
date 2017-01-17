@@ -1,0 +1,3 @@
+source ~/.config/nvim/local_init.vim
+set guifont=Monaco:h12
+set transparency=0

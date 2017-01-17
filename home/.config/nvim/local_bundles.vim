@@ -34,6 +34,7 @@ Plug 'tpope/vim-surround'
 
 " Syntax
 Plug 'gcorne/vim-sass-lint'
+Plug 'alpaca-tc/beautify.vim'
 
 " Ruby
 Plug 'tpope/vim-bundler'

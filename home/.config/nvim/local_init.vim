@@ -1,7 +1,8 @@
 " General {{{
 " =============================================
-" set guifont=Monaco:h14
+" set guifont=Monaco:h12
 set guifont=Monaco\ for\ Powerline:h12:w
+
 " split
 set splitbelow
 set splitright
@@ -27,6 +28,7 @@ autocmd FileType .vim set foldmethod=marker
 " =============================================
 au filetype xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 autocmd bufnewfile,bufread *.slim set ft=slim
+autocmd bufnewfile,bufread *.svg set ft=xml
 "}}}
 
 " Keymaps {{{
@@ -87,6 +89,15 @@ command! Tmigrate :T rake db:migrate
 nmap <silent> <Leader>cl <Esc>:set                  cursorline! <CR>a
 nmap <silent> <Leader>cc      :set   cursorcolumn!              <CR>
 nmap <silent> <Leader>cn      :set nocursorcolumn nocursorline  <CR>
+
+" nvim specific
+" **************************************************************************
+" move from the neovim terminal window to somewhere else
+tnoremap <c-h> <c-\><c-n><c-w>h
+tnoremap <c-j> <c-\><c-n><c-w>j
+tnoremap <c-k> <c-\><c-n><c-w>k
+tnoremap <c-l> <C-\><C-n><C-w>l
+tnoremap <Esc><Esc> <C-\><C-n>
 "}}}
 
 " Plugns {{{
@@ -156,7 +167,7 @@ nmap ga <Plug>(EasyAlign)
 " ------------------------------------------------------------------------------
 let g:neoterm_position = 'horizontal'
 let g:neoterm_automap_keys = ',tt'
-:tnoremap <Esc> <C-\><C-n>
+tnoremap <Esc> <C-\><C-n>
 nnoremap <silent> <Leader>tf :TREPLSendFile<cr>
 nnoremap <silent> <Leader>ts :TREPLSend<cr>
 vnoremap <silent> <Leader>ts :TREPLSend<cr>
