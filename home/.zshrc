@@ -62,31 +62,30 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export EDITOR=nvim
 export NODE_PATH=/usr/local/lib/node_modules
-
-### Android
-export PATH=$PATH:~/Library/Android/sdk/platform-tools/
+export TERM="xterm-256color"
 
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome  --args --disable-web-security &"
 alias n='nvim'
 alias r='rails'
 alias rk='rake'
+alias cl='clear'
 alias t='tmux'
 alias ta='tmux a -t'
 alias tn='tmux new -s'
-alias tmux="TERM=screen-256color-bce tmux"
+# alias tmux="TERM=screen-256color-bce tmux"
+alias tmux="TERM=xterm-256color tmux"
 
-alias cl='clear'
 # alias vim='/usr/local/Cellar/macvim/7.4-76/MacVim.app/Contents/MacOS/Vim'
 export DISABLE_AUTO_TITLE=true
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init - --no-rehash)"
 
-
 ##
 ## Android SDK
 ##
 export ANDROID_SDK=/usr/local/Cellar/android-sdk/
+export PATH=$PATH:~/Library/Android/sdk/platform-tools/
 
 ##
 ## Python

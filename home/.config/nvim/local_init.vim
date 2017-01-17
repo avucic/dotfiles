@@ -9,9 +9,18 @@ set splitright
 set nowrap
 " color
 colorscheme  base16-twilight
+if has("termguicolors")
+    set termguicolors
+endif
 
-let g:airline#extensions#tabline#enabled = 1
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+" Ariline + Tmux
+let g:airline_skip_empty_sections = 0 " Fix tmuxline color theme issue
+augroup tmuxline
+  autocmd!
+  autocmd VimEnter,ColorScheme * silent! Tmuxline vim_statusline_1
+  autocmd VimLeave * !tmux source-file ~/.tmux.conf
+augroup END
 
 " Highlight characters that go over 80 columns (by drawing a border on the 81st)
 if exists('+colorcolumn')
