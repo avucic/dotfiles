@@ -47,7 +47,7 @@ export PATH=$homebrew:$PATH
 
 rbenv-clean(){gem list | cut -d" " -f1 | xargs gem uninstall -aIx}
 
-export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+# export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 export PATH="$HOME/dotfiles/bin:$PATH"
 
 ### PG
@@ -73,7 +73,7 @@ alias t='tmux'
 alias ta='tmux a -t'
 alias tn='tmux new -s'
 # alias tmux="TERM=screen-256color-bce tmux"
-alias tmux="TERM=xterm-256color tmux"
+alias tmux="TERM=xterm-256color tmux -2"
 
 # alias vim='/usr/local/Cellar/macvim/7.4-76/MacVim.app/Contents/MacOS/Vim'
 export DISABLE_AUTO_TITLE=true
@@ -91,6 +91,4 @@ export PATH=$PATH:~/Library/Android/sdk/platform-tools/
 ## Python
 ##
 export PATH="$HOME/Library/Python/3.5/bin:$PATH"
-source ~/Library/Python/3.5/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+source /usr/local/Cellar/python3/3.5.0/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh

@@ -14,13 +14,7 @@ if has("termguicolors")
 endif
 
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-" Ariline + Tmux
-let g:airline_skip_empty_sections = 0 " Fix tmuxline color theme issue
-augroup tmuxline
-  autocmd!
-  autocmd VimEnter,ColorScheme * silent! Tmuxline vim_statusline_1
-  autocmd VimLeave * !tmux source-file ~/.tmux.conf
-augroup END
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 " Highlight characters that go over 80 columns (by drawing a border on the 81st)
 if exists('+colorcolumn')
