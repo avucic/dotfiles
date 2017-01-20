@@ -16,6 +16,9 @@ Plug 'rking/ag.vim'
 Plug 'taiansu/nerdtree-ag'
 Plug 'nelstrom/vim-visual-star-search'
 
+" File manipulation
+Plug 'EvanDotPro/nerdtree-symlink'
+
 " Look and feel
 Plug 'chriskempson/base16-vim'
 Plug 'kshenoy/vim-signature' "vim marks

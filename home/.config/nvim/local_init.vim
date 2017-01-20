@@ -7,6 +7,11 @@ set guifont=Monaco\ for\ Powerline:h12:w
 set splitbelow
 set splitright
 set nowrap
+" Spelling
+set spell spelllang=en_us
+augroup terminal
+  autocmd TermOpen * setlocal nospell
+augroup END
 " color
 colorscheme  base16-twilight
 if has("termguicolors")
