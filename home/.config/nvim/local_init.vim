@@ -155,6 +155,7 @@ let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsEditSplit="vertical"
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " vim-notes
 " ------------------------------------------------------------------------------
