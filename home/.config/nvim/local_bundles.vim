@@ -41,7 +41,6 @@ Plug 'alpaca-tc/beautify.vim'
 
 " HTML
 Plug 'Valloric/MatchTagAlways'
-" Plug 'davydovanton/vim-html2slim'
 
 " CSS
 Plug 'groenewege/vim-less'
