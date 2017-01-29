@@ -18,6 +18,7 @@ Plug 'nelstrom/vim-visual-star-search'
 
 " File manipulation
 Plug 'EvanDotPro/nerdtree-symlink'
+Plug 'ivalkeen/nerdtree-execute'
 
 " Look and feel
 Plug 'chriskempson/base16-vim'
@@ -35,8 +36,15 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
 
 " Syntax
-Plug 'gcorne/vim-sass-lint'
+" Plug 'gcorne/vim-sass-lint'
 Plug 'alpaca-tc/beautify.vim'
+
+" HTML
+Plug 'Valloric/MatchTagAlways'
+" Plug 'davydovanton/vim-html2slim'
+
+" CSS
+Plug 'groenewege/vim-less'
 
 " Ruby
 Plug 'tpope/vim-bundler'
@@ -47,31 +55,8 @@ Plug 'bruno-/vim-ruby-fold'
 " Plug 'skalnik/vim-vroom',                         { 'for': 'ruby' }
 " Plug 't9md/vim-ruby-xmpfilter',                   { 'for': 'ruby' }
 " Plug 'tpope/vim-dispatch',                        { 'for': 'ruby' }
-" Plug 'jgdavey/vim-blockle',                       { 'for': 'ruby' }
-" Plug 'tpope/vim-endwise',                         { 'for': 'ruby' }
-
-" HTML
-Plug 'Valloric/MatchTagAlways'
-Plug 'davydovanton/vim-html2slim'
+Plug 'jgdavey/vim-blockle'
+Plug 'tpope/vim-endwise'
 
 " JSON
 Plug 'tpope/vim-jdaddy' "json mappings
-
-" JavaScript
-" Plug 'pangloss/vim-javascript',                   { 'for': 'javascript' }
-" Plug 'kchmck/vim-coffee-script',                  { 'for': 'coffee' }
-" Plug 'elzr/vim-json',                             { 'for': 'json' }
-" Plug 'jQuery'
-"
-" Clojure
-" Plug 'guns/vim-clojure-static',                   { 'for': 'clojure' }
-" Plug 'tpope/vim-classpath',                       { 'for': 'clojure' }
-" Plug 'guns/vim-sexp',                             { 'for': 'clojure' }
-" Plug 'gberenfield/cljfold.vim',                   { 'for': 'clojure' }
-" Plug 'tpope/vim-fireplace',                       { 'for': 'clojure' }
-
-" Syntax
-" Plug 'cakebaker/scss-syntax.vim'
-" Plug 'slim-template/vim-slim'
-" Plug 'groenewege/vim-less'
-" Plug 'Markdown'

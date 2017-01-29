@@ -3,6 +3,9 @@
 " set guifont=Monaco:h12
 set guifont=Monaco\ for\ Powerline:h12:w
 
+map <leader>init :tabe ~/.config/nvim/init.vim<cr>
+autocmd bufwritepost init.vim,local_init.vim,local_bundles.vim source $MYVIMRC
+
 " split
 set splitbelow
 set splitright
@@ -25,6 +28,8 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 if exists('+colorcolumn')
   set colorcolumn=81
 endif
+" Highlight color
+highlight ExtraWhitespace ctermbg=red guibg=red
 " Folding
 set foldlevelstart=99
 set foldmethod=syntax
@@ -74,19 +79,24 @@ cnoremap <M-b> <S-Left>
 cnoremap <M-f> <S-Right>
 
 "tabs navigation
-nnoremap <C-t> :tabnew<Space>
-inoremap <C-t> <Esc>:tabnew<Space>
-nnoremap th  :tabfirst<CR>
-nnoremap tj  :tabnext<CR>
-nnoremap tk  :tabprev<CR>
-nnoremap tl  :tablast<CR>
-nnoremap tt  :tabedit<Space>
-nnoremap tn  :tabnext<Space>
-nnoremap tm  :tabm<Space>
+map <Leader><Tab> gt<cr>
+map <Leader><S-Tab> gT<cr>
+" nnoremap th  :tabfirst<CR>
+" nnoremap tj  :tabnext<CR>
+" nnoremap tk  :tabprev<CR>
+" nnoremap tl  :tablast<CR>
+" nnoremap tt  :tabedit<Space>
+" nnoremap tn  :tabnext<Space>
+" nnoremap tm  :tabm<Space>
 nnoremap td  :tabclose<CR>
+nnoremap ts  :tab split <CR>
 
-" Toggle buffer
-nmap     <Leader>bb :ls<CR>:buffer<Space>         " show buffers
+" Buffer navigation
+nmap <leader>bn :enew<cr>
+map <Tab> :bnext<cr>
+map <S-Tab> :bprevious<cr>
+nmap bq :bp <BAR> bd #<CR>
+nmap bl :ls<CR>
 
 " Rails commands
 command! Troutes :T rake routes
@@ -97,6 +107,9 @@ command! Tmigrate :T rake db:migrate
 nmap <silent> <Leader>cl <Esc>:set                  cursorline! <CR>a
 nmap <silent> <Leader>cc      :set   cursorcolumn!              <CR>
 nmap <silent> <Leader>cn      :set nocursorcolumn nocursorline  <CR>
+
+" Diff
+nnoremap <leader>dc :q<cr>:diffoff<cr>
 
 " nvim specific
 " **************************************************************************
@@ -110,6 +123,8 @@ tnoremap <Esc><Esc> <C-\><C-n>
 
 " Plugns {{{
 " =============================================
+"" Git
+noremap <Leader>gl :Glog<CR>
 
 " Vim Airline
 " ------------------------------------------------------------------------------
@@ -119,7 +134,7 @@ let g:airline_theme='base16'
 " Nerdtree
 " ------------------------------------------------------------------------------
 nmap <leader>[ :NERDTreeToggle<cr>
-
+nmap <leader>nf :NERDTreeFind<CR>
 " Tagbar
 " ------------------------------------------------------------------------------
 nmap <Leader>] :TagbarToggle<CR>
@@ -184,17 +199,15 @@ vnoremap <silent> <Leader>ts :TREPLSend<cr>
 nnoremap <silent> <Leader>rt :call neoterm#test#run('all')<cr>
 nnoremap <silent> <Leader>rf :call neoterm#test#run('file')<cr>
 nnoremap <silent> <Leader>rn :call neoterm#test#run('current')<cr>
-nnoremap <silent> <Leader>th :call neoterm#close()<cr>
-" clear terminal
 nnoremap <silent> <Leader>tl :call neoterm#clear()<cr>
-" kills the current job (send a <c-c>)
-nnoremap <silent> <Leader>tc :call neoterm#kill()<cr>
+nnoremap <silent> <Leader>tk :call neoterm#kill()<cr>
+nnoremap <silent> <Leader>tc :call neoterm#close()<cr>
 
 " Limelight
 " ------------------------------------------------------------------------------
-let g:limelight_conceal_guifg = 'DarkGray'
-nmap <Leader>l <Plug>(Limelight)
-xmap <Leader>l <Plug>(Limelight)
+" let g:limelight_conceal_guifg = 'DarkGray'
+" nmap <Leader>l <Plug>(Limelight)
+" xmap <Leader>l <Plug>(Limelight)
 
 " Goyo (distraction-free)
 " ------------------------------------------------------------------------------
@@ -218,4 +231,15 @@ nmap <Leader>i :IndentLinesToggle<CR>
 let g:syntastic_sass_checkers=["sasslint"]
 let g:syntastic_scss_checkers=["sasslint"]
 let g:ruby_host_prog = '/home/rotsen/.rubies/ruby-2.3.1/bin/ruby'
+
+"" ctrlp.vim
+let g:ctrlp_map = '<C-p>'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn|node_modules|target|dist)|\_site|(\.(swp|tox|ico|git|hg|svn))$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+\}
+
+nmap bl :CtrlPBuffer<cr>
+nmap <leader>bm :CtrlPMixed<cr>
+nmap <leader>bs :CtrlPMRU<cr>
 "}}}
