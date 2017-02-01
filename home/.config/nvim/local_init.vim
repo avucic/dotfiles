@@ -242,4 +242,9 @@ let g:ctrlp_custom_ignore = {
 nmap bl :CtrlPBuffer<cr>
 nmap <leader>bm :CtrlPMixed<cr>
 nmap <leader>bs :CtrlPMRU<cr>
+
+" Emmet
+" ------------------------------------------------------------------------------
+let g:user_emmet_expandabbr_key='<Tab>'
+imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 "}}}
