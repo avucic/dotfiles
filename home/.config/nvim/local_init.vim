@@ -1,11 +1,13 @@
 " General {{{
 " =============================================
 " set guifont=Monaco:h12
-set guifont=Monaco\ for\ Powerline:h12:w
+" set guifont=Monaco\ for\ Powerline:h12:w
 
 map <leader>init :tabe ~/.config/nvim/init.vim<cr>
-autocmd bufwritepost init.vim,local_init.vim,local_bundles.vim source $MYVIMRC
-
+" autocmd bufwritepost init.vim,local_init.vim,local_bundles.vim source $MYVIMRC
+set guifont=Monaco\ for\ Powerline\ Nerd\ Font\ Complete:h11
+" File
+set autoread
 " split
 set splitbelow
 set splitright
@@ -97,6 +99,8 @@ map <Tab> :bnext<cr>
 map <S-Tab> :bprevious<cr>
 nmap bq :bp <BAR> bd #<CR>
 nmap bl :ls<CR>
+" nmap <silent> <leader>c :bp|bd #<CR>
+noremap <leader>c :bp\|bd #<CR>
 
 " Rails commands
 command! Troutes :T rake routes
@@ -128,13 +132,33 @@ noremap <Leader>gl :Glog<CR>
 
 " Vim Airline
 " ------------------------------------------------------------------------------
-" let g:airline_powerline_fonts   = 1
+let g:airline_powerline_fonts   = 1
 let g:airline_theme='base16'
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
 
 " Nerdtree
-" ------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
+" autocmd VimEnter * NERDTree | wincmd p
 nmap <leader>[ :NERDTreeToggle<cr>
 nmap <leader>nf :NERDTreeFind<CR>
+let g:NERDTreeShowHidden=1
+let g:NERDTreeQuitOnOpen=1
+let g:NERDTreeHijackNetrw=0
+
+let g:NERDTreeWinSize=45
+let g:NERDTreeAutoDeleteBuffer=1
+let g:WebDevIconsOS = 'Darwin'
+let g:NERDTreeMinimalUI=1
+let g:NERDTreeCascadeSingleChildDir=0
+
+let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
+let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
+let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
 " Tagbar
 " ------------------------------------------------------------------------------
 nmap <Leader>] :TagbarToggle<CR>
@@ -200,8 +224,8 @@ nnoremap <silent> <Leader>rt :call neoterm#test#run('all')<cr>
 nnoremap <silent> <Leader>rf :call neoterm#test#run('file')<cr>
 nnoremap <silent> <Leader>rn :call neoterm#test#run('current')<cr>
 nnoremap <silent> <Leader>tl :call neoterm#clear()<cr>
-nnoremap <silent> <Leader>tk :call neoterm#kill()<cr>
-nnoremap <silent> <Leader>tc :call neoterm#close()<cr>
+nnoremap <silent> <Leader>tc :call neoterm#kill()<cr>
+nnoremap <silent> <Leader>th :call neoterm#close()<cr>
 
 " Limelight
 " ------------------------------------------------------------------------------
@@ -226,11 +250,12 @@ let g:indentLine_enabled = 0
 let g:indentLine_color_dark = 1
 nmap <Leader>i :IndentLinesToggle<CR>
 
-" Syntastic Sass
+" Syntastic
 " ------------------------------------------------------------------------------
 let g:syntastic_sass_checkers=["sasslint"]
 let g:syntastic_scss_checkers=["sasslint"]
 let g:ruby_host_prog = '/home/rotsen/.rubies/ruby-2.3.1/bin/ruby'
+let g:syntastic_svg_checkers = []
 
 "" ctrlp.vim
 let g:ctrlp_map = '<C-p>'
@@ -247,4 +272,8 @@ nmap <leader>bs :CtrlPMRU<cr>
 " ------------------------------------------------------------------------------
 let g:user_emmet_expandabbr_key='<Tab>'
 imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+
+" Neoformat
+" ------------------------------------------------------------------------------
+noremap <leader><leader>f :Neoformat<CR>
 "}}}

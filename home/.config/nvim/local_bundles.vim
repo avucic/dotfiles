@@ -19,6 +19,9 @@ Plug 'nelstrom/vim-visual-star-search'
 " File manipulation
 Plug 'EvanDotPro/nerdtree-symlink'
 Plug 'ivalkeen/nerdtree-execute'
+Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Look and feel
 Plug 'chriskempson/base16-vim'
@@ -38,6 +41,7 @@ Plug 'tpope/vim-surround'
 " Syntax
 " Plug 'gcorne/vim-sass-lint'
 Plug 'alpaca-tc/beautify.vim'
+Plug 'sbdchd/neoformat'
 
 " HTML
 Plug 'Valloric/MatchTagAlways'
