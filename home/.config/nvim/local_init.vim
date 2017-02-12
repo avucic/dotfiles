@@ -5,9 +5,12 @@
 
 map <leader>init :tabe ~/.config/nvim/init.vim<cr>
 " autocmd bufwritepost init.vim,local_init.vim,local_bundles.vim source $MYVIMRC
-set guifont=Monaco\ for\ Powerline\ Nerd\ Font\ Complete:h11
+set guifont=Monaco\ for\ Powerline\ Nerd\ Font\ Complete:h12
+set relativenumber number
 " File
 set autoread
+set undofile
+set undodir="$HOME/.config/nvim/undo"
 " split
 set splitbelow
 set splitright
@@ -15,20 +18,19 @@ set nowrap
 " Spelling
 set spell spelllang=en_us
 augroup terminal
-  autocmd TermOpen * setlocal nospell
+	autocmd TermOpen * setlocal nospell
 augroup END
 " color
 colorscheme  base16-twilight
 if has("termguicolors")
-    set termguicolors
+	set termguicolors
 endif
 
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-
+" let $NVIM_TUI_ENABLE_TRUE_COLOR=0
 " Highlight characters that go over 80 columns (by drawing a border on the 81st)
 if exists('+colorcolumn')
-  set colorcolumn=81
+	set colorcolumn=81
 endif
 " Highlight color
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -48,10 +50,21 @@ autocmd bufnewfile,bufread *.svg set ft=xml
 
 " Keymaps {{{
 " =============================================
+nnoremap Q <nop>
 " Folding
 nnoremap <Leader>fs :set foldmethod=syntax<CR>
 nnoremap <Leader>fm :set foldmethod=marker<CR>
 nnoremap <Leader>fi :set foldmethod=indent<CR>
+" jump to the end and beginning of line
+noremap H ^
+noremap L g_
+" noremap J 5j
+" noremap K 5k
+
+noremap ; :
+nnoremap <Leader>d "_d
+vnoremap <Leader>d "_d
+" inoremap <c-f> <c-x><c-f>
 
 "jump to a matching opening or closing parenthesis and select
 noremap % v%
@@ -63,9 +76,10 @@ nnoremap <esc> :noh<return><esc>
 
 " search for visually hightlighted text
 vnoremap <C-r> "0y<Esc>:%s/<C-r>0//g<left><left>
+vnoremap // y/<C-R>"<CR>
 
 " clear white space
-nnoremap <Leader>s :FixWhitespace<return><esc>
+nnoremap <Leader>fw :FixWhitespace<return><esc>
 
 "" Clean search (highlight)
 nnoremap <esc> :noh<return><esc>
@@ -122,7 +136,7 @@ tnoremap <c-h> <c-\><c-n><c-w>h
 tnoremap <c-j> <c-\><c-n><c-w>j
 tnoremap <c-k> <c-\><c-n><c-w>k
 tnoremap <c-l> <C-\><C-n><C-w>l
-tnoremap <Esc><Esc> <C-\><C-n>
+" tnoremap <Esc><Esc> <C-\><C-n>
 "}}}
 
 " Plugns {{{
@@ -135,7 +149,7 @@ noremap <Leader>gl :Glog<CR>
 let g:airline_powerline_fonts   = 1
 let g:airline_theme='base16'
 if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
+	let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
 
@@ -170,7 +184,7 @@ vmap <C-v> <Plug>(expand_region_shrink)
 
 " Undotree
 " ------------------------------------------------------------------------------
-nmap <Leader>hh :UndotreeToggle<CR>
+" nmap <Leader>hh :UndotreeToggle<CR>
 
 " Splitjoin plugin keybinding
 " ------------------------------------------------------------------------------
@@ -215,7 +229,6 @@ nmap ga <Plug>(EasyAlign)
 " ------------------------------------------------------------------------------
 let g:neoterm_position = 'horizontal'
 let g:neoterm_automap_keys = ',tt'
-tnoremap <Esc> <C-\><C-n>
 nnoremap <silent> <Leader>tf :TREPLSendFile<cr>
 nnoremap <silent> <Leader>ts :TREPLSend<cr>
 vnoremap <silent> <Leader>ts :TREPLSend<cr>
@@ -238,10 +251,10 @@ nnoremap <silent> <Leader>th :call neoterm#close()<cr>
 let g:goyo_width="80%"
 nnoremap <Leader>g :Goyo<CR>
 function! s:goyo_enter()
-  set scrolloff=999
+	set scrolloff=999
 endfunction
 function! s:goyo_leave()
-  set scrolloff=5
+	set scrolloff=5
 endfunction
 
 " IndentLine
@@ -258,15 +271,17 @@ let g:ruby_host_prog = '/home/rotsen/.rubies/ruby-2.3.1/bin/ruby'
 let g:syntastic_svg_checkers = []
 
 "" ctrlp.vim
-let g:ctrlp_map = '<C-p>'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn|node_modules|target|dist)|\_site|(\.(swp|tox|ico|git|hg|svn))$',
-  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
-\}
+set splitright
+" let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+" let g:ctrlp_map = '<C-p>'
+" let g:ctrlp_custom_ignore = {
+"   \ 'dir':  '\v[\/](\.(git|hg|svn|node_modules|target|dist)|\_site|(\.(swp|tox|ico|git|hg|svn))$',
+"   \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+" \}
 
-nmap bl :CtrlPBuffer<cr>
-nmap <leader>bm :CtrlPMixed<cr>
-nmap <leader>bs :CtrlPMRU<cr>
+" nmap bl :CtrlPBuffer<cr>
+" nmap <leader>bm :CtrlPMixed<cr>
+" nmap <leader>bs :CtrlPMRU<cr>
 
 " Emmet
 " ------------------------------------------------------------------------------
@@ -276,4 +291,82 @@ imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 " Neoformat
 " ------------------------------------------------------------------------------
 noremap <leader><leader>f :Neoformat<CR>
+" FZF
+let g:fzf_action = {
+			\ 'ctrl-t': 'tab split',
+			\ 'ctrl-x': 'split',
+			\ 'ctrl-v': 'vsplit' }
+
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+fun! s:fzf_root()
+	let path = finddir(".git", expand("%:p:h").";")
+	return fnamemodify(substitute(path, ".git", "", ""), ":p:h")
+endfun
+nnoremap <silent><c-p> :exe 'Files ' . <SID>fzf_root()<CR>
+nnoremap <silent><leader>/ :Lines<CR>
+" Search for word under the cursor
+nnoremap <silent><leader>// :Lines <C-r>=expand('<cword>')<CR><CR>
+" Search for visual selected text
+vnoremap <silent><leader>/ y:Lines <C-R><C-R>"<CR>
+
+nnoremap <silent> <leader>a :Buffers<CR>
+nnoremap <silent> <leader>A :Windows<CR>
+nnoremap <silent> <leader>o :BTags<CR>
+nnoremap <silent> <leader>O :Tags<CR>
+nnoremap <silent> <leader>? :History<CR>
+" nnoremap <silent> <leader>. :AgIn
+nnoremap <silent> <leader>gl :Commits<CR>
+nnoremap <silent> <leader>ga :BCommits<CR>
+
+let g:fzf_colors =
+			\ { 'fg':    ['fg', 'Normal'],
+			\ 'bg':      ['bg', 'Normal'],
+			\ 'hl':      ['fg', 'Comment'],
+			\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+			\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+			\ 'hl+':     ['fg', 'Statement'],
+			\ 'info':    ['fg', 'PreProc'],
+			\ 'prompt':  ['fg', 'Conditional'],
+			\ 'pointer': ['fg', 'Exception'],
+			\ 'marker':  ['fg', 'Keyword'],
+			\ 'spinner': ['fg', 'Label'],
+			\ 'header':  ['fg', 'Comment'] }
+
+let g:fzf_files_options =
+            \ '--preview "(highlight -O ansi -l {} || cat {}) 2> /dev/null | head -'.&lines.'" '.
+            \ '--preview-window "right:50%:hidden" --bind "?:toggle-preview"'
+" let g:fzf_files_options =
+"             \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'" --bind alt-j:preview-down,alt-k:preview-up'
+
+" Better command history with q:
+command! CmdHist call fzf#vim#command_history({'down': '40'})
+nnoremap q: :CmdHist<CR>
+" Better search history
+command! QHist call fzf#vim#search_history({'down': '40'})
+nnoremap q/ :QHist<CR>
+
+" EasyMotion
+" ------------------------------------------------------------------------------
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap s <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap s <Plug>(easymotion-overwin-f2)
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+
+" Neoformat
+" ------------------------------------------------------------------------------
+noremap <leader>f :Neoformat<CR>
+" }}}
 "}}}

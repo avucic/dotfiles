@@ -10,11 +10,13 @@ Plug 'ervandew/supertab'
 Plug 'mbbill/undotree'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-
+Plug 'Konfekt/FastFold'
 " Search
 Plug 'rking/ag.vim'
 Plug 'taiansu/nerdtree-ag'
 Plug 'nelstrom/vim-visual-star-search'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " File manipulation
 Plug 'EvanDotPro/nerdtree-symlink'
@@ -22,6 +24,7 @@ Plug 'ivalkeen/nerdtree-execute'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'junegunn/gv.vim' "Browse git commits
 
 " Look and feel
 Plug 'chriskempson/base16-vim'

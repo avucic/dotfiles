@@ -92,3 +92,5 @@ export PATH=$PATH:~/Library/Android/sdk/platform-tools/
 ##
 export PATH="$HOME/Library/Python/3.5/bin:$PATH"
 source /usr/local/Cellar/python3/3.5.0/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
