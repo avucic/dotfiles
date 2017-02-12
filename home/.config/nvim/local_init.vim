@@ -18,12 +18,12 @@ set nowrap
 " Spelling
 set spell spelllang=en_us
 augroup terminal
-	autocmd TermOpen * setlocal nospell
+    autocmd TermOpen * setlocal nospell
 augroup END
 " color
 colorscheme  base16-twilight
 if has("termguicolors")
-	set termguicolors
+    set termguicolors
 endif
 
 let g:terminal_color_0 = "#464b50"
@@ -46,7 +46,7 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 " let $NVIM_TUI_ENABLE_TRUE_COLOR=0
 " Highlight characters that go over 80 columns (by drawing a border on the 81st)
 if exists('+colorcolumn')
-	set colorcolumn=81
+    set colorcolumn=81
 endif
 " Highlight color
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -165,7 +165,7 @@ noremap <Leader>gl :Glog<CR>
 let g:airline_powerline_fonts   = 1
 let g:airline_theme='base16'
 if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
+    let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
 
@@ -267,10 +267,10 @@ nnoremap <silent> <Leader>th :call neoterm#close()<cr>
 let g:goyo_width="80%"
 nnoremap <Leader>g :Goyo<CR>
 function! s:goyo_enter()
-	set scrolloff=999
+    set scrolloff=999
 endfunction
 function! s:goyo_leave()
-	set scrolloff=5
+    set scrolloff=5
 endfunction
 
 " IndentLine
@@ -309,9 +309,9 @@ imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 noremap <leader><leader>f :Neoformat<CR>
 " FZF
 let g:fzf_action = {
-			\ 'ctrl-t': 'tab split',
-			\ 'ctrl-x': 'split',
-			\ 'ctrl-v': 'vsplit' }
+            \ 'ctrl-t': 'tab split',
+            \ 'ctrl-x': 'split',
+            \ 'ctrl-v': 'vsplit' }
 
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
@@ -319,8 +319,8 @@ imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
 fun! s:fzf_root()
-	let path = finddir(".git", expand("%:p:h").";")
-	return fnamemodify(substitute(path, ".git", "", ""), ":p:h")
+    let path = finddir(".git", expand("%:p:h").";")
+    return fnamemodify(substitute(path, ".git", "", ""), ":p:h")
 endfun
 nnoremap <silent><c-p> :exe 'Files ' . <SID>fzf_root()<CR>
 nnoremap <silent><leader>/ :Lines<CR>
@@ -339,27 +339,27 @@ nnoremap <silent> <leader>gl :Commits<CR>
 nnoremap <silent> <leader>ga :BCommits<CR>
 
 let g:fzf_colors =
-			\ { 'fg':    ['fg', 'Normal'],
-			\ 'bg':      ['bg', 'Normal'],
-			\ 'hl':      ['fg', 'Comment'],
-			\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-			\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-			\ 'hl+':     ['fg', 'Statement'],
-			\ 'info':    ['fg', 'PreProc'],
-			\ 'prompt':  ['fg', 'Conditional'],
-			\ 'pointer': ['fg', 'Exception'],
-			\ 'marker':  ['fg', 'Keyword'],
-			\ 'spinner': ['fg', 'Label'],
-			\ 'header':  ['fg', 'Comment'] }
+            \ { 'fg':    ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'],
+            \ 'hl':      ['fg', 'Comment'],
+            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'PreProc'],
+            \ 'prompt':  ['fg', 'Conditional'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
 
 " let g:fzf_files_options =
 " 			\ '--preview "(highlight -O ansi {} --force || cat {}) 2> /dev/null | head -'.&lines.'" '.
 " 			\ '--preview-window "right:50%:hidden" --bind "?:toggle-preview"'
 
 let g:fzf_files_options =
-			\ '--preview "(highlight -O ansi {} --force || cat {}) 2> /dev/null | head -'.&lines.'" '.
-			\ '--preview-window "right:50%:hidden" --bind "?:toggle-preview"'
-
+            \ '--preview "(highlight -O ansi {} --force || cat {}) 2> /dev/null | head -'.&lines.'" '.
+            \ '--bind ctrl-d:preview-page-down,ctrl-u:preview-page-up '.
+            \ '--preview-window "right:50%:hidden" --bind "?:toggle-preview"'
 " let g:fzf_files_options =
 "             \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'" --bind alt-j:preview-down,alt-k:preview-up'
 
