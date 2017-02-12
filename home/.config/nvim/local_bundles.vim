@@ -29,6 +29,7 @@ Plug 'junegunn/gv.vim' "Browse git commits
 " Look and feel
 Plug 'chriskempson/base16-vim'
 Plug 'kshenoy/vim-signature' "vim marks
+Plug 'steelsojka/color_highlight'
 
 " Text
 Plug 'xolox/vim-notes'

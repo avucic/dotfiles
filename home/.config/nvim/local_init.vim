@@ -26,6 +26,22 @@ if has("termguicolors")
 	set termguicolors
 endif
 
+let g:terminal_color_0 = "#464b50"
+let g:terminal_color_1 = "#8f9d6a"
+let g:terminal_color_2 = "#7587a6"
+let g:terminal_color_3 = "#9b859d"
+let g:terminal_color_4 = "#5f5a60"
+let g:terminal_color_5 = "#cf6a4c"
+let g:terminal_color_6 = "#c3c3c3"
+let g:terminal_color_7 = "#ffffff"
+let g:terminal_color_8 = "#323537"
+let g:terminal_color_9 = "#cda869"
+let g:terminal_color_10 = "#f9ee98"
+let g:terminal_color_11 = "#7587a6"
+let g:terminal_color_12 = "#afc4db"
+let g:terminal_color_13 = "#7587a6"
+let g:terminal_color_14 = "#9b859d"
+
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 " let $NVIM_TUI_ENABLE_TRUE_COLOR=0
 " Highlight characters that go over 80 columns (by drawing a border on the 81st)
@@ -336,9 +352,14 @@ let g:fzf_colors =
 			\ 'spinner': ['fg', 'Label'],
 			\ 'header':  ['fg', 'Comment'] }
 
+" let g:fzf_files_options =
+" 			\ '--preview "(highlight -O ansi {} --force || cat {}) 2> /dev/null | head -'.&lines.'" '.
+" 			\ '--preview-window "right:50%:hidden" --bind "?:toggle-preview"'
+
 let g:fzf_files_options =
-            \ '--preview "(highlight -O ansi -l {} || cat {}) 2> /dev/null | head -'.&lines.'" '.
-            \ '--preview-window "right:50%:hidden" --bind "?:toggle-preview"'
+			\ '--preview "(highlight -O ansi {} --force || cat {}) 2> /dev/null | head -'.&lines.'" '.
+			\ '--preview-window "right:50%:hidden" --bind "?:toggle-preview"'
+
 " let g:fzf_files_options =
 "             \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'" --bind alt-j:preview-down,alt-k:preview-up'
 
