@@ -6,7 +6,7 @@
 map <leader>init :tabe ~/.config/nvim/init.vim<cr>
 " autocmd bufwritepost init.vim,local_init.vim,local_bundles.vim source $MYVIMRC
 set guifont=Monaco\ for\ Powerline\ Nerd\ Font\ Complete:h12
-set relativenumber number
+" set relativenumber number
 " File
 set autoread
 set undofile
@@ -26,24 +26,61 @@ if has("termguicolors")
     set termguicolors
 endif
 
-let g:terminal_color_0 = "#464b50"
-let g:terminal_color_1 = "#8f9d6a"
-let g:terminal_color_2 = "#7587a6"
-let g:terminal_color_3 = "#9b859d"
-let g:terminal_color_4 = "#5f5a60"
-let g:terminal_color_5 = "#cf6a4c"
-let g:terminal_color_6 = "#c3c3c3"
-let g:terminal_color_7 = "#ffffff"
-let g:terminal_color_8 = "#323537"
-let g:terminal_color_9 = "#cda869"
-let g:terminal_color_10 = "#f9ee98"
-let g:terminal_color_11 = "#7587a6"
-let g:terminal_color_12 = "#afc4db"
-let g:terminal_color_13 = "#7587a6"
-let g:terminal_color_14 = "#9b859d"
+" let g:terminal_color_0  = '#2e3436'
+" let g:terminal_color_1  = '#cc0000'
+" let g:terminal_color_2  = '#4e9a06'
+" let g:terminal_color_3  = '#c4a000'
+" let g:terminal_color_4  = '#3465a4'
+" let g:terminal_color_5  = '#75507b'
+" let g:terminal_color_6  = '#0b939b'
+" let g:terminal_color_7  = '#d3d7cf'
+" let g:terminal_color_8  = '#555753'
+" let g:terminal_color_9  = '#ef2929'
+" let g:terminal_color_10 = '#8ae234'
+" let g:terminal_color_11 = '#fce94f'
+" let g:terminal_color_12 = '#729fcf'
+" let g:terminal_color_13 = '#ad7fa8'
+" let g:terminal_color_14 = '#00f5e9'
+" let g:terminal_color_15 = '#eeeeec'
+
+
+" let g:terminal_color_0= "#1e1e1e"
+" let g:terminal_color_1= "#323537"
+" let g:terminal_color_2= "#464b50"
+" let g:terminal_color_3= "#5f5a60"
+" let g:terminal_color_4= "#838184"
+" let g:terminal_color_5= "#a7a7a7"
+" let g:terminal_color_6= "#c3c3c3"
+" let g:terminal_color_7= "#ffffff"
+" let g:terminal_color_8= "#cf6a4c"
+" let g:terminal_color_9= "#cda869"
+" let g:terminal_color_10= "#f9ee98"
+" let g:terminal_color_11= "#8f9d6a"
+" let g:terminal_color_12= "#afc4db"
+" let g:terminal_color_13= "#7587a6"
+" let g:terminal_color_14= "#9b859d"
+" let g:terminal_color_15= "#9b703f"
+
+let g:terminal_color_0  = '#1e1e1e' " donw
+let g:terminal_color_1  = '#cf6a4c' "d
+let g:terminal_color_2  = '#8f9d6a' ""
+let g:terminal_color_3  = '#f9ee98' ""
+let g:terminal_color_4  = '#5f5a60' ""
+let g:terminal_color_5  = g:terminal_color_2
+let g:terminal_color_6  = '#afc4db' ""
+let g:terminal_color_7  = '#a7a7a7'  "d
+let g:terminal_color_8  = '#464b50' " donw
+let g:terminal_color_9  = '#9b703f' "a
+let g:terminal_color_10 = '#4e9a06'
+let g:terminal_color_11 = '#cda869' "d
+" let g:terminal_color_12 = '#729fcf'
+let g:terminal_color_12 = g:terminal_color_3
+let g:terminal_color_13 = '#9b859d' ""
+let g:terminal_color_14 = '#7587a6'
+let g:terminal_color_15 = '#eeeeec'
+
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-" let $NVIM_TUI_ENABLE_TRUE_COLOR=0
 " Highlight characters that go over 80 columns (by drawing a border on the 81st)
 if exists('+colorcolumn')
     set colorcolumn=81
@@ -153,6 +190,17 @@ tnoremap <c-j> <c-\><c-n><c-w>j
 tnoremap <c-k> <c-\><c-n><c-w>k
 tnoremap <c-l> <C-\><C-n><C-w>l
 " tnoremap <Esc><Esc> <C-\><C-n>
+
+unmap <Leader>t
+unmap <Leader>s
+unmap <Leader>l
+unmap <Leader>a
+
+map <Leader>rt :call RunCurrentSpecFile()<CR>
+map <Leader>rs :call RunNearestSpec()<CR>
+map <Leader>rl :call RunLastSpec()<CR>
+map <Leader>ra :call RunAllSpecs()<CR>
+
 "}}}
 
 " Plugns {{{

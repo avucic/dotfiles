@@ -65,7 +65,7 @@ export NODE_PATH=/usr/local/lib/node_modules
 export TERM="xterm-256color"
 
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome  --args --disable-web-security &"
-alias n='nvim'
+alias n='TERM=xterm-256color nvim'
 alias r='rails'
 alias rk='rake'
 alias cl='clear'
