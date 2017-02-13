@@ -224,6 +224,13 @@ let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsEditSplit="vertical"
+
+let g:deoplete#omni#functions = {}
+let g:deoplete#omni#functions.javascript = [
+  \ 'tern#Complete'
+\]
+let g:tern#command = ['tern']
+let g:tern#arguments = ['--persistent']
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " vim-notes
@@ -248,13 +255,13 @@ let g:neoterm_automap_keys = ',tt'
 nnoremap <silent> <Leader>tf :TREPLSendFile<cr>
 nnoremap <silent> <Leader>ts :TREPLSend<cr>
 vnoremap <silent> <Leader>ts :TREPLSend<cr>
+nnoremap <silent> <Leader>tl :call neoterm#clear()<cr>
+nnoremap <silent> <Leader>tc :call neoterm#kill()<cr>
+nnoremap <silent> <Leader>th :call neoterm#close()<cr>
 " run set test lib
 nnoremap <silent> <Leader>rt :call neoterm#test#run('all')<cr>
 nnoremap <silent> <Leader>rf :call neoterm#test#run('file')<cr>
 nnoremap <silent> <Leader>rn :call neoterm#test#run('current')<cr>
-nnoremap <silent> <Leader>tl :call neoterm#clear()<cr>
-nnoremap <silent> <Leader>tc :call neoterm#kill()<cr>
-nnoremap <silent> <Leader>th :call neoterm#close()<cr>
 
 " Limelight
 " ------------------------------------------------------------------------------
@@ -389,5 +396,11 @@ map <Leader>k <Plug>(easymotion-k)
 " Neoformat
 " ------------------------------------------------------------------------------
 noremap <leader>f :Neoformat<CR>
+
+" Syntastic
+" ------------------------------------------------------------------------------
+let g:syntastic_check_on_open = 0
+" let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+nnoremap <leader>se :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 " }}}
 "}}}

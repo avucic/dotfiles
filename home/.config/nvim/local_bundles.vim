@@ -9,8 +9,11 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'ervandew/supertab'
 Plug 'mbbill/undotree'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-Plug 'Konfekt/FastFold'
+Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern','for': ['javascript', 'javascript.jsx']  }
+Plug 'fishbullet/deoplete-ruby',{'for': 'ruby'}
+" Plug 'Konfekt/FastFold'
+
 " Search
 Plug 'rking/ag.vim'
 Plug 'taiansu/nerdtree-ag'
@@ -53,17 +56,19 @@ Plug 'Valloric/MatchTagAlways'
 " CSS
 Plug 'groenewege/vim-less'
 
-" Ruby
+" Ruby and Rails
 Plug 'tpope/vim-bundler'
 Plug 'slim-template/vim-slim'
 Plug 'bruno-/vim-ruby-fold'
+Plug 'kana/vim-textobj-user'
+Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' } "Selecting ruby block
 " Plug 'tpope/vim-rbenv',                           { 'for': 'ruby' }
 " Plug 'vim-ruby/vim-ruby',                         { 'for': 'ruby' }
 " Plug 'skalnik/vim-vroom',                         { 'for': 'ruby' }
 " Plug 't9md/vim-ruby-xmpfilter',                   { 'for': 'ruby' }
 " Plug 'tpope/vim-dispatch',                        { 'for': 'ruby' }
-Plug 'jgdavey/vim-blockle'
-Plug 'tpope/vim-endwise'
+Plug 'jgdavey/vim-blockle', { 'for': 'ruby' }
+Plug 'tpope/vim-endwise', { 'for': 'ruby' }
 
 " JSON
 Plug 'tpope/vim-jdaddy' "json mappings
