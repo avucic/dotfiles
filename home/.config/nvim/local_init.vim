@@ -43,7 +43,6 @@ endif
 " let g:terminal_color_14 = '#00f5e9'
 " let g:terminal_color_15 = '#eeeeec'
 
-
 " let g:terminal_color_0= "#1e1e1e"
 " let g:terminal_color_1= "#323537"
 " let g:terminal_color_2= "#464b50"
@@ -150,13 +149,6 @@ cnoremap <M-f> <S-Right>
 "tabs navigation
 map <Leader><Tab> gt<cr>
 map <Leader><S-Tab> gT<cr>
-" nnoremap th  :tabfirst<CR>
-" nnoremap tj  :tabnext<CR>
-" nnoremap tk  :tabprev<CR>
-" nnoremap tl  :tablast<CR>
-" nnoremap tt  :tabedit<Space>
-" nnoremap tn  :tabnext<Space>
-" nnoremap tm  :tabm<Space>
 nnoremap td  :tabclose<CR>
 nnoremap ts  :tab split <CR>
 
@@ -168,6 +160,7 @@ nmap bq :bp <BAR> bd #<CR>
 nmap bl :ls<CR>
 " nmap <silent> <leader>c :bp|bd #<CR>
 noremap <leader>c :bp\|bd #<CR>
+noremap <leader>q :bp\|bd #<CR>
 
 " Rails commands
 command! Troutes :T rake routes
@@ -281,6 +274,7 @@ let g:tern#command = ['tern']
 let g:tern#arguments = ['--persistent']
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
+autocmd FileType vim set omnifunc=syntaxcomplete#Complete
 " vim-notes
 " ------------------------------------------------------------------------------
 let g:notes_directories = ['~/Google\ Drive/Notes/']
@@ -310,6 +304,7 @@ nnoremap <silent> <Leader>th :call neoterm#close()<cr>
 nnoremap <silent> <Leader>rt :call neoterm#test#run('all')<cr>
 nnoremap <silent> <Leader>rf :call neoterm#test#run('file')<cr>
 nnoremap <silent> <Leader>rn :call neoterm#test#run('current')<cr>
+nnoremap <silent> <Leader>rc :T rails c<cr>
 
 " Limelight
 " ------------------------------------------------------------------------------
@@ -357,7 +352,7 @@ set splitright
 " Emmet
 " ------------------------------------------------------------------------------
 let g:user_emmet_expandabbr_key='<Tab>'
-imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+" imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
 " Neoformat
 " ------------------------------------------------------------------------------
@@ -412,8 +407,8 @@ let g:fzf_colors =
 " 			\ '--preview-window "right:50%:hidden" --bind "?:toggle-preview"'
 
 let g:fzf_files_options =
-            \ '--preview "(highlight -O ansi {} --force || cat {}) 2> /dev/null | head -'.&lines.'" '.
-            \ '--bind ctrl-d:preview-page-down,ctrl-u:preview-page-up '.
+            \ '--preview "highlight -O ansi {} --force || cat {}" '.
+            \ '--bind ctrl-d:preview-down,ctrl-u:preview-up '.
             \ '--preview-window "right:50%:hidden" --bind "?:toggle-preview"'
 " let g:fzf_files_options =
 "             \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'" --bind alt-j:preview-down,alt-k:preview-up'
