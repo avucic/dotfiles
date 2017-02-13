@@ -26,58 +26,23 @@ if has("termguicolors")
     set termguicolors
 endif
 
-" let g:terminal_color_0  = '#2e3436'
-" let g:terminal_color_1  = '#cc0000'
-" let g:terminal_color_2  = '#4e9a06'
-" let g:terminal_color_3  = '#c4a000'
-" let g:terminal_color_4  = '#3465a4'
-" let g:terminal_color_5  = '#75507b'
-" let g:terminal_color_6  = '#0b939b'
-" let g:terminal_color_7  = '#d3d7cf'
-" let g:terminal_color_8  = '#555753'
-" let g:terminal_color_9  = '#ef2929'
-" let g:terminal_color_10 = '#8ae234'
-" let g:terminal_color_11 = '#fce94f'
-" let g:terminal_color_12 = '#729fcf'
-" let g:terminal_color_13 = '#ad7fa8'
-" let g:terminal_color_14 = '#00f5e9'
-" let g:terminal_color_15 = '#eeeeec'
+let g:terminal_color_0= "#1e1e1e" "Black
+let g:terminal_color_1= "#cf6a4c" "Red
+let g:terminal_color_2= "#8f9d6a" "Green
+let g:terminal_color_3= "#cda869" "Yellow
+let g:terminal_color_4= "#7587a6" "Blue
+let g:terminal_color_5= "#9b859d" "Magenta
+let g:terminal_color_6= "#afc4db" "Cyan
+let g:terminal_color_7= "#c3c3c3" "white
 
-" let g:terminal_color_0= "#1e1e1e"
-" let g:terminal_color_1= "#323537"
-" let g:terminal_color_2= "#464b50"
-" let g:terminal_color_3= "#5f5a60"
-" let g:terminal_color_4= "#838184"
-" let g:terminal_color_5= "#a7a7a7"
-" let g:terminal_color_6= "#c3c3c3"
-" let g:terminal_color_7= "#ffffff"
-" let g:terminal_color_8= "#cf6a4c"
-" let g:terminal_color_9= "#cda869"
-" let g:terminal_color_10= "#f9ee98"
-" let g:terminal_color_11= "#8f9d6a"
-" let g:terminal_color_12= "#afc4db"
-" let g:terminal_color_13= "#7587a6"
-" let g:terminal_color_14= "#9b859d"
-" let g:terminal_color_15= "#9b703f"
-
-let g:terminal_color_0  = '#1e1e1e' " donw
-let g:terminal_color_1  = '#cf6a4c' "d
-let g:terminal_color_2  = '#8f9d6a' ""
-let g:terminal_color_3  = '#f9ee98' ""
-let g:terminal_color_4  = '#5f5a60' ""
-let g:terminal_color_5  = g:terminal_color_2
-let g:terminal_color_6  = '#afc4db' ""
-let g:terminal_color_7  = '#a7a7a7'  "d
-let g:terminal_color_8  = '#464b50' " donw
-let g:terminal_color_9  = '#9b703f' "a
-let g:terminal_color_10 = '#4e9a06'
-let g:terminal_color_11 = '#cda869' "d
-" let g:terminal_color_12 = '#729fcf'
-let g:terminal_color_12 = g:terminal_color_3
-let g:terminal_color_13 = '#9b859d' ""
-let g:terminal_color_14 = '#7587a6'
-let g:terminal_color_15 = '#eeeeec'
-
+let g:terminal_color_8= "#838184" "Bright black
+let g:terminal_color_9= "#9b703f" "Bright red
+let g:terminal_color_10= "#9b859c" "Bright green
+let g:terminal_color_11= "#8f9d6a" "Bright yellow
+let g:terminal_color_12= "#7587a6" "Bright Blue
+let g:terminal_color_13= "#9b859d" "Bright Magenta
+let g:terminal_color_14= "#7587a6" "Bright Cyan
+let g:terminal_color_15= "#ffffff" "Bright white
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 " Highlight characters that go over 80 columns (by drawing a border on the 81st)
