@@ -123,9 +123,8 @@ map <Tab> :bnext<cr>
 map <S-Tab> :bprevious<cr>
 nmap bq :bp <BAR> bd #<CR>
 nmap bl :ls<CR>
-" nmap <silent> <leader>c :bp|bd #<CR>
 noremap <leader>c :bp\|bd #<CR>
-noremap <leader>q :bp\|bd #<CR>
+noremap <leader>q :q<CR>
 
 " Rails commands
 command! Troutes :T rake routes
@@ -259,6 +258,7 @@ nmap ga <Plug>(EasyAlign)
 " ------------------------------------------------------------------------------
 let g:neoterm_position = 'horizontal'
 let g:neoterm_automap_keys = ',tt'
+let g:neoterm_size = 15
 nnoremap <silent> <Leader>tf :TREPLSendFile<cr>
 nnoremap <silent> <Leader>ts :TREPLSend<cr>
 vnoremap <silent> <Leader>ts :TREPLSend<cr>
@@ -300,19 +300,6 @@ let g:syntastic_sass_checkers=["sasslint"]
 let g:syntastic_scss_checkers=["sasslint"]
 let g:ruby_host_prog = '/home/rotsen/.rubies/ruby-2.3.1/bin/ruby'
 let g:syntastic_svg_checkers = []
-
-"" ctrlp.vim
-set splitright
-" let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-" let g:ctrlp_map = '<C-p>'
-" let g:ctrlp_custom_ignore = {
-"   \ 'dir':  '\v[\/](\.(git|hg|svn|node_modules|target|dist)|\_site|(\.(swp|tox|ico|git|hg|svn))$',
-"   \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
-" \}
-
-" nmap bl :CtrlPBuffer<cr>
-" nmap <leader>bm :CtrlPMixed<cr>
-" nmap <leader>bs :CtrlPMRU<cr>
 
 " Emmet
 " ------------------------------------------------------------------------------
