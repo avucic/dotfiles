@@ -163,7 +163,6 @@ filetype plugin indent on
 "}}}
 
 " Basic Setup  --------------------------------------------------------------{{{
-
 let mapleader="\<Space>"
 
 "" Encoding
@@ -190,21 +189,19 @@ set incsearch
 set ignorecase
 set smartcase
 
-
 set fileformats=unix,dos,mac
 set showcmd
 set shell=/bin/sh
 
-" session management
+"" Session management
 let g:session_directory = "~/.config/nvim/session"
 let g:session_autoload = "no"
 let g:session_autosave = "no"
 let g:session_command_aliases = 1
 
-"" Directories for swp files
 set nobackup
 " set noswapfile
-call system('mkdir $HOME/.config/nvim/backup')
+"" Directories for swp files
 call system('mkdir $HOME/.config/nvim/swap')
 set directory=~/.config/nvim/swap//
 if has('persistent_undo')
@@ -214,7 +211,7 @@ endif
 
 autocmd BufWritePre * %s/\s\+$//e "remove white space
 
-" terminal emulation
+"" Terminal emulation
 " vimshell.vim
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 let g:vimshell_prompt =  '$ '
@@ -234,7 +231,6 @@ set guifont=Monaco\ for\ Powerline\ Nerd\ Font\ Complete:h12
 set mousemodel=popup
 set t_Co=256
 set guioptions=egmrti
-set gfn=Monospace\ 10
 set gcr=a:blinkon0 "" Disable the blinking cursor.
 set scrolloff=3
 
@@ -263,12 +259,12 @@ let g:terminal_color_14= "#7587a6" "Bright Cyan
 let g:terminal_color_15= "#ffffff" "Bright white
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
-" Highlight characters that go over 80 columns (by drawing a border on the 81st)
+"" Highlight characters that go over 80 columns (by drawing a border on the 81st)
 if exists('+colorcolumn')
     set colorcolumn=81
 endif
 
-" Highlight color
+"" Highlight color
 highlight ExtraWhitespace ctermbg=red guibg=red
 highlight FoldColumn guifg=Grey
 
@@ -284,15 +280,23 @@ set titleold="Terminal"
 set titlestring=%F
 
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
-
 if exists("*fugitive#statusline")
     set statusline+=%{fugitive#statusline()}
 endif
 
+"" Disable visualbell
+set noerrorbells visualbell t_vb=
+if has('autocmd')
+  autocmd GUIEnter * set visualbell t_vb=
+endif
+
+"" Copy/Paste/Cut
+if has('unnamedplus')
+  set clipboard=unnamed,unnamedplus
+endif
 " }}}
 
 " Folding  ------------------------------------------------------------------{{{
-
 function! MyFoldText() " {{{
     let line = getline(v:foldstart)
     let nucolwidth = &fdc + &number * &numberwidth
@@ -307,6 +311,7 @@ function! MyFoldText() " {{{
     let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - len('lines')
     return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . ' Lines '
 endfunction " }}}
+
 set foldtext=MyFoldText()
 
 autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
@@ -334,7 +339,8 @@ autocmd FileType javascript,typescript,json,xml,ruby setl foldmethod=syntax
 "}}}
 
 " System Mappings  ----------------------------------------------------------{{{
-"
+
+"" Clipboard
 noremap YY "+y<CR>
 noremap <leader>p "+gP<CR>
 noremap XX "+x<CR>
@@ -350,9 +356,9 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
 
-" Edit vim config
-nmap     <Leader>nn :tabedit $MYVIMRC<CR>
-nmap     <Leader>nr :so $MYVIMRC<CR>
+"" Edit vim config
+nmap <Leader>nn :tabedit $MYVIMRC<CR>
+nmap <Leader>nr :so $MYVIMRC<CR>
 
 "" Set working directory
 nnoremap <leader>. :lcd %:p:h<CR>
@@ -371,7 +377,7 @@ vmap > >gv
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-"Jumping
+"" Jumping
 nnoremap Q <nop>
 noremap H ^
 noremap L g_
@@ -382,21 +388,21 @@ vnoremap <Leader>d "_d
 noremap % v%
 
 "" Clean search (highlight)
-nnoremap <esc> :noh<return><esc>
+nnoremap <silent><esc> :noh \| ccl<return><esc>
 
-" search for visually hightlighted text
+"" Search for visually hightlighted text
 vnoremap <C-r> "0y<Esc>:%s/<C-r>0//g<left><left>
 vnoremap // y/<C-R>"<CR>
 
-" cursor
+"" cursor
 nmap <silent> <Leader>cl <Esc>:set                  cursorline! <CR>a
 nmap <silent> <Leader>cc      :set   cursorcolumn!              <CR>
 nmap <silent> <Leader>cn      :set nocursorcolumn nocursorline  <CR>
 
-" Diff
+"" Diff
 nnoremap <leader>dc :q<cr>:diffoff<cr>
 
-" command line navigation
+"" Command line navigation
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 cnoremap <C-p> <Up>
@@ -406,7 +412,7 @@ cnoremap <C-f> <Right>
 cnoremap <M-b> <S-Left>
 cnoremap <M-f> <S-Right>
 
-"tabs navigation
+"" Tabs navigation
 map <Leader><Tab> gt<cr>
 map <Leader><S-Tab> gT<cr>
 nnoremap td  :tabclose<CR>
@@ -432,14 +438,14 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
 
-" Terminal
+"" Terminal
 tnoremap <c-h> <c-\><c-n><c-w>h
 tnoremap <c-j> <c-\><c-n><c-w>j
 tnoremap <c-k> <c-\><c-n><c-w>k
 tnoremap <c-l> <C-\><C-n><C-w>l
 " tnoremap <Esc><Esc> <C-\><C-n>
 
-" session management
+" Session management
 nnoremap <leader>so :OpenSession<Space>
 nnoremap <leader>ss :SaveSession<Space>
 nnoremap <leader>sd :DeleteSession<CR>
@@ -447,8 +453,7 @@ nnoremap <leader>sc :CloseSession<CR>
 "}}}
 
 " Mappings  -----------------------------------------------------------------{{{
-
-"Git
+"" Git
 noremap <Leader>gl :Glog<CR>
 noremap <Leader>ga :Gwrite<CR>
 noremap <Leader>gc :Gcommit<CR>
@@ -459,10 +464,10 @@ noremap <Leader>gb :Gblame<CR>
 noremap <Leader>gd :Gvdiff<CR>
 noremap <Leader>gr :Gremove<CR>
 
-" syntastic
-nnoremap <leader>se :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+"" syntastic
+nnoremap <leader>sc :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
-" Tagbar
+"" Tagbar
 nmap <Leader>] :TagbarToggle<CR>
 
 if has('macunix')
@@ -478,47 +483,42 @@ nnoremap <Leader>go :.Gbrowse<CR>
 nmap <leader>[ :NERDTreeToggle<cr>
 nmap <leader>nf :NERDTreeFind<CR>
 
-" vim-expand-regon
+"" vim-expand-regon
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
-" Undotree
+"" Undotree
 " nmap <Leader>hh :UndotreeToggle<CR>
 
-" Splitjoin plugin keybinding
+"" Splitjoin plugin keybinding
 nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
 
-" EasyAlign
+"" EasyAlign
 vmap <Enter> <Plug>(EasyAlign) " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 nmap ga <Plug>(EasyAlign) " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 
-"Neoterm
-nnoremap <silent> <Leader>tf :TREPLSendFile<cr>
-nnoremap <silent> <Leader>ts :TREPLSend<cr>
-vnoremap <silent> <Leader>ts :TREPLSend<cr>
-nnoremap <silent> <Leader>tl :call neoterm#clear()<cr>
-nnoremap <silent> <Leader>tc :call neoterm#kill()<cr>
-nnoremap <silent> <Leader>th :call neoterm#close()<cr>
-" run set test lib
-nnoremap <silent> <Leader>rt :call neoterm#test#run('all')<cr>
-nnoremap <silent> <Leader>rf :call neoterm#test#run('file')<cr>
-nnoremap <silent> <Leader>rn :call neoterm#test#run('current')<cr>
-nnoremap <silent> <Leader>rc :T rails c<cr>
+"" Neoterm
+nnoremap <silent> ,sf :TREPLSendFile<cr>
+nnoremap <silent> ,sl :TREPLSendLine<cr>
+vnoremap <silent> ,s  :TREPLSendSelection<cr>
+nnoremap <silent> ,cl :call neoterm#clear()<cr>
+nnoremap <silent> ,k  :call neoterm#kill()<cr>
+nnoremap <silent> ,c  :call neoterm#close()<cr>
 
-" Limelight
+"" Limelight
 " nmap <Leader>l <Plug>(Limelight)
 " xmap <Leader>l <Plug>(Limelight)
 
-" Goyo (distraction-free)
+"" Goyo (distraction-free)
 nnoremap <Leader>g :Goyo<CR>
 
-" IndentLine
-nmap <Leader>i :IndentLinesToggle<CR>
+"" IndentLine
+noremap <Leader>i :IndentLinesToggle<CR>
 
-" Neoformat
+"" Neoformat
 noremap <leader><leader>f :Neoformat<CR>
 
-" FZF
+"" FZF
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
@@ -537,13 +537,13 @@ nnoremap <silent> <leader>ga :BCommits<CR>
 nnoremap q/ :QHist<CR>
 nnoremap q: :CmdHist<CR>
 
-" EasyMotion
+"" EasyMotion
 nmap s <Plug>(easymotion-overwin-f)
 nmap s <Plug>(easymotion-overwin-f2)
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 
-" Neoformat
+"" Neoformat
 noremap <leader>f :Neoformat<CR>
 "}}}
 
@@ -569,31 +569,20 @@ let g:tagbar_type_ruby = {
     \ ]
 \ }
 
-nmap <silent> <leader>rt :TestNearest<CR>
-nmap <silent> <leader>rT :TestFile<CR>
-nmap <silent> <leader>ra :TestSuite<CR>
-nmap <silent> <leader>rl :TestLast<CR>
-nmap <silent> <leader>rg :TestVisit<CR>
+nmap <silent> ,rt :TestNearest<CR>
+nmap <silent> ,rT :TestFile<CR>
+nmap <silent> ,ra :TestSuite<CR>
+nmap <silent> ,rl :TestLast<CR>
+nmap <silent> ,rg :TestVisit<CR>
+nnoremap <silent> ,rc :T rails c<cr>
 
-" Rails commands
 command! Troutes :T rake routes
 command! -nargs=+ Troute :T rake routes | grep <args>
 command! Tmigrate :T rake db:migrate
-
-" Ruby refactory
-" nnoremap <leader>rap  :RAddParameter<cr>
-" nnoremap <leader>rcpc :RConvertPostConditional<cr>
-" nnoremap <leader>rel  :RExtractLet<cr>
-" vnoremap <leader>rec  :RExtractConstant<cr>
-" vnoremap <leader>relv :RExtractLocalVariable<cr>
-" nnoremap <leader>rit  :RInlineTemp<cr>
-" vnoremap <leader>rrlv :RRenameLocalVariable<cr>
-" vnoremap <leader>rriv :RRenameInstanceVariable<cr>
-" vnoremap <leader>rem  :RExtractMethod<cr>
+command! Tseed :T rake db:reset && rake db:seed_fu
 "}}}
 
-" Javascript  ---------------------------------------------------------------{{{
-
+"" Javascript  ---------------------------------------------------------------{{{
 let g:javascript_enable_domhtmlcss = 1
 
 " vim-javascript
@@ -604,20 +593,17 @@ augroup END
 "}}}
 
 " HTML  ---------------------------------------------------------------------{{{
-
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
 "}}}
 
 " XML/SVG  ------------------------------------------------------------------{{{
-
 au filetype xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 autocmd bufnewfile,bufread *.slim set ft=slim
 autocmd bufnewfile,bufread *.svg set ft=xml
 "}}}
 
 " Settings  -----------------------------------------------------------------{{{
-
-" let test#strategy = "dispatch"
+"" vim-test
 let test#strategy = {
   \ 'nearest': 'neovim',
   \ 'file':    'dispatch',
@@ -625,7 +611,7 @@ let test#strategy = {
   \}
 let g:test#preserve_screen = 1
 
-" Gitgutter
+"" Gitgutter
 let g:gitgutter_max_signs=9999
 
 " grep.vim
@@ -634,14 +620,14 @@ let g:gitgutter_max_signs=9999
 " let Grep_Skip_Files = '*.log *.db'
 " let Grep_Skip_Dirs = '.git node_modules'
 
-" The Silver Searcher
+"" The Silver Searcher
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   let g:ctrlp_use_caching = 0
 endif
 
-" syntastic
+"" Syntastic
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
@@ -655,21 +641,10 @@ let g:ruby_host_prog = '/home/rotsen/.rubies/ruby-2.3.1/bin/ruby'
 let g:syntastic_svg_checkers = []
 let g:syntastic_check_on_open = 0
 
-" Tagbar
+"" Tagbar
 let g:tagbar_autofocus = 1
 
-" Disable visualbell
-set noerrorbells visualbell t_vb=
-if has('autocmd')
-  autocmd GUIEnter * set visualbell t_vb=
-endif
-
-"" Copy/Paste/Cut
-if has('unnamedplus')
-  set clipboard=unnamed,unnamedplus
-endif
-
-" Vim Airline
+"" Vim Airline
 let g:airline_theme = 'powerlineish'
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#branch#enabled = 1
@@ -736,7 +711,7 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
 let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
 
-" Deoplete
+"" Deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
 let g:deoplete#auto_complete_start_length = 1
@@ -753,28 +728,29 @@ let g:deoplete#omni#functions.javascript = [
 \]
 let g:tern#command = ['tern']
 let g:tern#arguments = ['--persistent']
-" ultisnips
+
+"" ultisnips
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsEditSplit="vertical"
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" vim-notes
+"" vim-notes
 let g:notes_directories = ['~/Google\ Drive/Notes/']
 
-" SuperTab
+"" SuperTab
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
-"Neoterm
+"" Neoterm
 let g:neoterm_position = 'horizontal'
 let g:neoterm_automap_keys = ',tt'
 let g:neoterm_size = 15
 
-" Limelight
+"" Limelight
 " let g:limelight_conceal_guifg = 'DarkGray'
 
-" Goyo (distraction-free)
+"" Goyo (distraction-free)
 let g:goyo_width="80%"
 function! s:goyo_enter()
     set scrolloff=999
@@ -783,14 +759,14 @@ function! s:goyo_leave()
     set scrolloff=5
 endfunction
 
-" IndentLine
+"" IndentLine
 let g:indentLine_enabled = 0
 let g:indentLine_color_dark = 1
 
-" Emmet
+"" Emmet
 let g:user_emmet_expandabbr_key='<Tab>'
 
-" FZF
+"" FZF
 let g:fzf_action = {
             \ 'ctrl-t': 'tab split',
             \ 'ctrl-x': 'split',
@@ -816,13 +792,12 @@ let g:fzf_files_options =
 command! CmdHist call fzf#vim#command_history({'down': '40'}) " Better command history with q:
 command! QHist call fzf#vim#search_history({'down': '40'}) " Better search history
 
-" EasyMotion
+"" EasyMotion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 let g:EasyMotion_smartcase = 1
 "}}}
 
 " Autocmd Rules  ------------------------------------------------------------{{{
-
 augroup terminal
     autocmd TermOpen * setlocal nospell
 augroup END
@@ -843,13 +818,6 @@ augroup END
 augroup vimrc-wrapping
 autocmd!
 autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
-augroup END
-
-"" make/cmake
-augroup vimrc-make-cmake
-autocmd!
-autocmd FileType make setlocal noexpandtab
-autocmd BufNewFile,BufRead CMakeLists.txt setlocal filetype=cmake
 augroup END
 
 set autoread
