@@ -34,7 +34,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-scripts/grep.vim'
 Plug 'vim-scripts/CSApprox'
-Plug 'bronson/vim-trailing-whitespace'
 Plug 'Raimondi/delimitMate'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/syntastic'
@@ -107,7 +106,7 @@ Plug 'ecomba/vim-ruby-refactoring'
 
 "" Include user's extra bundle
 if filereadable(expand("~/.config/nvim/local_bundles.vim"))
-  source ~/.config/nvim/local_bundles.vim
+source ~/.config/nvim/local_bundles.vim
 endif
 
 call plug#end()
@@ -149,7 +148,7 @@ set ignorecase
 set smartcase
 
 "" Directories for swp files
-set nobackup
+" set nobackup
 set noswapfile
 
 set fileformats=unix,dos,mac
@@ -170,7 +169,7 @@ set number
 
 let no_buffers_menu=1
 if !exists('g:not_finish_vimplug')
-  colorscheme molokai
+colorscheme molokai
 endif
 
 set mousemodel=popup
@@ -179,18 +178,18 @@ set guioptions=egmrti
 set gfn=Monospace\ 10
 
 if has("gui_running")
-  if has("gui_mac") || has("gui_macvim")
-    set guifont=Menlo:h12
-    set transparency=7
-  endif
+if has("gui_mac") || has("gui_macvim")
+set guifont=Menlo:h12
+set transparency=7
+endif
 else
-  let g:CSApprox_loaded = 1
+let g:CSApprox_loaded = 1
 
-  " IndentLine
-  let g:indentLine_enabled = 1
-  let g:indentLine_concealcursor = 0
-  let g:indentLine_char = '┆'
-  let g:indentLine_faster = 1
+" IndentLine
+let g:indentLine_enabled = 1
+let g:indentLine_concealcursor = 0
+let g:indentLine_char = '┆'
+let g:indentLine_faster = 1
 
 
 endif
@@ -215,7 +214,7 @@ set titlestring=%F
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 
 if exists("*fugitive#statusline")
-  set statusline+=%{fugitive#statusline()}
+set statusline+=%{fugitive#statusline()}
 endif
 
 " vim-airline
@@ -265,20 +264,20 @@ let g:vimshell_prompt =  '$ '
 
 " terminal emulation
 if g:vim_bootstrap_editor == 'nvim'
-  nnoremap <silent> <leader>sh :terminal<CR>
+nnoremap <silent> <leader>sh :terminal<CR>
 else
-  nnoremap <silent> <leader>sh :VimShellCreate<CR>
+nnoremap <silent> <leader>sh :VimShellCreate<CR>
 endif
 
 "*****************************************************************************
 "" Functions
 "*****************************************************************************
 if !exists('*s:setupWrapping')
-  function s:setupWrapping()
-    set wrap
-    set wm=2
-    set textwidth=79
-  endfunction
+function s:setupWrapping()
+set wrap
+set wm=2
+set textwidth=79
+endfunction
 endif
 
 "*****************************************************************************
@@ -286,27 +285,27 @@ endif
 "*****************************************************************************
 "" The PC is fast enough, do syntax highlight syncing from start
 augroup vimrc-sync-fromstart
-  autocmd!
-  autocmd BufEnter * :syntax sync fromstart
+autocmd!
+autocmd BufEnter * :syntax sync fromstart
 augroup END
 
 "" Remember cursor position
 augroup vimrc-remember-cursor-position
-  autocmd!
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+autocmd!
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
 "" txt
 augroup vimrc-wrapping
-  autocmd!
-  autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
+autocmd!
+autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
 augroup END
 
 "" make/cmake
 augroup vimrc-make-cmake
-  autocmd!
-  autocmd FileType make setlocal noexpandtab
-  autocmd BufNewFile,BufRead CMakeLists.txt setlocal filetype=cmake
+autocmd!
+autocmd FileType make setlocal noexpandtab
+autocmd BufNewFile,BufRead CMakeLists.txt setlocal filetype=cmake
 augroup END
 
 set autoread
@@ -468,10 +467,10 @@ let g:tagbar_type_ruby = {
 \ }
 
 " RSpec.vim mappings
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
+" map <Leader>t :call RunCurrentSpecFile()<CR>
+" map <Leader>s :call RunNearestSpec()<CR>
+" map <Leader>l :call RunLastSpec()<CR>
+" map <Leader>a :call RunAllSpecs()<CR>
 
 " Ruby refactory
 nnoremap <leader>rap  :RAddParameter<cr>
