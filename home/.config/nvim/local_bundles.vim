@@ -1,25 +1,50 @@
 " General  ------------------------------------------------------------------{{{
 Plug 'sickill/vim-pasta' " Improve paste
+Plug 'Raimondi/delimitMate'
+Plug 'sheerun/vim-polyglot'
 Plug 'editorconfig/editorconfig-vim' " Conventions for vim
-Plug 'kassio/neoterm', { 'commit': '9e33da0a' }
+Plug 'kassio/neoterm'
+"}}}
 
-" navigation
+" Vim Session  --------------------------------------------------------------{{{
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
+"}}}
+
+" Navigation/Folding  -------------------------------------------------------{{{
+Plug 'scrooloose/nerdtree'
+Plug 'EvanDotPro/nerdtree-symlink'
+Plug 'ivalkeen/nerdtree-execute'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-unimpaired' " Navigate throught quicklist
 Plug 'Lokaltog/vim-easymotion'
 Plug 'ervandew/supertab'
 Plug 'mbbill/undotree'
+Plug 'Konfekt/FastFold'
+"}}}
+
+" Auto complete  ------------------------------------------------------------{{{
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern','for': ['javascript', 'javascript.jsx']  }
 Plug 'fishbullet/deoplete-ruby',{'for': 'ruby'}
-Plug 'Konfekt/FastFold'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+"}}}
 
-" Look and feel
+" Look and feel/Visual  -----------------------------------------------------{{{
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'chriskempson/base16-vim'
 Plug 'kshenoy/vim-signature' "vim marks
 Plug 'steelsojka/color_highlight'
+Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+"}}}
 
-" Text
+" Text ----------------------------------------------------------------------{{{
+Plug 'tpope/vim-commentary'
 Plug 'xolox/vim-notes'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/goyo.vim'  "Write free text
@@ -29,20 +54,26 @@ Plug 'triglav/vim-visual-increment' " Increment numbers by visual selection
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
+"}}}
 
-" Syntax
+" Syntax --------------------------------------------------------------------{{{
 " Plug 'gcorne/vim-sass-lint'
+Plug 'Yggdroot/indentLine'
+Plug 'scrooloose/syntastic'
+Plug 'vim-scripts/CSApprox'
 Plug 'alpaca-tc/beautify.vim'
 Plug 'sbdchd/neoformat'
+"}}}
 
-" File manipulation
-Plug 'EvanDotPro/nerdtree-symlink'
-Plug 'ivalkeen/nerdtree-execute'
-Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+" Git  ----------------------------------------------------------------------{{{
+Plug 'airblade/vim-gitgutter'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim' "Browse git commits
-" Search
+"}}}
+
+" Search --------------------------------------------------------------------{{{
+" Plug 'vim-scripts/grep.vim'
 Plug 'rking/ag.vim'
 Plug 'taiansu/nerdtree-ag'
 Plug 'nelstrom/vim-visual-star-search'
@@ -52,13 +83,30 @@ Plug 'junegunn/fzf.vim'
 
 " HTML  ---------------------------------------------------------------------{{{
 Plug 'Valloric/MatchTagAlways'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'gorodinskiy/vim-coloresque'
+Plug 'tpope/vim-haml'
+Plug 'mattn/emmet-vim'
 "}}}
 
 " CSS  ----------------------------------------------------------------------{{{
 Plug 'groenewege/vim-less'
 "}}}
 
+" Javascript  ---------------------------------------------------------------{{{
+Plug 'jelera/vim-javascript-syntax'
+"}}}
+
+" Lisp  ---------------------------------------------------------------------{{{
+Plug 'vim-scripts/slimv.vim'
+"}}}
+
 " Ruby/Rails  ---------------------------------------------------------------{{{
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-projectionist'
+Plug 'thoughtbot/vim-rspec'
+Plug 'ecomba/vim-ruby-refactoring'
 Plug 'tpope/vim-bundler'
 Plug 'slim-template/vim-slim'
 Plug 'bruno-/vim-ruby-fold'
@@ -73,6 +121,6 @@ Plug 'jgdavey/vim-blockle', { 'for': 'ruby' }
 Plug 'tpope/vim-endwise', { 'for': 'ruby' }
 "}}}
 
-" JSON  ---------------------------------------------------------------{{{
+" JSON  ---------------------------------------------------------------------{{{
 Plug 'tpope/vim-jdaddy' "json mappings
 "}}}
