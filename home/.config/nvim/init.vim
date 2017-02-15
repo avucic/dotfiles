@@ -7,163 +7,152 @@
 " Author: Aleksandar Vucic
 " repo  : https://github.com/avstudio/dotfiles/
 
-" Core  ---------------------------------------------------------------------{{{
-if has('vim_starting')
-    set nocompatible               " Be iMproved
+" Setup  --------------------------------------------------------------------{{{
+if (!isdirectory(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")))
+    call system(expand("mkdir -p $HOME/.config/nvim/repos/github.com"))
+    call system(expand("git clone https://github.com/Shougo/dein.vim $HOME/.config/nvim/repos/github.com/Shougo/dein.vim"))
 endif
 
-let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
+set runtimepath+=~/.config/nvim/repos/github.com/Shougo/dein.vim/
+call dein#begin(expand('~/.config/nvim'))
+call dein#add('Shougo/dein.vim')
+call dein#add('haya14busa/dein-command.vim')
+call dein#add('chriskempson/base16-vim')
 
-if !filereadable(vimplug_exists)
-    echo "Installing Vim-Plug..."
-    echo ""
-    silent !\curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    let g:not_finish_vimplug = "yes"
-
-    autocmd VimEnter * PlugInstall
+if dein#check_install()
+    call dein#install()
+    let pluginsExist=1
 endif
-
-call plug#begin(expand('~/.config/nvim/plugged'))
-
-" General {{{
-Plug 'sickill/vim-pasta' " Improve paste
-Plug 'Raimondi/delimitMate'
-Plug 'sheerun/vim-polyglot'
-Plug 'editorconfig/editorconfig-vim' " Conventions for vim
-Plug 'kassio/neoterm'
-"}}}
 
 " Testing {{{
-Plug 'tpope/vim-dispatch'
-Plug 'janko-m/vim-test'
+call dein#add('tpope/vim-dispatch')
+call dein#add('janko-m/vim-test')
 "}}}
 
 " Vim Session {{{
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
+call dein#add('xolox/vim-misc')
+call dein#add('xolox/vim-session')
 "}}}
 
 " Navigation/Folding  {{{
-Plug 'scrooloose/nerdtree'
-Plug 'EvanDotPro/nerdtree-symlink'
-Plug 'ivalkeen/nerdtree-execute'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'majutsushi/tagbar'
-Plug 'tpope/vim-unimpaired' " Navigate throught quicklist
-Plug 'Lokaltog/vim-easymotion'
-Plug 'ervandew/supertab'
-Plug 'mbbill/undotree'
-Plug 'Konfekt/FastFold'
+call dein#add('scrooloose/nerdtree')
+call dein#add('EvanDotPro/nerdtree-symlink')
+call dein#add('ivalkeen/nerdtree-execute')
+call dein#add('jistr/vim-nerdtree-tabs')
+call dein#add('majutsushi/tagbar')
+call dein#add('tpope/vim-unimpaired') " Navigate throught quicklist
+call dein#add('Lokaltog/vim-easymotion')
+call dein#add('ervandew/supertab')
+call dein#add('mbbill/undotree')
+call dein#add('Konfekt/FastFold')
 "}}}
 
 " Auto complete  {{{
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern','for': ['javascript', 'javascript.jsx']  }
-Plug 'fishbullet/deoplete-ruby',{'for': 'ruby'}
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+call dein#add('Shougo/deoplete.nvim')
+call dein#add('ternjs/tern_for_vim', { 'on_ft': ['javascript', 'javascript.jsx'] })
+call dein#add('carlitux/deoplete-ternjs', { 'build': 'npm install -g tern','on_ft': ['javascript', 'javascript.jsx']  })
+call dein#add('fishbullet/deoplete-ruby',{'on_ft': 'ruby'})
+call dein#add('SirVer/ultisnips')
+call dein#add('honza/vim-snippets')
 "}}}
 
 " Look and feel/Visual  {{{
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'chriskempson/base16-vim'
-Plug 'kshenoy/vim-signature' "vim marks
-Plug 'steelsojka/color_highlight'
-Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+call dein#add('vim-airline/vim-airline')
+call dein#add('vim-airline/vim-airline-themes')
+call dein#add('kshenoy/vim-signature') "vim marks
+call dein#add('steelsojka/color_highlight')
+call dein#add('ryanoasis/vim-devicons')
+call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
 "}}}
 
 " Text {{{
-Plug 'tpope/vim-commentary'
-Plug 'xolox/vim-notes'
-Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/goyo.vim'  "Write free text
-Plug 'tpope/vim-abolish' " text inflection and case  manipulation
-Plug 'junegunn/limelight.vim' "Not destriactive sections of text
-Plug 'triglav/vim-visual-increment' " Increment numbers by visual selection
-Plug 'terryma/vim-expand-region'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-surround'
-Plug 'vim-translator'
+call dein#add('tpope/vim-commentary')
+call dein#add('xolox/vim-notes')
+call dein#add('junegunn/vim-easy-align')
+call dein#add('junegunn/goyo.vim')  "Write free text
+call dein#add('tpope/vim-abolish') " text inflection and case  manipulation
+call dein#add('junegunn/limelight.vim') "Not destriactive sections of text
+call dein#add('triglav/vim-visual-increment') " Increment numbers by visual selection
+call dein#add('terryma/vim-expand-region')
+call dein#add('terryma/vim-multiple-cursors')
+call dein#add('tpope/vim-surround')
+call dein#local('vim-translator')
 "}}}
 
 " Syntax {{{
-" Plug 'gcorne/vim-sass-lint'
-Plug 'Yggdroot/indentLine'
-Plug 'scrooloose/syntastic'
-Plug 'vim-scripts/CSApprox'
-Plug 'alpaca-tc/beautify.vim'
-Plug 'sbdchd/neoformat'
+" call dein#add('gcorne/vim-sass-lint')
+call dein#add('Yggdroot/indentLine')
+call dein#add('scrooloose/syntastic')
+call dein#add('vim-scripts/CSApprox')
+call dein#add('alpaca-tc/beautify.vim')
+call dein#add('sbdchd/neoformat')
 "}}}
 
 " Git  {{{
-Plug 'airblade/vim-gitgutter'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim' "Browse git commits
+call dein#add('airblade/vim-gitgutter')
+call dein#add('Xuyuanp/nerdtree-git-plugin')
+call dein#add('tpope/vim-fugitive')
+call dein#add('junegunn/gv.vim') "Browse git commits
 "}}}
 
 " Search {{{
-" Plug 'vim-scripts/grep.vim'
-Plug 'rking/ag.vim'
-Plug 'taiansu/nerdtree-ag'
-Plug 'nelstrom/vim-visual-star-search'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" call dein#add('vim-scripts/grep.vim')
+call dein#add('rking/ag.vim')
+call dein#add('taiansu/nerdtree-ag')
+call dein#add('nelstrom/vim-visual-star-search')
+call dein#add('junegunn/fzf', { 'build': './install --all','merged': 0 })
+call dein#add('junegunn/fzf.vim')
 "}}}
 
 " HTML  {{{
-Plug 'Valloric/MatchTagAlways'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'gorodinskiy/vim-coloresque'
-Plug 'tpope/vim-haml'
-Plug 'mattn/emmet-vim'
+call dein#add('Valloric/MatchTagAlways')
+call dein#add('hail2u/vim-css3-syntax')
+call dein#add('gorodinskiy/vim-coloresque')
+call dein#add('tpope/vim-haml')
+call dein#add('mattn/emmet-vim')
 "}}}
 
 " CSS  {{{
-Plug 'groenewege/vim-less'
+call dein#add('groenewege/vim-less')
 "}}}
 
 " Javascript  {{{
-Plug 'jelera/vim-javascript-syntax'
+call dein#add('jelera/vim-javascript-syntax')
 "}}}
 
 " Lisp  {{{
-Plug 'vim-scripts/slimv.vim'
+call dein#add('vim-scripts/slimv.vim')
 "}}}
 
 " Ruby/Rails  {{{
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-rake'
-Plug 'tpope/vim-projectionist'
-Plug 'thoughtbot/vim-rspec'
-Plug 'ecomba/vim-ruby-refactoring'
-Plug 'tpope/vim-bundler'
-Plug 'slim-template/vim-slim'
-Plug 'bruno-/vim-ruby-fold'
-Plug 'kana/vim-textobj-user'
-Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' } "Selecting ruby block
-" Plug 'tpope/vim-rbenv',                           { 'for': 'ruby' }
-" Plug 'vim-ruby/vim-ruby',                         { 'for': 'ruby' }
-" Plug 'skalnik/vim-vroom',                         { 'for': 'ruby' }
-" Plug 't9md/vim-ruby-xmpfilter',                   { 'for': 'ruby' }
-" Plug 'tpope/vim-dispatch',                        { 'for': 'ruby' }
-Plug 'jgdavey/vim-blockle', { 'for': 'ruby' }
-Plug 'tpope/vim-endwise', { 'for': 'ruby' }
+call dein#add('tpope/vim-rails')
+call dein#add('tpope/vim-rake')
+call dein#add('tpope/vim-projectionist')
+call dein#add('thoughtbot/vim-rspec')
+call dein#add('ecomba/vim-ruby-refactoring')
+call dein#add('tpope/vim-bundler')
+call dein#add('slim-template/vim-slim')
+call dein#add('bruno-/vim-ruby-fold')
+call dein#add('kana/vim-textobj-user')
+call dein#add('nelstrom/vim-textobj-rubyblock', { 'on_ft': 'ruby' }) "Selecting ruby block
+" call dein#add('tpope/vim-rbenv'),                           { 'on_ft': 'ruby' }
+" call dein#add('vim-ruby/vim-ruby'),                         { 'on_ft': 'ruby' }
+" call dein#add('skalnik/vim-vroom'),                         { 'on_ft': 'ruby' }
+" call dein#add('t9md/vim-ruby-xmpfilter'),                   { 'on_ft': 'ruby' }
+" call dein#add('tpope/vim-dispatch'),                        { 'on_ft': 'ruby' }
+call dein#add('jgdavey/vim-blockle', { 'on_ft': 'ruby' })
+call dein#add('tpope/vim-endwise', { 'on_ft': 'ruby' })
 "}}}
 
 " JSON  {{{
-Plug 'tpope/vim-jdaddy' "json mappings
+call dein#add('tpope/vim-jdaddy') "json mappings
 "}}}
 
-call plug#end()
-
+call dein#end()
 filetype plugin indent on
-"}}}
+" }}}
 
-" Basic Setup  --------------------------------------------------------------{{{
+" System Setting  -----------------------------------------------------------{{{
 let mapleader="\<Space>"
 
 "" Encoding
