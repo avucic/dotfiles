@@ -1,3 +1,6 @@
+" https://github.com/maksimr/vim-translator
+" customized
+
 if exists('g:loaded_translator') && g:loaded_translator
     finish
 endif
@@ -15,6 +18,16 @@ function! translator#speak(...) range
     let content = substitute(s:get_selection(), '\s', '%20', 'g')
     let uri = '"http://translate.google.com/translate_tts?ie=UTF-8&tl='.tl.'&q='.content.'"'
     call system(g:translate_player.' '.uri.' &')
+endfunction
+
+function! translator#translate_word(content)
+    let command = g:translate_cmd.' "'.a:content.'"'
+    let result = systemlist(command)
+    echohl String
+    for line in result
+        echomsg line
+    endfor
+    echohl None
 endfunction
 
 function! translator#translate(replace) range

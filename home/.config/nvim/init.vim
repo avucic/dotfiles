@@ -609,6 +609,7 @@ autocmd bufnewfile,bufread *.svg set ft=xml
 let g:translate_cmd = 'trans -b -t sr-Latn+en'
 vmap T  <Plug>Translate
 vmap R  <Plug>TranslateReplace
+command! -nargs=1 Trans call translator#translate_word(<f-args>)
 
 "" vim-test
 let test#strategy = {
