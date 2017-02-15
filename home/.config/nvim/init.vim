@@ -86,6 +86,7 @@ Plug 'triglav/vim-visual-increment' " Increment numbers by visual selection
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
+Plug 'vim-translator'
 "}}}
 
 " Syntax {{{
@@ -603,6 +604,12 @@ autocmd bufnewfile,bufread *.svg set ft=xml
 "}}}
 
 " Settings  -----------------------------------------------------------------{{{
+
+"" Vim Translator
+let g:translate_cmd = 'trans -b -t sr-Latn+en'
+vmap T  <Plug>Translate
+vmap R  <Plug>TranslateReplace
+
 "" vim-test
 let test#strategy = {
   \ 'nearest': 'neovim',
@@ -840,4 +847,3 @@ if !exists('*s:setupWrapping')
     endfunction
 endif
 "}}}
-
