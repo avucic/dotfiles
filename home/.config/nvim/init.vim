@@ -320,8 +320,8 @@ autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:las
 autocmd FileType vim setlocal fdc=1
 set foldlevel=99
 " Space to toggle folds.
-nnoremap <Space><Space> za
-vnoremap <Space><Space> za
+nnoremap <cr> za
+vnoremap <cr> za
 autocmd FileType vim setlocal foldmethod=marker
 autocmd FileType vim setlocal foldlevel=0
 
@@ -574,15 +574,15 @@ nmap <silent> ,rT :TestFile<CR>
 nmap <silent> ,ra :TestSuite<CR>
 nmap <silent> ,rl :TestLast<CR>
 nmap <silent> ,rg :TestVisit<CR>
-nnoremap <silent> ,rc :T rails c<cr>
 
-command! Troutes :T rake routes
-command! -nargs=+ Troute :T rake routes | grep <args>
-command! Tmigrate :T rake db:migrate
-command! Tseed :T rake db:reset && rake db:seed_fu
+command! Troutes :T bundle exec rake routes
+command! Tconsole :T bundle exec rails c
+command! -nargs=+ Troute :T bundle exec rake routes | grep <args>
+command! Tmigrate :T bundle exec rake db:migrate
+command! Tseed :T bundle exec rake db:reset && rake db:seed_fu
 "}}}
 
-"" Javascript  ---------------------------------------------------------------{{{
+" Javascript  ---------------------------------------------------------------{{{
 let g:javascript_enable_domhtmlcss = 1
 
 " vim-javascript
