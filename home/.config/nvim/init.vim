@@ -24,6 +24,13 @@ if dein#check_install()
     let pluginsExist=1
 endif
 
+" General {{{
+call dein#add('sickill/vim-pasta') " Improve paste
+call dein#add('sheerun/vim-polyglot')
+call dein#add('editorconfig/editorconfig-vim') " Conventions for vim
+call dein#add('kassio/neoterm')
+"}}}
+
 " Testing {{{
 call dein#add('tpope/vim-dispatch')
 call dein#add('janko-m/vim-test')
