@@ -455,7 +455,6 @@ nnoremap <leader>sc :CloseSession<CR>
 "" GoogleSearch
 command! -nargs=1 Gsearch call GoogleSearch(<f-args>)
 vnoremap <leader>g/ "gy<Esc> :call GoogleSearch()<CR>
-" vnoremap <leader>g/ y:s:GoogleSearch <C-R><C-R>"<CR> " Search for visual selected text
 
 "" Git
 noremap <Leader>gl :Glog<CR>
@@ -607,6 +606,8 @@ autocmd bufnewfile,bufread *.svg set ft=xml
 "}}}
 
 " Settings  -----------------------------------------------------------------{{{
+"" Vim rest console
+let g:vrc_set_default_mapping = 0
 
 "" Vim Translator
 let g:translate_cmd = 'trans -b -t sr-Latn+en'
@@ -851,8 +852,8 @@ if !exists('*s:setupWrapping')
     endfunction
 endif
 
-if !exists('*s:GoogleSearch')
-    function s:GoogleSearch(...)
+if !exists('*GoogleSearch')
+    function GoogleSearch(...)
         silent! exec "!open \"http://google.com/search?q=" . (a:0 > 0 ? a:1 : @g) . "\" > /dev/null"
         redraw!
     endfunction
