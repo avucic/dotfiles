@@ -29,6 +29,7 @@ call dein#add('sickill/vim-pasta') " Improve paste
 call dein#add('sheerun/vim-polyglot')
 call dein#add('editorconfig/editorconfig-vim') " Conventions for vim
 call dein#add('kassio/neoterm')
+call dein#add('diepm/vim-rest-console')
 "}}}
 
 " Testing {{{
