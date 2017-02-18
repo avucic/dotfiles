@@ -24,3 +24,4 @@ todo
 .env
 .tern-*
 tags
+.rest
