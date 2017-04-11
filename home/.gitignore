@@ -25,3 +25,8 @@ todo
 .tern-*
 tags
 *.rest
+.sass-cache
+bower_components/
+node_modules/
+.tmp/
+

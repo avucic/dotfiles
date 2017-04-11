@@ -85,6 +85,7 @@ eval "$(rbenv init - --no-rehash)"
 ## Android SDK
 ##
 export ANDROID_SDK=/usr/local/Cellar/android-sdk/
+export PATH=$PATH:/Users/vucinjo/Library/Android/sdk/ndk-bundle
 export PATH=$PATH:~/Library/Android/sdk/platform-tools/
 
 ##

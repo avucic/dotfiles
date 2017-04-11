@@ -30,6 +30,7 @@ call dein#add('sheerun/vim-polyglot')
 call dein#add('editorconfig/editorconfig-vim') " Conventions for vim
 call dein#add('kassio/neoterm')
 call dein#add('diepm/vim-rest-console')
+call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 "}}}
 
 " Testing {{{
@@ -74,7 +75,6 @@ call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
 "}}}
 
 " Text {{{
-call dein#add('tpope/vim-commentary')
 call dein#add('xolox/vim-notes')
 call dein#add('junegunn/vim-easy-align')
 call dein#add('junegunn/goyo.vim')  "Write free text
@@ -89,7 +89,9 @@ call dein#local('vim-translator')
 
 " Syntax {{{
 " call dein#add('gcorne/vim-sass-lint')
+call dein#add('tomtom/tcomment_vim')
 call dein#add('Yggdroot/indentLine')
+call dein#add('tpope/vim-sleuth')
 call dein#add('scrooloose/syntastic')
 call dein#add('vim-scripts/CSApprox')
 call dein#add('alpaca-tc/beautify.vim')
@@ -131,6 +133,11 @@ call dein#add('jelera/vim-javascript-syntax')
 
 " Lisp  {{{
 call dein#add('vim-scripts/slimv.vim')
+"}}}
+
+" php  {{{
+call dein#add('m2mdas/phpcomplete-extended')
+call dein#add('StanAngeloff/php.vim.git')
 "}}}
 
 " Ruby/Rails  {{{
@@ -293,6 +300,9 @@ endif
 if has('unnamedplus')
   set clipboard=unnamed,unnamedplus
 endif
+"" Fix slow nerdtree
+set lazyredraw
+set ttyfast
 " }}}
 
 " Folding  ------------------------------------------------------------------{{{
@@ -513,7 +523,7 @@ nnoremap <silent> ,c  :call neoterm#close()<cr>
 " xmap <Leader>l <Plug>(Limelight)
 
 "" Goyo (distraction-free)
-nnoremap <Leader>g :Goyo<CR>
+nnoremap <Leader>gg :Goyo<CR>
 
 "" IndentLine
 noremap <Leader>i :IndentLinesToggle<CR>
@@ -528,8 +538,10 @@ imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 nnoremap <silent><c-p> :exe 'Files ' . <SID>fzf_root()<CR>
 nnoremap <silent><leader>/ :Lines<CR>
-nnoremap <silent><leader>// :Lines <C-r>=expand('<cword>')<CR><CR> " Search for word under the cursor
-vnoremap <silent><leader>/ y:Lines <C-R><C-R>"<CR> " Search for visual selected text
+" Search for word under the cursor
+nnoremap <silent><leader>// :Lines <C-r>=expand('<cword>')<CR><CR>
+" Search for visual selected text
+vnoremap <silent><leader>/ y:Lines <C-R><C-R>"<CR>
 nnoremap <silent> <leader>a :Buffers<CR>
 nnoremap <silent> <leader>A :Windows<CR>
 nnoremap <silent> <leader>o :BTags<CR>
@@ -540,6 +552,11 @@ nnoremap <silent> <leader>ga :BCommits<CR>
 nnoremap q/ :QHist<CR>
 nnoremap q: :CmdHist<CR>
 
+command! -bang FLines call fzf#vim#grep(
+     \ 'grep -vnITr --color=always --exclude-dir=".svn" --exclude-dir=".git" --exclude=tags --exclude=*\.pyc --exclude=*\.exe --exclude=*\.dll --exclude=*\.zip --exclude=*\.gz "^$"',
+     \ 0,
+     \ {'options': '--reverse --prompt "FLines> "'})
+
 "" EasyMotion
 nmap s <Plug>(easymotion-overwin-f)
 nmap s <Plug>(easymotion-overwin-f2)
@@ -548,6 +565,12 @@ map <Leader>k <Plug>(easymotion-k)
 
 "" Neoformat
 noremap <leader>f :Neoformat<CR>
+"}}}
+
+" Php  ----------------------------------------------------------------------{{{
+augroup filetypedetect
+  au BufRead,BufNewFile *.inc set filetype=php
+augroup END
 "}}}
 
 " Ruby  ---------------------------------------------------------------------{{{
@@ -652,6 +675,7 @@ let g:syntastic_scss_checkers=["sasslint"]
 let g:ruby_host_prog = '/home/rotsen/.rubies/ruby-2.3.1/bin/ruby'
 let g:syntastic_svg_checkers = []
 let g:syntastic_check_on_open = 0
+autocmd VimEnter * SyntasticToggleMode "
 
 "" Tagbar
 let g:tagbar_autofocus = 1
