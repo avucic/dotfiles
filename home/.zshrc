@@ -86,12 +86,18 @@ eval "$(rbenv init - --no-rehash)"
 ##
 export ANDROID_SDK=/usr/local/Cellar/android-sdk/
 export PATH=$PATH:/Users/vucinjo/Library/Android/sdk/ndk-bundle
-export PATH=$PATH:~/Library/Android/sdk/platform-tools/
+export PATH=$PATH:~/Library/Android/sdk/platform-tools
 
 ##
 ## Python
 ##
-export PATH="$HOME/Library/Python/3.5/bin:$PATH"
-source /usr/local/Cellar/python3/3.5.0/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh
+export PATH="$HOME/Library/Python/3.6/bin:$PATH"
+
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+
+source /usr/local/Cellar/python3/3.6.1/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/powerline/bindings/zsh/powerline.zsh
+source /usr/local/bin/virtualenvwrapper.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
