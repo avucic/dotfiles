@@ -80,7 +80,6 @@ export DISABLE_AUTO_TITLE=true
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init - --no-rehash)"
-
 ##
 ## Android SDK
 ##

@@ -882,5 +882,4 @@ if !exists('*GoogleSearch')
         redraw!
     endfunction
 endif
-
 "}}}

@@ -29,4 +29,4 @@ tags
 bower_components/
 node_modules/
 .tmp/
-
+config/application.yml
