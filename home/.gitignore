@@ -4,7 +4,8 @@
 *~
 doc
 doc/*
-#public/assets/*
+public/assets/*
+public/static/*
 demo.rb
 test.rb
 pry.rb
@@ -29,4 +30,9 @@ tags
 bower_components/
 node_modules/
 .tmp/
-config/application.yml
+config/secrets.yml
+.yarnrc
+yarn.lock
+yarn*
+cached_pages/
+.env

@@ -164,6 +164,10 @@ call dein#add('tpope/vim-endwise', { 'on_ft': 'ruby' })
 call dein#add('tpope/vim-jdaddy') "json mappings
 "}}}
 
+" CSV  {{{
+call dein#add('chrisbra/csv.vim')
+"}}}
+
 call dein#end()
 filetype plugin indent on
 " }}}
@@ -507,8 +511,12 @@ vmap <C-v> <Plug>(expand_region_shrink)
 nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
 
 "" EasyAlign
-vmap <Enter> <Plug>(EasyAlign) " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-nmap ga <Plug>(EasyAlign) " Start interactive EasyAlign for a motion/text object (e.g. gaip)
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 "" Neoterm
 nnoremap <silent> ,sf :TREPLSendFile<cr>
@@ -857,6 +865,9 @@ autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
 augroup END
 
 set autoread
+
+" terminal
+autocmd TermClose * bd!
 "}}}
 
 " Functions  ----------------------------------------------------------------{{{
