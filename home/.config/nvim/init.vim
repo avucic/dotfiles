@@ -8,168 +8,165 @@
 " repo  : https://github.com/avstudio/dotfiles/
 
 " Setup  --------------------------------------------------------------------{{{
-if (!isdirectory(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")))
-    call system(expand("mkdir -p $HOME/.config/nvim/repos/github.com"))
-    call system(expand("git clone https://github.com/Shougo/dein.vim $HOME/.config/nvim/repos/github.com/Shougo/dein.vim"))
+" auto-install vim-plug
+if empty(glob("$HOME/.config/nvim/autoload/plug.vim"))
+   call system(expand("mkdir -p $HOME/.config/nvim/{autoload,plugged}"))
+   call system(expand("git clone https://github.com/junegunn/vim-plug.git $HOME/.config/nvim/plugged/vim-plug"))
+   call system(expand("ln -s ~/.config/nvim/plugged/vim-plug/plug.vim ~/.config/nvim/autoload"))
+   autocmd VimEnter * PlugInstall
 endif
 
-set runtimepath+=~/.config/nvim/repos/github.com/Shougo/dein.vim/
-call dein#begin(expand('~/.config/nvim'))
-call dein#add('Shougo/dein.vim')
-call dein#add('haya14busa/dein-command.vim')
-call dein#add('chriskempson/base16-vim')
+" set runtimepath+=~/.config/nvim/plugged/vim-plug
+call plug#begin('~/.config/nvim/plugged')
 
-if dein#check_install()
-    call dein#install()
-    let pluginsExist=1
-endif
+Plug 'chriskempson/base16-vim'
 
 " General {{{
-call dein#add('sickill/vim-pasta') " Improve paste
-call dein#add('sheerun/vim-polyglot')
-call dein#add('editorconfig/editorconfig-vim') " Conventions for vim
-call dein#add('kassio/neoterm')
-call dein#add('diepm/vim-rest-console')
-call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+Plug 'sickill/vim-pasta' " Improve paste
+Plug 'sheerun/vim-polyglot'
+Plug 'editorconfig/editorconfig-vim' " Conventions for vim
+Plug 'kassio/neoterm'
+Plug 'diepm/vim-rest-console'
+Plug 'Shougo/vimproc.vim', {'build' : 'make','do':':VimProcInstall'}
 "}}}
 
 " Testing {{{
-call dein#add('janko-m/vim-test')
-call dein#add('tpope/vim-dispatch')
+Plug 'janko-m/vim-test'
+Plug 'tpope/vim-dispatch'
 "}}}
 
 " Vim Session {{{
-call dein#add('xolox/vim-misc')
-call dein#add('xolox/vim-session')
-call dein#add('dominickng/fzf-session.vim')
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
+Plug 'dominickng/fzf-session.vim'
 "}}}
 
 " Navigation/Folding  {{{
-call dein#add('scrooloose/nerdtree')
-call dein#add('EvanDotPro/nerdtree-symlink')
-call dein#add('ivalkeen/nerdtree-execute')
-call dein#add('jistr/vim-nerdtree-tabs')
-call dein#add('majutsushi/tagbar')
-call dein#add('tpope/vim-unimpaired') " Navigate throught quicklist
-call dein#add('Lokaltog/vim-easymotion')
-call dein#add('ervandew/supertab')
-call dein#add('mbbill/undotree')
-call dein#add('Konfekt/FastFold')
+Plug 'scrooloose/nerdtree'
+Plug 'EvanDotPro/nerdtree-symlink'
+Plug 'ivalkeen/nerdtree-execute'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-unimpaired' " Navigate throught quicklist
+Plug 'Lokaltog/vim-easymotion'
+Plug 'ervandew/supertab'
+Plug 'mbbill/undotree'
+Plug 'Konfekt/FastFold'
 "}}}
 
 " Auto complete  {{{
-call dein#add('Shougo/deoplete.nvim')
-call dein#add('ternjs/tern_for_vim', { 'on_ft': ['javascript', 'javascript.jsx'] })
-call dein#add('carlitux/deoplete-ternjs', { 'build': 'npm install -g tern','on_ft': ['javascript', 'javascript.jsx']  })
-call dein#add('fishbullet/deoplete-ruby',{'on_ft': 'ruby'})
-call dein#add('SirVer/ultisnips')
-call dein#add('honza/vim-snippets')
+Plug 'Shougo/deoplete.nvim'
+Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'carlitux/deoplete-ternjs', { 'build': 'npm install -g tern','for': ['javascript', 'javascript.jsx']  }
+Plug 'fishbullet/deoplete-ruby',{'for': 'ruby'}
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 "}}}
 
 " Look and feel/Visual  {{{
-call dein#add('vim-airline/vim-airline')
-call dein#add('vim-airline/vim-airline-themes')
-call dein#add('kshenoy/vim-signature') "vim marks
-call dein#add('steelsojka/color_highlight')
-call dein#add('ryanoasis/vim-devicons')
-call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'kshenoy/vim-signature' "vim marks
+Plug 'steelsojka/color_highlight'
+Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 "}}}
 
 " Text {{{
-call dein#add('xolox/vim-notes')
-call dein#add('junegunn/vim-easy-align')
-call dein#add('junegunn/goyo.vim')  "Write free text
-call dein#add('tpope/vim-abolish') " text inflection and case  manipulation
-call dein#add('junegunn/limelight.vim') "Not destriactive sections of text
-call dein#add('triglav/vim-visual-increment') " Increment numbers by visual selection
-call dein#add('terryma/vim-expand-region')
-call dein#add('terryma/vim-multiple-cursors')
-call dein#add('tpope/vim-surround')
-call dein#local('vim-translator')
+Plug 'xolox/vim-notes'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/goyo.vim'  "Write free text
+Plug 'tpope/vim-abolish' " text inflection and case  manipulation
+Plug 'junegunn/limelight.vim' "Not destriactive sections of text
+Plug 'triglav/vim-visual-increment' " Increment numbers by visual selection
+Plug 'terryma/vim-expand-region'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-surround'
+Plug '$HOME/.config/nvim/plugin/vim-translator'
 "}}}
 
 " Syntax {{{
-" call dein#add('gcorne/vim-sass-lint')
-call dein#add('tomtom/tcomment_vim')
-call dein#add('Yggdroot/indentLine')
-call dein#add('tpope/vim-sleuth')
-call dein#add('scrooloose/syntastic')
-call dein#add('vim-scripts/CSApprox')
-call dein#add('alpaca-tc/beautify.vim')
-call dein#add('sbdchd/neoformat')
-call dein#add('Raimondi/delimitMate')
+" P lug('gcorne/vim-sass-lint')
+Plug 'tomtom/tcomment_vim'
+Plug 'Yggdroot/indentLine'
+Plug 'tpope/vim-sleuth'
+Plug 'scrooloose/syntastic'
+Plug 'vim-scripts/CSApprox'
+Plug 'alpaca-tc/beautify.vim'
+Plug 'sbdchd/neoformat'
+Plug 'Raimondi/delimitMate'
 "}}}
 
 " Git  {{{
-call dein#add('airblade/vim-gitgutter')
-call dein#add('Xuyuanp/nerdtree-git-plugin')
-call dein#add('tpope/vim-fugitive')
-call dein#add('junegunn/gv.vim') "Browse git commits
+Plug 'airblade/vim-gitgutter'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim' "Browse git commits
 "}}}
 
 " Search {{{
-" call dein#add('vim-scripts/grep.vim')
-call dein#add('rking/ag.vim')
-call dein#add('taiansu/nerdtree-ag')
-call dein#add('nelstrom/vim-visual-star-search')
-call dein#add('junegunn/fzf', { 'build': './install --all','merged': 0 })
-call dein#add('junegunn/fzf.vim')
+" P lug('vim-scripts/grep.vim')
+Plug 'rking/ag.vim'
+Plug 'taiansu/nerdtree-ag'
+Plug 'nelstrom/vim-visual-star-search'
+" P lug('junegunn/fzf', { 'build': './install --all','merged': 0 })
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 "}}}
 
 " HTML  {{{
-call dein#add('Valloric/MatchTagAlways')
-call dein#add('hail2u/vim-css3-syntax')
-call dein#add('gorodinskiy/vim-coloresque')
-call dein#add('tpope/vim-haml')
-call dein#add('mattn/emmet-vim')
+Plug 'Valloric/MatchTagAlways'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'gorodinskiy/vim-coloresque'
+Plug 'tpope/vim-haml'
+Plug 'mattn/emmet-vim'
 "}}}
 
 " CSS  {{{
-call dein#add('groenewege/vim-less')
+Plug 'groenewege/vim-less'
 "}}}
 
 " Javascript  {{{
-" call dein#add('jelera/vim-javascript-syntax')
-call dein#add('pangloss/vim-javascript')
+" P lug('jelera/vim-javascript-syntax')
+Plug 'pangloss/vim-javascript'
 "}}}
 
 " Lisp  {{{
-call dein#add('vim-scripts/slimv.vim')
+Plug 'vim-scripts/slimv.vim'
 "}}}
 
 " php  {{{
-call dein#add('m2mdas/phpcomplete-extended')
-call dein#add('StanAngeloff/php.vim.git')
+Plug 'm2mdas/phpcomplete-extended'
+Plug 'StanAngeloff/php.vim'
 "}}}
 
 " Ruby/Rails  {{{
-call dein#add('tpope/vim-rails')
-call dein#add('tpope/vim-rake')
-call dein#add('tpope/vim-projectionist')
-call dein#add('thoughtbot/vim-rspec')
-call dein#add('ecomba/vim-ruby-refactoring')
-call dein#add('tpope/vim-bundler')
-call dein#add('slim-template/vim-slim')
-call dein#add('bruno-/vim-ruby-fold')
-call dein#add('kana/vim-textobj-user')
-call dein#add('nelstrom/vim-textobj-rubyblock', { 'on_ft': 'ruby' }) "Selecting ruby block
-" call dein#add('tpope/vim-rbenv'),                           { 'on_ft': 'ruby' }
-call dein#add('vim-ruby/vim-ruby', { 'on_ft': 'ruby' })
-" call dein#add('skalnik/vim-vroom'),                         { 'on_ft': 'ruby' }
-" call dein#add('t9md/vim-ruby-xmpfilter'),                   { 'on_ft': 'ruby' }
-call dein#add('jgdavey/vim-blockle', { 'on_ft': 'ruby' })
-call dein#add('tpope/vim-endwise', { 'on_ft': 'ruby' })
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-projectionist'
+Plug 'thoughtbot/vim-rspec'
+Plug 'ecomba/vim-ruby-refactoring'
+Plug 'tpope/vim-bundler'
+Plug 'slim-template/vim-slim'
+Plug 'bruno-/vim-ruby-fold'
+Plug 'kana/vim-textobj-user'
+Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' } "Selecting ruby block
+" P lug('tpope/vim-rbenv'),                           { 'for': 'ruby' }
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+" P lug('skalnik/vim-vroom'),                         { 'for': 'ruby' }
+" P lug('t9md/vim-ruby-xmpfilter'),                   { 'for': 'ruby' }
+Plug 'jgdavey/vim-blockle', { 'for': 'ruby' }
+Plug 'tpope/vim-endwise', { 'for': 'ruby' }
 "}}}
 
 " JSON  {{{
-call dein#add('tpope/vim-jdaddy') "json mappings
+Plug 'tpope/vim-jdaddy' "json mappings
 "}}}
 
 " CSV  {{{
-call dein#add('chrisbra/csv.vim')
+Plug 'chrisbra/csv.vim'
 "}}}
-
-call dein#end()
+call plug#end()
 filetype plugin indent on
 " }}}
 
@@ -496,8 +493,8 @@ nmap <leader>[ :NERDTreeToggle<cr>
 nmap <leader>nf :NERDTreeFind<CR>
 
 "" vim-expand-regon
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
+vmap v  <Plug>(expand_region_expand)
+vmap < C-v> <Plug>(expand_region_shrink)
 
 "" Undotree
 " nmap <Leader>hh :UndotreeToggle<CR>
@@ -507,11 +504,11 @@ nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
 
 "" EasyAlign
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-vmap <Enter> <Plug>(EasyAlign)
+vmap < Enter> <Plug>(EasyAlign)
 " Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
+" xmap g a <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
+" nmap g a <Plug>(EasyAlign)
 
 "" Neoterm
 nnoremap <silent> ,sf :TREPLSendFile<cr>
@@ -522,8 +519,8 @@ nnoremap <silent> ,k  :call neoterm#kill()<cr>
 nnoremap <silent> ,c  :call neoterm#close()<cr>
 
 "" Limelight
-" nmap <Leader>l <Plug>(Limelight)
-" xmap <Leader>l <Plug>(Limelight)
+" n map <Leader>l <Plug>(Limelight)
+" x map <Leader>l <Plug>(Limelight)
 
 "" Goyo (distraction-free)
 nnoremap <Leader>gg :Goyo<CR>
@@ -553,10 +550,10 @@ nnoremap q/ :QHist<CR>
 nnoremap q: :CmdHist<CR>
 
 "" EasyMotion
-map s <Plug>(easymotion-overwin-f)
-nmap s <Plug>(easymotion-overwin-f2)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
+map s  <Plug>(easymotion-overwin-f)
+nmap s  <Plug>(easymotion-overwin-f2)
+map < Leader>j <Plug>(easymotion-j)
+map < Leader>k <Plug>(easymotion-k)
 
 "" Neoformat
 noremap <leader>f :Neoformat<CR>
@@ -639,8 +636,8 @@ let g:vrc_set_default_mapping = 0
 
 "" Vim Translator
 let g:translate_cmd = 'trans -b -t sr-Latn+en'
-vmap T  <Plug>Translate
-vmap R  <Plug>TranslateReplace
+vmap T   <Plug>Translate
+vmap R   <Plug>TranslateReplace
 command! -nargs=1 Trans call translator#translate_word(<f-args>)
 
 "" vim-test
@@ -878,7 +875,6 @@ set autoread
 "}}}
 
 " Functions  ----------------------------------------------------------------{{{
-
 if !exists('s:fzf_root')
     fun! s:fzf_root()
         let path = finddir(".git", expand("%:p:h").";")
@@ -900,7 +896,9 @@ if !exists('*GoogleSearch')
         redraw!
     endfunction
 endif
+"}}}
 
+" Hacks and Fixes  ----------------------------------------------------------{{{
 " vim-multiple-cursors
 " Disable Deoplete when selecting multiple cursors starts
 function! Multiple_cursors_before()
