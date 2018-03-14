@@ -34,13 +34,14 @@ call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 "}}}
 
 " Testing {{{
-call dein#add('tpope/vim-dispatch')
 call dein#add('janko-m/vim-test')
+call dein#add('tpope/vim-dispatch')
 "}}}
 
 " Vim Session {{{
 call dein#add('xolox/vim-misc')
 call dein#add('xolox/vim-session')
+call dein#add('dominickng/fzf-session.vim')
 "}}}
 
 " Navigation/Folding  {{{
@@ -128,7 +129,8 @@ call dein#add('groenewege/vim-less')
 "}}}
 
 " Javascript  {{{
-call dein#add('jelera/vim-javascript-syntax')
+" call dein#add('jelera/vim-javascript-syntax')
+call dein#add('pangloss/vim-javascript')
 "}}}
 
 " Lisp  {{{
@@ -152,10 +154,9 @@ call dein#add('bruno-/vim-ruby-fold')
 call dein#add('kana/vim-textobj-user')
 call dein#add('nelstrom/vim-textobj-rubyblock', { 'on_ft': 'ruby' }) "Selecting ruby block
 " call dein#add('tpope/vim-rbenv'),                           { 'on_ft': 'ruby' }
-" call dein#add('vim-ruby/vim-ruby'),                         { 'on_ft': 'ruby' }
+call dein#add('vim-ruby/vim-ruby', { 'on_ft': 'ruby' })
 " call dein#add('skalnik/vim-vroom'),                         { 'on_ft': 'ruby' }
 " call dein#add('t9md/vim-ruby-xmpfilter'),                   { 'on_ft': 'ruby' }
-" call dein#add('tpope/vim-dispatch'),                        { 'on_ft': 'ruby' }
 call dein#add('jgdavey/vim-blockle', { 'on_ft': 'ruby' })
 call dein#add('tpope/vim-endwise', { 'on_ft': 'ruby' })
 "}}}
@@ -203,21 +204,15 @@ set fileformats=unix,dos,mac
 set showcmd
 set shell=/bin/sh
 
-"" Session management
-let g:session_directory = "~/.config/nvim/session"
-let g:session_autoload = "no"
-let g:session_autosave = "no"
-let g:session_command_aliases = 1
-
 set nobackup
 " set noswapfile
 "" Directories for swp files
 call system('mkdir $HOME/.config/nvim/swap')
 set directory=~/.config/nvim/swap//
-if has('persistent_undo')
-    let &undodir = expand("$HOME/.config/nvim/undo")
-    set undofile
-endif
+" if has('persistent_undo')
+"     let &undodir = expand("$HOME/.config/nvim/undo")
+"     set undofile
+" endif
 
 autocmd BufWritePre * %s/\s\+$//e "remove white space
 
@@ -332,9 +327,6 @@ autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:las
 
 autocmd FileType vim setlocal fdc=1
 set foldlevel=99
-" Space to toggle folds.
-nnoremap <cr> za
-vnoremap <cr> za
 autocmd FileType vim setlocal foldmethod=marker
 autocmd FileType vim setlocal foldlevel=0
 
@@ -456,13 +448,16 @@ tnoremap <c-h> <c-\><c-n><c-w>h
 tnoremap <c-j> <c-\><c-n><c-w>j
 tnoremap <c-k> <c-\><c-n><c-w>k
 tnoremap <c-l> <C-\><C-n><C-w>l
+command! -nargs=* HT split | terminal <args>
+command! -nargs=* VT vsplit | terminal <args>
 " tnoremap <Esc><Esc> <C-\><C-n>
 
 " Session management
-nnoremap <leader>so :OpenSession<Space>
-nnoremap <leader>ss :SaveSession<Space>
-nnoremap <leader>sd :DeleteSession<CR>
-nnoremap <leader>sc :CloseSession<CR>
+nnoremap <leader>so :SLoad<Space>
+nnoremap <leader>ss :Session<Space>
+nnoremap <leader>s :Sessions<CR>
+nnoremap <leader>sd :SDelete<Space>
+nnoremap <leader>sc :SQuit<CR>
 "}}}
 
 " Mappings  -----------------------------------------------------------------{{{
@@ -536,9 +531,6 @@ nnoremap <Leader>gg :Goyo<CR>
 "" IndentLine
 noremap <Leader>i :IndentLinesToggle<CR>
 
-"" Neoformat
-noremap <leader><leader>f :Neoformat<CR>
-
 "" FZF
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
@@ -560,13 +552,8 @@ nnoremap <silent> <leader>ga :BCommits<CR>
 nnoremap q/ :QHist<CR>
 nnoremap q: :CmdHist<CR>
 
-command! -bang FLines call fzf#vim#grep(
-     \ 'grep -vnITr --color=always --exclude-dir=".svn" --exclude-dir=".git" --exclude=tags --exclude=*\.pyc --exclude=*\.exe --exclude=*\.dll --exclude=*\.zip --exclude=*\.gz "^$"',
-     \ 0,
-     \ {'options': '--reverse --prompt "FLines> "'})
-
 "" EasyMotion
-nmap s <Plug>(easymotion-overwin-f)
+map s <Plug>(easymotion-overwin-f)
 nmap s <Plug>(easymotion-overwin-f2)
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
@@ -603,11 +590,11 @@ let g:tagbar_type_ruby = {
     \ ]
 \ }
 
-nmap <silent> ,rt :TestNearest<CR>
-nmap <silent> ,rT :TestFile<CR>
-nmap <silent> ,ra :TestSuite<CR>
-nmap <silent> ,rl :TestLast<CR>
-nmap <silent> ,rg :TestVisit<CR>
+nmap <silent> ,t :TestNearest<CR>
+nmap <silent> ,tt :TestFile<CR>
+nmap <silent> ,ta :TestSuite<CR>
+nmap <silent> ,l :TestLast<CR>
+nmap <silent> ,g :TestVisit<CR>
 
 command! Troutes :T bundle exec rake routes
 command! Tconsole :T bundle exec rails c
@@ -620,10 +607,17 @@ command! Tseed :T bundle exec rake db:reset && rake db:seed_fu
 let g:javascript_enable_domhtmlcss = 1
 
 " vim-javascript
+let g:javascript_plugin_jsdoc = 1
 augroup vimrc-javascript
   autocmd!
   autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab softtabstop=4 smartindent
 augroup END
+
+augroup javascript_folding
+  au!
+  au FileType javascript setlocal foldmethod=syntax
+augroup END
+
 "}}}
 
 " HTML  ---------------------------------------------------------------------{{{
@@ -637,6 +631,9 @@ autocmd bufnewfile,bufread *.svg set ft=xml
 "}}}
 
 " Settings  -----------------------------------------------------------------{{{
+"" fzf-session
+let g:fzf_session_path = "~/.config/nvim/session"
+
 "" Vim rest console
 let g:vrc_set_default_mapping = 0
 
@@ -648,11 +645,11 @@ command! -nargs=1 Trans call translator#translate_word(<f-args>)
 
 "" vim-test
 let test#strategy = {
-  \ 'nearest': 'neovim',
-  \ 'file':    'dispatch',
-  \ 'suite':   'dispatch',
-  \}
-let g:test#preserve_screen = 1
+   \'nearest': 'neovim',
+   \'file':    'neovim',
+   \'suite':   'neovim',
+   \}
+" let g:test#preserve_screen = 1
 
 "" Gitgutter
 let g:gitgutter_max_signs=9999
@@ -664,11 +661,11 @@ let g:gitgutter_max_signs=9999
 " let Grep_Skip_Dirs = '.git node_modules'
 
 "" The Silver Searcher
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  let g:ctrlp_use_caching = 0
-endif
+" if executable('ag')
+"   set grepprg=ag\ --nogroup\ --nocolor
+"   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+"   let g:ctrlp_use_caching = 0
+" endif
 
 "" Syntastic
 let g:syntastic_always_populate_loc_list=1
@@ -836,6 +833,18 @@ let g:fzf_files_options =
 command! CmdHist call fzf#vim#command_history({'down': '40'}) " Better command history with q:
 command! QHist call fzf#vim#search_history({'down': '40'}) " Better search history
 
+" command! -bang Find call fzf#vim#grep(
+"      \ 'grep -vnITr --color=always --exclude-dir=".svn" --exclude-dir=".git" --exclude=tags --exclude=*\.pyc --exclude=*\.exe --exclude=*\.dll --exclude=*\.zip --exclude=*\.gz "^$"',
+"      \ 0,
+"      \ {'options': '--reverse --prompt "Find> "'})
+
+command! -bang -nargs=* Find
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
 "" EasyMotion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 let g:EasyMotion_smartcase = 1
@@ -844,6 +853,7 @@ let g:EasyMotion_smartcase = 1
 " Autocmd Rules  ------------------------------------------------------------{{{
 augroup terminal
     autocmd TermOpen * setlocal nospell
+    " autocmd TermClose * bd!
 augroup END
 
 "" The PC is fast enough, do syntax highlight syncing from start
@@ -865,9 +875,6 @@ autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
 augroup END
 
 set autoread
-
-" terminal
-autocmd TermClose * bd!
 "}}}
 
 " Functions  ----------------------------------------------------------------{{{
@@ -893,4 +900,23 @@ if !exists('*GoogleSearch')
         redraw!
     endfunction
 endif
+
+" vim-multiple-cursors
+" Disable Deoplete when selecting multiple cursors starts
+function! Multiple_cursors_before()
+  if exists('*deoplete#disable')
+    exe 'call deoplete#disable()'
+  elseif exists(':NeoCompleteLock') == 2
+    exe 'NeoCompleteLock'
+  endif
+endfunction
+
+" Enable Deoplete when selecting multiple cursors ends
+function! Multiple_cursors_after()
+  if exists('*deoplete#enable')
+    exe 'call deoplete#enable()'
+  elseif exists(':NeoCompleteUnlock') == 2
+    exe 'NeoCompleteUnlock'
+  endif
+endfunction
 "}}}

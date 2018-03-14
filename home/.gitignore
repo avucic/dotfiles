@@ -4,7 +4,6 @@
 *~
 doc
 doc/*
-public/assets/*
 public/static/*
 demo.rb
 test.rb
@@ -36,3 +35,6 @@ yarn.lock
 yarn*
 cached_pages/
 .env
+spec/examples.txt
+coverage/
+.simplecov
