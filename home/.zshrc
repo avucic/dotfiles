@@ -100,7 +100,6 @@ export PATH=$PATH:~/Library/Android/sdk/platform-tools
 # source /usr/local/Cellar/python3/3.6.1/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/powerline/bindings/zsh/powerline.zsh
 # source /usr/local/bin/virtualenvwrapper.sh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
@@ -110,3 +109,5 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 
 source /Users/vucinjo/.pyenv/versions/3.6.4/lib/python3.6/site-packages/powerline/bindings/zsh/powerline.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
