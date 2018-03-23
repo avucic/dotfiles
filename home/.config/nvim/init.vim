@@ -10,25 +10,29 @@
 " Setup  --------------------------------------------------------------------{{{
 " auto-install vim-plug
 if empty(glob("$HOME/.config/nvim/autoload/plug.vim"))
-   call system(expand("mkdir -p $HOME/.config/nvim/{autoload,plugged}"))
-   call system(expand("git clone https://github.com/junegunn/vim-plug.git $HOME/.config/nvim/plugged/vim-plug"))
-   call system(expand("ln -s ~/.config/nvim/plugged/vim-plug/plug.vim ~/.config/nvim/autoload"))
-   autocmd VimEnter * PlugInstall
+    call system(expand("mkdir -p $HOME/.config/nvim/{autoload,plugged}"))
+    call system(expand("git clone https://github.com/junegunn/vim-plug.git $HOME/.config/nvim/plugged/vim-plug"))
+    call system(expand("ln -s ~/.config/nvim/plugged/vim-plug/plug.vim ~/.config/nvim/autoload"))
+    autocmd VimEnter * PlugInstall
 endif
 
-" set runtimepath+=~/.config/nvim/plugged/vim-plug
+set runtimepath+=~/.config/nvim/plugged/vim-snippets
+
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'junegunn/vim-plug'
 Plug 'chriskempson/base16-vim'
 
-" General {{{
+" General
 Plug 'sickill/vim-pasta' " Improve paste
 Plug 'sheerun/vim-polyglot'
 Plug 'editorconfig/editorconfig-vim' " Conventions for vim
 Plug 'kassio/neoterm'
-Plug 'diepm/vim-rest-console'
+" Plug 'diepm/vim-rest-console'
+Plug 'aquach/vim-http-client'
 Plug 'Shougo/vimproc.vim', {'build' : 'make','do':':VimProcInstall'}
-"}}}
+Plug 'qpkorr/vim-bufkill'
+
 
 " Testing {{{
 Plug 'janko-m/vim-test'
@@ -37,7 +41,6 @@ Plug 'tpope/vim-dispatch'
 
 " Vim Session {{{
 Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
 Plug 'dominickng/fzf-session.vim'
 "}}}
 
@@ -46,7 +49,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'EvanDotPro/nerdtree-symlink'
 Plug 'ivalkeen/nerdtree-execute'
 Plug 'jistr/vim-nerdtree-tabs'
-Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-unimpaired' " Navigate throught quicklist
 Plug 'Lokaltog/vim-easymotion'
 Plug 'ervandew/supertab'
@@ -61,6 +63,7 @@ Plug 'carlitux/deoplete-ternjs', { 'build': 'npm install -g tern','for': ['javas
 Plug 'fishbullet/deoplete-ruby',{'for': 'ruby'}
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'cyansprite/Extract'
 "}}}
 
 " Look and feel/Visual  {{{
@@ -93,7 +96,9 @@ Plug 'tpope/vim-sleuth'
 Plug 'scrooloose/syntastic'
 Plug 'vim-scripts/CSApprox'
 Plug 'alpaca-tc/beautify.vim'
-Plug 'sbdchd/neoformat'
+Plug 'maksimr/vim-jsbeautify'
+" Plug 'sbdchd/neoformat'
+Plug 'Chiel92/vim-autoformat'
 Plug 'Raimondi/delimitMate'
 "}}}
 
@@ -104,14 +109,15 @@ Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim' "Browse git commits
 "}}}
 
-" Search {{{
+" Search and History {{{
 " P lug('vim-scripts/grep.vim')
 Plug 'rking/ag.vim'
 Plug 'taiansu/nerdtree-ag'
 Plug 'nelstrom/vim-visual-star-search'
-" P lug('junegunn/fzf', { 'build': './install --all','merged': 0 })
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'brooth/far.vim'
+Plug 'simnalamburt/vim-mundo'
 "}}}
 
 " HTML  {{{
@@ -148,15 +154,16 @@ Plug 'thoughtbot/vim-rspec'
 Plug 'ecomba/vim-ruby-refactoring'
 Plug 'tpope/vim-bundler'
 Plug 'slim-template/vim-slim'
-Plug 'bruno-/vim-ruby-fold'
 Plug 'kana/vim-textobj-user'
 Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' } "Selecting ruby block
 " P lug('tpope/vim-rbenv'),                           { 'for': 'ruby' }
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 " P lug('skalnik/vim-vroom'),                         { 'for': 'ruby' }
 " P lug('t9md/vim-ruby-xmpfilter'),                   { 'for': 'ruby' }
 Plug 'jgdavey/vim-blockle', { 'for': 'ruby' }
 Plug 'tpope/vim-endwise', { 'for': 'ruby' }
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+" Plug 'bruno-/vim-ruby-fold'
+Plug 'rlue/vim-fold-rspec'
 "}}}
 
 " JSON  {{{
@@ -173,6 +180,7 @@ filetype plugin indent on
 " System Setting  -----------------------------------------------------------{{{
 let mapleader="\<Space>"
 
+set autoread
 "" Encoding
 set encoding=utf-8
 set fileencoding=utf-8
@@ -289,12 +297,12 @@ endif
 "" Disable visualbell
 set noerrorbells visualbell t_vb=
 if has('autocmd')
-  autocmd GUIEnter * set visualbell t_vb=
+    autocmd GUIEnter * set visualbell t_vb=
 endif
 
 "" Copy/Paste/Cut
 if has('unnamedplus')
-  set clipboard=unnamed,unnamedplus
+    set clipboard=unnamed,unnamedplus
 endif
 "" Fix slow nerdtree
 set lazyredraw
@@ -341,7 +349,6 @@ autocmd FileType javascript,typescript,json,xml,ruby setl foldmethod=syntax
 "}}}
 
 " System Mappings  ----------------------------------------------------------{{{
-
 "" Clipboard
 noremap YY "+y<CR>
 noremap <leader>p "+gP<CR>
@@ -371,13 +378,12 @@ noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 "" Opens a tab edit command with the path of the currently edited file filled
 noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
-"" Vmap for maintain Visual Mode after shifting > and <
-vmap < <gv
-vmap > >gv
-
 "" Move visual block
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
+
+vmap < <gv
+vmap > >gv
 
 "" Jumping
 nnoremap Q <nop>
@@ -393,7 +399,7 @@ noremap % v%
 nnoremap <silent><esc> :noh \| ccl<return><esc>
 
 "" Search for visually hightlighted text
-vnoremap <C-r> "0y<Esc>:%s/<C-r>0//g<left><left>
+vnoremap <C-r> "0y<Esc>:%S/<C-r>0//gc<left><left><left>
 vnoremap // y/<C-R>"<CR>
 
 "" cursor
@@ -426,8 +432,10 @@ nmap <leader>bn :enew<cr>
 map <Tab> :bnext<cr>
 map <S-Tab> :bprevious<cr>
 nmap bq :bp <BAR> bd #<CR>
+" nmap bq :BD<CR>
 nmap bl :ls<CR>
 noremap <leader>c :bp\|bd #<CR>
+" noremap <leader>c :BD<CR>
 noremap <leader>q :q<CR>
 noremap <leader>z :bp<CR>
 noremap <leader>q :bp<CR>
@@ -450,14 +458,27 @@ command! -nargs=* VT vsplit | terminal <args>
 " tnoremap <Esc><Esc> <C-\><C-n>
 
 " Session management
-nnoremap <leader>so :SLoad<Space>
-nnoremap <leader>ss :Session<Space>
-nnoremap <leader>s :Sessions<CR>
-nnoremap <leader>sd :SDelete<Space>
-nnoremap <leader>sc :SQuit<CR>
+nnoremap ,so :SLoad<Space>
+nnoremap ,ss :Session<Space>
+nnoremap ,S :Sessions<CR>
+nnoremap ,ds :SDelete<Space>
+nnoremap ,sc :SQuit<CR>
 "}}}
 
 " Mappings  -----------------------------------------------------------------{{{
+"" vim-http-client
+autocmd FileType rest map <buffer> <cr> :HTTPClientDoRequest<cr>
+"" vim-mundo
+nmap <leader>] :MundoToggle<cr>
+"" vim-jsbeautify
+map <c-f> :call JsBeautify()<cr>
+" or
+autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
+autocmd FileType jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
+autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+
 "" GoogleSearch
 command! -nargs=1 Gsearch call GoogleSearch(<f-args>)
 vnoremap <leader>g/ "gy<Esc> :call GoogleSearch()<CR>
@@ -465,6 +486,7 @@ vnoremap <leader>g/ "gy<Esc> :call GoogleSearch()<CR>
 "" Git
 noremap <Leader>gl :Glog<CR>
 noremap <Leader>ga :Gwrite<CR>
+noremap <Leader>ge :Gedit<CR>
 noremap <Leader>gc :Gcommit<CR>
 noremap <Leader>gsh :Gpush<CR>
 noremap <Leader>gll :Gpull<CR>
@@ -476,13 +498,10 @@ noremap <Leader>gr :Gremove<CR>
 "" syntastic
 nnoremap <leader>sc :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
-"" Tagbar
-nmap <Leader>] :TagbarToggle<CR>
-
 if has('macunix')
-  " pbcopy for OSX copy/paste
-  vmap <C-x> :!pbcopy<CR>
-  vmap <C-c> :w !pbcopy<CR><CR>
+    " pbcopy for OSX copy/paste
+    vmap <C-x> :!pbcopy<CR>
+    vmap <C-c> :w !pbcopy<CR><CR>
 endif
 
 "" Open current line on GitHub
@@ -504,7 +523,7 @@ nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
 
 "" EasyAlign
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-vmap < Enter> <Plug>(EasyAlign)
+vmap <cr> <Plug>(EasyAlign)
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 " xmap g a <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
@@ -536,32 +555,35 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 nnoremap <silent><c-p> :exe 'Files ' . <SID>fzf_root()<CR>
 nnoremap <silent><leader>/ :Lines<CR>
 " Search for word under the cursor
-nnoremap <silent><leader>// :Lines <C-r>=expand('<cword>')<CR><CR>
+" nnoremap <silent><leader>// :Lines <C-r>=expand('<cword>')<CR><CR>
+nnoremap <silent><leader>// :Find <C-r>=expand('<cword>')<CR><CR>
+nnoremap <silent><leader>fw :Find <C-r>=expand('<cword>')<CR><CR>
+noremap <leader>f :Find<space>
 " Search for visual selected text
 vnoremap <silent><leader>/ y:Lines <C-R><C-R>"<CR>
-nnoremap <silent> <leader>a :Buffers<CR>
-nnoremap <silent> <leader>A :Windows<CR>
+nnoremap <silent> <leader><cr> :Buffers<CR>
+nnoremap <silent> <leader>a :Windows<CR>
 nnoremap <silent> <leader>o :BTags<CR>
 nnoremap <silent> <leader>O :Tags<CR>
 nnoremap <silent> <leader>? :History<CR>
 nnoremap <silent> <leader>gl :Commits<CR>
 nnoremap <silent> <leader>ga :BCommits<CR>
+nnoremap <silent> <leader>m :Marks<CR>
 nnoremap q/ :QHist<CR>
 nnoremap q: :CmdHist<CR>
 
 "" EasyMotion
 map s  <Plug>(easymotion-overwin-f)
 nmap s  <Plug>(easymotion-overwin-f2)
-map < Leader>j <Plug>(easymotion-j)
-map < Leader>k <Plug>(easymotion-k)
+"}}}
 
-"" Neoformat
-noremap <leader>f :Neoformat<CR>
+" Yaml  ---------------------------------------------------------------------{{{
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 "}}}
 
 " Php  ----------------------------------------------------------------------{{{
 augroup filetypedetect
-  au BufRead,BufNewFile *.inc set filetype=php
+    au BufRead,BufNewFile *.inc set filetype=php
 augroup END
 "}}}
 
@@ -571,21 +593,21 @@ let g:rubycomplete_classes_in_global = 1
 let g:rubycomplete_rails = 1
 
 augroup vimrc-ruby
-  autocmd!
-  autocmd BufNewFile,BufRead *.rb,*.rbw,*.gemspec setlocal filetype=ruby
-  autocmd FileType ruby set tabstop=2|set shiftwidth=2|set expandtab softtabstop=2 smartindent
+    autocmd!
+    autocmd BufNewFile,BufRead *.rb,*.rbw,*.gemspec setlocal filetype=ruby
+    autocmd FileType ruby set tabstop=2|set shiftwidth=2|set expandtab softtabstop=2 smartindent
 augroup END
 
 let g:tagbar_type_ruby = {
-    \ 'kinds' : [
-        \ 'm:modules',
-        \ 'c:classes',
-        \ 'd:describes',
-        \ 'C:contexts',
-        \ 'f:methods',
-        \ 'F:singleton methods'
-    \ ]
-\ }
+            \ 'kinds' : [
+            \ 'm:modules',
+            \ 'c:classes',
+            \ 'd:describes',
+            \ 'C:contexts',
+            \ 'f:methods',
+            \ 'F:singleton methods'
+            \ ]
+            \ }
 
 nmap <silent> ,t :TestNearest<CR>
 nmap <silent> ,tt :TestFile<CR>
@@ -606,13 +628,13 @@ let g:javascript_enable_domhtmlcss = 1
 " vim-javascript
 let g:javascript_plugin_jsdoc = 1
 augroup vimrc-javascript
-  autocmd!
-  autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab softtabstop=4 smartindent
+    autocmd!
+    autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab softtabstop=4 smartindent
 augroup END
 
 augroup javascript_folding
-  au!
-  au FileType javascript setlocal foldmethod=syntax
+    au!
+    au FileType javascript setlocal foldmethod=syntax
 augroup END
 
 "}}}
@@ -628,11 +650,20 @@ autocmd bufnewfile,bufread *.svg set ft=xml
 "}}}
 
 " Settings  -----------------------------------------------------------------{{{
+"" vim-mundo
+let g:mundo_right = 1
+set undofile
+set undodir=~/.config/nvim/undo/
+
+"" vim-format
+au BufWrite * :Autoformat
+autocmd FileType yml,yaml let b:autoformat_autoindent=0 " #TODO
+
+"" Extract
+let g:extract_maxCount = 25
+
 "" fzf-session
 let g:fzf_session_path = "~/.config/nvim/session"
-
-"" Vim rest console
-let g:vrc_set_default_mapping = 0
 
 "" Vim Translator
 let g:translate_cmd = 'trans -b -t sr-Latn+en'
@@ -642,27 +673,14 @@ command! -nargs=1 Trans call translator#translate_word(<f-args>)
 
 "" vim-test
 let test#strategy = {
-   \'nearest': 'neovim',
-   \'file':    'neovim',
-   \'suite':   'neovim',
-   \}
+            \'nearest': 'neovim',
+            \'file':    'neovim',
+            \'suite':   'neovim',
+            \}
 " let g:test#preserve_screen = 1
 
 "" Gitgutter
 let g:gitgutter_max_signs=9999
-
-" grep.vim
-" nnoremap <silent> <leader>f :Rgrep<CR>
-" let Grep_Default_Options = '-IR'
-" let Grep_Skip_Files = '*.log *.db'
-" let Grep_Skip_Dirs = '.git node_modules'
-
-"" The Silver Searcher
-" if executable('ag')
-"   set grepprg=ag\ --nogroup\ --nocolor
-"   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-"   let g:ctrlp_use_caching = 0
-" endif
 
 "" Syntastic
 let g:syntastic_always_populate_loc_list=1
@@ -674,13 +692,11 @@ let g:syntastic_auto_loc_list=1
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_sass_checkers=["sasslint"]
 let g:syntastic_scss_checkers=["sasslint"]
-let g:ruby_host_prog = '/home/rotsen/.rubies/ruby-2.3.1/bin/ruby'
+let g:ruby_host_prog = '~/.rbenv/versions/2.4.3/bin/ruby'
 let g:syntastic_svg_checkers = []
-let g:syntastic_check_on_open = 0
-autocmd VimEnter * SyntasticToggleMode "
-
-"" Tagbar
-let g:tagbar_autofocus = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+" autocmd VimEnter * SyntasticToggleMode "
 
 "" Vim Airline
 let g:airline_theme = 'powerlineish'
@@ -697,33 +713,33 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_symbols.space = "\ua0"
 if !exists('g:airline_powerline_fonts')
-  let g:airline#extensions#tabline#left_sep = ' '
-  let g:airline#extensions#tabline#left_alt_sep = '|'
-  let g:airline_left_sep          = '▶'
-  let g:airline_left_alt_sep      = '»'
-  let g:airline_right_sep         = '◀'
-  let g:airline_right_alt_sep     = '«'
-  let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
-  let g:airline#extensions#readonly#symbol   = '⊘'
-  let g:airline#extensions#linecolumn#prefix = '¶'
-  let g:airline#extensions#paste#symbol      = 'ρ'
-  let g:airline_symbols.linenr    = '␊'
-  let g:airline_symbols.branch    = '⎇'
-  let g:airline_symbols.paste     = 'ρ'
-  let g:airline_symbols.paste     = 'Þ'
-  let g:airline_symbols.paste     = '∥'
-  let g:airline_symbols.whitespace = 'Ξ'
+    let g:airline#extensions#tabline#left_sep = ' '
+    let g:airline#extensions#tabline#left_alt_sep = '|'
+    let g:airline_left_sep          = '▶'
+    let g:airline_left_alt_sep      = '»'
+    let g:airline_right_sep         = '◀'
+    let g:airline_right_alt_sep     = '«'
+    let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
+    let g:airline#extensions#readonly#symbol   = '⊘'
+    let g:airline#extensions#linecolumn#prefix = '¶'
+    let g:airline#extensions#paste#symbol      = 'ρ'
+    let g:airline_symbols.linenr    = '␊'
+    let g:airline_symbols.branch    = '⎇'
+    let g:airline_symbols.paste     = 'ρ'
+    let g:airline_symbols.paste     = 'Þ'
+    let g:airline_symbols.paste     = '∥'
+    let g:airline_symbols.whitespace = 'Ξ'
 else
-  let g:airline#extensions#tabline#left_sep = ''
-  let g:airline#extensions#tabline#left_alt_sep = ''
-  " powerline symbols
-  let g:airline_left_sep = ''
-  let g:airline_left_alt_sep = ''
-  let g:airline_right_sep = ''
-  let g:airline_right_alt_sep = ''
-  let g:airline_symbols.branch = ''
-  let g:airline_symbols.readonly = ''
-  let g:airline_symbols.linenr = ''
+    let g:airline#extensions#tabline#left_sep = ''
+    let g:airline#extensions#tabline#left_alt_sep = ''
+    " powerline symbols
+    let g:airline_left_sep = ''
+    let g:airline_left_alt_sep = ''
+    let g:airline_right_sep = ''
+    let g:airline_right_alt_sep = ''
+    let g:airline_symbols.branch = ''
+    let g:airline_symbols.readonly = ''
+    let g:airline_symbols.linenr = ''
 endif
 
 "" NERDTree configuration
@@ -762,16 +778,17 @@ let g:tern_request_timeout = 1
 let g:tern_show_signature_in_pum = 0
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = [
-  \ 'tern#Complete'
-\]
+            \ 'tern#Complete'
+            \]
 let g:tern#command = ['tern']
 let g:tern#arguments = ['--persistent']
 
 "" ultisnips
-let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsEditSplit="vertical"
+
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 "" vim-notes
@@ -805,7 +822,21 @@ let g:indentLine_color_dark = 1
 let g:user_emmet_expandabbr_key='<Tab>'
 
 "" FZF
+" command Bd bp\|bd \#
+" function! s:build_location_list(lines)
+"     call setloclist(0, map(copy(a:lines), '{ "filename": v:val }'))
+"     lopen
+"     ll
+" endfunction
+" function! s:build_quickfix_list(lines)
+"     echom a:lines
+"     " call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+"     " copen
+"     " cc
+" endfunction
+
 let g:fzf_action = {
+            \ 'ctrl-q': 'wall | BD ',
             \ 'ctrl-t': 'tab split',
             \ 'ctrl-x': 'split',
             \ 'ctrl-v': 'vsplit' }
@@ -829,25 +860,20 @@ let g:fzf_files_options =
             \ '--preview-window "right:50%:hidden" --bind "?:toggle-preview"'
 command! CmdHist call fzf#vim#command_history({'down': '40'}) " Better command history with q:
 command! QHist call fzf#vim#search_history({'down': '40'}) " Better search history
-
-" command! -bang Find call fzf#vim#grep(
-"      \ 'grep -vnITr --color=always --exclude-dir=".svn" --exclude-dir=".git" --exclude=tags --exclude=*\.pyc --exclude=*\.exe --exclude=*\.dll --exclude=*\.zip --exclude=*\.gz "^$"',
-"      \ 0,
-"      \ {'options': '--reverse --prompt "Find> "'})
-
 command! -bang -nargs=* Find
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
-
+            \ call fzf#vim#grep(
+            \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+            \   <bang>0 ? fzf#vim#with_preview('up:60%')
+            \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+            \   <bang>0)
 "" EasyMotion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 let g:EasyMotion_smartcase = 1
 "}}}
 
 " Autocmd Rules  ------------------------------------------------------------{{{
+au BufNewFile,BufRead *.rest set ft=rest " vim-http-client
+command! DeleteHiddenBuffers execute "call DeleteHiddenBuffers()"
 augroup terminal
     autocmd TermOpen * setlocal nospell
     " autocmd TermClose * bd!
@@ -855,26 +881,32 @@ augroup END
 
 "" The PC is fast enough, do syntax highlight syncing from start
 augroup vimrc-sync-fromstart
-autocmd!
-autocmd BufEnter * :syntax sync fromstart
+    autocmd!
+    autocmd BufEnter * :syntax sync fromstart
 augroup END
 
 "" Remember cursor position
 augroup vimrc-remember-cursor-position
-autocmd!
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+    autocmd!
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
 "" txt
 augroup vimrc-wrapping
-autocmd!
-autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
+    autocmd!
+    autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
 augroup END
-
-set autoread
 "}}}
 
 " Functions  ----------------------------------------------------------------{{{
+function! DeleteHiddenBuffers()
+    let tpbl=[]
+    call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+    for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+        silent execute 'bwipeout' buf
+    endfor
+endfunction
+
 if !exists('s:fzf_root')
     fun! s:fzf_root()
         let path = finddir(".git", expand("%:p:h").";")
@@ -899,22 +931,25 @@ endif
 "}}}
 
 " Hacks and Fixes  ----------------------------------------------------------{{{
-" vim-multiple-cursors
+" Override Extract mapping
+autocmd VimEnter * map s <Plug>(easymotion-overwin-f)
+autocmd VimEnter * nmap s <Plug>(easymotion-overwin-f)
+
 " Disable Deoplete when selecting multiple cursors starts
 function! Multiple_cursors_before()
-  if exists('*deoplete#disable')
-    exe 'call deoplete#disable()'
-  elseif exists(':NeoCompleteLock') == 2
-    exe 'NeoCompleteLock'
-  endif
+    if exists('*deoplete#disable')
+        exe 'call deoplete#disable()'
+    elseif exists(':NeoCompleteLock') == 2
+        exe 'NeoCompleteLock'
+    endif
 endfunction
 
 " Enable Deoplete when selecting multiple cursors ends
 function! Multiple_cursors_after()
-  if exists('*deoplete#enable')
-    exe 'call deoplete#enable()'
-  elseif exists(':NeoCompleteUnlock') == 2
-    exe 'NeoCompleteUnlock'
-  endif
+    if exists('*deoplete#enable')
+        exe 'call deoplete#enable()'
+    elseif exists(':NeoCompleteUnlock') == 2
+        exe 'NeoCompleteUnlock'
+    endif
 endfunction
 "}}}
