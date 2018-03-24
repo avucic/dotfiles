@@ -21,14 +21,13 @@ set runtimepath+=~/.config/nvim/plugged/vim-snippets
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'junegunn/vim-plug'
-Plug 'chriskempson/base16-vim'
+" Plug 'chriskempson/base16-vim'
 
 " General
+Plug 'tpope/vim-repeat'
 Plug 'sickill/vim-pasta' " Improve paste
-Plug 'sheerun/vim-polyglot'
 Plug 'editorconfig/editorconfig-vim' " Conventions for vim
 Plug 'kassio/neoterm'
-" Plug 'diepm/vim-rest-console'
 Plug 'aquach/vim-http-client'
 Plug 'Shougo/vimproc.vim', {'build' : 'make','do':':VimProcInstall'}
 Plug 'qpkorr/vim-bufkill'
@@ -54,6 +53,8 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'ervandew/supertab'
 Plug 'mbbill/undotree'
 Plug 'Konfekt/FastFold'
+Plug 'wellle/visual-split.vim'
+Plug 'farmergreg/vim-lastplace'
 "}}}
 
 " Auto complete  {{{
@@ -70,9 +71,14 @@ Plug 'cyansprite/Extract'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'kshenoy/vim-signature' "vim marks
-Plug 'steelsojka/color_highlight'
+" Plug 'steelsojka/color_highlight'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'mhinz/vim-startify'
+Plug 'joshdick/onedark.vim'
+Plug 'rakr/vim-one'
+Plug 'sheerun/vim-polyglot'
+Plug 'arcticicestudio/nord-vim'
 "}}}
 
 " Text {{{
@@ -94,7 +100,6 @@ Plug 'tomtom/tcomment_vim'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-sleuth'
 Plug 'scrooloose/syntastic'
-Plug 'vim-scripts/CSApprox'
 Plug 'alpaca-tc/beautify.vim'
 Plug 'maksimr/vim-jsbeautify'
 " Plug 'sbdchd/neoformat'
@@ -214,12 +219,6 @@ set nobackup
 "" Directories for swp files
 call system('mkdir $HOME/.config/nvim/swap')
 set directory=~/.config/nvim/swap//
-" if has('persistent_undo')
-"     let &undodir = expand("$HOME/.config/nvim/undo")
-"     set undofile
-" endif
-
-autocmd BufWritePre * %s/\s\+$//e "remove white space
 
 "" Terminal emulation
 " vimshell.vim
@@ -233,6 +232,11 @@ endif
 "}}}
 
 " Visual Settings -----------------------------------------------------------{{{
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+if (has("termguicolors"))
+    set termguicolors
+endif
+
 syntax on
 set ruler
 set number
@@ -244,12 +248,22 @@ set guioptions=egmrti
 set gcr=a:blinkon0 "" Disable the blinking cursor.
 set scrolloff=3
 
-let no_buffers_menu=1
+set t_ZH=^[[3m
+set t_ZR=^[[23m
+let g:one_allow_italics = 1
+colorscheme one
+set background=dark
+"" Highlight color
+highlight ExtraWhitespace ctermbg=red guibg=red
+" highlight FoldColumn guifg=Grey
+hi Folded guifg=#5c6370
+hi Folded guibg=dark
 
-if has("termguicolors")
-    set termguicolors
+"" Highlight characters that go over 80 columns (by drawing a border on the 81st)
+if exists('+colorcolumn')
+    set colorcolumn=81
 endif
-colorscheme  base16-twilight
+let no_buffers_menu=1
 
 let g:terminal_color_0= "#1e1e1e" "Black
 let g:terminal_color_1= "#cf6a4c" "Red
@@ -268,15 +282,6 @@ let g:terminal_color_13= "#9b859d" "Bright Magenta
 let g:terminal_color_14= "#7587a6" "Bright Cyan
 let g:terminal_color_15= "#ffffff" "Bright white
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-
-"" Highlight characters that go over 80 columns (by drawing a border on the 81st)
-if exists('+colorcolumn')
-    set colorcolumn=81
-endif
-
-"" Highlight color
-highlight ExtraWhitespace ctermbg=red guibg=red
-highlight FoldColumn guifg=Grey
 
 "" Status bar
 set laststatus=2
@@ -332,8 +337,8 @@ autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:las
 
 autocmd FileType vim setlocal fdc=1
 set foldlevel=99
-autocmd FileType vim setlocal foldmethod=marker
-autocmd FileType vim setlocal foldlevel=0
+autocmd FileType vim,zsh setlocal foldmethod=marker
+autocmd FileType vim,zsh setlocal foldlevel=0
 
 autocmd FileType html setlocal fdl=99
 
@@ -364,6 +369,9 @@ cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
+
+"" Escape insert mode
+inoremap jj <ESC>
 
 "" Edit vim config
 nmap <Leader>nn :tabedit $MYVIMRC<CR>
@@ -455,7 +463,8 @@ tnoremap <c-k> <c-\><c-n><c-w>k
 tnoremap <c-l> <C-\><C-n><C-w>l
 command! -nargs=* HT split | terminal <args>
 command! -nargs=* VT vsplit | terminal <args>
-" tnoremap <Esc><Esc> <C-\><C-n>
+noremap <Esc><Esc> :TermClose * bd!
+
 
 " Session management
 nnoremap ,so :SLoad<Space>
@@ -468,8 +477,10 @@ nnoremap ,sc :SQuit<CR>
 " Mappings  -----------------------------------------------------------------{{{
 "" vim-http-client
 autocmd FileType rest map <buffer> <cr> :HTTPClientDoRequest<cr>
+
 "" vim-mundo
 nmap <leader>] :MundoToggle<cr>
+
 "" vim-jsbeautify
 map <c-f> :call JsBeautify()<cr>
 " or
@@ -485,15 +496,15 @@ vnoremap <leader>g/ "gy<Esc> :call GoogleSearch()<CR>
 
 "" Git
 noremap <Leader>gl :Glog<CR>
-noremap <Leader>ga :Gwrite<CR>
-noremap <Leader>ge :Gedit<CR>
-noremap <Leader>gc :Gcommit<CR>
-noremap <Leader>gsh :Gpush<CR>
-noremap <Leader>gll :Gpull<CR>
+" noremap <Leader>ga :Gwrite<CR>
+" noremap <Leader>ge :Gedit<CR>
+" noremap <Leader>gc :Gcommit<CR>
+" noremap <Leader>gsh :Gpush<CR>
+" noremap <Leader>gll :Gpull<CR>
 noremap <Leader>gs :Gstatus<CR>
 noremap <Leader>gb :Gblame<CR>
 noremap <Leader>gd :Gvdiff<CR>
-noremap <Leader>gr :Gremove<CR>
+" noremap <Leader>gr :Gremove<CR>
 
 "" syntastic
 nnoremap <leader>sc :SyntasticCheck<CR> :SyntasticToggleMode<CR>
@@ -699,14 +710,13 @@ let g:syntastic_check_on_wq = 1
 " autocmd VimEnter * SyntasticToggleMode "
 
 "" Vim Airline
-let g:airline_theme = 'powerlineish'
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
 let g:airline_powerline_fonts   = 1
-let g:airline_theme='base16'
+let g:airline_theme='onedark'
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -801,6 +811,8 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 let g:neoterm_position = 'horizontal'
 let g:neoterm_automap_keys = ',tt'
 let g:neoterm_size = 15
+let g:neoterm_open_in_all_tabs = 0
+let g:neoterm_autoinsert = 1
 
 "" Limelight
 " let g:limelight_conceal_guifg = 'DarkGray'
@@ -822,19 +834,6 @@ let g:indentLine_color_dark = 1
 let g:user_emmet_expandabbr_key='<Tab>'
 
 "" FZF
-" command Bd bp\|bd \#
-" function! s:build_location_list(lines)
-"     call setloclist(0, map(copy(a:lines), '{ "filename": v:val }'))
-"     lopen
-"     ll
-" endfunction
-" function! s:build_quickfix_list(lines)
-"     echom a:lines
-"     " call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-"     " copen
-"     " cc
-" endfunction
-
 let g:fzf_action = {
             \ 'ctrl-q': 'wall | BD ',
             \ 'ctrl-t': 'tab split',
@@ -856,7 +855,7 @@ let g:fzf_colors =
 
 let g:fzf_files_options =
             \ '--preview "highlight -O ansi {} --force || cat {}" '.
-            \ '--bind ctrl-d:preview-down,ctrl-u:preview-up '.
+            \ '--bind down:preview-down,up:preview-up '.
             \ '--preview-window "right:50%:hidden" --bind "?:toggle-preview"'
 command! CmdHist call fzf#vim#command_history({'down': '40'}) " Better command history with q:
 command! QHist call fzf#vim#search_history({'down': '40'}) " Better search history
@@ -876,6 +875,7 @@ au BufNewFile,BufRead *.rest set ft=rest " vim-http-client
 command! DeleteHiddenBuffers execute "call DeleteHiddenBuffers()"
 augroup terminal
     autocmd TermOpen * setlocal nospell
+    autocmd TermClose * if getline('$') == '[Process exited 0]' | close | endif
     " autocmd TermClose * bd!
 augroup END
 
@@ -883,12 +883,6 @@ augroup END
 augroup vimrc-sync-fromstart
     autocmd!
     autocmd BufEnter * :syntax sync fromstart
-augroup END
-
-"" Remember cursor position
-augroup vimrc-remember-cursor-position
-    autocmd!
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
 "" txt

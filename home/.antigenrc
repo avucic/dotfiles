@@ -1,0 +1,21 @@
+antigen use oh-my-zsh
+
+antigen bundle rails
+antigen bundle git
+antigen bundle git-prompt
+antigen bundle heroku
+antigen bundle pip
+antigen bundle lein
+antigen bundle command-not-found
+antigen bundle ruby
+antigen bundle alex
+# antigen bundle ~/dotfiles/zsh/alex # custom
+antigen bundle osx
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-autosuggestions
+
+antigen bundle ~/dotfiles/home/zsh/alex/alex.plugin.zsh  --no-local-clone
+
+antigen theme kennethreitz
+antigen apply
