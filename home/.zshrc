@@ -27,7 +27,6 @@ alias t='tmux'
 alias ta='tmux a -t'
 alias tn='tmux new -s'
 alias f='fzf'
-# alias tmux="TERM=screen-256color-bce tmux"
 alias tmux="TERM=xterm-256color tmux -2"
 # }}}
 #  Vars and Paths  -----------------------------------------------------------{{{
@@ -80,8 +79,9 @@ if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
 fi
 # }}}
-#
+
 # FZF {{{
+export FZF_DEFAULT_OPTS='--preview "pygmentize {}" --color dark --bind "?:toggle-preview" --preview-window "right:50%:hidden"'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # }}}
 # }}}

@@ -51,9 +51,9 @@ Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tpope/vim-unimpaired' " Navigate throught quicklist
 Plug 'Lokaltog/vim-easymotion'
 Plug 'ervandew/supertab'
-Plug 'mbbill/undotree'
 Plug 'Konfekt/FastFold'
 Plug 'wellle/visual-split.vim'
+Plug 'majutsushi/tagbar'
 Plug 'farmergreg/vim-lastplace'
 "}}}
 
@@ -68,16 +68,17 @@ Plug 'cyansprite/Extract'
 "}}}
 
 " Look and feel/Visual  {{{
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'kshenoy/vim-signature' "vim marks
-" Plug 'steelsojka/color_highlight'
+Plug 'ap/vim-css-color'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'mhinz/vim-startify'
-Plug 'joshdick/onedark.vim'
-Plug 'rakr/vim-one'
 Plug 'sheerun/vim-polyglot'
+"theme
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'chriskempson/base16-vim'
+Plug 'rakr/vim-one'
 Plug 'arcticicestudio/nord-vim'
 "}}}
 
@@ -95,14 +96,13 @@ Plug '$HOME/.config/nvim/plugin/vim-translator'
 "}}}
 
 " Syntax {{{
-" P lug('gcorne/vim-sass-lint')
 Plug 'tomtom/tcomment_vim'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-sleuth'
 Plug 'scrooloose/syntastic'
+" TODO check formaters
 Plug 'alpaca-tc/beautify.vim'
 Plug 'maksimr/vim-jsbeautify'
-" Plug 'sbdchd/neoformat'
 Plug 'Chiel92/vim-autoformat'
 Plug 'Raimondi/delimitMate'
 "}}}
@@ -115,7 +115,6 @@ Plug 'junegunn/gv.vim' "Browse git commits
 "}}}
 
 " Search and History {{{
-" P lug('vim-scripts/grep.vim')
 Plug 'rking/ag.vim'
 Plug 'taiansu/nerdtree-ag'
 Plug 'nelstrom/vim-visual-star-search'
@@ -153,7 +152,7 @@ Plug 'StanAngeloff/php.vim'
 
 " Ruby/Rails  {{{
 Plug 'tpope/vim-rails'
-Plug 'tpope/vim-rake'
+" Plug 'tpope/vim-rake'
 Plug 'tpope/vim-projectionist'
 Plug 'thoughtbot/vim-rspec'
 Plug 'ecomba/vim-ruby-refactoring'
@@ -169,6 +168,7 @@ Plug 'tpope/vim-endwise', { 'for': 'ruby' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 " Plug 'bruno-/vim-ruby-fold'
 Plug 'rlue/vim-fold-rspec'
+Plug 'rorymckinley/vim-rubyhash'
 "}}}
 
 " JSON  {{{
@@ -250,11 +250,12 @@ set scrolloff=3
 
 set t_ZH=^[[3m
 set t_ZR=^[[23m
+
 let g:one_allow_italics = 1
 colorscheme one
 set background=dark
 "" Highlight color
-highlight ExtraWhitespace ctermbg=red guibg=red
+" highlight ExtraWhitespace ctermbg=red guibg=red
 " highlight FoldColumn guifg=Grey
 hi Folded guifg=#5c6370
 hi Folded guibg=dark
@@ -439,16 +440,10 @@ nnoremap <silent> <S-t> :tabnew<CR>
 nmap <leader>bn :enew<cr>
 map <Tab> :bnext<cr>
 map <S-Tab> :bprevious<cr>
-nmap bq :bp <BAR> bd #<CR>
-" nmap bq :BD<CR>
-nmap bl :ls<CR>
-noremap <leader>c :bp\|bd #<CR>
+" nmap <leader>w :bp <BAR> bd #<CR>
+nmap <M-W> :BD<CR>
+" noremap <leader>c :bp\|bd #<CR>
 " noremap <leader>c :BD<CR>
-noremap <leader>q :q<CR>
-noremap <leader>z :bp<CR>
-noremap <leader>q :bp<CR>
-noremap <leader>x :bn<CR>
-noremap <leader>w :bn<CR>
 
 "" Switching windows
 nnoremap <C-l> <C-w>l
@@ -475,23 +470,39 @@ nnoremap ,sc :SQuit<CR>
 "}}}
 
 " Mappings  -----------------------------------------------------------------{{{
+"" Extract
+map <c-s> <Plug>(extract-sycle)
+map <c-S> <Plug>(extract-Sycle)
+map <c-c> <Plug>(extract-cycle)
+nmap p <Plug>(extract-put)
+nmap P <Plug>(extract-Put)
+nmap <leader>p :ExtractPin<cr>
+nmap <leader>P :ExtractUnPin<cr>
+vmap p <Plug>(extract-put)
+vmap P <Plug>(extract-Put)
+imap <c-v> <Plug>(extract-completeList)
+imap <c-s> <Plug>(extract-cycle)
+
 "" vim-http-client
 autocmd FileType rest map <buffer> <cr> :HTTPClientDoRequest<cr>
 
+"" Tagbar
+nmap <leader>] :TagbarToggle<CR>
+
 "" vim-mundo
-nmap <leader>] :MundoToggle<cr>
+nmap <c-]> :MundoToggle<cr>
 
 "" vim-jsbeautify
-map <c-f> :call JsBeautify()<cr>
+" map <c-f> :call JsBeautify()<cr>
 " or
-autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
-autocmd FileType jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
-autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+" autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+" autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
+" autocmd FileType jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
+" autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+" autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 
 "" GoogleSearch
-command! -nargs=1 Gsearch call GoogleSearch(<f-args>)
+command! -nargs=1 Google call GoogleSearch(<f-args>)
 vnoremap <leader>g/ "gy<Esc> :call GoogleSearch()<CR>
 
 "" Git
@@ -526,19 +537,11 @@ nmap <leader>nf :NERDTreeFind<CR>
 vmap v  <Plug>(expand_region_expand)
 vmap < C-v> <Plug>(expand_region_shrink)
 
-"" Undotree
-" nmap <Leader>hh :UndotreeToggle<CR>
-
 "" Splitjoin plugin keybinding
 nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
 
 "" EasyAlign
-" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <cr> <Plug>(EasyAlign)
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-" xmap g a <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-" nmap g a <Plug>(EasyAlign)
 
 "" Neoterm
 nnoremap <silent> ,sf :TREPLSendFile<cr>
@@ -548,10 +551,6 @@ nnoremap <silent> ,cl :call neoterm#clear()<cr>
 nnoremap <silent> ,k  :call neoterm#kill()<cr>
 nnoremap <silent> ,c  :call neoterm#close()<cr>
 
-"" Limelight
-" n map <Leader>l <Plug>(Limelight)
-" x map <Leader>l <Plug>(Limelight)
-
 "" Goyo (distraction-free)
 nnoremap <Leader>gg :Goyo<CR>
 
@@ -559,12 +558,12 @@ nnoremap <Leader>gg :Goyo<CR>
 noremap <Leader>i :IndentLinesToggle<CR>
 
 "" FZF
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
+imap <c-f><c-k> <plug>(fzf-complete-word)
+imap <c-f><c-f> <plug>(fzf-complete-path)
+imap <c-f><c-j> <plug>(fzf-complete-file-ag)
+imap <c-f><c-l> <plug>(fzf-complete-line)
 nnoremap <silent><c-p> :exe 'Files ' . <SID>fzf_root()<CR>
-nnoremap <silent><leader>/ :Lines<CR>
+nnoremap <silent><Leader>l :Lines<CR>
 " Search for word under the cursor
 " nnoremap <silent><leader>// :Lines <C-r>=expand('<cword>')<CR><CR>
 nnoremap <silent><leader>// :Find <C-r>=expand('<cword>')<CR><CR>
@@ -576,7 +575,7 @@ nnoremap <silent> <leader><cr> :Buffers<CR>
 nnoremap <silent> <leader>a :Windows<CR>
 nnoremap <silent> <leader>o :BTags<CR>
 nnoremap <silent> <leader>O :Tags<CR>
-nnoremap <silent> <leader>? :History<CR>
+nnoremap <silent> <leader>h :History<CR>
 nnoremap <silent> <leader>gl :Commits<CR>
 nnoremap <silent> <leader>ga :BCommits<CR>
 nnoremap <silent> <leader>m :Marks<CR>
@@ -584,12 +583,12 @@ nnoremap q/ :QHist<CR>
 nnoremap q: :CmdHist<CR>
 
 "" EasyMotion
-map s  <Plug>(easymotion-overwin-f)
-nmap s  <Plug>(easymotion-overwin-f2)
+nmap s  <Plug>(easymotion-overwin-f)
+nmap t <Plug>(easymotion-t2)
 "}}}
 
 " Yaml  ---------------------------------------------------------------------{{{
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType yaml,yml setlocal ts=2 sts=2 sw=2 expandtab
 "}}}
 
 " Php  ----------------------------------------------------------------------{{{
@@ -627,7 +626,7 @@ nmap <silent> ,l :TestLast<CR>
 nmap <silent> ,g :TestVisit<CR>
 
 command! Troutes :T bundle exec rake routes
-command! Tconsole :T bundle exec rails c
+command! Tc :T bundle exec rails c
 command! -nargs=+ Troute :T bundle exec rake routes | grep <args>
 command! Tmigrate :T bundle exec rake db:migrate
 command! Tseed :T bundle exec rake db:reset && rake db:seed_fu
@@ -668,10 +667,11 @@ set undodir=~/.config/nvim/undo/
 
 "" vim-format
 au BufWrite * :Autoformat
-autocmd FileType yml,yaml let b:autoformat_autoindent=0 " #TODO
+autocmd FileType yml,yaml,slim let b:autoformat_autoindent=0 " #TODO
 
 "" Extract
 let g:extract_maxCount = 25
+let g:extract_useDefaultMappings = 0
 
 "" fzf-session
 let g:fzf_session_path = "~/.config/nvim/session"
@@ -703,7 +703,6 @@ let g:syntastic_auto_loc_list=1
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_sass_checkers=["sasslint"]
 let g:syntastic_scss_checkers=["sasslint"]
-let g:ruby_host_prog = '~/.rbenv/versions/2.4.3/bin/ruby'
 let g:syntastic_svg_checkers = []
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
@@ -716,7 +715,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
 let g:airline_powerline_fonts   = 1
-let g:airline_theme='onedark'
+let g:airline_theme='one'
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -839,19 +838,21 @@ let g:fzf_action = {
             \ 'ctrl-t': 'tab split',
             \ 'ctrl-x': 'split',
             \ 'ctrl-v': 'vsplit' }
+
 let g:fzf_colors =
-            \ { 'fg':    ['fg', 'Normal'],
-            \ 'bg':      ['bg', 'Normal'],
-            \ 'hl':      ['fg', 'Comment'],
-            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-            \ 'hl+':     ['fg', 'Statement'],
-            \ 'info':    ['fg', 'PreProc'],
-            \ 'prompt':  ['fg', 'Conditional'],
-            \ 'pointer': ['fg', 'Exception'],
-            \ 'marker':  ['fg', 'Keyword'],
-            \ 'spinner': ['fg', 'Label'],
-            \ 'header':  ['fg', 'Comment'] }
+            \ { "fg":      ["fg", "Normal"],
+            \ "bg":      ["bg", "Normal"],
+            \ "hl":      ["fg", "IncSearch"],
+            \ "fg+":     ["fg", "CursorLine", "CursorColumn", "Normal"],
+            \ "bg+":     ["bg", "CursorLine", "CursorColumn"],
+            \ "hl+":     ["fg", "IncSearch"],
+            \ "info":    ["fg", "IncSearch"],
+            \ "border":  ["fg", "Ignore"],
+            \ "prompt":  ["fg", "Conditional"],
+            \ "pointer": ["fg", "IncSearch"],
+            \ "marker":  ["fg", "IncSewarch"],
+            \ "spinner": ["fg", "IncSearch"],
+            \ "header":  ["fg", "IncSearch"] }
 
 let g:fzf_files_options =
             \ '--preview "highlight -O ansi {} --force || cat {}" '.
@@ -880,10 +881,10 @@ augroup terminal
 augroup END
 
 "" The PC is fast enough, do syntax highlight syncing from start
-augroup vimrc-sync-fromstart
-    autocmd!
-    autocmd BufEnter * :syntax sync fromstart
-augroup END
+" augroup vimrc-sync-fromstart
+"     autocmd!
+"     autocmd BufEnter * :syntax sync fromstart
+" augroup END
 
 "" txt
 augroup vimrc-wrapping
@@ -925,10 +926,6 @@ endif
 "}}}
 
 " Hacks and Fixes  ----------------------------------------------------------{{{
-" Override Extract mapping
-autocmd VimEnter * map s <Plug>(easymotion-overwin-f)
-autocmd VimEnter * nmap s <Plug>(easymotion-overwin-f)
-
 " Disable Deoplete when selecting multiple cursors starts
 function! Multiple_cursors_before()
     if exists('*deoplete#disable')
