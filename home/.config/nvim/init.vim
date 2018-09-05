@@ -10,10 +10,10 @@
 " Setup  --------------------------------------------------------------------{{{
 " auto-install vim-plug
 if empty(glob("$HOME/.config/nvim/autoload/plug.vim"))
-    call system(expand("mkdir -p $HOME/.config/nvim/{autoload,plugged}"))
-    call system(expand("git clone https://github.com/junegunn/vim-plug.git $HOME/.config/nvim/plugged/vim-plug"))
-    call system(expand("ln -s ~/.config/nvim/plugged/vim-plug/plug.vim ~/.config/nvim/autoload"))
-    autocmd VimEnter * PlugInstall
+	call system(expand("mkdir -p $HOME/.config/nvim/{autoload,plugged}"))
+	call system(expand("git clone https://github.com/junegunn/vim-plug.git $HOME/.config/nvim/plugged/vim-plug"))
+	call system(expand("ln -s ~/.config/nvim/plugged/vim-plug/plug.vim ~/.config/nvim/autoload"))
+	autocmd VimEnter * PlugInstall
 endif
 
 set runtimepath+=~/.config/nvim/plugged/vim-snippets
@@ -23,7 +23,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'junegunn/vim-plug'
 " Plug 'chriskempson/base16-vim'
 
-" General
+" General {{{
 Plug 'tpope/vim-repeat'
 Plug 'sickill/vim-pasta' " Improve paste
 Plug 'editorconfig/editorconfig-vim' " Conventions for vim
@@ -31,7 +31,7 @@ Plug 'kassio/neoterm'
 Plug 'aquach/vim-http-client'
 Plug 'Shougo/vimproc.vim', {'build' : 'make','do':':VimProcInstall'}
 Plug 'qpkorr/vim-bufkill'
-
+"}}}
 
 " Testing {{{
 Plug 'janko-m/vim-test'
@@ -59,8 +59,8 @@ Plug 'farmergreg/vim-lastplace'
 
 " Auto complete  {{{
 Plug 'Shougo/deoplete.nvim'
-Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'carlitux/deoplete-ternjs', { 'build': 'npm install -g tern','for': ['javascript', 'javascript.jsx']  }
+Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx','html'] }
+Plug 'carlitux/deoplete-ternjs', { 'build': 'npm install -g tern','for': ['javascript', 'javascript.jsx','html']  }
 Plug 'fishbullet/deoplete-ruby',{'for': 'ruby'}
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -74,6 +74,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'mhinz/vim-startify'
 Plug 'sheerun/vim-polyglot'
+Plug 'MattesGroeger/vim-bookmarks'
 "theme
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -93,6 +94,15 @@ Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
 Plug '$HOME/.config/nvim/plugin/vim-translator'
+Plug 'itchyny/vim-cursorword'
+
+"" textobjects
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-entire'
+Plug 'lucapette/vim-textobj-underscore'
+Plug 'kana/vim-textobj-indent'
+Plug 'whatyouhide/vim-textobj-erb'
+
 "}}}
 
 " Syntax {{{
@@ -105,6 +115,7 @@ Plug 'alpaca-tc/beautify.vim'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'Chiel92/vim-autoformat'
 Plug 'Raimondi/delimitMate'
+Plug 'lfilho/cosco.vim' "  add comma and semi colon
 "}}}
 
 " Git  {{{
@@ -139,6 +150,9 @@ Plug 'groenewege/vim-less'
 " Javascript  {{{
 " P lug('jelera/vim-javascript-syntax')
 Plug 'pangloss/vim-javascript'
+Plug 'thinca/vim-textobj-function-javascript'
+Plug 'inside/vim-textobj-jsxattr'
+
 "}}}
 
 " Lisp  {{{
@@ -158,8 +172,8 @@ Plug 'thoughtbot/vim-rspec'
 Plug 'ecomba/vim-ruby-refactoring'
 Plug 'tpope/vim-bundler'
 Plug 'slim-template/vim-slim'
-Plug 'kana/vim-textobj-user'
 Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' } "Selecting ruby block
+Plug 'rhysd/vim-textobj-ruby', { 'for': 'ruby' }
 " P lug('tpope/vim-rbenv'),                           { 'for': 'ruby' }
 " P lug('skalnik/vim-vroom'),                         { 'for': 'ruby' }
 " P lug('t9md/vim-ruby-xmpfilter'),                   { 'for': 'ruby' }
@@ -177,6 +191,10 @@ Plug 'tpope/vim-jdaddy' "json mappings
 
 " CSV  {{{
 Plug 'chrisbra/csv.vim'
+"}}}
+
+" Docker  {{{
+Plug 'ekalinin/Dockerfile.vim'
 "}}}
 call plug#end()
 filetype plugin indent on
@@ -225,16 +243,16 @@ set directory=~/.config/nvim/swap//
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 let g:vimshell_prompt =  '$ '
 if has('nvim')
-    nnoremap <silent> <leader>sh :terminal<CR>
+	nnoremap <silent> <leader>sh :terminal<CR>
 else
-    nnoremap <silent> <leader>sh :VimShellCreate<CR>
+	nnoremap <silent> <leader>sh :VimShellCreate<CR>
 endif
 "}}}
 
 " Visual Settings -----------------------------------------------------------{{{
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 if (has("termguicolors"))
-    set termguicolors
+	set termguicolors
 endif
 
 syntax on
@@ -262,7 +280,7 @@ hi Folded guibg=dark
 
 "" Highlight characters that go over 80 columns (by drawing a border on the 81st)
 if exists('+colorcolumn')
-    set colorcolumn=81
+	set colorcolumn=81
 endif
 let no_buffers_menu=1
 
@@ -297,18 +315,18 @@ set titlestring=%F
 
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 if exists("*fugitive#statusline")
-    set statusline+=%{fugitive#statusline()}
+	set statusline+=%{fugitive#statusline()}
 endif
 
 "" Disable visualbell
 set noerrorbells visualbell t_vb=
 if has('autocmd')
-    autocmd GUIEnter * set visualbell t_vb=
+	autocmd GUIEnter * set visualbell t_vb=
 endif
 
 "" Copy/Paste/Cut
 if has('unnamedplus')
-    set clipboard=unnamed,unnamedplus
+	set clipboard=unnamed,unnamedplus
 endif
 "" Fix slow nerdtree
 set lazyredraw
@@ -317,18 +335,18 @@ set ttyfast
 
 " Folding  ------------------------------------------------------------------{{{
 function! MyFoldText() " {{{
-    let line = getline(v:foldstart)
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-    let foldedlinecount = v:foldend - v:foldstart
+	let line = getline(v:foldstart)
+	let nucolwidth = &fdc + &number * &numberwidth
+	let windowwidth = winwidth(0) - nucolwidth - 3
+	let foldedlinecount = v:foldend - v:foldstart
 
-    " expand tabs into spaces
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
+	" expand tabs into spaces
+	let onetab = strpart('          ', 0, &tabstop)
+	let line = substitute(line, '\t', onetab, 'g')
 
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - len('lines')
-    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . ' Lines '
+	let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+	let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - len('lines')
+	return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . ' Lines '
 endfunction " }}}
 
 set foldtext=MyFoldText()
@@ -373,6 +391,18 @@ cnoreabbrev Qall qall
 
 "" Escape insert mode
 inoremap jj <ESC>
+inoremap  <Esc>    <NOP>
+
+"" Common in insert mode
+inoremap jj <ESC>
+inoremap II <Esc>I
+inoremap AA <Esc>A
+inoremap OO <Esc>O
+
+inoremap CC <Esc>C
+inoremap SS <Esc>S
+inoremap DD <Esc>dd
+inoremap UU <Esc>u
 
 "" Edit vim config
 nmap <Leader>nn :tabedit $MYVIMRC<CR>
@@ -471,8 +501,8 @@ nnoremap ,sc :SQuit<CR>
 
 " Mappings  -----------------------------------------------------------------{{{
 "" Extract
-map <c-s> <Plug>(extract-sycle)
-map <c-S> <Plug>(extract-Sycle)
+map pp <Plug>(extract-sycle)
+map PP <Plug>(extract-Sycle)
 map <c-c> <Plug>(extract-cycle)
 nmap p <Plug>(extract-put)
 nmap P <Plug>(extract-Put)
@@ -501,6 +531,11 @@ nmap <c-]> :MundoToggle<cr>
 " autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 " autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 
+"" cosco
+autocmd FileType javascript,css,html nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
+autocmd FileType javascript,css,html imap <silent> <Leader>; <c-o><Plug>(cosco-commaOrSemiColon)
+" let g:auto_comma_or_semicolon = 1
+
 "" GoogleSearch
 command! -nargs=1 Google call GoogleSearch(<f-args>)
 vnoremap <leader>g/ "gy<Esc> :call GoogleSearch()<CR>
@@ -521,9 +556,9 @@ noremap <Leader>gd :Gvdiff<CR>
 nnoremap <leader>sc :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
 if has('macunix')
-    " pbcopy for OSX copy/paste
-    vmap <C-x> :!pbcopy<CR>
-    vmap <C-c> :w !pbcopy<CR><CR>
+	" pbcopy for OSX copy/paste
+	vmap <C-x> :!pbcopy<CR>
+	vmap <C-c> :w !pbcopy<CR><CR>
 endif
 
 "" Open current line on GitHub
@@ -593,7 +628,7 @@ autocmd FileType yaml,yml setlocal ts=2 sts=2 sw=2 expandtab
 
 " Php  ----------------------------------------------------------------------{{{
 augroup filetypedetect
-    au BufRead,BufNewFile *.inc set filetype=php
+	au BufRead,BufNewFile *.inc set filetype=php
 augroup END
 "}}}
 
@@ -603,21 +638,21 @@ let g:rubycomplete_classes_in_global = 1
 let g:rubycomplete_rails = 1
 
 augroup vimrc-ruby
-    autocmd!
-    autocmd BufNewFile,BufRead *.rb,*.rbw,*.gemspec setlocal filetype=ruby
-    autocmd FileType ruby set tabstop=2|set shiftwidth=2|set expandtab softtabstop=2 smartindent
+	autocmd!
+	autocmd BufNewFile,BufRead *.rb,*.rbw,*.gemspec setlocal filetype=ruby
+	autocmd FileType ruby set tabstop=2|set shiftwidth=2|set expandtab softtabstop=2 smartindent
 augroup END
 
 let g:tagbar_type_ruby = {
-            \ 'kinds' : [
-            \ 'm:modules',
-            \ 'c:classes',
-            \ 'd:describes',
-            \ 'C:contexts',
-            \ 'f:methods',
-            \ 'F:singleton methods'
-            \ ]
-            \ }
+			\ 'kinds' : [
+			\ 'm:modules',
+			\ 'c:classes',
+			\ 'd:describes',
+			\ 'C:contexts',
+			\ 'f:methods',
+			\ 'F:singleton methods'
+			\ ]
+			\ }
 
 nmap <silent> ,t :TestNearest<CR>
 nmap <silent> ,tt :TestFile<CR>
@@ -626,10 +661,15 @@ nmap <silent> ,l :TestLast<CR>
 nmap <silent> ,g :TestVisit<CR>
 
 command! Troutes :T bundle exec rake routes
-command! Tc :T bundle exec rails c
+command! Rc :T bundle exec rails c
 command! -nargs=+ Troute :T bundle exec rake routes | grep <args>
 command! Tmigrate :T bundle exec rake db:migrate
 command! Tseed :T bundle exec rake db:reset && rake db:seed_fu
+"}}}
+
+" Docker --------------------------------------------------------------------{{{
+command! -nargs=+ D :T docker <args>
+command! -nargs=+ Drun :T docker run  <args>
 "}}}
 
 " Javascript  ---------------------------------------------------------------{{{
@@ -638,13 +678,13 @@ let g:javascript_enable_domhtmlcss = 1
 " vim-javascript
 let g:javascript_plugin_jsdoc = 1
 augroup vimrc-javascript
-    autocmd!
-    autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab softtabstop=4 smartindent
+	autocmd!
+	autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab softtabstop=4 smartindent
 augroup END
 
 augroup javascript_folding
-    au!
-    au FileType javascript setlocal foldmethod=syntax
+	au!
+	au FileType javascript setlocal foldmethod=syntax
 augroup END
 
 "}}}
@@ -660,6 +700,8 @@ autocmd bufnewfile,bufread *.svg set ft=xml
 "}}}
 
 " Settings  -----------------------------------------------------------------{{{
+"" vim-blockle
+let g:blockle_mapping = '<leader>rb'
 "" vim-mundo
 let g:mundo_right = 1
 set undofile
@@ -667,7 +709,7 @@ set undodir=~/.config/nvim/undo/
 
 "" vim-format
 au BufWrite * :Autoformat
-autocmd FileType yml,yaml,slim let b:autoformat_autoindent=0 " #TODO
+autocmd FileType yml,yaml,slim,notes,csv,dockerfile let b:autoformat_autoindent=0 " #TODO
 
 "" Extract
 let g:extract_maxCount = 25
@@ -684,10 +726,10 @@ command! -nargs=1 Trans call translator#translate_word(<f-args>)
 
 "" vim-test
 let test#strategy = {
-            \'nearest': 'neovim',
-            \'file':    'neovim',
-            \'suite':   'neovim',
-            \}
+			\'nearest': 'neovim',
+			\'file':    'neovim',
+			\'suite':   'neovim',
+			\}
 " let g:test#preserve_screen = 1
 
 "" Gitgutter
@@ -718,37 +760,37 @@ let g:airline_powerline_fonts   = 1
 let g:airline_theme='one'
 
 if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
+	let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
 if !exists('g:airline_powerline_fonts')
-    let g:airline#extensions#tabline#left_sep = ' '
-    let g:airline#extensions#tabline#left_alt_sep = '|'
-    let g:airline_left_sep          = '▶'
-    let g:airline_left_alt_sep      = '»'
-    let g:airline_right_sep         = '◀'
-    let g:airline_right_alt_sep     = '«'
-    let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
-    let g:airline#extensions#readonly#symbol   = '⊘'
-    let g:airline#extensions#linecolumn#prefix = '¶'
-    let g:airline#extensions#paste#symbol      = 'ρ'
-    let g:airline_symbols.linenr    = '␊'
-    let g:airline_symbols.branch    = '⎇'
-    let g:airline_symbols.paste     = 'ρ'
-    let g:airline_symbols.paste     = 'Þ'
-    let g:airline_symbols.paste     = '∥'
-    let g:airline_symbols.whitespace = 'Ξ'
+	let g:airline#extensions#tabline#left_sep = ' '
+	let g:airline#extensions#tabline#left_alt_sep = '|'
+	let g:airline_left_sep          = '▶'
+	let g:airline_left_alt_sep      = '»'
+	let g:airline_right_sep         = '◀'
+	let g:airline_right_alt_sep     = '«'
+	let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
+	let g:airline#extensions#readonly#symbol   = '⊘'
+	let g:airline#extensions#linecolumn#prefix = '¶'
+	let g:airline#extensions#paste#symbol      = 'ρ'
+	let g:airline_symbols.linenr    = '␊'
+	let g:airline_symbols.branch    = '⎇'
+	let g:airline_symbols.paste     = 'ρ'
+	let g:airline_symbols.paste     = 'Þ'
+	let g:airline_symbols.paste     = '∥'
+	let g:airline_symbols.whitespace = 'Ξ'
 else
-    let g:airline#extensions#tabline#left_sep = ''
-    let g:airline#extensions#tabline#left_alt_sep = ''
-    " powerline symbols
-    let g:airline_left_sep = ''
-    let g:airline_left_alt_sep = ''
-    let g:airline_right_sep = ''
-    let g:airline_right_alt_sep = ''
-    let g:airline_symbols.branch = ''
-    let g:airline_symbols.readonly = ''
-    let g:airline_symbols.linenr = ''
+	let g:airline#extensions#tabline#left_sep = ''
+	let g:airline#extensions#tabline#left_alt_sep = ''
+	" powerline symbols
+	let g:airline_left_sep = ''
+	let g:airline_left_alt_sep = ''
+	let g:airline_right_sep = ''
+	let g:airline_right_alt_sep = ''
+	let g:airline_symbols.branch = ''
+	let g:airline_symbols.readonly = ''
+	let g:airline_symbols.linenr = ''
 endif
 
 "" NERDTree configuration
@@ -787,8 +829,8 @@ let g:tern_request_timeout = 1
 let g:tern_show_signature_in_pum = 0
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = [
-            \ 'tern#Complete'
-            \]
+			\ 'tern#Complete'
+			\]
 let g:tern#command = ['tern']
 let g:tern#arguments = ['--persistent']
 
@@ -797,7 +839,8 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsEditSplit="vertical"
-
+autocmd FileType js,javascript  UltiSnipsAddFiletypes html
+autocmd FileType html UltiSnipsAddFiletypes javascript
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 "" vim-notes
@@ -807,7 +850,7 @@ let g:notes_directories = ['~/Google\ Drive/Notes/']
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
 "" Neoterm
-let g:neoterm_position = 'horizontal'
+let g:neoterm_default_mod = 'rightbelow'
 let g:neoterm_automap_keys = ',tt'
 let g:neoterm_size = 15
 let g:neoterm_open_in_all_tabs = 0
@@ -819,10 +862,10 @@ let g:neoterm_autoinsert = 1
 "" Goyo (distraction-free)
 let g:goyo_width="80%"
 function! s:goyo_enter()
-    set scrolloff=999
+	set scrolloff=999
 endfunction
 function! s:goyo_leave()
-    set scrolloff=5
+	set scrolloff=5
 endfunction
 
 "" IndentLine
@@ -834,38 +877,38 @@ let g:user_emmet_expandabbr_key='<Tab>'
 
 "" FZF
 let g:fzf_action = {
-            \ 'ctrl-q': 'wall | BD ',
-            \ 'ctrl-t': 'tab split',
-            \ 'ctrl-x': 'split',
-            \ 'ctrl-v': 'vsplit' }
+			\ 'ctrl-q': 'wall | BD ',
+			\ 'ctrl-t': 'tab split',
+			\ 'ctrl-x': 'split',
+			\ 'ctrl-v': 'vsplit' }
 
 let g:fzf_colors =
-            \ { "fg":      ["fg", "Normal"],
-            \ "bg":      ["bg", "Normal"],
-            \ "hl":      ["fg", "IncSearch"],
-            \ "fg+":     ["fg", "CursorLine", "CursorColumn", "Normal"],
-            \ "bg+":     ["bg", "CursorLine", "CursorColumn"],
-            \ "hl+":     ["fg", "IncSearch"],
-            \ "info":    ["fg", "IncSearch"],
-            \ "border":  ["fg", "Ignore"],
-            \ "prompt":  ["fg", "Conditional"],
-            \ "pointer": ["fg", "IncSearch"],
-            \ "marker":  ["fg", "IncSewarch"],
-            \ "spinner": ["fg", "IncSearch"],
-            \ "header":  ["fg", "IncSearch"] }
+			\ { "fg":      ["fg", "Normal"],
+			\ "bg":      ["bg", "Normal"],
+			\ "hl":      ["fg", "IncSearch"],
+			\ "fg+":     ["fg", "CursorLine", "CursorColumn", "Normal"],
+			\ "bg+":     ["bg", "CursorLine", "CursorColumn"],
+			\ "hl+":     ["fg", "IncSearch"],
+			\ "info":    ["fg", "IncSearch"],
+			\ "border":  ["fg", "Ignore"],
+			\ "prompt":  ["fg", "Conditional"],
+			\ "pointer": ["fg", "IncSearch"],
+			\ "marker":  ["fg", "IncSewarch"],
+			\ "spinner": ["fg", "IncSearch"],
+			\ "header":  ["fg", "IncSearch"] }
 
 let g:fzf_files_options =
-            \ '--preview "highlight -O ansi {} --force || cat {}" '.
-            \ '--bind down:preview-down,up:preview-up '.
-            \ '--preview-window "right:50%:hidden" --bind "?:toggle-preview"'
+			\ '--preview "highlight -O ansi {} --force || cat {}" '.
+			\ '--bind down:preview-down,up:preview-up '.
+			\ '--preview-window "right:50%:hidden" --bind "?:toggle-preview"'
 command! CmdHist call fzf#vim#command_history({'down': '40'}) " Better command history with q:
 command! QHist call fzf#vim#search_history({'down': '40'}) " Better search history
 command! -bang -nargs=* Find
-            \ call fzf#vim#grep(
-            \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-            \   <bang>0 ? fzf#vim#with_preview('up:60%')
-            \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-            \   <bang>0)
+			\ call fzf#vim#grep(
+			\   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+			\   <bang>0 ? fzf#vim#with_preview('up:60%')
+			\           : fzf#vim#with_preview('right:50%:hidden', '?'),
+			\   <bang>0)
 "" EasyMotion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 let g:EasyMotion_smartcase = 1
@@ -875,9 +918,9 @@ let g:EasyMotion_smartcase = 1
 au BufNewFile,BufRead *.rest set ft=rest " vim-http-client
 command! DeleteHiddenBuffers execute "call DeleteHiddenBuffers()"
 augroup terminal
-    autocmd TermOpen * setlocal nospell
-    autocmd TermClose * if getline('$') == '[Process exited 0]' | close | endif
-    " autocmd TermClose * bd!
+	autocmd TermOpen * setlocal nospell
+	autocmd TermClose * if getline('$') == '[Process exited 0]' | close | endif
+	" autocmd TermClose * bd!
 augroup END
 
 "" The PC is fast enough, do syntax highlight syncing from start
@@ -888,59 +931,59 @@ augroup END
 
 "" txt
 augroup vimrc-wrapping
-    autocmd!
-    autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
+	autocmd!
+	autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
 augroup END
 "}}}
 
 " Functions  ----------------------------------------------------------------{{{
 function! DeleteHiddenBuffers()
-    let tpbl=[]
-    call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
-    for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
-        silent execute 'bwipeout' buf
-    endfor
+	let tpbl=[]
+	call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+	for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+		silent execute 'bwipeout' buf
+	endfor
 endfunction
 
 if !exists('s:fzf_root')
-    fun! s:fzf_root()
-        let path = finddir(".git", expand("%:p:h").";")
-        return fnamemodify(substitute(path, ".git", "", ""), ":p:h")
-    endfun
+	fun! s:fzf_root()
+		let path = finddir(".git", expand("%:p:h").";")
+		return fnamemodify(substitute(path, ".git", "", ""), ":p:h")
+	endfun
 endif
 
 if !exists('*s:setupWrapping')
-    function s:setupWrapping()
-        set wrap
-        set wm=2
-        set textwidth=79
-    endfunction
+	function s:setupWrapping()
+		set wrap
+		set wm=2
+		set textwidth=79
+	endfunction
 endif
 
 if !exists('*GoogleSearch')
-    function GoogleSearch(...)
-        silent! exec "!open \"http://google.com/search?q=" . (a:0 > 0 ? a:1 : @g) . "\" > /dev/null"
-        redraw!
-    endfunction
+	function GoogleSearch(...)
+		silent! exec "!open \"http://google.com/search?q=" . (a:0 > 0 ? a:1 : @g) . "\" > /dev/null"
+		redraw!
+	endfunction
 endif
 "}}}
 
 " Hacks and Fixes  ----------------------------------------------------------{{{
 " Disable Deoplete when selecting multiple cursors starts
 function! Multiple_cursors_before()
-    if exists('*deoplete#disable')
-        exe 'call deoplete#disable()'
-    elseif exists(':NeoCompleteLock') == 2
-        exe 'NeoCompleteLock'
-    endif
+	if exists('*deoplete#disable')
+		exe 'call deoplete#disable()'
+	elseif exists(':NeoCompleteLock') == 2
+		exe 'NeoCompleteLock'
+	endif
 endfunction
 
 " Enable Deoplete when selecting multiple cursors ends
 function! Multiple_cursors_after()
-    if exists('*deoplete#enable')
-        exe 'call deoplete#enable()'
-    elseif exists(':NeoCompleteUnlock') == 2
-        exe 'NeoCompleteUnlock'
-    endif
+	if exists('*deoplete#enable')
+		exe 'call deoplete#enable()'
+	elseif exists(':NeoCompleteUnlock') == 2
+		exe 'NeoCompleteUnlock'
+	endif
 endfunction
 "}}}

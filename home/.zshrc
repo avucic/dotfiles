@@ -28,6 +28,8 @@ alias ta='tmux a -t'
 alias tn='tmux new -s'
 alias f='fzf'
 alias tmux="TERM=xterm-256color tmux -2"
+alias d=docker
+alias dc=docker-compose
 # }}}
 #  Vars and Paths  -----------------------------------------------------------{{{
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
