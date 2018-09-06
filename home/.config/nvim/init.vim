@@ -58,7 +58,7 @@ Plug 'farmergreg/vim-lastplace'
 "}}}
 
 " Auto complete  {{{
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx','html'] }
 Plug 'carlitux/deoplete-ternjs', { 'build': 'npm install -g tern','for': ['javascript', 'javascript.jsx','html']  }
 Plug 'fishbullet/deoplete-ruby',{'for': 'ruby'}
@@ -115,7 +115,6 @@ Plug 'alpaca-tc/beautify.vim'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'Chiel92/vim-autoformat'
 Plug 'Raimondi/delimitMate'
-Plug 'lfilho/cosco.vim' "  add comma and semi colon
 "}}}
 
 " Git  {{{
@@ -152,6 +151,7 @@ Plug 'groenewege/vim-less'
 Plug 'pangloss/vim-javascript'
 Plug 'thinca/vim-textobj-function-javascript'
 Plug 'inside/vim-textobj-jsxattr'
+Plug 'isRuslan/vim-es6' " snippets
 
 "}}}
 
@@ -531,11 +531,6 @@ nmap <c-]> :MundoToggle<cr>
 " autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 " autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 
-"" cosco
-autocmd FileType javascript,css,html nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
-autocmd FileType javascript,css,html imap <silent> <Leader>; <c-o><Plug>(cosco-commaOrSemiColon)
-" let g:auto_comma_or_semicolon = 1
-
 "" GoogleSearch
 command! -nargs=1 Google call GoogleSearch(<f-args>)
 vnoremap <leader>g/ "gy<Esc> :call GoogleSearch()<CR>
@@ -824,6 +819,8 @@ let g:deoplete#omni#functions.javascript = [
             \]
 let g:tern#command = ['tern']
 let g:tern#arguments = ['--persistent']
+"" Deoplete emoji
+call deoplete#custom#source('emoji', 'filetypes', ['gitcommit','rst','markdown','javascript','html'])
 
 "" ultisnips
 let g:UltiSnipsExpandTrigger="<c-j>"
@@ -907,15 +904,18 @@ let g:EasyMotion_smartcase = 1
 "" Ale
 let g:ale_fix_on_save = 1
 let g:ale_cache_executable_check_failures = 1
-
 let g:ale_set_highlights = 1
-let g:ale_fix_on_save = 1
 let g:ale_statusline_format = ['E•%d', 'W•%d', 'OK']
-let g:ale_echo_cursor = 1
+" let g:ale_echo_cursor = 1
 let g:ale_echo_msg_error_str = '✖ Error'
 let g:ale_echo_msg_warning_str = '⚠ Warning'
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠'
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed = 0
+let g:ale_completion_enabled = 0
+
 
 "}}}
 
