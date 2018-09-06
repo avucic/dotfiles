@@ -38,3 +38,5 @@ cached_pages/
 spec/examples.txt
 coverage/
 .simplecov
+.eslint
+.eslint*

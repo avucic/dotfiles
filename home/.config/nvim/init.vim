@@ -708,8 +708,12 @@ set undofile
 set undodir=~/.config/nvim/undo/
 
 "" vim-format
-au BufWrite * :Autoformat
-autocmd FileType yml,yaml,slim,notes,csv,dockerfile let b:autoformat_autoindent=0 " #TODO
+let no_formating_blacklist = [""] " #TODO
+autocmd BufWrite * if index(no_formating_blacklist, &ft) < 0 | :Autoformat
+autocmd FileType yml,yaml,slim,notes,csv let b:autoformat_autoindent=0 " #TODO
+" let g:autoformat_autoindent = 0
+" let g:autoformat_retab = 0
+" let g:autoformat_remove_trailing_spaces = 0
 
 "" Extract
 let g:extract_maxCount = 25
@@ -748,7 +752,9 @@ let g:syntastic_scss_checkers=["sasslint"]
 let g:syntastic_svg_checkers = []
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
-" autocmd VimEnter * SyntasticToggleMode "
+let g:syntastic_javascript_checkers = ["eslint"]
+autocmd FileType javascript :call SyntasticESlintChecker()
+" autocmd VimEnter * SyntasticToggleMode
 
 "" Vim Airline
 let g:airline#extensions#syntastic#enabled = 1
@@ -937,6 +943,21 @@ augroup END
 "}}}
 
 " Functions  ----------------------------------------------------------------{{{
+function! SyntasticESlintChecker()
+	let l:npm_bin = ''
+	let l:eslint = 'eslint'
+
+	if executable('npm')
+		let l:npm_bin = split(system('npm bin'), '\n')[0]
+	endif
+
+	if strlen(l:npm_bin) && executable(l:npm_bin . '/eslint')
+		let l:eslint = l:npm_bin . '/eslint'
+	endif
+
+	let b:syntastic_javascript_eslint_exec = l:eslint
+endfunction
+
 function! DeleteHiddenBuffers()
 	let tpbl=[]
 	call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
