@@ -31,6 +31,7 @@ Plug 'kassio/neoterm'
 Plug 'aquach/vim-http-client'
 Plug 'Shougo/vimproc.vim', {'build' : 'make','do':':VimProcInstall'}
 Plug 'qpkorr/vim-bufkill'
+Plug 'christoomey/vim-tmux-navigator'
 "}}}
 
 " Testing {{{
@@ -819,9 +820,12 @@ let g:deoplete#omni#functions.javascript = [
             \]
 let g:tern#command = ['tern']
 let g:tern#arguments = ['--persistent']
-"" Deoplete emoji
-call deoplete#custom#source('emoji', 'filetypes', ['gitcommit','rst','markdown','javascript','html'])
-
+"Add extra filetypes
+let g:deoplete#sources#ternjs#filetypes = [
+            \ 'jsx',
+            \ 'javascript.jsx',
+            \ 'vue'
+            \ ]
 "" ultisnips
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -976,19 +980,25 @@ endif
 " Hacks and Fixes  ----------------------------------------------------------{{{
 " Disable Deoplete when selecting multiple cursors starts
 function! Multiple_cursors_before()
-    if exists('*deoplete#disable')
-        exe 'call deoplete#disable()'
-    elseif exists(':NeoCompleteLock') == 2
-        exe 'NeoCompleteLock'
-    endif
+    let b:deoplete_disable_auto_complete=2
 endfunction
-
-" Enable Deoplete when selecting multiple cursors ends
 function! Multiple_cursors_after()
-    if exists('*deoplete#enable')
-        exe 'call deoplete#enable()'
-    elseif exists(':NeoCompleteUnlock') == 2
-        exe 'NeoCompleteUnlock'
-    endif
+    let b:deoplete_disable_auto_complete=0
 endfunction
+" function! Multiple_cursors_before()
+"     if exists('*deoplete#disable')
+"         exe 'call deoplete#disable()'
+"     elseif exists(':NeoCompleteLock') == 2
+"         exe 'NeoCompleteLock'
+"     endif
+" endfunction
+"
+" " Enable Deoplete when selecting multiple cursors ends
+" function! Multiple_cursors_after()
+"     if exists('*deoplete#enable')
+"         exe 'call deoplete#enable()'
+"     elseif exists(':NeoCompleteUnlock') == 2
+"         exe 'NeoCompleteUnlock'
+"     endif
+" endfunction
 "}}}
