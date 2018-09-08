@@ -31,7 +31,6 @@ Plug 'kassio/neoterm'
 Plug 'aquach/vim-http-client'
 Plug 'Shougo/vimproc.vim', {'build' : 'make','do':':VimProcInstall'}
 Plug 'qpkorr/vim-bufkill'
-Plug 'christoomey/vim-tmux-navigator'
 "}}}
 
 " Testing {{{
@@ -75,7 +74,6 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'mhinz/vim-startify'
 Plug 'sheerun/vim-polyglot'
-Plug 'MattesGroeger/vim-bookmarks'
 "theme
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -107,7 +105,7 @@ Plug 'whatyouhide/vim-textobj-erb'
 "}}}
 
 " Syntax {{{
-Plug 'tomtom/tcomment_vim'
+Plug 'scrooloose/nerdcommenter'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-sleuth'
 Plug 'w0rp/ale'
@@ -148,12 +146,14 @@ Plug 'groenewege/vim-less'
 "}}}
 
 " Javascript  {{{
-" P lug('jelera/vim-javascript-syntax')
-Plug 'pangloss/vim-javascript'
 Plug 'thinca/vim-textobj-function-javascript'
 Plug 'inside/vim-textobj-jsxattr'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 Plug 'isRuslan/vim-es6' " snippets
-
+Plug 'epilande/vim-es2015-snippets'
+Plug 'epilande/vim-react-snippets'
+Plug 'cristianoliveira/vim-react-html-snippets'
 "}}}
 
 " Lisp  {{{
@@ -368,7 +368,6 @@ autocmd FileType css,scss,json setlocal foldmarker={,}
 
 autocmd FileType coffee setl foldmethod=indent
 autocmd FileType html setl foldmethod=expr
-let g:xml_syntax_folding = 1
 autocmd FileType html setl foldexpr=HTMLFolds()
 autocmd FileType javascript,typescript,json,xml,ruby setl foldmethod=syntax
 "}}}
@@ -441,11 +440,6 @@ nnoremap <silent><esc> :noh \| ccl<return><esc>
 "" Search for visually hightlighted text
 vnoremap <C-r> "0y<Esc>:%S/<C-r>0//gc<left><left><left>
 vnoremap // y/<C-R>"<CR>
-
-"" cursor
-nmap <silent> <Leader>cl <Esc>:set                  cursorline! <CR>a
-nmap <silent> <Leader>cc      :set   cursorcolumn!              <CR>
-nmap <silent> <Leader>cn      :set nocursorcolumn nocursorline  <CR>
 
 "" Diff
 nnoremap <leader>dc :q<cr>:diffoff<cr>
@@ -593,12 +587,12 @@ imap <c-f><c-l> <plug>(fzf-complete-line)
 nnoremap <silent><c-p> :exe 'Files ' . <SID>fzf_root()<CR>
 nnoremap <silent><Leader>l :Lines<CR>
 " Search for word under the cursor
-" nnoremap <silent><leader>// :Lines <C-r>=expand('<cword>')<CR><CR>
-nnoremap <silent><leader>// :Find <C-r>=expand('<cword>')<CR><CR>
+nnoremap <silent><leader>fl :Lines <C-r>=expand('<cword>')<CR><CR>
+" nnoremap <silent><leader>// :Find <C-r>=expand('<cword>')<CR><CR>
 nnoremap <silent><leader>fw :Find <C-r>=expand('<cword>')<CR><CR>
 noremap <leader>f :Find<space>
 " Search for visual selected text
-vnoremap <silent><leader>/ y:Lines <C-R><C-R>"<CR>
+vnoremap <silent><leader>f y:Lines <C-R><C-R>"<CR>
 nnoremap <silent> <leader><cr> :Buffers<CR>
 nnoremap <silent> <leader>a :Windows<CR>
 nnoremap <silent> <leader>o :BTags<CR>
@@ -612,6 +606,7 @@ nnoremap q: :CmdHist<CR>
 
 "" EasyMotion
 nmap s  <Plug>(easymotion-overwin-f)
+vmap s <Plug>(easymotion-bd-f)
 nmap t <Plug>(easymotion-t2)
 "" Ale
 nmap <silent> <leader>aj :ALENext<cr>
@@ -675,6 +670,12 @@ let g:javascript_enable_domhtmlcss = 1
 
 " vim-javascript
 let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_flow = 1
+let g:jsx_ext_required = 0
+
+" vim-jsx
+"let g:jsx_pragma_required = 1
+
 augroup vimrc-javascript
     autocmd!
     autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab softtabstop=4 smartindent
@@ -698,8 +699,12 @@ autocmd bufnewfile,bufread *.svg set ft=xml
 "}}}
 
 " Settings  -----------------------------------------------------------------{{{
+"NERDCommenter
+let g:NERDCustomDelimiters = { 'javascript.jsx': { 'left': '//', 'leftAlt': '{/*', 'rightAlt': '*/}' } }
+
 "" vim-blockle
 let g:blockle_mapping = '<leader>rb'
+
 "" vim-mundo
 let g:mundo_right = 1
 set undofile
@@ -919,7 +924,6 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 0
 let g:ale_completion_enabled = 0
-
 
 "}}}
 
