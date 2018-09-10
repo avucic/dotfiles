@@ -47,6 +47,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'EvanDotPro/nerdtree-symlink'
 Plug 'ivalkeen/nerdtree-execute'
 Plug 'jistr/vim-nerdtree-tabs'
+Plug 'iberianpig/ranger-explorer.vim'
+Plug 'rbgrouleff/bclose.vim'
 Plug 'tpope/vim-unimpaired' " Navigate throught quicklist
 Plug 'Lokaltog/vim-easymotion'
 Plug 'ervandew/supertab'
@@ -414,10 +416,10 @@ nmap <Leader>nr :so $MYVIMRC<CR>
 nnoremap <leader>. :lcd %:p:h<CR>
 
 "" Opens an edit command with the path of the currently edited file filled in
-noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+"noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 "" Opens a tab edit command with the path of the currently edited file filled
-noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
+"noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 "" Move visual block
 vnoremap J :m '>+1<CR>gv=gv
@@ -706,6 +708,9 @@ autocmd bufnewfile,bufread *.svg set ft=xml
 "}}}
 
 " Settings  -----------------------------------------------------------------{{{
+"" Ranger Explorer
+nnoremap <silent><Leader>e :RangerOpenCurrentDir<CR>
+nnoremap <silent><Leader>er :RangerOpenProjectRootDir<CR>
 "NERDCommenter
 let g:NERDCustomDelimiters = { 'javascript.jsx': { 'left': '//', 'leftAlt': '{/*', 'rightAlt': '*/}' } }
 
