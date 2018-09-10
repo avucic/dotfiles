@@ -21,7 +21,6 @@ set runtimepath+=~/.config/nvim/plugged/vim-snippets
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'junegunn/vim-plug'
-" Plug 'chriskempson/base16-vim'
 
 " General {{{
 Plug 'tpope/vim-repeat'
@@ -135,13 +134,13 @@ Plug 'simnalamburt/vim-mundo'
 
 " HTML  {{{
 Plug 'Valloric/MatchTagAlways'
-Plug 'hail2u/vim-css3-syntax'
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'tpope/vim-haml'
 Plug 'mattn/emmet-vim'
 "}}}
 
 " CSS  {{{
+Plug 'hail2u/vim-css3-syntax'
 Plug 'groenewege/vim-less'
 "}}}
 
@@ -149,9 +148,9 @@ Plug 'groenewege/vim-less'
 Plug 'thinca/vim-textobj-function-javascript'
 Plug 'inside/vim-textobj-jsxattr'
 Plug 'pangloss/vim-javascript'
+"Plug 'chemzqm/vim-jsx-improve'
 Plug 'mxw/vim-jsx'
 Plug 'isRuslan/vim-es6' " snippets
-Plug 'epilande/vim-es2015-snippets'
 Plug 'epilande/vim-react-snippets'
 Plug 'cristianoliveira/vim-react-html-snippets'
 "}}}
@@ -393,14 +392,17 @@ cnoreabbrev Qall qall
 inoremap jj <ESC>
 inoremap  <Esc>    <NOP>
 
+"" join line in insert mode
+inoremap JJ <c-o>J<ESC>
+
 "" Common in insert mode
 inoremap jj <ESC>
 inoremap II <Esc>I
 inoremap AA <Esc>A
 inoremap OO <Esc>O
 
-inoremap CC <Esc>C
-inoremap SS <Esc>S
+"inoremap CC <Esc>C
+"inoremap SS <Esc>S
 inoremap DD <Esc>dd
 inoremap UU <Esc>u
 
@@ -435,7 +437,7 @@ vnoremap <Leader>d "_d
 noremap % v%
 
 "" Clean search (highlight)
-nnoremap <silent><esc> :noh \| ccl<return><esc>
+nnoremap <silent><esc> :nohl \| ccl<return><esc>
 
 "" Search for visually hightlighted text
 vnoremap <C-r> "0y<Esc>:%S/<C-r>0//gc<left><left><left>
@@ -557,7 +559,7 @@ nmap <leader>nf :NERDTreeFind<CR>
 
 "" vim-expand-regon
 vmap v  <Plug>(expand_region_expand)
-vmap < C-v> <Plug>(expand_region_shrink)
+vmap <C-v> <Plug>(expand_region_shrink)
 
 "" Splitjoin plugin keybinding
 nmap sj :SplitjoinSplit<cr> nmap sk :SplitjoinJoin<cr>
@@ -584,7 +586,7 @@ imap <c-f><c-k> <plug>(fzf-complete-word)
 imap <c-f><c-f> <plug>(fzf-complete-path)
 imap <c-f><c-j> <plug>(fzf-complete-file-ag)
 imap <c-f><c-l> <plug>(fzf-complete-line)
-nnoremap <silent><c-p> :exe 'Files ' . <SID>fzf_root()<CR>
+nnoremap <silent><c-p> :exe 'Files' . <SID>fzf_root()<CR>
 nnoremap <silent><Leader>l :Lines<CR>
 " Search for word under the cursor
 nnoremap <silent><leader>fl :Lines <C-r>=expand('<cword>')<CR><CR>
@@ -665,6 +667,13 @@ command! -nargs=+ D :T docker <args>
 command! -nargs=+ Drun :T docker run  <args>
 "}}}
 
+" CSS -----------------------------------------------------------------------{{{
+augroup vimrc-css
+    autocmd!
+    autocmd FileType stylus set noexpandtab sw=2 tabstop=2
+augroup END
+"}}}
+
 " Javascript  ---------------------------------------------------------------{{{
 let g:javascript_enable_domhtmlcss = 1
 
@@ -672,9 +681,6 @@ let g:javascript_enable_domhtmlcss = 1
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
 let g:jsx_ext_required = 0
-
-" vim-jsx
-"let g:jsx_pragma_required = 1
 
 augroup vimrc-javascript
     autocmd!
@@ -685,7 +691,8 @@ augroup javascript_folding
     au!
     au FileType javascript setlocal foldmethod=syntax
 augroup END
-
+" vim-jsx
+"let g:jsx_pragma_required = 1
 "}}}
 
 " HTML  ---------------------------------------------------------------------{{{
@@ -711,9 +718,9 @@ set undofile
 set undodir=~/.config/nvim/undo/
 
 "" vim-format
-let no_formating_blacklist = [""] " #TODO
+let no_formating_blacklist = ["","stylus"] " #TODO
 autocmd BufWrite * if index(no_formating_blacklist, &ft) < 0 | :Autoformat
-autocmd FileType yml,yaml,slim,notes,csv let b:autoformat_autoindent=0 " #TODO
+autocmd FileType yml,yaml,slim,notes,csv,snippets let b:autoformat_autoindent=0 " #TODO
 " let g:autoformat_autoindent = 0
 " let g:autoformat_retab = 0
 " let g:autoformat_remove_trailing_spaces = 0
@@ -788,8 +795,7 @@ endif
 "" NERDTree configuration
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeIgnore=['\~$', '\.swp$', '^\.git$','^node_modules$', '^\.DS_Store$']
 let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
@@ -873,6 +879,7 @@ let g:indentLine_color_dark = 1
 let g:user_emmet_expandabbr_key='<Tab>'
 
 "" FZF
+let $FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*" --glob "!node_modules/*"'
 let g:fzf_action = {
             \ 'ctrl-q': 'wall | BD ',
             \ 'ctrl-t': 'tab split',
@@ -947,6 +954,21 @@ augroup vimrc-wrapping
     autocmd!
     autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
 augroup END
+
+augroup vimrc-javascript
+    autocmd!
+    autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab softtabstop=4 smartindent
+augroup END
+
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
+
+"augroup vimrs-stylus
+"au!
+"au FileType stylus  set tabstop=2 | set shiftwidth=2
+"augroup END
 "}}}
 
 " Functions  ----------------------------------------------------------------{{{
@@ -984,25 +1006,19 @@ endif
 " Hacks and Fixes  ----------------------------------------------------------{{{
 " Disable Deoplete when selecting multiple cursors starts
 function! Multiple_cursors_before()
-    let b:deoplete_disable_auto_complete=2
+    if exists('*deoplete#disable')
+        exe 'call deoplete#disable()'
+    elseif exists(':NeoCompleteLock') == 2
+        exe 'NeoCompleteLock'
+    endif
 endfunction
+
+" Enable Deoplete when selecting multiple cursors ends
 function! Multiple_cursors_after()
-    let b:deoplete_disable_auto_complete=0
+    if exists('*deoplete#enable')
+        exe 'call deoplete#enable()'
+    elseif exists(':NeoCompleteUnlock') == 2
+        exe 'NeoCompleteUnlock'
+    endif
 endfunction
-" function! Multiple_cursors_before()
-"     if exists('*deoplete#disable')
-"         exe 'call deoplete#disable()'
-"     elseif exists(':NeoCompleteLock') == 2
-"         exe 'NeoCompleteLock'
-"     endif
-" endfunction
-"
-" " Enable Deoplete when selecting multiple cursors ends
-" function! Multiple_cursors_after()
-"     if exists('*deoplete#enable')
-"         exe 'call deoplete#enable()'
-"     elseif exists(':NeoCompleteUnlock') == 2
-"         exe 'NeoCompleteUnlock'
-"     endif
-" endfunction
 "}}}
