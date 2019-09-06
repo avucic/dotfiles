@@ -1,0 +1,468 @@
+{
+  "files.trimTrailingWhitespace": true,
+  "files.exclude": {
+    "**/coverage": true,
+    "**/.git": true,
+    "**/.DS_Store": true, // this is a default value
+    "**/node_modules": true, // this excludes all folders
+    // named "node_modules" from
+    // the explore tree
+    // alternative version
+    "node_modules": true // this excludes the folder
+    // only from the root of
+    // your workspace
+  },
+  "debug.allowBreakpointsEverywhere": true,
+  "window.zoomLevel": 0,
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "editor.renderWhitespace": "boundary",
+  "editor.rulers": [
+    80,
+    120
+  ],
+  "editor.foldingStrategy": "auto",
+  "editor.autoClosingBrackets": "always",
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": false,
+  "editor.suggest.localityBonus": true,
+  "editor.tabCompletion": "on",
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.parameterHints.enabled": false,
+  "editor.tabSize": 2,
+  "breadcrumbs.enabled": true,
+  "emmet.showAbbreviationSuggestions": true,
+  "emmet.showExpandedAbbreviation": "always",
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "vue": "html"
+  },
+  "emmet.syntaxProfiles": {
+    "vue-html": "html",
+    "vue": "vue",
+    "javascriptreact": "jsx",
+    "javascript": "js",
+    "typescript": "jsx",
+    "typescriptreact": "tsx"
+  },
+  // "editor.formatOnSave": false,
+  // "[javascript]": {
+  //   "editor.formatOnSave": false
+  // },
+  "files.autoSave": "onFocusChange",
+  "eslint.run": "onType",
+  "editor.formatOnSave": true,
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[vue]": {
+    "editor.formatOnSave": false
+  },
+  "eslint.alwaysShowStatus": true,
+  "eslint.options": {
+    "extensions": [
+      ".html",
+      ".js",
+      ".vue",
+      ".jsx"
+    ]
+  },
+  "eslint.autoFixOnSave": true,
+  "eslint.validate": [
+    {
+      "language": "html",
+      "autoFix": true
+    },
+    {
+      "language": "vue",
+      "autoFix": true
+    },
+    "vue-html",
+    {
+      "language": "javascript",
+      "autoFix": true
+    },
+    {
+      "language": "javascriptreact",
+      "autoFix": true
+    }
+  ],
+  "html.format.wrapAttributes": "force-expand-multiline",
+  // "javascript.format.enable": false,
+  // "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  // "javascript.referencesCodeLens.enabled": true,
+  // "javascript.updateImportsOnFileMove.enabled": "always",
+  // "javascript.validate.enable": false,
+  // "prettier.tabWidth": 2,
+  // "prettier.useTabs": false,
+  // "prettier.singleQuote": true,
+  // "prettier.trailingComma": "all",
+  // "prettier.semi": true,
+  // "prettier.eslintIntegration": true,
+  // "prettier.disableLanguages": ["js", "javascript", "html", "vue", "vue-html", "vue-js"],
+  "vetur.validation.script": false,
+  "vetur.validation.template": false,
+  "vetur.format.defaultFormatter.js": "prettier",
+  // "vetur.format.defaultFormatter.html": "js-beautify-html",
+  // "vetur.format.defaultFormatter.scss": "prettier",
+  // "vetur.format.defaultFormatter.css": "prettier",
+  // "vetur.format.defaultFormatterOptions": {
+  //   "js-beautify-html": {
+  //     "wrap_attributes": "force-expand-multiline",
+  //     "preserve_newlines": true,
+  //     "unformatted": ["a"],
+  //     "indent_inner_html": false,
+  //     "indent_size": 2,
+  //     "indent_with_tabs": false,
+  //     "wrap_line_length": 1000
+  //   }
+  // },
+  "vim.foldfix": true,
+  "vim.enableNeovim": true,
+  "vim.neovimPath": "/usr/local/bin/nvim",
+  "vim.easymotion": true,
+  "vim.sneak": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.visualstar": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        "j",
+        "j"
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    },
+    {
+      "before": [
+        "A",
+        "A"
+      ],
+      "after": [
+        "<esc>",
+        "A"
+      ]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "<leader>",
+        "d"
+      ],
+      "after": [
+        "d",
+        "d"
+      ]
+    },
+    {
+      "before": [
+        "<esc>"
+      ],
+      "commands": [
+        ":nohl",
+        "removeSecondaryCursors"
+      ]
+    },
+    // {
+    //   "before": [";"],
+    //   "after": [":"]
+    // },
+    {
+      "before": [
+        "H"
+      ],
+      "after": [
+        "^"
+      ]
+    },
+    {
+      "before": [
+        "L"
+      ],
+      "after": [
+        "g",
+        "_"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "o"
+      ],
+      "commands": [
+        "workbench.action.gotoSymbol"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "f"
+      ],
+      "commands": [
+        "actions.find"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "r"
+      ],
+      "commands": [
+        "editor.action.startFindReplaceAction"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "e"
+      ],
+      "commands": [
+        "workbench.files.action.focusOpenEditorsView"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "["
+      ],
+      "commands": [
+        // "workbench.files.action.focusOpenEditorsView",
+        "workbench.action.toggleSidebarVisibility"
+      ]
+    },
+    {
+      "before": [
+        "s"
+      ],
+      "after": [
+        "<leader>",
+        "<leader>",
+        "s"
+      ]
+    }
+  ],
+  "vim.leader": "<space>",
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": false,
+    "<C-d>": true,
+    "<C-q>": false
+  },
+  "search.runInExtensionHost": true,
+  "vim.visualModeKeyBindings": [
+    {
+      "before": [
+        "K"
+      ],
+      "commands": [
+        "editor.action.moveLinesUpAction"
+      ]
+    },
+    {
+      "before": [
+        "s"
+      ],
+      "after": [
+        "<leader>",
+        "<leader>",
+        "s"
+      ]
+    },
+    {
+      "before": [
+        "J"
+      ],
+      "commands": [
+        "editor.action.moveLinesDownAction"
+      ]
+    },
+    {
+      "before": [
+        "H"
+      ],
+      "after": [
+        "^"
+      ]
+    },
+    {
+      "before": [
+        "L"
+      ],
+      "after": [
+        "g",
+        "_"
+      ]
+    },
+    // {
+    //   "before": ["s"],
+    //   "after": ["<leader>", "<leader>", "s"]
+    // },
+    {
+      "before": [
+        "<leader>",
+        "8"
+      ],
+      "commands": [
+        "toggleFindCaseSensitive",
+        "editor.action.changeAll"
+      ]
+      // "commands": ["toggleFindCaseSensitive"]
+    }
+  ],
+  "sync.forceDownload": false,
+  "sync.gist": "d7f4eb0e1564be45cb43382f55090658",
+  "sync.quietSync": false,
+  "sync.removeExtensions": true,
+  "sync.syncExtensions": true,
+  "sync.autoDownload": false,
+  "sync.autoUpload": false,
+  "vsnotes.defaultNotePath": "/Users/vucinjo/Google Drive/Notes",
+  "highlight.regexes": {
+    "(TODO:?)(.*)": [
+      {
+        "overviewRulerColor": "#d19a66",
+        "backgroundColor": "#F9D64F",
+        "color": "#1f1f1f",
+        "fontStyle": "italic",
+        "fontWeight": "bold"
+      },
+      {
+        "color": "#F9D64F",
+        "fontStyle": "italic",
+        // "fontWeight": "lighter"
+        // "backgroundColor": "#e5c07b",
+        // "color": "#1f1f1f"
+      }
+    ],
+    "(FIXME:?)(.*)": [
+      {
+        "overviewRulerColor": "#be5046",
+        "backgroundColor": "#be5046",
+        "color": "#1f1f1f",
+        "fontWeight": "bold"
+      },
+      {
+        "color": "#e06c75"
+        // "backgroundColor": "#e06c75",
+        // "color": "#1f1f1f"
+      }
+    ],
+    "(// )(@\\w+)": [
+      {},
+      {
+        "color": "#4de0ff"
+      }
+    ]
+  },
+  "search.exclude": {
+    "**/dist": true
+  },
+  "editor.minimap.enabled": false,
+  "npm-intellisense.packageSubfoldersIntellisense": true,
+  "terminal.integrated.rendererType": "dom",
+  "emojisense.languages": {
+    "markdown": true,
+    "javascript": {
+      "markupCompletionsEnabled": true,
+      "emojiDecoratorsEnabled": true
+    },
+    "plaintext": {
+      "markupCompletionsEnabled": true,
+      "emojiDecoratorsEnabled": true
+    },
+    "git-commit": true
+  },
+  "workbench.editor.showTabs": false,
+  "diffEditor.renderSideBySide": false,
+  "gitlens.advanced.messages": {
+    "suppressFileNotUnderSourceControlWarning": true
+  },
+  "workbench.editor.closeEmptyGroups": false,
+  "dart.flutterSdkPath": "/Users/vucinjo/sdk/flutter",
+  "debug-current.file": "main",
+  "workbench.colorTheme": "One Dark Pro",
+  "dart.allowAnalytics": false,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "cosmosDB.showSavePrompt": false,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "ruby.useBundler": true, //run non-lint commands with bundle exec
+  "ruby.useLanguageServer": true, // use the internal language server (see below)
+  "ruby.lint": {
+    "rubocop": {
+      "useBundler": true // enable rubocop via bundler
+    },
+    "reek": {
+      "useBundler": true // enable reek via bundler
+    }
+  },
+  "ruby.format": "rubocop",
+  "ruby.rubocop.onSave": true,
+  "[ruby]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveTimeout": 5000,
+  },
+  "peacock.favoriteColors": [
+    {
+      "name": "Angular Red",
+      "value": "#b52e31"
+    },
+    {
+      "name": "Auth0 Orange",
+      "value": "#eb5424"
+    },
+    {
+      "name": "Azure Blue",
+      "value": "#007fff"
+    },
+    {
+      "name": "C# Purple",
+      "value": "#68217A"
+    },
+    {
+      "name": "Gatsby Purple",
+      "value": "#639"
+    },
+    {
+      "name": "Go Cyan",
+      "value": "#5dc9e2"
+    },
+    {
+      "name": "Java Blue-Gray",
+      "value": "#557c9b"
+    },
+    {
+      "name": "JavaScript Yellow",
+      "value": "#f9e64f"
+    },
+    {
+      "name": "Mandalorian Blue",
+      "value": "#1857a4"
+    },
+    {
+      "name": "Node Green",
+      "value": "#215732"
+    },
+    {
+      "name": "React Blue",
+      "value": "#00b3e6"
+    },
+    {
+      "name": "Something Different",
+      "value": "#832561"
+    },
+    {
+      "name": "Vue Green",
+      "value": "#42b883"
+    }
+  ],
+  "dart.checkForSdkUpdates": false,
+  "sync.forceUpload": true, // use rubocop for formatting
+}

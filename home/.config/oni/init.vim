@@ -8,16 +8,16 @@
 " repo  : https://github.com/avstudio/dotfiles/
 
 " Setup  --------------------------------------------------------------------{{{
-" auto-install vim-plug
 let g:python_host_prog = $HOME. '/.pyenv/versions/neovim2/bin/python'
 let g:python3_host_prog = $HOME. '/.pyenv/versions/neovim3/bin/python'
 let g:ruby_host_prog = $HOME. '/.rbenv/shims/neovim-ruby-host'
 
+" auto-install vim-plug
 if empty(glob("$HOME/.config/nvim/autoload/plug.vim"))
-  call system(expand("mkdir -p $HOME/.config/nvim/{autoload,plugged}"))
-  call system(expand("git clone https://github.com/junegunn/vim-plug.git $HOME/.config/nvim/plugged/vim-plug"))
-  call system(expand("ln -s ~/.config/nvim/plugged/vim-plug/plug.vim ~/.config/nvim/autoload"))
-  autocmd VimEnter * PlugInstall
+    call system(expand("mkdir -p $HOME/.config/nvim/{autoload,plugged}"))
+    call system(expand("git clone https://github.com/junegunn/vim-plug.git $HOME/.config/nvim/plugged/vim-plug"))
+    call system(expand("ln -s ~/.config/nvim/plugged/vim-plug/plug.vim ~/.config/nvim/autoload"))
+    autocmd VimEnter * PlugInstall
 endif
 
 call plug#begin('~/.config/nvim/plugged')
@@ -26,6 +26,7 @@ Plug 'junegunn/vim-plug'
 
 " General {{{
 Plug 'editorconfig/editorconfig-vim' " Conventions for vim
+Plug 'tpope/vim-repeat'
 " Plug 'kassio/neoterm'
 " Plug 'aquach/vim-http-client'
 " Plug 'Shougo/vimproc.vim', {'build' : 'make','do':':VimProcInstall'}
@@ -76,7 +77,7 @@ Plug 'whatyouhide/vim-textobj-erb'
 " Syntax {{{
 Plug 'scrooloose/nerdcommenter'
 Plug 'Yggdroot/indentLine'
-" Plug 'tpope/vim-sleuth'
+Plug 'w0rp/ale'
 "}}}
 
 " Git  {{{
@@ -134,6 +135,16 @@ filetype plugin indent on
 
 " System Setting  -----------------------------------------------------------{{{
 let mapleader="\<Space>"
+"" Copy/Paste/Cut
+"if has('unnamedplus')
+"set clipboard=unnamed,unnamedplus
+"endif
+set clipboard=unnamedplus
+"if has('macunix')
+"" pbcopy for OSX copy/paste
+"vmap <C-x> :!pbcopy<CR>
+"vmap <C-c> :w !pbcopy<CR><CR>
+"endif
 
 set autoread
 "" Encoding
@@ -156,7 +167,7 @@ set ignorecase
 " Enable GUI mouse behavior
 set mouse=a
 
-" If using Oni's externalized statusline, hide vim's native statusline, 
+" If using Oni's externalized statusline, hide vim's native statusline,
 set noshowmode
 set noruler
 set laststatus=0
@@ -170,7 +181,7 @@ set ruler
 set number
 "" Highlight characters that go over 80 columns (by drawing a border on the 81st)
 if exists('+colorcolumn')
-  set colorcolumn=81
+    set colorcolumn=81
 endif
 set undofile
 set undodir=~/.config/nvim/undo/
@@ -178,18 +189,18 @@ set undodir=~/.config/nvim/undo/
 
 " Folding  ------------------------------------------------------------------{{{
 function! MyFoldText() " {{{
-  let line = getline(v:foldstart)
-  let nucolwidth = &fdc + &number * &numberwidth
-  let windowwidth = winwidth(0) - nucolwidth - 3
-  let foldedlinecount = v:foldend - v:foldstart
+    let line = getline(v:foldstart)
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
 
-  " expand tabs into spaces
-  let onetab = strpart('          ', 0, &tabstop)
-  let line = substitute(line, '\t', onetab, 'g')
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
 
-  let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-  let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - len('lines')
-  return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . ' Lines '
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - len('lines')
+    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . ' Lines '
 endfunction " }}}
 
 set foldtext=MyFoldText()
@@ -284,6 +295,12 @@ cnoremap <C-f> <Right>
 cnoremap <M-b> <S-Left>
 cnoremap <M-f> <S-Right>
 
+" Buffer navigation
+nmap <leader>bn :enew<cr>
+map <Tab> :bnext<cr>
+map <S-Tab> :bprevious<cr>
+nmap <M-W> :BD<CR>
+
 "" Tabs navigation
 map <Leader><Tab> gt<cr>
 map <Leader><S-Tab> gT<cr>
@@ -312,8 +329,8 @@ nnoremap ,ss :Session<Space>
 nnoremap ,S :Sessions<CR>
 nnoremap ,ds :SDelete<Space>
 nnoremap ,sc :SQuit<CR>
-"}}}
 
+"}}}
 
 " Ruby  ---------------------------------------------------------------------{{{
 " let g:rubycomplete_buffer_loading = 1
@@ -437,22 +454,22 @@ vnoremap gc :call NERDComment(0,"toggle")<CR>
 
 let g:ft = ''
 function! NERDCommenter_before()
-  if &ft == 'vue'
-    let g:ft = 'vue'
-    let stack = synstack(line('.'), col('.'))
-    if len(stack) > 0
-      let syn = synIDattr((stack)[0], 'name')
-      if len(syn) > 0
-        exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
-      endif
+    if &ft == 'vue'
+        let g:ft = 'vue'
+        let stack = synstack(line('.'), col('.'))
+        if len(stack) > 0
+            let syn = synIDattr((stack)[0], 'name')
+            if len(syn) > 0
+                exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
+            endif
+        endif
     endif
-  endif
 endfunction
 function! NERDCommenter_after()
-  if g:ft == 'vue'
-    setf vue
-    let g:ft = ''
-  endif
+    if g:ft == 'vue'
+        setf vue
+        let g:ft = ''
+    endif
 endfunction
 
 "" vim-blockle
@@ -466,10 +483,10 @@ command! -nargs=1 Trans call translator#translate_word(<f-args>)
 
 "" vim-test
 let test#strategy = {
-      \'nearest': 'neovim',
-      \'file':    'neovim',
-      \'suite':   'neovim',
-      \}
+            \'nearest': 'neovim',
+            \'file':    'neovim',
+            \'suite':   'neovim',
+            \}
 " let g:test#preserve_screen = 1
 
 "" Gitgutter
@@ -481,10 +498,10 @@ let g:notes_directories = ['~/Google\ Drive/Notes/']
 "" Goyo (distraction-free)
 let g:goyo_width="80%"
 function! s:goyo_enter()
-  set scrolloff=999
+    set scrolloff=999
 endfunction
 function! s:goyo_leave()
-  set scrolloff=5
+    set scrolloff=5
 endfunction
 
 "" IndentLine
@@ -525,54 +542,82 @@ nnoremap q/ :QHist<CR>
 nnoremap q: :CmdHist<CR>
 let $FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*" --glob "!node_modules/*" --glob "!.DS_Store"'
 let g:fzf_action = {
-      \ 'ctrl-q': 'wall | BD ',
-      \ 'ctrl-t': 'tab split',
-      \ 'ctrl-x': 'split',
-      \ 'ctrl-v': 'vsplit' }
+            \ 'ctrl-q': 'wall | BD ',
+            \ 'ctrl-t': 'tab split',
+            \ 'ctrl-x': 'split',
+            \ 'ctrl-v': 'vsplit' }
 
 let g:fzf_files_options =
-      \ '--preview "highlight -O ansi {} --force || cat {}" '.
-      \ '--bind down:preview-down,up:preview-up '.
-      \ '--preview-window "right:50%:hidden" --bind "?:toggle-preview"'
+            \ '--preview "highlight -O ansi {} --force || cat {}" '.
+            \ '--bind down:preview-down,up:preview-up '.
+            \ '--preview-window "right:50%:hidden" --bind "?:toggle-preview"'
 command! CmdHist call fzf#vim#command_history({'down': '40'}) " Better command history with q:
 command! QHist call fzf#vim#search_history({'down': '40'}) " Better search history
 command! -bang -nargs=* Find
-      \ call fzf#vim#grep(
-      \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-      \   <bang>0 ? fzf#vim#with_preview('up:60%')
-      \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-      \   <bang>0)
+            \ call fzf#vim#grep(
+            \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+            \   <bang>0 ? fzf#vim#with_preview('up:60%')
+            \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+            \   <bang>0)
+
+"" Ale
+nmap <silent> <leader>aj :ALENext<cr>
+nmap <silent> <leader>ak :ALEPrevious<cr>
+nmap <silent> <leader>a? :ALEDetail<cr>
+nmap <Leader>ta :ALEToggle<CR>
+"" Ale
+let g:ale_fix_on_save = 1
+let g:ale_javascript_eslint_use_global = 1
+let g:ale_cache_executable_check_failures = 1
+let g:ale_set_highlights = 1
+"let g:ale_statusline_format = ['E?%d', 'W?%d', 'OK']
+" let g:ale_echo_cursor = 1
+let g:ale_echo_msg_error_str = '? Error'
+let g:ale_echo_msg_warning_str = '? Warning'
+let g:ale_sign_error = '✖'
+let g:ale_sign_warning = '⚠'
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed = 0
+let g:ale_completion_enabled = 0
 
 "}}}
 
 " Functions  ----------------------------------------------------------------{{{
 function! DeleteHiddenBuffers()
-  let tpbl=[]
-  call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
-  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
-    silent execute 'bwipeout' buf
-  endfor
+    let tpbl=[]
+    call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+    for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+        silent execute 'bwipeout' buf
+    endfor
 endfunction
 
 if !exists('s:fzf_root')
-  fun! s:fzf_root()
-    let path = finddir(".git", expand("%:p:h").";")
-    return fnamemodify(substitute(path, ".git", "", ""), ":p:h")
-  endfun
+    fun! s:fzf_root()
+        let path = finddir(".git", expand("%:p:h").";")
+        return fnamemodify(substitute(path, ".git", "", ""), ":p:h")
+    endfun
 endif
 
 if !exists('*s:setupWrapping')
-  function s:setupWrapping()
-    set wrap
-    set wm=2
-    set textwidth=79
-  endfunction
+    function s:setupWrapping()
+        set wrap
+        set wm=2
+        set textwidth=79
+    endfunction
 endif
 
 if !exists('*GoogleSearch')
-  function GoogleSearch(...)
-    silent! exec "!open \"http://google.com/search?q=" . (a:0 > 0 ? a:1 : @g) . "\" > /dev/null"
-    redraw!
-  endfunction
+    function GoogleSearch(...)
+        silent! exec "!open \"http://google.com/search?q=" . (a:0 > 0 ? a:1 : @g) . "\" > /dev/null"
+        redraw!
+    endfunction
 endif
+"}}}
+"
+" Auto commands ------------------------------------------------------------{{{
+"augroup autoindent
+"au!
+"autocmd BufWritePre * :normal migg=G`i
+"augroup End
 "}}}

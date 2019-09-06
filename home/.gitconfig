@@ -1,7 +1,7 @@
 [core]
 	excludesfile = /Users/vucinjo/.gitignore
 	autocrlf = input
-	editor = nvim
+	editor = code --wait
 [user]
 	name = Aleksandar Vucic
 	email = vucinjo@gmail.com
@@ -54,3 +54,7 @@ exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
 	cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
 [rebase]
 	autosquash = true
+[diff]
+    tool = default-difftool
+[difftool "default-difftool"]
+    cmd = code --wait --diff $LOCAL $REMOTE

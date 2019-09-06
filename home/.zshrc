@@ -18,7 +18,7 @@ else
 fi
 # }}}
 #  Aliases  ------------------------------------------------------------------{{{
-alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome  --args --disable-web-security &"
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome  --args --disable-web-security --remote-debugging-port=9222 &"
 alias n='TERM=xterm-256color nvim'
 alias r='rails'
 alias rk='rake'
@@ -61,7 +61,8 @@ export GNUTERM=x11
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export EDITOR=nvim
-export NODE_PATH=/usr/local/lib/node_modules
+# export NODE_PATH=/usr/local/lib/node_modules
+# export NODE_PATH=$NODE_PATH:`nvm which default `
 export TERM="xterm-256color"
 export DISABLE_AUTO_TITLE=true
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -89,9 +90,24 @@ export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # }}}
 # NVM {{{
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 # }}}
+# VSCode {{{
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+# function c {
+#     if [[ $# = 0 ]]
+#     then
+#         open -a "Visual Studio Code"
+#     else
+#         local argPath="$1"
+#         [[ $1 = /* ]] && argPath="$1" || argPath="$PWD/${1#./}"
+#         open -a "Visual Studio Code" "$argPath"
+#     fi
+# }
+# }}}
+# flutter and dart {{{
+export PATH="$PATH:/Users/vucinjo/sdk/flutter/bin"
+export PATH="$PATH":"$HOME/.pub-cache/bin"
 # }}}

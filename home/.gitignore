@@ -40,3 +40,10 @@ coverage/
 .simplecov
 .eslint
 .eslint*
+.vscode/*
+.tmp/
+coverage/
+.nyc_output
+*.code-workspace
+*.mongo
+dist/
