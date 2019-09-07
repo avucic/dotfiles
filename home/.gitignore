@@ -47,3 +47,4 @@ coverage/
 *.code-workspace
 *.mongo
 dist/
+bin/*

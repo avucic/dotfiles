@@ -19,4 +19,7 @@ def linkify(source_path, target_path)
   end
 end
 linkify File.join(__dir__, 'home'), ENV['HOME']
-# system "curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+
+system 'defaults write -g InitialKeyRepeat -int 10' # normal minimum is 15 (225 ms)
+system 'defaults write -g KeyRepeat -int 1' # normal minimum is 2 (30 ms)
+system 'defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO'
