@@ -1,20 +1,8 @@
-#!/usr/bin/env ruby
-# frozen_string_literal: true
-
 require 'fileutils'
 require 'pathname'
 require 'optparse'
 
-# options = {}
-# OptionParser.new do |opts|
-#   opts.banner = "Usage: install.rb [options]"
 
-#   opts.on("-p", "--[no-]verbose", "Platform")
-# end.parse!
-
-# platform  = ARGV[0]
-
-# # Recursively link files from source to target directory
 def linkify(source_path, target_path)
   Dir.glob(File.join(source_path, '*'), File::FNM_DOTMATCH).each do |src_fn_path|
     src_pn = Pathname.new src_fn_path
@@ -28,6 +16,16 @@ def linkify(source_path, target_path)
     end
   end
 end
+
 linkify File.join(__dir__, 'home'), ENV['HOME']
 
-load 'mac_setup.rb' if RUBY_PLATFORM =~ /darwin/
+if RUBY_PLATFORM =~ /linux/
+  system 'cd ~/'
+  system 'apt update && apt install zsh -y && apt install neovim -y'
+  system 'curl -L git.io/antigen > antigen.zsh'
+  system "git config --global core.excludesfile '~/.gitignore'"
+  system 'bundle install --binstubs'
+  system 'touch .bashrc'
+  system 'echo "export PATH=/root/bin:$PATH" >> .bashrc'
+  system 'exec zsh'
+end

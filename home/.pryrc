@@ -1,1 +1,3 @@
-require "~/.rbenv/versions/2.4.3/lib/ruby/gems/2.4.0/gems/interactive_editor-0.0.11/lib/interactive_editor.rb"
+# frozen_string_literal: true
+
+require '/Users/vucinjo/.rbenv/versions/2.6.4/lib/ruby/gems/2.6.0/gems/interactive_editor-0.0.11/lib/interactive_editor.rb'

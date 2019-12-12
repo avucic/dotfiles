@@ -22,6 +22,7 @@
   ba = branch -ra
   bd = branch -d
   ca = commit --amend
+  cae = commit --amend --no-edit
   cb = checkout -b
   cm = commit -a --amend -C HEAD
   ci = commit -a -v
@@ -34,6 +35,7 @@
   un = reset --hard HEAD
   uh = reset --hard HEAD^
   unrm = "!COMMIT=$(git log -1 --pretty=%h -- \"$1\"); git checkout $COMMIT^ -- \"$1\"; echo \"File: $1, was restored from commit $COMMIT\"; git show -s $COMMIT"
+  glignore = git update-index --assume-unchanged
 
 exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
 [color]

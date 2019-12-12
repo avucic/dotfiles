@@ -38,6 +38,7 @@ brew 'zsh'
 brew 'dart-lang/dart/dart'
 brew 'heroku/brew/heroku'
 brew 'jhawthorn/fzy/fzy'
+brew 'mongodb-community'
 
 cask 'graphql-playground'
 cask 'java'
@@ -57,6 +58,4 @@ cask 'skype'
 cask 'viber'
 cask 'vlc'
 cask 'utorrent'
-
-
 puts 'Activate office: https://gist.github.com/zthxxx/9ddc171d00df98cbf8b4b0d8469ce90a/raw/Microsoft_Office_2019_VL_Serializer.pkg'

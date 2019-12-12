@@ -41,10 +41,12 @@ coverage/
 .eslint
 .eslint*
 .vscode/*
+.vscode
 .tmp/
 coverage/
 .nyc_output
 *.code-workspace
 *.mongo
 dist/
-bin/*
+.devcontainer/**
+.devcontainer
