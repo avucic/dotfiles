@@ -1,4 +1,7 @@
-source ~/.bashrc
+if [ -e ~/.bashrc ]
+then
+  source ~/.bashrc
+fi
 
 #  Setup  --------------------------------------------------------------------{{{
 export ANTIGEN=$HOME

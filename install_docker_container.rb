@@ -29,4 +29,5 @@ if RUBY_PLATFORM =~ /linux/
   system 'echo "export PATH=/root/bin:$PATH" >> .bashrc'
   system 'chsh -s /usr/bin/zsh'
   system 'exec zsh'
+  system 'mv ~/.config/nvim/init.vim.vscode ~/.config/nvim/init.vim'
 end
