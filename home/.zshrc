@@ -92,7 +92,6 @@ alias dclimate="docker run \
 # }}}
 #  Vars and Paths  -----------------------------------------------------------{{{
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:$PATH
-export PATH=/root/bin:$PATH #docker container
 
 # Dotfiles bin {{{
 export PATH="$HOME/dotfiles/bin:$PATH"

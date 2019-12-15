@@ -20,14 +20,18 @@ linkify File.join(__dir__, 'home'), ENV['HOME']
 
 if RUBY_PLATFORM =~ /linux/
   system 'cd ~/'
-  system 'apt update && apt install zsh -y && apt install neovim -y'
+  system 'apt-get update && apt install zsh -y'
+  system 'curl -LO https://github.com/neovim/neovim/releases/download/v0.4.3/nvim.appimage && chmod u+x nvim.appimage && ./nvim.appimage --appimage-extract'
+  system 'chmod u+x nvim.appimage'
+  system './nvim.appimage --appimage-extract'
   system 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" -y'
   system 'curl -L git.io/antigen > antigen.zsh'
   system "git config --global core.excludesfile '~/.gitignore'"
   system 'bundle install --binstubs'
   system 'touch .bashrc'
-  system 'echo "export PATH=/root/bin:$PATH" >> .bashrc'
-  system 'chsh -s /usr/bin/zsh'
-  system 'exec zsh'
+  system 'echo "export PATH=/root/bin:\$PATH" >> .bashrc'
+  # system 'chsh -s /usr/bin/zsh'
+  # system 'exec zsh'
   system 'mv ~/.config/nvim/init.vim.vscode ~/.config/nvim/init.vim'
+  system 'echo "export PATH=/root/bin:/root/squashfs-root/usr/bin:\$PATH" >> ~/.zshrc'
 end
