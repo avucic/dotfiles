@@ -1,8 +1,3 @@
-if [ -e ~/.bashrc ]
-then
-  source ~/.bashrc
-fi
-
 #  Setup  --------------------------------------------------------------------{{{
 export ANTIGEN=$HOME
 # If there is cache available
@@ -99,6 +94,7 @@ export PATH="$HOME/dotfiles/bin:$PATH"
 
 # FZF {{{
 export FZF_DEFAULT_OPTS='--preview "pygmentize {}" --color dark --bind "?:toggle-preview" --preview-window "right:50%:hidden"'
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 # }}}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

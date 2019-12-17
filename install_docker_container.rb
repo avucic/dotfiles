@@ -30,8 +30,6 @@ if RUBY_PLATFORM =~ /linux/
   system 'bundle install --binstubs'
   system 'touch .bashrc'
   system 'echo "export PATH=/root/bin:\$PATH" >> .bashrc'
-  # system 'chsh -s /usr/bin/zsh'
-  # system 'exec zsh'
   system 'mv ~/.config/nvim/init.vim.vscode ~/.config/nvim/init.vim'
   system 'echo "export PATH=/root/bin:/root/squashfs-root/usr/bin:\$PATH" >> ~/.zshrc'
 end
