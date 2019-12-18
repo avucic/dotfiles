@@ -98,3 +98,6 @@ export FZF_DEFAULT_OPTS='--preview "pygmentize {}" --color dark --bind "?:toggle
 # }}}
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init - zsh)"

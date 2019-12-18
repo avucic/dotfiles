@@ -17,9 +17,6 @@ if empty(glob("$HOME/.config/nvim/autoload/plug.vim"))
 	call system(expand("mkdir -p $HOME/.config/nvim/{autoload,plugged}"))
 	call system(expand("git clone https://github.com/junegunn/vim-plug.git $HOME/.config/nvim/plugged/vim-plug"))
 	call system(expand("ln -s ~/.config/nvim/plugged/vim-plug/plug.vim ~/.config/nvim/autoload"))
-	call system(expand("git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf"))
-	call system(expand("~/.fzf/install"))
-
 	autocmd VimEnter * PlugInstall
 endif
 
@@ -37,7 +34,6 @@ Plug 'kassio/neoterm'
 Plug 'aquach/vim-http-client'
 " Plug 'Shougo/vimproc.vim', {'build' : 'make','do':':VimProcInstall'}
 Plug 'qpkorr/vim-bufkill'
-" Plug 'christoomey/vim-tmux-navigator'
 "}}}
 
 " Testing {{{
@@ -59,7 +55,7 @@ Plug 'iberianpig/ranger-explorer.vim'
 "Plug 'mbbill/VimExplorer'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'tpope/vim-unimpaired' " Navigate throught quicklist
-Plug 'easymotion/vim-easymotion'
+" Plug 'easymotion/vim-easymotion'
 " Plug 'ervandew/supertab'
 Plug 'Konfekt/FastFold'
 Plug 'wellle/visual-split.vim'
@@ -67,8 +63,7 @@ Plug 'farmergreg/vim-lastplace'
 "}}}
 
 " Auto complete  {{{
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'honza/vim-snippets'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "}}}
 
 " Look and feel/Visual  {{{
@@ -76,7 +71,6 @@ Plug 'kshenoy/vim-signature' "vim marks
 Plug 'ap/vim-css-color'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'mhinz/vim-startify'
 Plug 'sheerun/vim-polyglot'
 "theme
@@ -114,19 +108,28 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-sleuth'
 Plug 'w0rp/ale'
+" TODO check formaters
+" Plug 'alpaca-tc/beautify.vim'
+" Plug 'maksimr/vim-jsbeautify'
+" Plug 'Chiel92/vim-autoformat'
+" Plug 'Raimondi/delimitMate'
 "}}}
 
 " Git  {{{
 Plug 'airblade/vim-gitgutter'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim' "Browse git commits
 "}}}
 
 " Search and History {{{
+Plug 'rking/ag.vim'
+Plug 'taiansu/nerdtree-ag'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'brooth/far.vim'
+" Plug 'simnalamburt/vim-mundo'
 "}}}
 
 " HTML  {{{
@@ -154,13 +157,13 @@ Plug 'posva/vim-vue'
 "}}}
 
 " Ruby/Rails  {{{
-Plug 'tpope/vim-rails'
+" Plug 'tpope/vim-rails'
 " " Plug 'tpope/vim-rake'
 " Plug 'tpope/vim-projectionist'
 " Plug 'thoughtbot/vim-rspec'
 " Plug 'ecomba/vim-ruby-refactoring'
 " Plug 'tpope/vim-bundler'
-Plug 'slim-template/vim-slim'
+" Plug 'slim-template/vim-slim'
 " Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' } "Selecting ruby block
 " Plug 'rhysd/vim-textobj-ruby', { 'for': 'ruby' }
 " " P lug('tpope/vim-rbenv'),                           { 'for': 'ruby' }
@@ -170,7 +173,7 @@ Plug 'slim-template/vim-slim'
 " Plug 'tpope/vim-endwise', { 'for': 'ruby' }
 " Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 " " Plug 'bruno-/vim-ruby-fold'
-Plug 'rlue/vim-fold-rspec'
+" Plug 'rlue/vim-fold-rspec'
 " Plug 'rorymckinley/vim-rubyhash'
 "}}}
 
@@ -186,7 +189,7 @@ call plug#end()
 filetype plugin indent on
 " }}}
 
-" System setting  -----------------------------------------------------------{{{
+" System Setting  -----------------------------------------------------------{{{
 let mapleader="\<Space>"
 
 set autoread
@@ -245,8 +248,6 @@ if has('nvim')
 else
 	nnoremap <silent> <leader>sh :VimShellCreate<CR>
 endif
-
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
 "}}}
 
 " Visual Settings -----------------------------------------------------------{{{
@@ -259,6 +260,17 @@ syntax on
 set ruler
 set number
 set guifont=Monaco\ for\ Powerline\ Nerd\ Font\ Complete:h12
+" set relativenumber number
+set mousemodel=popup
+set t_Co=256
+set guioptions=egmrti
+set gcr=a:blinkon0 "" Disable the blinking cursor.
+set scrolloff=3
+set guicursor=a:blinkon0
+
+set t_ZH=^[[3m
+set t_ZR=^[[23m
+
 let g:one_allow_italics = 1
 colorscheme one
 set background=dark
@@ -295,17 +307,17 @@ let g:terminal_color_15= "#ffffff" "Bright white
 set laststatus=2
 
 "" Use modeline overrides
-" set modeline
-" set modelines=10
+set modeline
+set modelines=10
 
-" set title
-" set titleold="Terminal"
-" set titlestring=%F
+set title
+set titleold="Terminal"
+set titlestring=%F
 
-" set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
-" if exists("*fugitive#statusline")
-" 	set statusline+=%{fugitive#statusline()}
-" endif
+set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
+if exists("*fugitive#statusline")
+	set statusline+=%{fugitive#statusline()}
+endif
 
 "" Disable visualbell
 set noerrorbells visualbell t_vb=
@@ -314,7 +326,6 @@ if has('autocmd')
 endif
 
 "" Copy/Paste/Cut
-set clipboard=unnamed
 if has('unnamedplus')
 	set clipboard=unnamed,unnamedplus
 endif
@@ -380,6 +391,7 @@ cnoreabbrev Qall qall
 
 "" Escape insert mode
 inoremap jj <ESC>
+inoremap  <Esc>    <NOP>
 
 "" join line in insert mode
 inoremap JJ <c-o>J<ESC>
@@ -434,6 +446,16 @@ vnoremap // y/<C-R>"<CR>
 
 "" Diff
 nnoremap <leader>dc :q<cr>:diffoff<cr>
+
+"" Command line navigation
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <M-b> <S-Left>
+cnoremap <M-f> <S-Right>
 
 "" Tabs navigation
 map <Leader><Tab> gt<cr>
@@ -492,21 +514,26 @@ augroup END
 "}}}
 
 " Ruby  ---------------------------------------------------------------------{{{
-" let g:rubycomplete_buffer_loading = 1
-" let g:rubycomplete_classes_in_global = 1
-" let g:rubycomplete_rails = 1
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_classes_in_global = 1
+let g:rubycomplete_rails = 1
 
-" augroup vimrc-ruby
-" 	autocmd!
-" 	autocmd BufNewFile,BufRead *.rb,*.rbw,*.gemspec setlocal filetype=ruby
-" 	autocmd FileType ruby set tabstop=2|set shiftwidth=2|set expandtab softtabstop=2 smartindent
-" augroup END
+augroup vimrc-ruby
+	autocmd!
+	autocmd BufNewFile,BufRead *.rb,*.rbw,*.gemspec setlocal filetype=ruby
+	autocmd FileType ruby set tabstop=2|set shiftwidth=2|set expandtab softtabstop=2 smartindent
+augroup END
 
 command! Troutes :T bundle exec rake routes
 command! Rc :T bundle exec rails c
 command! -nargs=+ Troute :T bundle exec rake routes | grep <args>
 command! Tmigrate :T bundle exec rake db:migrate
 command! Tseed :T bundle exec rake db:reset && rake db:seed_fu
+"}}}
+
+" Docker --------------------------------------------------------------------{{{
+command! -nargs=+ D :T docker <args>
+command! -nargs=+ Drun :T docker run  <args>
 "}}}
 
 " CSS -----------------------------------------------------------------------{{{
@@ -547,8 +574,7 @@ autocmd bufnewfile,bufread *.slim set ft=slim
 autocmd bufnewfile,bufread *.svg set ft=xml
 "}}}
 
-" Plugin Settings  -----------------------------------------------------------------{{{
-
+" Settings  -----------------------------------------------------------------{{{
 " vim-http-client  ----------------------------------------------------------{{{
 autocmd FileType rest map <buffer> <cr> :HTTPClientDoRequest<cr>
 " }}}
@@ -610,8 +636,7 @@ let g:gitgutter_max_signs=9999
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#ale#enabled = 1
-let g:airline#extensions#whitespace#enabled = 1
+let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
 let g:airline_powerline_fonts   = 1
 let g:airline_theme='one'
@@ -652,7 +677,7 @@ else
 endif
 " }}}
 
-" NERDTree  -----------------------------------------------------------------{{{
+" NERDTree  ----------------------------------------------------------------{{{
 nmap <leader>[ :NERDTreeToggle<cr>
 nmap <leader>nf :NERDTreeFind<CR>
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
@@ -784,16 +809,18 @@ command! -bang -nargs=* Find
 " EasyMotion  ---------------------------------------------------------------{{{
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 let g:EasyMotion_smartcase = 1
-nmap s <Plug>(easymotion-s2)
+nmap s  <Plug>(easymotion-overwin-f)
+vmap s <Plug>(easymotion-bd-f)
 nmap t <Plug>(easymotion-t2)
 " }}}
 
 " Ale  ----------------------------------------------------------------------{{{
-let g:ale_fix_on_save = 0
+let g:ale_fix_on_save = 1
+
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_cache_executable_check_failures = 1
 let g:ale_set_highlights = 1
-" let g:ale_statusline_format = ['E•%d', 'W•%d', 'OK']
+let g:ale_statusline_format = ['E•%d', 'W•%d', 'OK']
 " let g:ale_echo_cursor = 1
 let g:ale_echo_msg_error_str = '✖ Error'
 let g:ale_echo_msg_warning_str = '⚠ Warning'
@@ -802,12 +829,7 @@ let g:ale_sign_warning = '⚠'
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 0
-let g:ale_completion_enabled = 1
-
-let g:ale_fixers = {
- \ 'javascript': ['eslint'],
- \ 'ruby': ['rubocop']
- \ }
+let g:ale_completion_enabled = 0
 
 nmap <silent> <leader>aj :ALENext<cr>
 nmap <silent> <leader>ak :ALEPrevious<cr>
@@ -831,71 +853,6 @@ vmap <cr> <Plug>(EasyAlign)
 " Github  -------------------------------------------------------------------{{{
 nnoremap <Leader>go :.Gbrowse<CR>
 " }}}
-
-" Coc  -------------------------------------------------------------------{{{
-let g:coc_global_extensions = [
-  \ 'coc-solargraph',
-  \ 'coc-snippets',
-  \ 'coc-pairs',
-  \ 'coc-eslint',
-  \ 'coc-prettier',
-  \ 'coc-highlight',
-  \ 'coc-json',
-  \ ]
-" let g:coc_snippet_next = '<c-n>'
-" let g:coc_snippet_prev = '<c-p>'
-let g:coc_snippet_next = '<tab>'
-
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-"  Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" }}}
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" command! -nargs=0 Prettier :CocCommand prettier.formatFile
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
 "}}}
 
 " Autocmd Rules  ------------------------------------------------------------{{{
