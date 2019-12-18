@@ -8,10 +8,10 @@ def linkify(source_path, target_path)
     next if %w[. ..].include? src_pn.basename.to_s
 
     if src_pn.directory?
-      FileUtils.mkdir_p File.join(target_path, src_pn.basename)
+        FileUtils.mkdir_p File.join(target_path, src_pn.basename)
       linkify File.join(source_path, src_pn.basename), File.join(target_path, src_pn.basename)
     else
-      FileUtils.ln_s src_pn, File.join(target_path, src_pn.basename), force: true
+          FileUtils.ln_s src_pn, File.join(target_path, src_pn.basename), force: true
     end
   end
 end
@@ -28,8 +28,8 @@ if RUBY_PLATFORM =~ /linux/
   system 'curl -L git.io/antigen > antigen.zsh'
   system "git config --global core.excludesfile '~/.gitignore'"
   system 'bundle install --binstubs'
-  system 'touch .bashrc'
   system 'echo "export PATH=/root/bin:\$PATH" >> .bashrc'
-  system 'mv ~/.config/nvim/init.vim.vscode ~/.config/nvim/init.vim'
+  system 'mv ~/.config/nvim/init.vim.new ~/.config/nvim/init.vim'
   system 'echo "export PATH=/root/bin:/root/squashfs-root/usr/bin:\$PATH" >> ~/.zshrc'
+  system 'chsh -s $(which zsh)'
 end
