@@ -22,7 +22,7 @@
   ba = branch -ra
   bd = branch -d
   ca = commit --amend
-  cae = commit --amend --no-edit
+  cane = commit --amend --no-edit
   cb = checkout -b
   cm = commit -a --amend -C HEAD
   ci = commit -a -v
