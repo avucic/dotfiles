@@ -29,10 +29,9 @@ if RUBY_PLATFORM =~ /linux/
   system 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" -y'
   system 'curl -L git.io/antigen > antigen.zsh'
   system "git config --global core.excludesfile '~/.gitignore'"
-  system 'npx install-peerdeps --dev eslint-config-airbnb-base'
-  system 'npm i --save-dev eslint-plugin-prefer-object-spread'
-  system 'bundle install'
-  # system 'echo "export PATH=/root/bin:\$PATH" >> .bashrc'
+  # system 'npx install-peerdeps --dev eslint-config-airbnb-base'
+  # system 'npm i --save-dev eslint-plugin-prefer-object-spread'
+  system 'bundle install --binstubs'
   system 'mv ~/.config/nvim/init.vim.new ~/.config/nvim/init.vim'
   system 'echo "export PATH=/root/squashfs-root/usr/bin:\$PATH" >> ~/.zshrc'
   system 'chsh -s $(which zsh)'
