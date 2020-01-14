@@ -31,7 +31,7 @@ if RUBY_PLATFORM =~ /linux/
   system "git config --global core.excludesfile '~/.gitignore'"
   # system 'npx install-peerdeps --dev eslint-config-airbnb-base'
   # system 'npm i --save-dev eslint-plugin-prefer-object-spread'
-  system 'bundle install --binstubs'
+  system 'bundle install'
   system 'mv ~/.config/nvim/init.vim.new ~/.config/nvim/init.vim'
   system 'echo "export PATH=/root/squashfs-root/usr/bin:\$PATH" >> ~/.zshrc'
   system 'chsh -s $(which zsh)'
