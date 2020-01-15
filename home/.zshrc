@@ -64,6 +64,7 @@ alias dsa='docker stop $(docker ps -a -q)'
 alias dse='docker rm -v $(docker ps -a -q -f status=exited)'
 # Remove all images
 dri() { docker rmi $(docker images -q); }
+drni() { docker rmi $(docker images | grep none | awk '{print $3}') }
 # clean volumes
 drv() { docker volume rm $(docker volume ls -qf dangling=true); }
 # Dockerfile build, e.g., $dbu tcnksm/test
@@ -72,6 +73,7 @@ dbu() { docker build -t=$1 .; }
 dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
 # Bash into running container
 dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
+dstats() { docker stats --all --format "table {{.ID}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}" }
 alias d='docker'
 
 
@@ -95,9 +97,20 @@ export PATH="$HOME/dotfiles/bin:$PATH"
 # FZF {{{
 export FZF_DEFAULT_OPTS='--preview "pygmentize {}" --color dark --bind "?:toggle-preview" --preview-window "right:50%:hidden"'
 # export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # }}}
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# rbenv {{{
+if [[ -x $HOME/.rbenv ]]
+then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init - zsh)"
+fi
+# }}}
 
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init - zsh)"
+# MAC {{{
+if [[ $(uname -s) == Darwin ]]
+then
+  clrsnaps(){ for d in $(tmutil listlocalsnapshotdates | grep "-"); do sudo tmutil deletelocalsnapshots $d; done }
+fi
+# }}}

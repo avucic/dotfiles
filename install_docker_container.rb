@@ -22,7 +22,9 @@ linkify File.join(__dir__, 'home'), ENV['HOME']
 
 if RUBY_PLATFORM =~ /linux/
   system 'cd ~/'
-  system 'apt-get update && apt install zsh -y'
+  system 'apt-get update'
+  system 'apt-get install zsh'
+  system 'apt-get install lsof'
   system 'curl -LO https://github.com/neovim/neovim/releases/download/v0.4.3/nvim.appimage && chmod u+x nvim.appimage && ./nvim.appimage --appimage-extract'
   system 'chmod u+x nvim.appimage'
   system './nvim.appimage --appimage-extract'
