@@ -25,6 +25,7 @@ if RUBY_PLATFORM =~ /linux/
   system 'apt-get update'
   system 'apt-get install zsh'
   system 'apt-get install lsof'
+  system 'apt-get install htop'
   system 'curl -LO https://github.com/neovim/neovim/releases/download/v0.4.3/nvim.appimage && chmod u+x nvim.appimage && ./nvim.appimage --appimage-extract'
   system 'chmod u+x nvim.appimage'
   system './nvim.appimage --appimage-extract'
