@@ -89,7 +89,7 @@ alias dclimate="docker run \
 # }}}
 #  Vars and Paths  -----------------------------------------------------------{{{
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:$PATH
-
+export ERL_AFLAGS="-kernel shell_history enabled" # enable history in iex
 # Dotfiles bin {{{
 export PATH="$HOME/dotfiles/bin:$PATH"
 # }}}
