@@ -1,5 +1,6 @@
 antigen use oh-my-zsh
 
+antigen bundle mix
 antigen bundle rails
 antigen bundle git
 antigen bundle git-prompt
