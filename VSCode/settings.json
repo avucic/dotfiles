@@ -17,10 +17,7 @@
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
   "editor.renderWhitespace": "boundary",
-  "editor.rulers": [
-    80,
-    120
-  ],
+  "editor.rulers": [80, 120],
   "editor.foldingStrategy": "auto",
   "editor.autoClosingBrackets": "always",
   "editor.formatOnPaste": true,
@@ -61,12 +58,7 @@
   },
   "eslint.alwaysShowStatus": true,
   "eslint.options": {
-    "extensions": [
-      ".html",
-      ".js",
-      ".vue",
-      ".jsx"
-    ]
+    "extensions": [".html", ".js", ".vue", ".jsx"]
   },
   "eslint.autoFixOnSave": true,
   "eslint.validate": [
@@ -130,121 +122,61 @@
   "vim.visualstar": true,
   "vim.insertModeKeyBindings": [
     {
-      "before": [
-        "j",
-        "j"
-      ],
-      "after": [
-        "<Esc>"
-      ]
+      "before": ["j", "j"],
+      "after": ["<Esc>"]
     },
     {
-      "before": [
-        "A",
-        "A"
-      ],
-      "after": [
-        "<esc>",
-        "A"
-      ]
+      "before": ["A", "A"],
+      "after": ["<esc>", "A"]
     }
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": [
-        "<leader>",
-        "d"
-      ],
-      "after": [
-        "d",
-        "d"
-      ]
+      "before": ["<leader>", "d"],
+      "after": ["d", "d"]
     },
     {
-      "before": [
-        "<esc>"
-      ],
-      "commands": [
-        ":nohl",
-        "removeSecondaryCursors"
-      ]
+      "before": ["<esc>"],
+      "commands": [":nohl", "removeSecondaryCursors"]
     },
     // {
     //   "before": [";"],
     //   "after": [":"]
     // },
     {
-      "before": [
-        "H"
-      ],
-      "after": [
-        "^"
-      ]
+      "before": ["H"],
+      "after": ["^"]
     },
     {
-      "before": [
-        "L"
-      ],
-      "after": [
-        "g",
-        "_"
-      ]
+      "before": ["L"],
+      "after": ["g", "_"]
     },
     {
-      "before": [
-        "<leader>",
-        "o"
-      ],
-      "commands": [
-        "workbench.action.gotoSymbol"
-      ]
+      "before": ["<leader>", "o"],
+      "commands": ["workbench.action.gotoSymbol"]
     },
     {
-      "before": [
-        "<leader>",
-        "f"
-      ],
-      "commands": [
-        "actions.find"
-      ]
+      "before": ["<leader>", "f"],
+      "commands": ["actions.find"]
     },
     {
-      "before": [
-        "<leader>",
-        "r"
-      ],
-      "commands": [
-        "editor.action.startFindReplaceAction"
-      ]
+      "before": ["<leader>", "r"],
+      "commands": ["editor.action.startFindReplaceAction"]
     },
     {
-      "before": [
-        "<leader>",
-        "e"
-      ],
-      "commands": [
-        "workbench.files.action.focusOpenEditorsView"
-      ]
+      "before": ["<leader>", "e"],
+      "commands": ["workbench.files.action.focusOpenEditorsView"]
     },
     {
-      "before": [
-        "<leader>",
-        "["
-      ],
+      "before": ["<leader>", "["],
       "commands": [
         // "workbench.files.action.focusOpenEditorsView",
         "workbench.action.toggleSidebarVisibility"
       ]
     },
     {
-      "before": [
-        "s"
-      ],
-      "after": [
-        "<leader>",
-        "<leader>",
-        "s"
-      ]
+      "before": ["s"],
+      "after": ["<leader>", "<leader>", "s"]
     }
   ],
   "vim.leader": "<space>",
@@ -257,61 +189,32 @@
   "search.runInExtensionHost": true,
   "vim.visualModeKeyBindings": [
     {
-      "before": [
-        "K"
-      ],
-      "commands": [
-        "editor.action.moveLinesUpAction"
-      ]
+      "before": ["K"],
+      "commands": ["editor.action.moveLinesUpAction"]
     },
     {
-      "before": [
-        "s"
-      ],
-      "after": [
-        "<leader>",
-        "<leader>",
-        "s"
-      ]
+      "before": ["s"],
+      "after": ["<leader>", "<leader>", "s"]
     },
     {
-      "before": [
-        "J"
-      ],
-      "commands": [
-        "editor.action.moveLinesDownAction"
-      ]
+      "before": ["J"],
+      "commands": ["editor.action.moveLinesDownAction"]
     },
     {
-      "before": [
-        "H"
-      ],
-      "after": [
-        "^"
-      ]
+      "before": ["H"],
+      "after": ["^"]
     },
     {
-      "before": [
-        "L"
-      ],
-      "after": [
-        "g",
-        "_"
-      ]
+      "before": ["L"],
+      "after": ["g", "_"]
     },
     // {
     //   "before": ["s"],
     //   "after": ["<leader>", "<leader>", "s"]
     // },
     {
-      "before": [
-        "<leader>",
-        "8"
-      ],
-      "commands": [
-        "toggleFindCaseSensitive",
-        "editor.action.changeAll"
-      ]
+      "before": ["<leader>", "8"],
+      "commands": ["toggleFindCaseSensitive", "editor.action.changeAll"]
       // "commands": ["toggleFindCaseSensitive"]
     }
   ],
@@ -334,7 +237,7 @@
       },
       {
         "color": "#F9D64F",
-        "fontStyle": "italic",
+        "fontStyle": "italic"
         // "fontWeight": "lighter"
         // "backgroundColor": "#e5c07b",
         // "color": "#1f1f1f"
@@ -361,7 +264,10 @@
     ]
   },
   "search.exclude": {
-    "**/dist": true
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/tmp": true
   },
   "editor.minimap.enabled": false,
   "npm-intellisense.packageSubfoldersIntellisense": true,
@@ -407,7 +313,7 @@
   "ruby.rubocop.onSave": true,
   "[ruby]": {
     "editor.formatOnSave": true,
-    "editor.formatOnSaveTimeout": 5000,
+    "editor.formatOnSaveTimeout": 5000
   },
   "peacock.favoriteColors": [
     {
@@ -464,5 +370,5 @@
     }
   ],
   "dart.checkForSdkUpdates": false,
-  "sync.forceUpload": true, // use rubocop for formatting
+  "sync.forceUpload": true // use rubocop for formatting
 }
