@@ -114,3 +114,8 @@ then
   clrsnaps(){ for d in $(tmutil listlocalsnapshotdates | grep "-"); do sudo tmutil deletelocalsnapshots $d; done }
 fi
 # }}}
+
+# Direnv {{{
+echo "loading direnv"
+eval "$(direnv hook zsh)"
+# }}}

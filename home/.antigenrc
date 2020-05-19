@@ -9,6 +9,7 @@ antigen bundle pip
 antigen bundle lein
 antigen bundle command-not-found
 antigen bundle ruby
+antigen bundle direnv
 # antigen bundle ~/dotfiles/zsh/alex # custom
 antigen bundle osx
 antigen bundle zsh-users/zsh-syntax-highlighting
