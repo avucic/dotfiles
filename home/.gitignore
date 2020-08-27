@@ -22,6 +22,7 @@ lt_client.log
 todo
 .virb/*
 .env
+.envrc
 .tern-*
 tags
 *.rest
@@ -51,3 +52,5 @@ dist/
 .devcontainer/**
 .devcontainer
 .iex.exs
+*.dump
+CS_SESSION

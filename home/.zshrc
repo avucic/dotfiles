@@ -76,6 +76,15 @@ dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
 dstats() { docker stats --all --format "table {{.ID}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}" }
 alias d='docker'
 
+#  lsof -t -i tcp:3000 | xargs kill
+kill_port() {
+    readonly port=${1:?"The port must be specified."}
+
+    # lsof -i tcp:"$port" | grep LISTEN | awk '{print $2}' | xargs kill
+    echo $(lsof -t -i:${port})
+    kill -9 $(lsof -t -i:${port})
+}
+
 
 alias dclimate="docker run \
   --interactive --tty --rm \
@@ -101,21 +110,48 @@ export FZF_DEFAULT_OPTS='--preview "pygmentize {}" --color dark --bind "?:toggle
 # }}}
 
 # rbenv {{{
-if [[ -x $HOME/.rbenv ]]
-then
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rbenv init - zsh)"
-fi
+# if [[ -x $HOME/.rbenv ]]
+# then
+#   export PATH="$HOME/.rbenv/bin:$PATH"
+#   eval "$(rbenv init - zsh)"
+# fi
 # }}}
 
-# MAC {{{
-if [[ $(uname -s) == Darwin ]]
-then
-  clrsnaps(){ for d in $(tmutil listlocalsnapshotdates | grep "-"); do sudo tmutil deletelocalsnapshots $d; done }
-fi
-# }}}
+# alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'
+
+# # MAC {{{
+# if [[ $(uname -s) == Darwin ]]
+# then
+#   clrsnaps(){ for d in $(tmutil listlocalsnapshotdates | grep "-"); do sudo tmutil deletelocalsnapshots $d; done }
+#   [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh  # This loads NVM
+# fi
+# # }}}
 
 # Direnv {{{
-echo "loading direnv"
-eval "$(direnv hook zsh)"
+  echo "loading direnv"
+  eval "$(direnv hook zsh)"
+# }}}
+
+# NVM {{{
+# alias loadnvm='[ -s "$HOME/.nvm/nvm.sh" ] && . "$HOME/.nvm/nvm.sh"'
+# }}}
+
+# Brew {{{
+alias brewski='brew update && brew upgrade && brew cleanup; brew doctor'
+export PATH="/usr/local/sbin:$PATH"
+# }}}
+
+#  export NVM_DIR=~/.nvm
+#  source $(brew --prefix nvm)/nvm.sh
+. $(brew --prefix asdf)/asdf.sh
+
+# Utils {{{
+  clean_mac_snapshots(){
+    for d in $(tmutil listlocalsnapshotdates | grep "-"); do sudo tmutil deletelocalsnapshots $d; done
+  }
+# }}}
+
+
+# Fixes {{{
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=#666666 # in neovim terminal auto suggestions not visible
 # }}}

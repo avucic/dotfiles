@@ -1,0 +1,80 @@
+# ./.tmuxinator.yml
+
+name: dh
+
+# Optional tmux socket
+# socket_name: foo
+
+# Note that the pre and post options have been deprecated and will be replaced by
+# project hooks.
+
+# Project hooks
+
+# Runs on project start, always
+# on_project_start: docker stop $(docker ps -a -q)
+
+# Run on project start, the first time
+on_project_first_start: kill_port 3000  && kill_port 3001 && kill_port 4000
+
+# Run on project start, after the first time
+# on_project_restart: command
+
+# Run on project exit ( detaching from tmux session )
+on_project_exit: kill_port 3000  && kill_port 3001 && kill_port 4000
+
+# Run on project stop
+# on_project_stop: command
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
+# startup_window: editor
+
+# Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
+# startup_pane: 1
+
+# Controls whether the tmux session should be attached to automatically. Defaults to true.
+# attach: false
+name: DispatchHealth
+# pre_window: nvm use 12.16.1
+
+# on_project_first_start: code .
+
+windows:
+  - editor:
+    layout: main-vertical
+    panes:
+      - n -u ~/.SpaceVim/init.vim
+
+  - websocet_server:
+      root: /Users/vucinjo/Work/Toptal/DispatchHealth/Dev/websocket_server
+      layout: main-vertical
+      panes:
+        - eval "$(direnv export bash)" && direnv allow . && mix phx.server
+  - station:
+      root: /Users/vucinjo/Work/Toptal/DispatchHealth/Dev/station
+      layout: main-vertical
+      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
+      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
+      # synchronize: after
+      panes:
+        - while ! nc -z postgres 5432; do  sleep 0.1; done && yarn rails
+        - while ! nc -z postgres 5432; do  sleep 0.1; done && yarn rails-jobs
+        - yarn docker:up
+        # - nvm use 12.16.1 && yarn rails
+  - product_partner:
+      root: /Users/vucinjo/Work/Toptal/DispatchHealth/Dev/partner-product
+      layout: main-vertical
+      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
+      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
+      # synchronize: after
+      panes:
+        - rails s -p 3001
+        - cd client &&  while ! nc -z localhost 3000; do  sleep 0.1; done && yarn start

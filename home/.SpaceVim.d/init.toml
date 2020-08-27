@@ -1,0 +1,116 @@
+#=============================================================================
+# basic.toml --- basic configuration example for SpaceVim
+# Copyright (c) 2016-2017 Wang Shidong & Contributors
+# Author: Wang Shidong < wsdjeg at 163.com >
+# URL: https://spacevim.org
+# License: GPLv3
+#=============================================================================
+
+# All SpaceVim option below [option] section
+[options]
+# set spacevim theme. by default colorscheme layer is not loaded,
+# if you want to use more colorscheme, please load the colorscheme
+# layer
+filemanager = "nerdtree"
+colorscheme = "one"
+colorscheme_bg = "dark"
+# Disable guicolors in basic mode, many terminal do not support 24bit
+# true colors
+enable_guicolors = true
+# Disable statusline separator, if you want to use other value, please
+# install nerd fonts
+statusline_separator = "arrow"
+statusline_inactive_separator = "arrow"
+buffer_index_type = 4
+enable_tabline_filetype_icon = true
+enable_statusline_mode = true
+bootstrap_before = "customspacevim#before"
+bootstrap_after = "customspacevim#after"
+enable_ale = true
+enable_neomake = false
+
+# Enable autocomplete layer
+[[layers]]
+name = 'autocomplete'
+auto_completion_return_key_behavior = "complete"
+#auto_completion_tab_key_behavior = "cycle"
+
+[[layers]]
+name = "test"
+[layers.override_config]
+strategy = "neovim"
+
+[[layers]]
+name = 'shell'
+default_position = 'bottom'
+default_height = 30
+
+[[layers]]
+name = "tools"
+
+[[layers]]
+name = "colorscheme"
+
+[[layers]]
+name = "git"
+git-plugin = "fugitive"
+
+[[layers]]
+name = "VersionControl"
+
+[[layers]]
+name = "tmux"
+
+[[layers]]
+name = "github"
+
+[[layers]]
+name = "debug"
+
+[[layers]]
+name = "edit"
+
+[[layers]] 
+name = "fuzzy"
+
+[[layers]] 
+name = "fzf"
+
+[[layers]] 
+name = "lang#elixir"
+
+[[layers]] 
+name = "lang#ruby"
+
+[[layers]] 
+name = "lang#html"
+
+[[layers]] 
+name = "lang#javascript"
+
+[[layers]] 
+name = "ctrlspace"
+enable-spacevim-styled-keys = true
+
+[[layers]]
+name = "checkers"
+
+[[custom_plugins]]
+repo = "mg979/vim-visual-multi"
+merged = false
+
+[[custom_plugins]]
+repo = "cocopon/iceberg.vim"
+merged = false
+
+[[custom_plugins]]
+repo = 'mileszs/ack.vim'
+
+[[custom_plugins]]
+repo = 'brooth/far.vim'
+
+[[custom_plugins]]
+repo = 'thoughtbot/vim-rspec'
+
+[[custom_plugins]]
+repo = 'jgdavey/vim-blockle'

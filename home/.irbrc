@@ -1,5 +1,6 @@
-instance_eval(File.read("~/Gemfile"))
-require 'rubygems'
-require 'interactive_editor'
-IRB.conf[:SAVE_HISTORY] = 200
-IRB.conf[:HISTORY_FILE] = '~/.irb-history'
+# frozen_string_literal: true
+
+require 'irb/ext/save-history'
+# History configuration
+IRB.conf[:SAVE_HISTORY] = 100
+IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb-save-history"
