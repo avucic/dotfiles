@@ -11,9 +11,13 @@
 # set spacevim theme. by default colorscheme layer is not loaded,
 # if you want to use more colorscheme, please load the colorscheme
 # layer
-filemanager = "nerdtree"
+automatic_update = true
+filemanager = "defx"
+autocomplete_method = "coc"
 colorscheme = "one"
 colorscheme_bg = "dark"
+relativenumber = false
+spell = true
 # Disable guicolors in basic mode, many terminal do not support 24bit
 # true colors
 enable_guicolors = true
@@ -26,14 +30,22 @@ enable_tabline_filetype_icon = true
 enable_statusline_mode = true
 bootstrap_before = "customspacevim#before"
 bootstrap_after = "customspacevim#after"
-enable_ale = true
+enable_ale = false
 enable_neomake = false
+enable_syntastic = false
 
 # Enable autocomplete layer
 [[layers]]
 name = 'autocomplete'
-auto_completion_return_key_behavior = "complete"
+auto_completion_return_key_behavior = "smart"
 #auto_completion_tab_key_behavior = "cycle"
+
+[[layers]]
+  name="core"
+  filetree_show_hidden = true
+
+[[layers]]
+  name="core#banner"
 
 [[layers]]
 name = "test"
@@ -46,14 +58,30 @@ default_position = 'bottom'
 default_height = 30
 
 [[layers]]
+name = 'lsp'
+filetypes = [
+  "ruby",
+  "javascript",
+]
+
+[[layers]]
 name = "tools"
 
 [[layers]]
 name = "colorscheme"
 
 [[layers]]
+  name = "gtags"
+  gtagslabel = "ctags"
+
+[[layers]] 
+name = "ctrlspace"
+enable-spacevim-styled-keys = true
+
+[[layers]]
 name = "git"
 git-plugin = "fugitive"
+#git-plugin = "gina"
 
 [[layers]]
 name = "VersionControl"
@@ -70,13 +98,13 @@ name = "debug"
 [[layers]]
 name = "edit"
 
-[[layers]] 
-name = "fuzzy"
+# [[layers]]
+# name = "fuzzy"
 
-[[layers]] 
+[[layers]]
 name = "fzf"
 
-[[layers]] 
+[[layers]]
 name = "lang#elixir"
 
 [[layers]] 
@@ -88,29 +116,53 @@ name = "lang#html"
 [[layers]] 
 name = "lang#javascript"
 
-[[layers]] 
-name = "ctrlspace"
-enable-spacevim-styled-keys = true
-
 [[layers]]
 name = "checkers"
+enable = false
 
 [[custom_plugins]]
 repo = "mg979/vim-visual-multi"
 merged = false
 
 [[custom_plugins]]
-repo = "cocopon/iceberg.vim"
-merged = false
-
-[[custom_plugins]]
-repo = 'mileszs/ack.vim'
-
-[[custom_plugins]]
-repo = 'brooth/far.vim'
-
-[[custom_plugins]]
 repo = 'thoughtbot/vim-rspec'
 
 [[custom_plugins]]
 repo = 'jgdavey/vim-blockle'
+
+[[custom_plugins]]
+repo = 'nelstrom/vim-textobj-rubyblock'
+
+[[custom_plugins]]
+repo = 'puremourning/vimspector'
+
+[[custom_plugins]]
+repo = 'iamcco/coc-tailwindcss'
+
+[[custom_plugins]]
+repo = 'mhinz/vim-mix-format'
+
+[[custom_plugins]]
+repo = 'vimwiki/vimwiki'
+
+[[custom_plugins]]
+  name = "MaxMEllon/vim-jsx-pretty"
+  merged = false
+
+[[custom_plugins]]
+  repo = 'dhruvasagar/vim-zoom'
+
+[[custom_plugins]]
+repo = 'yuki-ycino/fzf-preview.vim'
+
+[[custom_plugins]]
+repo = 'thinca/vim-qfreplace'
+
+[[custom_plugins]]
+repo = 'liuchengxu/vista.vim'
+
+[[custom_plugins]]
+repo = 'LeafCage/yankround.vim'
+
+[[qcustom_plugins]]
+repo = 'APZelos/blamer.nvim'

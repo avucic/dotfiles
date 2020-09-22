@@ -40,10 +40,14 @@ on_project_start: docker stop $(docker ps -a -q)
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
 # attach: false
 
-on_project_first_start: code .
+on_project_first_start: n -u ~/.SpaceVim/init.vim
 
 windows:
   - editor:
+    layout: main-vertical
+    panes:
+      - n -u ~/.SpaceVim/init.vim
+  - main:
       root: /Users/vucinjo/Work/Dropongo/Development/dropongo_ex
       layout: main-vertical
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.

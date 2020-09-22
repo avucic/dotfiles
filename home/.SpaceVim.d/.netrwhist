@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =6
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/Users/vucinjo/Work/Toptal/DispatchHealth/Dev/partner-product'
+let g:netrw_dirhist_7='/Users/vucinjo/Work/Dropongo/Development/dropongo_ex'
 let g:netrw_dirhist_6='/Users/vucinjo/Work/Toptal/DispatchHealth/Dev/partner-product'
 let g:netrw_dirhist_5='/Users/vucinjo/Work/Dropongo/Development/dropongo_ex'
 let g:netrw_dirhist_4='/Users/vucinjo/Work/Toptal/DispatchHealth/Dev/partner-product'

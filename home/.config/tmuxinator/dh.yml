@@ -71,10 +71,10 @@ windows:
         # - nvm use 12.16.1 && yarn rails
   - product_partner:
       root: /Users/vucinjo/Work/Toptal/DispatchHealth/Dev/partner-product
-      layout: main-vertical
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
         - rails s -p 3001
         - cd client &&  while ! nc -z localhost 3000; do  sleep 0.1; done && yarn start
+        - while ! nc -z localhost 3000; do  sleep 0.1; done && rake jobs:work
