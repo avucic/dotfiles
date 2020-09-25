@@ -1,5 +1,4 @@
-# ./.tmuxinator.yml
-
+# Will create panes, but will not open vim or echo
 name: dh
 
 # Optional tmux socket
@@ -19,7 +18,7 @@ on_project_first_start: kill_port 3000  && kill_port 3001 && kill_port 4000
 # Run on project start, after the first time
 # on_project_restart: command
 
-# Run on project exit ( detaching from tmux session )
+# Run on project exit ( detaching frGom tmux session )
 on_project_exit: kill_port 3000  && kill_port 3001 && kill_port 4000
 
 # Run on project stop
@@ -42,39 +41,31 @@ on_project_exit: kill_port 3000  && kill_port 3001 && kill_port 4000
 
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
 # attach: false
-name: DispatchHealth
 # pre_window: nvm use 12.16.1
 
 # on_project_first_start: code .
-
+root: ~/Work/Toptal/DispatchHealth/Dev
 windows:
-  - editor:
-    layout: main-vertical
-    panes:
-      - n -u ~/.SpaceVim/init.vim
-
-  - websocet_server:
-      root: /Users/vucinjo/Work/Toptal/DispatchHealth/Dev/websocket_server
-      layout: main-vertical
+  - websocket_server:
+      root: ~/Work/Toptal/DispatchHealth/Dev/websocket_server
       panes:
-        - eval "$(direnv export bash)" && direnv allow . && mix phx.server
-  - station:
+        - eval "$(direnv export bash)" && direnv allow ./ && mix phx.server
+  - station_dependencies:
+      layout: main-horizontal
       root: /Users/vucinjo/Work/Toptal/DispatchHealth/Dev/station
-      layout: main-vertical
-      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
-      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
-      # synchronize: after
       panes:
-        - while ! nc -z postgres 5432; do  sleep 0.1; done && yarn rails
         - while ! nc -z postgres 5432; do  sleep 0.1; done && yarn rails-jobs
         - yarn docker:up
-        # - nvm use 12.16.1 && yarn rails
-  - product_partner:
-      root: /Users/vucinjo/Work/Toptal/DispatchHealth/Dev/partner-product
-      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
-      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
-      # synchronize: after
+  - pp_dependencies:
+      root: ~/Work/Toptal/DispatchHealth/Dev/partner-product
+      layout: tiled
       panes:
-        - rails s -p 3001
-        - cd client &&  while ! nc -z localhost 3000; do  sleep 0.1; done && yarn start
+        - while ! nc -z localhost 3000; do  sleep 0.1; done && cd ./client && yarn start
         - while ! nc -z localhost 3000; do  sleep 0.1; done && rake jobs:work
+  - editor_and_servers:
+      root: ~/Work/Toptal/DispatchHealth/Dev/partner-product
+      layout: main-vertical
+      panes:
+        - nvim
+        - while ! nc -z postgres 5432; do  sleep 0.1; done && yarn rails
+        - cd /Users/vucinjo/Work/Toptal/DispatchHealth/Dev/station && yarn rails

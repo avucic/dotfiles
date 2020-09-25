@@ -40,8 +40,6 @@ on_project_start: docker stop $(docker ps -a -q)
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
 # attach: false
 
-on_project_first_start: n -u ~/.SpaceVim/init.vim
-
 windows:
   - editor_and_server:
       layout: even-horizontal
