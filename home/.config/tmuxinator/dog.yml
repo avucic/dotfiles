@@ -43,16 +43,16 @@ on_project_start: docker stop $(docker ps -a -q)
 on_project_first_start: n -u ~/.SpaceVim/init.vim
 
 windows:
-  - editor:
-    layout: main-vertical
-    panes:
-      - n -u ~/.SpaceVim/init.vim
-  - main:
+  - editor_and_server:
+      layout: even-horizontal
+      panes:
+        - nvim
+        - while ! nc -z postgres 5432; do  sleep 0.1; done && mix phx.server
+  - docker:
       root: /Users/vucinjo/Work/Dropongo/Development/dropongo_ex
       layout: main-vertical
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
-        - while ! nc -z postgres 5432; do  sleep 0.1; done && mix phx.server
-        - docker-compose up db elasticsearch dejavu
+        - docker-compose up db elasticsearch dejavu mail

@@ -86,8 +86,8 @@ git-plugin = "fugitive"
 [[layers]]
 name = "VersionControl"
 
-[[layers]]
-name = "tmux"
+# [[layers]]
+# name = "tmux"
 
 [[layers]]
 name = "github"

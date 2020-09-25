@@ -55,6 +55,13 @@ function! customspacevim#after() abort
   " inoremap  <Esc>
 
 
+  " Spacevim
+  nnoremap <silent> <space>fve :e ~/.Spacevim.d/autoload/customspacevim.vim <CR>
+  nnoremap <C-J> <C-W><C-J>
+  nnoremap <C-K> <C-W><C-K>
+  nnoremap <C-L> <C-W><C-L>
+  nnoremap <C-H> <C-W><C-H>
+
   " fix for auto pairs
   " let g:AutoPairs = {'[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
   " inoremap <buffer><silent> ) <C-R>=AutoPairsInsert(')')<CR>
@@ -124,7 +131,7 @@ function! customspacevim#after() abort
   let g:vista_default_executive = 'coc'
   let g:vista#renderer#enable_icon = 0
   let g:vista_sidebar_position = 'vertical topleft'
-  let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+  " let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
   nnoremap <silent> <space>fT :Vista!!<CR>
 
   " vim-fugitive
