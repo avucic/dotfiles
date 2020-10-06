@@ -61,7 +61,7 @@ windows:
       layout: tiled
       panes:
         - while ! nc -z localhost 3000; do  sleep 0.1; done && cd ./client && yarn start
-        - while ! nc -z localhost 3000; do  sleep 0.1; done && rake jobs:work
+        - while ! nc -z postgres 5432; do  sleep 0.1; done && rake jobs:work
   - editor_and_servers:
       root: ~/Work/Toptal/DispatchHealth/Dev/partner-product
       layout: main-vertical

@@ -13,11 +13,11 @@
 # layer
 automatic_update = true
 filemanager = "defx"
+enable_vimfiler_welcome = 0 # disable file tree on start
 autocomplete_method = "coc"
 colorscheme = "one"
 colorscheme_bg = "dark"
 relativenumber = false
-spell = true
 # Disable guicolors in basic mode, many terminal do not support 24bit
 # true colors
 enable_guicolors = true
@@ -36,8 +36,8 @@ enable_syntastic = false
 
 # Enable autocomplete layer
 [[layers]]
-name = 'autocomplete'
-auto_completion_return_key_behavior = "smart"
+  name = 'autocomplete'
+  auto_completion_return_key_behavior = "smart"
 #auto_completion_tab_key_behavior = "cycle"
 
 [[layers]]
@@ -45,67 +45,71 @@ auto_completion_return_key_behavior = "smart"
   filetree_show_hidden = true
 
 [[layers]]
+  name = "operator"
+  enable = false
+
+[[layers]]
   name="core#banner"
 
 [[layers]]
-name = "test"
-[layers.override_config]
-strategy = "neovim"
+  name = "test"
+  [layers.override_config]
+  strategy = "neovim"
 
 [[layers]]
-name = 'shell'
-default_position = 'bottom'
-default_height = 30
+  name = 'shell'
+  default_position = 'bottom'
+  default_height = 30
 
 [[layers]]
-name = 'lsp'
-filetypes = [
-  "ruby",
-  "javascript",
-]
+  name = 'lsp'
+  filetypes = [
+    "ruby",
+    "javascript",
+  ]
 
 [[layers]]
-name = "tools"
+  name = "tools"
 
 [[layers]]
-name = "colorscheme"
+  name = "colorscheme"
 
 [[layers]]
   name = "gtags"
   gtagslabel = "ctags"
 
 [[layers]] 
-name = "ctrlspace"
-enable-spacevim-styled-keys = true
+  name = "ctrlspace"
+  enable-spacevim-styled-keys = true
 
 [[layers]]
-name = "git"
-git-plugin = "fugitive"
-#git-plugin = "gina"
+  name = "git"
+  git-plugin = "fugitive"
+  #git-plugin = "gina"
 
 [[layers]]
-name = "VersionControl"
+  name = "VersionControl"
 
 # [[layers]]
 # name = "tmux"
 
 [[layers]]
-name = "github"
+  name = "github"
 
 [[layers]]
-name = "debug"
+  name = "debug"
 
 [[layers]]
-name = "edit"
+  name = "edit"
 
 # [[layers]]
 # name = "fuzzy"
 
 [[layers]]
-name = "fzf"
+  name = "fzf"
 
 [[layers]]
-name = "lang#elixir"
+  name = "lang#elixir"
 
 [[layers]] 
 name = "lang#ruby"
@@ -117,33 +121,40 @@ name = "lang#html"
 name = "lang#javascript"
 
 [[layers]]
-name = "checkers"
-enable = false
+  name = "checkers"
+  enable = false
 
 [[custom_plugins]]
-repo = "mg979/vim-visual-multi"
-merged = false
+  repo = "mg979/vim-visual-multi"
+  merged = false
 
 [[custom_plugins]]
-repo = 'thoughtbot/vim-rspec'
+  repo = 'thoughtbot/vim-rspec'
+  merged = false
 
 [[custom_plugins]]
-repo = 'jgdavey/vim-blockle'
+  repo = 'jgdavey/vim-blockle'
+  merged = false
 
 [[custom_plugins]]
-repo = 'nelstrom/vim-textobj-rubyblock'
+  repo = 'nelstrom/vim-textobj-rubyblock'
+  merged = false
 
 [[custom_plugins]]
-repo = 'puremourning/vimspector'
+  repo = 'puremourning/vimspector'
+  merged = false
 
 [[custom_plugins]]
-repo = 'iamcco/coc-tailwindcss'
+  repo = 'iamcco/coc-tailwindcss'
+  merged = false
 
 [[custom_plugins]]
-repo = 'mhinz/vim-mix-format'
+  repo = 'mhinz/vim-mix-format'
+  merged = false
 
 [[custom_plugins]]
-repo = 'vimwiki/vimwiki'
+  repo = 'vimwiki/vimwiki'
+  merged = false
 
 [[custom_plugins]]
   name = "MaxMEllon/vim-jsx-pretty"
@@ -151,18 +162,28 @@ repo = 'vimwiki/vimwiki'
 
 [[custom_plugins]]
   repo = 'dhruvasagar/vim-zoom'
+  merged = false
 
 [[custom_plugins]]
-repo = 'yuki-ycino/fzf-preview.vim'
+  repo = 'yuki-ycino/fzf-preview.vim'
+  merged = false
 
 [[custom_plugins]]
-repo = 'thinca/vim-qfreplace'
+  repo = 'thinca/vim-qfreplace'
+  merged = false
 
 [[custom_plugins]]
-repo = 'liuchengxu/vista.vim'
+  repo = 'liuchengxu/vista.vim'
+  merged = false
 
 [[custom_plugins]]
-repo = 'LeafCage/yankround.vim'
+  repo = 'LeafCage/yankround.vim'
+  merged = false
 
-[[qcustom_plugins]]
-repo = 'APZelos/blamer.nvim'
+[[custom_plugins]]
+  repo = 'APZelos/blamer.nvim'
+  merged = false
+
+[[custom_plugins]]
+  repo = 'pseewald/vim-anyfold'
+  merged = false
