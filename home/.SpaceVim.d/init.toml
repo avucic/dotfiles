@@ -149,6 +149,14 @@ name = "lang#javascript"
   merged = false
 
 [[custom_plugins]]
+  repo = 'liuchengxu/vim-clap'
+  merged = false
+
+[[custom_plugins]]
+  repo = 'vn-ki/coc-clap'
+  merged = false
+
+[[custom_plugins]]
   repo = 'mhinz/vim-mix-format'
   merged = false
 
@@ -164,9 +172,9 @@ name = "lang#javascript"
   repo = 'dhruvasagar/vim-zoom'
   merged = false
 
-[[custom_plugins]]
-  repo = 'yuki-ycino/fzf-preview.vim'
-  merged = false
+# [[custom_plugins]]
+  # repo = 'yuki-ycino/fzf-preview.vim'
+  # merged = false
 
 [[custom_plugins]]
   repo = 'thinca/vim-qfreplace'
@@ -176,9 +184,9 @@ name = "lang#javascript"
   repo = 'liuchengxu/vista.vim'
   merged = false
 
-[[custom_plugins]]
-  repo = 'LeafCage/yankround.vim'
-  merged = false
+# [[custom_plugins]]
+  # repo = 'LeafCage/yankround.vim'
+  # merged = false
 
 [[custom_plugins]]
   repo = 'APZelos/blamer.nvim'
@@ -186,4 +194,8 @@ name = "lang#javascript"
 
 [[custom_plugins]]
   repo = 'pseewald/vim-anyfold'
+  merged = false
+
+[[custom_plugins]]
+  repo = 'voldikss/vim-floaterm'
   merged = false

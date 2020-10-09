@@ -10,25 +10,29 @@ func! s:RunOnStart()
   au Filetype eelixir call extend(g:NERDDelimiterMap, g:NERDCustomDelimiters)
   au BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif " close if last
 
-  call BlamerShow()
   exe "CocCommand explorer --no-toggle"
+  " run git blame tooltip on start
+  call BlamerShow()
+  " run explorer on start
+  " fix highlight after yank and jump
+  autocmd WinLeave * call coc#util#clear_pos_matches('^HighlightedyankRegion')
 endf
 
 func! customspacevim#before() abort
+  let g:coc_config_home = '~/.SpaceVim.d/'
+  let g:vimwiki_list = [{'path': '~/Work/Wiki/', 'path_html': '~/Work/Wiki/html/'}]
   " call SpaceVim#custom#SPCGroupName(['='], '+Formats')
-  " call SpaceVim#custom#SPC('nnoremap', ['=', '='], '<plug>(coc-bookmark-toggle)', 'format-the-buffer', 0)
+  " call SpaceVim#custom#SPC('nnoremap', ['=', '='], 'gg=G``', 'format-the-buffer', 0)
 endf
 
 func! customspacevim#after() abort
-  let g:vimwiki_list = [{'path': '~/Work/Wiki/', 'path_html': '~/Work/Wiki/html/'}]
-
   set showtabline=0
   set diffopt+=vertical
   set modifiable
   set autoindent
   set autochdir&
   set cmdheight=2
-  set spell
+  " set spell
 
   " Don't let Vim's "Found a swap file" message block input
   set shortmess=A
@@ -76,12 +80,12 @@ func! customspacevim#after() abort
   nnoremap <C-L> <C-W><C-L>
   nnoremap <C-H> <C-W><C-H>
 
-  " fix for auto pairs
-  " let g:AutoPairs = {'[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
-  " inoremap <buffer><silent> ) <C-R>=AutoPairsInsert(')')<CR>
-
   " Coc
   let g:coc_global_extensions = [
+        \ 'coc-actions',
+        \ 'coc-lists',
+        \ 'coc-git',
+        \ 'coc-marketplace',
         \ 'coc-emoji',
         \ 'coc-json',
         \ 'coc-neosnippet',
@@ -101,9 +105,9 @@ func! customspacevim#after() abort
         \ 'coc-prettier',
         \ 'coc-eslint',
         \ 'coc-elixir',
-        \ 'coc-fzf-preview',
         \ 'coc-bookmark',
-        \ 'coc-explorer'
+        \ 'coc-explorer',
+        \ 'coc-spell-checker',
         \ ]
 
   nnoremap <silent> <space>ld :call <SID>show_documentation()<CR>
@@ -116,6 +120,20 @@ func! customspacevim#after() abort
   nnoremap <silent> mi :CocCommand bookmark.annotate<CR>
   nnoremap <silent> mc :CocCommand bookmark.clearForCurrentFile<CR>
   nnoremap <silent> mC :CocCommand bookmark.clearForAllFiles<CR>
+  nnoremap <silent> <space>ft :CocCommand explorer --toggle<CR>
+
+  " Remap for do codeAction of selected region
+  function! s:cocActionsOpenFromSelected(type) abort
+    execute 'CocCommand actions.open ' . a:type
+  endfunction
+  xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+  nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+  " vmap <leader>a <Plug>(coc-codeaction-selected)
+  " nmap <leader>a <Plug>(coc-codeaction-selected)
+
+  " clap
+  autocmd FileType clap_input inoremap <silent> <buffer> <C-n> <C-R>=clap#navigation#linewise('down')<CR>
+  autocmd FileType clap_input inoremap <silent> <buffer> <C-p> <C-R>=clap#navigation#linewise('up')<CR>
 
   "" Elixir
   let g:mix_format_on_save = 1
@@ -142,16 +160,30 @@ func! customspacevim#after() abort
   nmap <space>wm <Plug>(zoom-toggle)
 
   "" fzf-preview
-  let g:fzf_preview_command = 'bat --theme=base16 --color=always  {-1}'
-  let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading -w .'
+  " let g:fzf_preview_command = 'bat --theme=base16 --color=always  {-1}'
+  " let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading -w .'
+"
+  " nnoremap <silent> <c-p> :CocCommand fzf-preview.GitFiles<CR>
+  " nnoremap <silent> <space>ff :CocCommand fzf-preview.ProjectFiles<CR>
+  " nnoremap <silent> <space>fr :CocCommand fzf-preview.ProjectMruFiles<CR>
+  " nnoremap <silent> <space>bb :CocCommand fzf-preview.Buffers<CR>
+  " nnoremap <silent> <space>yh :CocCommand fzf-preview.Yankround<CR>
+  " nnoremap <silent> <space>s/ :CocCommand fzf-preview.ProjectGrep<CR>
 
-  nnoremap <silent> <c-p> :CocCommand fzf-preview.GitFiles<CR>
-  nnoremap <silent> <space>ff :CocCommand fzf-preview.ProjectFiles<CR>
-  nnoremap <silent> <space>fr :CocCommand fzf-preview.ProjectMruFiles<CR>
-  nnoremap <silent> <space>bb :CocCommand fzf-preview.Buffers<CR>
-  nnoremap <silent> <space>yh :CocCommand fzf-preview.Yankround<CR>
-  nnoremap <silent> <space>s/ :CocCommand fzf-preview.ProjectGrep<CR>
-  nnoremap <silent> <space>ft :CocCommand explorer --toggle<CR>
+  "" vim-clap
+  let g:clap_multi_selection_warning_silent = 1
+  let g:clap_layout = { 'relative': 'editor' }
+
+  nnoremap <silent> <c-p> :Clap providers<CR>
+  vnoremap <silent> <c-p> :Clap providers<CR>
+  nnoremap <silent> <space>ff :Clap files +no-cache<CR>
+  nnoremap <silent> <space>fr :Clap history<CR>
+  nnoremap <silent> <space>fo :Clap tags<CR>
+  nnoremap <silent> <space>bb :Clap buffers<CR>
+  nnoremap <silent> <space>yh :Clap yanks<CR>
+  nnoremap <silent> <space>s/ :Clap grep ++query=<cword><CR>
+  vnoremap <silent> <space>s/ :Clap grep ++query=@visual<CR>
+  nnoremap <silent> <space>fq :Clap quickfix<CR>
 
   "vista
   let g:vista#executives = ['coc']
@@ -168,5 +200,9 @@ func! customspacevim#after() abort
   nnoremap dor :diffget //3<CR>
   nnoremap <silent> <space>gl :Glog -10 -- %<CR>
 
+  "" Floaterm
+  nnoremap <silent> <space>'' :FloatermToggle<CR>
+
+  " run things on startup
   call s:RunOnStart()
 endf
