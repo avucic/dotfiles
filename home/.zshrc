@@ -18,6 +18,7 @@ else
 fi
 # }}}
 #  Aliases  ------------------------------------------------------------------{{{
+alias e=emacs
 alias n='TERM=xterm-256color nvim'
 alias r='rails'
 alias rk='rake'
