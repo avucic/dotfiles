@@ -1,7 +1,8 @@
 [core]
 	excludesfile = /Users/vucinjo/.gitignore
 	autocrlf = input
-	editor = nvim
+	# editor = emacsclient --no-wait --create-frame
+	editor = emacsclient -c -a ''
 [user]
 	name = Aleksandar Vucic
 	email = vucinjo@gmail.com
@@ -62,7 +63,22 @@
 	cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
 [rebase]
 	autosquash = true
+
+; [diff]
+    ; tool = default-difftool
+; [difftool "default-difftool"]
+    ; cmd = code --wait --diff $LOCAL $REMOTE
+
 [diff]
-    tool = default-difftool
-[difftool "default-difftool"]
-    cmd = code --wait --diff $LOCAL $REMOTE
+  tool = ediff
+  guitool = ediff
+
+[difftool "ediff"]
+  cmd = ~/dotfiles/ediff.sh $LOCAL $REMOTE $MERGED
+
+[merge]
+  tool = ediff
+
+[mergetool "ediff"]
+  cmd = ~/dotfiles/ediff.sh $LOCAL $REMOTE $MERGED $BASE
+  trustExitCode = true

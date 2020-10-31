@@ -18,7 +18,12 @@ else
 fi
 # }}}
 #  Aliases  ------------------------------------------------------------------{{{
-alias e=emacs
+# alias e=emacs
+# alias em=emacs --deamon
+# export ALTERNATE_EDITOR=""
+# alias e=emacsclient --create-frame -a '' -c
+alias e="emacsclient -a '' -c"
+# alias e="emacsclient --create-frame -n"
 alias n='TERM=xterm-256color nvim'
 alias r='rails'
 alias rk='rake'
