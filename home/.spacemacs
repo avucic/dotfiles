@@ -105,7 +105,7 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(
+   dotspacemacs-additional-packages '(xclip
                                       atom-one-dark-theme
                                       seeing-is-believing
                                       (flycheck-posframe
@@ -640,6 +640,7 @@ before packages are loaded."
         :program nil
         :name "Elixir::Run"))
 
+  (xclip-mode 1)
   (global-undo-tree-mode t)
   (evil-set-undo-system 'undo-tree)
   (custom-theme-set-faces 'user
