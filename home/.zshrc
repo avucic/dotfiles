@@ -16,15 +16,17 @@ else
     # antigen-theme, antigen-apply will work as well
     antigen init $HOME/.antigenrc
 fi
+
+export TERM=xterm-24bit
 # }}}
 #  Aliases  ------------------------------------------------------------------{{{
 # alias e=emacs
 # alias em=emacs --deamon
 # export ALTERNATE_EDITOR=""
 # alias e=emacsclient --create-frame -a '' -c
-alias e="emacsclient -a '' -c"
+alias e="TERM=xterm-24bit emacsclient -a '' -c"
 # alias e="emacsclient --create-frame -n"
-alias n='TERM=xterm-256color nvim'
+alias n='TERM=xterm-24bit nvim'
 alias r='rails'
 alias rk='rake'
 alias cl='clear'
@@ -34,7 +36,7 @@ alias tk='tmux kill-session -t'
 alias tka='tmux kill-server'
 alias tn='tmux new -s'
 alias f='fzf'
-alias tmux="TERM=xterm-256color tmux -2"
+alias tmux="TERM=xterm-24bit tmux -2"
 
 # ------------------------------------
 # Docker alias and function
