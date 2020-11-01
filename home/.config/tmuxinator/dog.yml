@@ -45,7 +45,7 @@ windows:
       # layout: even-horizontal
       layout: 78a3,261x66,0,0[261x48,0,0{130x48,0,0,0,130x48,131,0,2},261x17,0,49,3]
       panes:
-        - nvim
+        - emacs --daemon && emacs -nw
         - while ! nc -z postgres 5432; do  sleep 0.1; done && iex -S mix phx.server
         -
   - docker:
