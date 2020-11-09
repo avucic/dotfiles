@@ -599,15 +599,6 @@ before packages are loaded."
   (require 'dap-elixir)
   (require 'seeing-is-believing)
 
-  ;; (dap-register-debug-template
-  ;;  "Ruby::Run"
-  ;;  (list :type "Ruby"
-  ;;        :cwd (projectile-project-root)
-  ;;        :request "launch"
-  ;;        :program "./bin/rspec"
-  ;;        :args (list "${file}:${lineNumber}")
-  ;;        :name "Ruby::Run"))
-
   (global-company-mode t)
   (company-quickhelp-mode t)
   ;; (global-auto-complete-mode t)
@@ -637,8 +628,23 @@ before packages are loaded."
         :dap-server-path '("~/.elixir-ls/debugger.sh")
         :taskArgs (list "--trace")
         :projectDir "/Users/vucinjo/Work/Dropongo/Development/dropongo_ex"
-        :program nil
+        ;; :program nil
         :name "Elixir::Run"))
+
+   (dap-register-debug-template
+    "Elixir::Run test"
+    (list :type "Elixir"
+          :cwd "/Users/vucinjo/Work/Dropongo/Development/dropongo_ex"
+          :request "launch"
+          :task "test"
+          :dap-server-path '("~/.elixir-ls/debugger.sh")
+          :projectDir "/Users/vucinjo/Work/Dropongo/Development/dropongo_ex"
+          :requireFiles (list
+                         "test/**/test_helper.exs"
+                         "test/**/*_test.exs")
+          :name "Elixir::Run"))
+
+
 
   (xclip-mode 1)
   (global-undo-tree-mode t)

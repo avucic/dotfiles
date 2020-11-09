@@ -2,7 +2,8 @@
 	excludesfile = /Users/vucinjo/.gitignore
 	autocrlf = input
 	# editor = emacsclient --no-wait --create-frame
-	editor = emacsclient -c -a ''
+	# editor = emacsclient -c -a ''
+	editor = emacsclient -a '' -c
 [user]
 	name = Aleksandar Vucic
 	email = vucinjo@gmail.com

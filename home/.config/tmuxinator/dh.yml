@@ -46,6 +46,14 @@ on_project_exit: kill_port 3000  && kill_port 3001 && kill_port 4000
 # on_project_first_start: code .
 root: ~/Work/Toptal/DispatchHealth/Dev
 windows:
+  - logistics:
+      root: ~/Work/Toptal/DispatchHealth/Dev/logistics
+      panes:
+        - eval "$(direnv export bash)" && direnv allow ./ && mix phx.server
+  - turf_or_surf:
+      root: ~/Work/Toptal/DispatchHealth/Dev/turf_or_surf
+      panes:
+        - eval "$(direnv export bash)" && direnv allow ./ && mix phx.server
   - websocket_server:
       root: ~/Work/Toptal/DispatchHealth/Dev/websocket_server
       panes:
@@ -68,5 +76,5 @@ windows:
       panes:
         - while ! nc -z postgres 5432; do  sleep 0.1; done && yarn rails
         - cd /Users/vucinjo/Work/Toptal/DispatchHealth/Dev/station && yarn rails
-        - 
+        -
         - cd ../station

@@ -24,8 +24,11 @@ export TERM=xterm-24bit
 # alias em=emacs --deamon
 # export ALTERNATE_EDITOR=""
 # alias e=emacsclient --create-frame -a '' -c
-alias e="TERM=xterm-24bit emacsclient -a '' -c"
+alias ed="emacs --daemon=instance1"
 # alias e="emacsclient --create-frame -n"
+alias et="TERM=xterm-24bit emacsclient -a '' -c" #spacemacs terminal client
+alias e="emacsclient -a '' -c" # spacemacs gui client
+
 alias n='TERM=xterm-24bit nvim'
 alias r='rails'
 alias rk='rake'
