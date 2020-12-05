@@ -59,9 +59,15 @@ This function should only modify configuration layer settings."
      ruby-on-rails
      sql
      yaml
-     html
+     (html :variables html-enable-lsp t)
      react
-     javascript
+     prettier
+     (javascript :variables
+                 javascript-backend 'tide
+                 ;; javascript-backend 'lsp
+                 javascript-lsp-linter t
+                 javascript-fmt-tool nil
+                 javascript-repl 'nodejs)
      ;; elixir
      (elixir :variables elixir-backend 'alchemist)
      ;; (elixir :variables elixir-backend 'alchemist)
@@ -589,6 +595,20 @@ dump."
 
 (defun add-d-to-ediff-mode-map () (define-key ediff-mode-map "d" 'ediff-copy-both-to-C))
 
+(defun gen-pass (input)
+  "Nonce function"
+  (interactive "sPass: ")
+  (shell-command "ruby ~/Documents/psd.rb foo | pbcopy" input))
+
+(defun codefalling//reset-eslint-rc ()
+  (let ((rc-path (if (projectile-project-p)
+                     (concat (projectile-project-root) ".eslintrc.js"))))
+    (if (file-exists-p rc-path)
+        (progn
+          (message rc-path)
+          (setq flycheck-eslintrc rc-path)))))
+
+
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
 This function is called at the very end of Spacemacs startup, after layer
@@ -652,6 +672,10 @@ before packages are loaded."
   (custom-theme-set-faces 'user
                           `(org-level-4 ((t (:foreground "#98c379")))))
   
+  (spacemacs/toggle-indent-guide-globally-on)
+  (setq web-mode-enable-auto-closing t)
+  (setq vc-follow-symlinks nil)
+
   ;; (setq pos-tip-foreground-color "#839496") (setq pos-tip-background-color "#073642")
   (setq projectile-enable-caching t)
   (setq flycheck-elixir-credo-strict t)
@@ -668,12 +692,17 @@ before packages are loaded."
   (setq ranger-show-literal nil)
   ;; Tell emacs to use ranger over dired.
   (setq ranger-override-dired-mode t)
+  (setq web-mode-tag-auto-close-style 1)
+  (setq js2-mode-show-parse-errors nil)
+  (setq js2-mode-show-strict-warnings nil)
 
+  (add-to-list 'auto-mode-alist '("\\.leex\\'" . web-mode))
 
   ;; (autoload 'inf-ruby-minor-mode "inf-ruby" "Run an inferior Ruby process" t)
   ;; (add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
   ;; (add-hook 'after-init-hook 'inf-ruby-switch-setup)
 
+  (add-hook 'flycheck-mode-hook 'codefalling//reset-eslint-rc)
   (add-hook 'hack-local-variables-hook #'spacemacs/toggle-truncate-lines)
   (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
   (add-hook 'term-mode-hook #'bb/setup-term-mode)

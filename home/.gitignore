@@ -56,3 +56,5 @@ dist/
 CS_SESSION
 .vimspector.json
 .Spacevim.d/
+\#*\#
+.\#*

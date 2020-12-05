@@ -17,17 +17,21 @@ else
     antigen init $HOME/.antigenrc
 fi
 
-export TERM=xterm-24bit
+# export TERM=xterm-24bit
+export TERM=xterm-256color
 # }}}
 #  Aliases  ------------------------------------------------------------------{{{
 # alias e=emacs
 # alias em=emacs --deamon
 # export ALTERNATE_EDITOR=""
 # alias e=emacsclient --create-frame -a '' -c
-alias ed="emacs --daemon=instance1"
+# alias ed="emacs --daemon="
 # alias e="emacsclient --create-frame -n"
 alias et="TERM=xterm-24bit emacsclient -a '' -c" #spacemacs terminal client
-alias e="emacsclient -a '' -c" # spacemacs gui client
+alias e="emacsclient -c" # spacemacs gui client
+export ALTERNATE_EDITOR='' # for emacs deamon
+export ALTERNATE_EDITOR=""
+export EDITOR="emacsclient -c"
 
 alias n='TERM=xterm-24bit nvim'
 alias r='rails'
@@ -166,3 +170,5 @@ export PATH="/usr/local/sbin:$PATH"
 # Fixes {{{
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=#666666 # in neovim terminal auto suggestions not visible
 # }}}
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
