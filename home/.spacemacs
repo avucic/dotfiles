@@ -66,11 +66,10 @@ This function should only modify configuration layer settings."
                  javascript-backend 'tide
                  ;; javascript-backend 'lsp
                  javascript-lsp-linter t
-                 javascript-fmt-tool nil
+                 javascript-fmt-tool 'prettier
                  javascript-repl 'nodejs)
      ;; elixir
      (elixir :variables elixir-backend 'alchemist)
-     ;; (elixir :variables elixir-backend 'alchemist)
      ;; outshine
      ;; auto-completion
      (auto-completion :variables
@@ -673,6 +672,9 @@ before packages are loaded."
                           `(org-level-4 ((t (:foreground "#98c379")))))
   
   (spacemacs/toggle-indent-guide-globally-on)
+  (eval-after-load 'rspec-mode
+    '(rspec-install-snippets))
+
   (setq web-mode-enable-auto-closing t)
   (setq vc-follow-symlinks nil)
 
