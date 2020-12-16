@@ -1,7 +1,6 @@
 ;; -*- mode: emacs-lisp; lexical-binding: t -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
-
 (defun dotspacemacs/layers ()
   "Layer configuration:
 This function should only modify configuration layer settings."
@@ -600,6 +599,18 @@ dump."
           (message rc-path)
           (setq flycheck-eslintrc rc-path)))))
 
+(defun evil-ex-search-next-auto-clear-highlight ()
+  (interactive)
+  (evil-ex-search-next)
+  (run-with-idle-timer
+   1 nil '(lambda () (spacemacs/evil-search-clear-highlight))))
+
+(defun evil-ex-search-previous-auto-clear-highlights ()
+  (interactive)
+  (evil-ex-search-previous)
+  (run-with-idle-timer
+   1 nil '(lambda () (spacemacs/evil-search-clear-highlight))))
+
 
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
@@ -610,7 +621,7 @@ before packages are loaded."
   (global-company-mode t)
   (company-quickhelp-mode t)
   ;; (global-auto-complete-mode t)
-
+  
   (xclip-mode 1)
   (global-undo-tree-mode t)
   (evil-set-undo-system 'undo-tree)
@@ -624,6 +635,7 @@ before packages are loaded."
   (setq web-mode-enable-auto-closing t)
   (setq vc-follow-symlinks nil)
   (setq projectile-enable-caching t)
+  (setq evil-ex-search-persistent-highlight nil)
   ;; (setq flycheck-elixir-credo-strict t)
   (setq auto-completion-enable-help-tooltip t)
   (setq ob-mermaid-cli-path "~/.asdf/shims/mmdc")
@@ -684,7 +696,9 @@ before packages are loaded."
   ;; TOOL TIP
 
   ;; Keybindings
-  (define-key evil-normal-state-map (kbd "H") 'move-beginning-of-line)
+  (define-key evil-normal-state-map (kbd "<escape>") 'evil-mc-undo-all-cursors)
+  (define-key evil-motion-state-map (kbd "n") 'evil-ex-search-next-auto-clear-highlight)
+  (define-key evil-motion-state-map (kbd "N") 'evil-ex-search-previous-auto-clear-highlights)
   (define-key evil-normal-state-map (kbd "L") 'end-of-line)
   (define-key evil-insert-state-map (kbd "C-a") 'move-beginning-of-line)
   (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
