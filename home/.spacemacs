@@ -42,9 +42,11 @@ This function should only modify configuration layer settings."
              ;; ranger-show-hidden t
              ranger-cleanup-eagerly t
              ranger-cleanup-on-disable t
-             ;; ranger-override-dired-mode t
+             ranger-override-dired-mode t
              ranger-override-dired 'ranger
+             insert-directory-program "/usr/local/bin/gls"
              ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
+     ranger
      dap
      (ruby :variables
            ruby-test-runner 'rspec
@@ -73,7 +75,7 @@ This function should only modify configuration layer settings."
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-sort-by-usage t
-                      ;; auto-completion-use-company-box t
+                      auto-completion-use-company-box t
                       )
      ;; colors
 
@@ -611,7 +613,6 @@ dump."
   (run-with-idle-timer
    1 nil '(lambda () (spacemacs/evil-search-clear-highlight))))
 
-
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
 This function is called at the very end of Spacemacs startup, after layer
@@ -621,7 +622,7 @@ before packages are loaded."
   (global-company-mode t)
   (company-quickhelp-mode t)
   ;; (global-auto-complete-mode t)
-  
+
   (xclip-mode 1)
   (global-undo-tree-mode t)
   (evil-set-undo-system 'undo-tree)
@@ -648,16 +649,17 @@ before packages are loaded."
 
   (setq ranger-show-literal nil)
   ;; Tell emacs to use ranger over dired.
-  (setq ranger-override-dired-mode t)
   (setq web-mode-tag-auto-close-style 1)
   (setq js2-mode-show-parse-errors nil)
   (setq js2-mode-show-strict-warnings nil)
 
+  ;; Ruby ===============================================================
   (with-eval-after-load 'ruby-mode
     (require 'dap-ruby)
     (require 'seeing-is-believing)
     (add-hook 'ruby-mode-hook #'lsp-ui-mode)
     )
+
 
   ;; Elixir =============================================================
   (with-eval-after-load 'elixir-mode
