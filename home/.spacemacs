@@ -639,7 +639,6 @@ before packages are loaded."
   (eval-after-load 'rspec-mode
     '(rspec-install-snippets))
 
-  (setq web-mode-enable-auto-closing t)
   (setq vc-follow-symlinks nil)
   (setq projectile-enable-caching t)
   (setq evil-ex-search-persistent-highlight nil)
@@ -654,10 +653,17 @@ before packages are loaded."
   (setq x-gtk-use-system-tooltips nil)
 
   (setq ranger-show-literal nil)
-  ;; Tell emacs to use ranger over dired.
-  (setq web-mode-tag-auto-close-style 1)
-  (setq js2-mode-show-parse-errors nil)
-  (setq js2-mode-show-strict-warnings nil)
+
+  ;; web ===============================================================
+  (setq web-mode-enable-auto-closing t)
+
+  ;; JS ===============================================================
+  (with-eval-after-load 'js2-mode
+    (setq js2-mode-show-parse-errors nil)
+    (setq js2-mode-show-strict-warnings nil)
+    (add-hook 'js2-mode-hook #'lsp-ui-mode)
+    (add-hook 'js2-mode-hook #'lsp-mode)
+    )
 
   ;; Ruby ===============================================================
   (with-eval-after-load 'ruby-mode
