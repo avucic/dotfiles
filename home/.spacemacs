@@ -167,6 +167,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-elpa-https t
 
    ;; Maximum allowed time in seconds to contact an ELPA repository.
+
    ;; (default 5)
    dotspacemacs-elpa-timeout 5
 
@@ -663,6 +664,10 @@ before packages are loaded."
     (setq js2-mode-show-strict-warnings nil)
     (add-hook 'js2-mode-hook #'lsp-ui-mode)
     (add-hook 'js2-mode-hook #'lsp-mode)
+    (spacemacs/declare-prefix-for-mode 'js2-mode
+      "m=" "formating" "format code")
+    (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+      "=l" 'eslint-fix)
     )
 
   ;; Ruby ===============================================================
@@ -681,9 +686,9 @@ before packages are loaded."
     (spacemacs/declare-prefix-for-mode 'elixir-mode
       "mt" "tests" "testing related functionality")
     (spacemacs/set-leader-keys-for-major-mode 'elixir-mode
-      "tb" 'exunit-verify-all
-      "ta" 'exunit-verify
-      "tk" 'exunit-rerun
+      "ta" 'exunit-verify-all
+      "tb" 'exunit-verify
+      "tr" 'exunit-rerun
       "tt" 'exunit-verify-single)
     (add-hook 'lsp-after-initialize-hook
               (lambda ()
@@ -696,10 +701,23 @@ before packages are loaded."
                                   (if (projectile-project-p)
                                       (setq mixfmt-args (list "--dot-formatter" (concat (projectile-project-root) "/.formatter.exs")))
                                     (setq mixfmt-args nil))))
+
     ;; (setq lsp-ui-sideline-enable nil)
     ;; (setq lsp-ui-doc-max-width 20)
     ;; (setq lsp-ui-doc-max-height 25)
     )
+
+  (purpose-add-user-purposes :regexps '(
+                                        ("spec\\.rb$" . rspec)
+                                        ("\\.rb$" . ruby)
+                                        ("\\.js$" . js)
+                                        ("\\.ex$" . elixir)
+                                        ("\\.html$" . web)
+                                        ("\\.leex$" . web)
+                                        ("\\.eex$" . web)
+                                        ("\\.css$" . web)
+                                        ("\\.scss$" . web)
+                                        ))
 
   (add-hook 'flycheck-mode-hook 'codefalling//reset-eslint-rc)
   (add-hook 'hack-local-variables-hook #'spacemacs/toggle-truncate-lines)
@@ -710,7 +728,7 @@ before packages are loaded."
   ;; TOOL TIP
 
   ;; Keybindings
-  (define-key evil-normal-state-map (kbd "SPC m = e") 'eslint-fix)
+  ;; (spacemacs/set-leader-keys (kbd "b b") 'switch-to-buffer)
   (define-key evil-normal-state-map (kbd "<escape>") 'evil-mc-undo-all-cursors)
   (define-key evil-motion-state-map (kbd "n") 'evil-ex-search-next-auto-clear-highlight)
   (define-key evil-motion-state-map (kbd "N") 'evil-ex-search-previous-auto-clear-highlights)
