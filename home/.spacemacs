@@ -88,11 +88,13 @@ This function should only modify configuration layer settings."
      mermaid
      (markdown :variables markdown-live-preview-engine 'vmd)
      multiple-cursors
+     search-engine
      org
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
      spell-checking ;; fix for auto complete (ac-flyspell-workaround)
+     csv
      syntax-checking
      (version-control :variables
                       version-control-diff-tool 'diff-hl
@@ -626,7 +628,12 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (global-company-mode t)
+  (prefer-coding-system 'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-language-environment 'utf-8)
+  (set-selection-coding-system 'utf-8)
+
+  ;; (global-company-mode t)
   (company-quickhelp-mode t)
   ;; (global-auto-complete-mode t)
 
@@ -640,12 +647,12 @@ before packages are loaded."
   (eval-after-load 'rspec-mode
     '(rspec-install-snippets))
 
+  ;; (setq tab-always-indent t)
   (setq vc-follow-symlinks nil)
   (setq projectile-enable-caching t)
   (setq evil-ex-search-persistent-highlight nil)
   ;; (setq flycheck-elixir-credo-strict t)
   (setq auto-completion-enable-help-tooltip t)
-  (setq ob-mermaid-cli-path "~/.asdf/shims/mmdc")
   (setq x-gtk-use-system-tooltips nil)
   (setq elixir-ls-path "~/.elixir-ls")
   (setq lsp-ui-doc-enable nil)
@@ -654,6 +661,13 @@ before packages are loaded."
   (setq x-gtk-use-system-tooltips nil)
 
   (setq ranger-show-literal nil)
+
+
+  (with-eval-after-load 'org
+    (setq ob-mermaid-cli-path "~/.asdf/shims/mmdc")
+    (setq org-directory "~/Dropbox/Org")
+    (setq org-default-notes-file "~/Dropbox/Org/notes.org")
+    )
 
   ;; web ===============================================================
   (setq web-mode-enable-auto-closing t)
@@ -757,25 +771,11 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
- '(hl-todo-keyword-faces
-   '(("TODO" . "#dc752f")
-     ("NEXT" . "#dc752f")
-     ("THEM" . "#2d9574")
-     ("PROG" . "#4f97d7")
-     ("OKAY" . "#4f97d7")
-     ("DONT" . "#f2241f")
-     ("FAIL" . "#f2241f")
-     ("DONE" . "#86dc2f")
-     ("NOTE" . "#b1951d")
-     ("KLUDGE" . "#b1951d")
-     ("HACK" . "#b1951d")
-     ("TEMP" . "#b1951d")
-     ("FIXME" . "#dc752f")
-     ("XXX+" . "#dc752f")
-     ("\\?\\?\\?+" . "#dc752f")))
- '(org-agenda-files '("~/Work/Org/index.org"))
+ '(org-agenda-files (append (file-expand-wildcards "~/Dropbox/Org/*.org")))
+ '(org-todo-keywords
+   '((sequence "TODO(t)" "DOING(n)" "BLOCKED(b)" "REVIEW(r)" "FIXME(x)" "|" "FAIL(f)" "DONE(d)" "ARCHIVED(a)" "CANCELLED(c)")))
  '(package-selected-packages
-   '(eslint-fix helm-taskswitch exunit vmd-mode bm ob-mermaid company-statistics company-quickhelp helm helm-core wgrep smex lsp-ivy ivy-yasnippet ivy-xref ivy-purpose ivy-hydra ivy-avy flyspell-correct-ivy counsel-projectile counsel-css counsel swiper ivy outshine outorg sqlup-mode sql-indent tide typescript-mode tern rjsx-mode js2-mode js-doc import-js grizzl add-node-modules-path ibuffer-projectile company-box frame-local company-inf-ruby web-mode web-beautify tagedit slim-mode scss-mode sass-mode pug-mode prettier-js impatient-mode simple-httpd helm-css-scss haml-mode github-search github-clone gist gh marshal logito pcache forge ghub closql emacsql-sqlite emacsql treepy emmet-mode dap-mode posframe bui company-web web-completion-data yasnippet-snippets xterm-color vterm treemacs-magit terminal-here smeargle shell-pop seeing-is-believing rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rbenv projectile-rails rake inflections orgit org-rich-yank org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink org-brain ob-elixir multi-term mmm-mode minitest markdown-toc magit-svn magit-section magit-gitflow magit-popup lsp-ui lsp-treemacs lsp-origami origami htmlize helm-org-rifle helm-lsp lsp-mode markdown-mode dash-functional helm-gitignore helm-git-grep helm-company helm-c-yasnippet gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ fringe-helper git-gutter+ gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-credo feature-mode evil-org evil-magit magit git-commit with-editor transient eshell-z eshell-prompt-extras esh-help chruby bundler inf-ruby browse-at-remote auto-yasnippet yasnippet auto-dictionary atom-one-dark-theme alchemist company elixir-mode ac-ispell auto-complete ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump dotenv-mode diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))
+   '(magit-todos eslint-fix helm-taskswitch exunit vmd-mode bm ob-mermaid company-statistics company-quickhelp helm helm-core wgrep smex lsp-ivy ivy-yasnippet ivy-xref ivy-purpose ivy-hydra ivy-avy flyspell-correct-ivy counsel-projectile counsel-css counsel swiper ivy outshine outorg sqlup-mode sql-indent tide typescript-mode tern rjsx-mode js2-mode js-doc import-js grizzl add-node-modules-path ibuffer-projectile company-box frame-local company-inf-ruby web-mode web-beautify tagedit slim-mode scss-mode sass-mode pug-mode prettier-js impatient-mode simple-httpd helm-css-scss haml-mode github-search github-clone gist gh marshal logito pcache forge ghub closql emacsql-sqlite emacsql treepy emmet-mode dap-mode posframe bui company-web web-completion-data yasnippet-snippets xterm-color vterm treemacs-magit terminal-here smeargle shell-pop seeing-is-believing rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rbenv projectile-rails rake inflections orgit org-rich-yank org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink org-brain ob-elixir multi-term mmm-mode minitest markdown-toc magit-svn magit-section magit-gitflow magit-popup lsp-ui lsp-treemacs lsp-origami origami htmlize helm-org-rifle helm-lsp lsp-mode markdown-mode dash-functional helm-gitignore helm-git-grep helm-company helm-c-yasnippet gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ fringe-helper git-gutter+ gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-credo feature-mode evil-org evil-magit magit git-commit with-editor transient eshell-z eshell-prompt-extras esh-help chruby bundler inf-ruby browse-at-remote auto-yasnippet yasnippet auto-dictionary atom-one-dark-theme alchemist company elixir-mode ac-ispell auto-complete ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump dotenv-mode diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))
  '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
