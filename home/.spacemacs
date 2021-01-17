@@ -116,6 +116,7 @@ This function should only modify configuration layer settings."
                                       (helm-taskrunner :location (recipe :fetcher github :repo "avucic/helm-taskrunner"))
                                       (emacs-async :location (recipe :fetcher github :repo "jwiegley/emacs-async"))
                                       eslint-fix
+                                      org-gcal
                                       exunit)
 
    ;; A list of packages that cannot be updated.
@@ -662,6 +663,10 @@ before packages are loaded."
 
   (setq ranger-show-literal nil)
 
+  (setq org-gcal-client-id "177198652051-hg5lncmt5k0ul9ia5t9gvrf460dsvvr2.apps.googleusercontent.com")
+  (setq org-gcal-client-secret "Wt87uR0Ok8a0Ql046T_Cb3e8")
+  (setq org-gcal-file-alist '(("vucinjo@gmail.com" .  "~/Dropbox/Org/gcal.org")))
+  (setq org-gcal-up-days 7)
 
   (with-eval-after-load 'org
     (setq ob-mermaid-cli-path "~/.asdf/shims/mmdc")
@@ -733,6 +738,8 @@ before packages are loaded."
                                         ("\\.scss$" . web)
                                         ))
 
+  (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
+  (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
   (add-hook 'flycheck-mode-hook 'codefalling//reset-eslint-rc)
   (add-hook 'hack-local-variables-hook #'spacemacs/toggle-truncate-lines)
   (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
