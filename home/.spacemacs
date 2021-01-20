@@ -629,13 +629,16 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  ;; (setq auth-sources '("~/.authinfo.gpg"))
+  (load-library "~/.authinfo")
+
   (prefer-coding-system 'utf-8)
   (set-default-coding-systems 'utf-8)
   (set-language-environment 'utf-8)
   (set-selection-coding-system 'utf-8)
 
   ;; (global-company-mode t)
-  (company-quickhelp-mode t)
+  ;; (company-quickhelp-mode t)
   ;; (global-auto-complete-mode t)
 
   (xclip-mode 1)
@@ -645,8 +648,6 @@ before packages are loaded."
                           `(org-level-4 ((t (:foreground "#98c379")))))
 
   (spacemacs/toggle-indent-guide-globally-on)
-  (eval-after-load 'rspec-mode
-    '(rspec-install-snippets))
 
   ;; (setq tab-always-indent t)
   (setq vc-follow-symlinks nil)
@@ -660,18 +661,81 @@ before packages are loaded."
   ;; (setq lsp-ui-doc-position 'at-point)
   (setq lsp-enable-file-watchers nil)
   (setq x-gtk-use-system-tooltips nil)
-
   (setq ranger-show-literal nil)
 
-  (setq org-gcal-client-id "177198652051-hg5lncmt5k0ul9ia5t9gvrf460dsvvr2.apps.googleusercontent.com")
-  (setq org-gcal-client-secret "Wt87uR0Ok8a0Ql046T_Cb3e8")
+  ;; org
+  (setq org-directory "~/Dropbox/Org")
+  (setq org-default-notes-file "~/Dropbox/Org/notes.org")
+  (setq org-projectile-projects-file "~/Dropbox/Org/projects.org")
   (setq org-gcal-file-alist '(("vucinjo@gmail.com" .  "~/Dropbox/Org/gcal.org")))
   (setq org-gcal-up-days 7)
+  (setq org-refile-targets
+        '(("gcal.org" :maxlevel . 1)
+          ("notes.org" :maxlevel . 1)
+          ("index.org" :maxlevel . 3)
+          ("tasks.org" :maxlevel . 1)
+          ("links.org" :maxlevel . 2)
+          ("access.org" :maxlevel . 1)))
+
+  (setq org-capture-templates
+        '(
+          ("a" "Appointment" entry (file "gcal.org")
+           "* %?\n:PROPERTIES:\n:calendar-id:\tvucinjo@gmail.com\n:END:\n:org-gcal:\n%^T--%^T\n:END:\n\n")
+
+          ("l" "Link" entry (file+headline "links.org" "Links")
+           "* %A %^G \n%u" :prepend t)
+          ;; ("b" "Blog idea" entry (file+headline "i.org" "Blog Topics:")
+          ;;  "* %?\n%T" :prepend t)
+          ("t" "Tasks")
+          ("tt" "Today Tasks" entry (file+headline "today.org" "Tasks")
+           ;; "* TODO %? %^G \n%u" :prepend t)
+           "* TODO %?\n%^T" :prepend t)
+
+          ("tg" "Tasks" entry (file+headline "tasks.org" "Tasks")
+           "* TODO %? %^G \n%u" :prepend t)
+
+          ("n" "Note" entry (file+headline "notes.org" "Notes")
+           "* %? \n%u %^G" :prepend t)
+
+          ("f" "Today Focus" entry (file+headline "today.org" "Today Focus")
+           "* %? " :prepend t)
+
+          ("c" "Access & Config" entry (file+headline "access.org" "Access & Config")
+           "* %?\n%u %^G \n%u" :prepend t)
+          ;; ("n" "Note" entry (file+headline "i.org" "Note space")
+          ;;  "* %^{Please write here} %?" :prepend t)
+          ("s" "Screencast" entry (file "screencastnotes.org")
+           "* %?\n%i\n %^G \n%u")))
+
+  ;; '(org-todo-keywords
+  ;;   '((sequence "TODO(t)" "DOING(n)" "BLOCKED(b)" "REVIEW(r)" "FIXME(x)" "|" "FAIL(f)" "DONE(d)" "CANCELLED(c)")))
+
+  (setq org-todo-keywords
+        '((sequence
+           "TODO(t)"
+           "IN-PROGRESS(i)"
+           "WAITING(w)"
+           "BLOCKED(b)"
+           "REVIEW(r)"
+           "|"
+           "FAIL(f)"
+           "DONE(d)"
+           "CANCELED(c)")))
+
+  (setq org-todo-keyword-faces
+        '(
+          ("IN-PROGRESS" . "yellow")
+          ("REVIEW" . "DarkOliveGreen3")
+          ("WAITING" . "magenta")
+          ("BLOCKED" . "DarkOrange")
+          ("CANCELED" . "tomato3")
+          ("FAIL" . "red")
+          ("DONE" . "green3")
+          )
+        )
 
   (with-eval-after-load 'org
     (setq ob-mermaid-cli-path "~/.asdf/shims/mmdc")
-    (setq org-directory "~/Dropbox/Org")
-    (setq org-default-notes-file "~/Dropbox/Org/notes.org")
     )
 
   ;; web ===============================================================
@@ -696,6 +760,8 @@ before packages are loaded."
     (add-hook 'ruby-mode-hook #'lsp-ui-mode)
     )
 
+  ;; Rspec ===============================================================
+  (with-eval-after-load 'rspec-mode '(rspec-install-snippets))
 
   ;; Elixir =============================================================
   (with-eval-after-load 'elixir-mode
@@ -738,24 +804,18 @@ before packages are loaded."
                                         ("\\.scss$" . web)
                                         ))
 
-  (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
-  (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
-  (add-hook 'flycheck-mode-hook 'codefalling//reset-eslint-rc)
-  (add-hook 'hack-local-variables-hook #'spacemacs/toggle-truncate-lines)
-  (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
-  (add-hook 'term-mode-hook #'bb/setup-term-mode)
-  (add-hook 'dap-stopped-hook (lambda (arg) (call-interactively #'dap-hydra)))
-
-  ;; TOOL TIP
-
   ;; Keybindings
   ;; (spacemacs/set-leader-keys (kbd "b b") 'switch-to-buffer)
+  (global-set-key (kbd "M-m f d") 'find-name-dired)
+  (global-set-key (kbd "M-m f g") 'rgrep)
   (define-key evil-normal-state-map (kbd "<escape>") 'evil-mc-undo-all-cursors)
   (define-key evil-motion-state-map (kbd "n") 'evil-ex-search-next-auto-clear-highlight)
   (define-key evil-motion-state-map (kbd "N") 'evil-ex-search-previous-auto-clear-highlights)
   (define-key evil-normal-state-map (kbd "L") 'end-of-line)
   (define-key evil-insert-state-map (kbd "C-a") 'move-beginning-of-line)
   (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
+  (define-key evil-normal-state-map (kbd "H") 'move-beginning-of-line)
+  (define-key evil-normal-state-map (kbd "L") 'end-of-line)
   (define-key evil-visual-state-map (kbd "H") 'move-beginning-of-line)
   (define-key evil-visual-state-map (kbd "L") 'end-of-line)
   (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
@@ -763,6 +823,13 @@ before packages are loaded."
   (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
   (define-key evil-visual-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
 
+  (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
+  (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
+  (add-hook 'flycheck-mode-hook 'codefalling//reset-eslint-rc)
+  (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
+  (add-hook 'term-mode-hook #'bb/setup-term-mode)
+  (add-hook 'dap-stopped-hook (lambda (arg) (call-interactively #'dap-hydra)))
+  (add-hook 'hack-local-variables-hook #'spacemacs/toggle-truncate-lines)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -779,8 +846,8 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
  '(org-agenda-files (append (file-expand-wildcards "~/Dropbox/Org/*.org")))
- '(org-todo-keywords
-   '((sequence "TODO(t)" "DOING(n)" "BLOCKED(b)" "REVIEW(r)" "FIXME(x)" "|" "FAIL(f)" "DONE(d)" "ARCHIVED(a)" "CANCELLED(c)")))
+ ;; '(org-todo-keywords
+ ;;   '((sequence "TODO(t)" "DOING(n)" "BLOCKED(b)" "REVIEW(r)" "FIXME(x)" "|" "FAIL(f)" "DONE(d)" "CANCELLED(c)")))
  '(package-selected-packages
    '(magit-todos eslint-fix helm-taskswitch exunit vmd-mode bm ob-mermaid company-statistics company-quickhelp helm helm-core wgrep smex lsp-ivy ivy-yasnippet ivy-xref ivy-purpose ivy-hydra ivy-avy flyspell-correct-ivy counsel-projectile counsel-css counsel swiper ivy outshine outorg sqlup-mode sql-indent tide typescript-mode tern rjsx-mode js2-mode js-doc import-js grizzl add-node-modules-path ibuffer-projectile company-box frame-local company-inf-ruby web-mode web-beautify tagedit slim-mode scss-mode sass-mode pug-mode prettier-js impatient-mode simple-httpd helm-css-scss haml-mode github-search github-clone gist gh marshal logito pcache forge ghub closql emacsql-sqlite emacsql treepy emmet-mode dap-mode posframe bui company-web web-completion-data yasnippet-snippets xterm-color vterm treemacs-magit terminal-here smeargle shell-pop seeing-is-believing rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rbenv projectile-rails rake inflections orgit org-rich-yank org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink org-brain ob-elixir multi-term mmm-mode minitest markdown-toc magit-svn magit-section magit-gitflow magit-popup lsp-ui lsp-treemacs lsp-origami origami htmlize helm-org-rifle helm-lsp lsp-mode markdown-mode dash-functional helm-gitignore helm-git-grep helm-company helm-c-yasnippet gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ fringe-helper git-gutter+ gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-credo feature-mode evil-org evil-magit magit git-commit with-editor transient eshell-z eshell-prompt-extras esh-help chruby bundler inf-ruby browse-at-remote auto-yasnippet yasnippet auto-dictionary atom-one-dark-theme alchemist company elixir-mode ac-ispell auto-complete ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump dotenv-mode diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))
  '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e")))
