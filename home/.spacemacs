@@ -664,6 +664,8 @@ before packages are loaded."
   (setq ranger-show-literal nil)
 
   ;; org
+  (setq org-refile-use-outline-path 'file)
+  (setq org-outline-path-complete-in-steps nil)
   (setq org-directory "~/Dropbox/Org")
   (setq org-default-notes-file "~/Dropbox/Org/notes.org")
   (setq org-projectile-projects-file "~/Dropbox/Org/projects.org")
@@ -674,7 +676,7 @@ before packages are loaded."
           ("notes.org" :maxlevel . 1)
           ("index.org" :maxlevel . 3)
           ("tasks.org" :maxlevel . 1)
-          ("links.org" :maxlevel . 2)
+          ("engineering-notebook.org" :maxlevel . 5)
           ("access.org" :maxlevel . 1)))
 
   (setq org-capture-templates
@@ -682,30 +684,35 @@ before packages are loaded."
           ("a" "Appointment" entry (file "gcal.org")
            "* %?\n:PROPERTIES:\n:calendar-id:\tvucinjo@gmail.com\n:END:\n:org-gcal:\n%^T--%^T\n:END:\n\n")
 
-          ("l" "Link" entry (file+headline "links.org" "Links")
+          ("b" "Notebook and Bookmarks")
+          ("bc" "Category" entry (file "notebook.org")
+           "* %? %^G" :prepend t)
+          ("bn" "Note" entry (file "notebook.org")
+           "* %? %^G \n%u" :prepend t)
+          ("bl" "Link" entry (file "notebook.org")
            "* %A %^G \n%u" :prepend t)
-          ;; ("b" "Blog idea" entry (file+headline "i.org" "Blog Topics:")
-          ;;  "* %?\n%T" :prepend t)
+
+          ("p" "Projects")
+          ("pc" "Project name" entry (file "projects.org")
+           "* %? %^G" :prepend t)
+          ("pn" "Note" entry (file "projects.org")
+           "* %? %^G \n%u" :prepend t)
+          ("pl" "Link" entry (file "projects.org")
+           "* %A %^G \n%u" :prepend t)
+
           ("t" "Tasks")
           ("tt" "Today Tasks" entry (file+headline "today.org" "Tasks")
-           ;; "* TODO %? %^G \n%u" :prepend t)
            "* TODO %?\n%^T" :prepend t)
-
           ("tg" "Tasks" entry (file+headline "tasks.org" "Tasks")
            "* TODO %? %^G \n%u" :prepend t)
 
-          ("n" "Note" entry (file+headline "notes.org" "Notes")
-           "* %? \n%u %^G" :prepend t)
-
+          ("n" "Notes")
+          ("nc" "Category" entry (file "notes.org")
+           "* %? %^G" :prepend t)
+          ("nn" "Note" entry (file"notes.org")
+           "* %? %^G \n%u" :prepend t)
           ("f" "Today Focus" entry (file+headline "today.org" "Today Focus")
-           "* %? " :prepend t)
-
-          ("c" "Access & Config" entry (file+headline "access.org" "Access & Config")
-           "* %?\n%u %^G \n%u" :prepend t)
-          ;; ("n" "Note" entry (file+headline "i.org" "Note space")
-          ;;  "* %^{Please write here} %?" :prepend t)
-          ("s" "Screencast" entry (file "screencastnotes.org")
-           "* %?\n%i\n %^G \n%u")))
+           "* %? " :prepend t)))
 
   ;; '(org-todo-keywords
   ;;   '((sequence "TODO(t)" "DOING(n)" "BLOCKED(b)" "REVIEW(r)" "FIXME(x)" "|" "FAIL(f)" "DONE(d)" "CANCELLED(c)")))
@@ -808,6 +815,7 @@ before packages are loaded."
   ;; (spacemacs/set-leader-keys (kbd "b b") 'switch-to-buffer)
   (global-set-key (kbd "M-m f d") 'find-name-dired)
   (global-set-key (kbd "M-m f g") 'rgrep)
+  (evil-leader/set-key "q q" 'spacemacs/frame-killer)
   (define-key evil-normal-state-map (kbd "<escape>") 'evil-mc-undo-all-cursors)
   (define-key evil-motion-state-map (kbd "n") 'evil-ex-search-next-auto-clear-highlight)
   (define-key evil-motion-state-map (kbd "N") 'evil-ex-search-previous-auto-clear-highlights)
@@ -818,10 +826,6 @@ before packages are loaded."
   (define-key evil-normal-state-map (kbd "L") 'end-of-line)
   (define-key evil-visual-state-map (kbd "H") 'move-beginning-of-line)
   (define-key evil-visual-state-map (kbd "L") 'end-of-line)
-  (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-  (define-key evil-visual-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-  (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
-  (define-key evil-visual-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
 
   (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
   (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
