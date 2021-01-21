@@ -28,10 +28,10 @@ export TERM=xterm-256color
 # alias ed="emacs --daemon="
 # alias e="emacsclient --create-frame -n"
 alias et="TERM=xterm-24bit emacsclient -a '' -c" #spacemacs terminal client
-alias e="emacsclient -c" # spacemacs gui client
+alias e="em" # spacemacs gui client
 export ALTERNATE_EDITOR='' # for emacs deamon
 export ALTERNATE_EDITOR=""
-export EDITOR="emacsclient -c"
+export EDITOR="em"
 
 alias n='TERM=xterm-24bit nvim'
 alias r='rails'
