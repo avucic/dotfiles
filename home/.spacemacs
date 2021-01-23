@@ -91,6 +91,8 @@ This function should only modify configuration layer settings."
      search-engine
      org
      (shell :variables
+            org-enable-reveal-js-support t
+            org-enable-github-support t
             shell-default-height 30
             shell-default-position 'bottom)
      spell-checking ;; fix for auto complete (ac-flyspell-workaround)
@@ -669,14 +671,17 @@ before packages are loaded."
   (setq org-directory "~/Dropbox/Org")
   (setq org-default-notes-file "~/Dropbox/Org/notes.org")
   (setq org-projectile-projects-file "~/Dropbox/Org/projects.org")
+  ;; (setq org-reveal-root "")
+  (setq org-reveal-root "file:///Users/vucinjo/Dropbox/Or/reveal.js")
   (setq org-gcal-file-alist '(("vucinjo@gmail.com" .  "~/Dropbox/Org/gcal.org")))
+  ;; (setq org-reveal-root "file:///Users/vucinjo/Dropbox/Slides/reveal.js")
   (setq org-gcal-up-days 7)
   (setq org-refile-targets
         '(("gcal.org" :maxlevel . 1)
           ("notes.org" :maxlevel . 1)
           ("index.org" :maxlevel . 3)
           ("tasks.org" :maxlevel . 1)
-          ("engineering-notebook.org" :maxlevel . 5)
+          ("notebook.org" :maxlevel . 5)
           ("access.org" :maxlevel . 1)))
 
   (setq org-capture-templates
@@ -816,6 +821,7 @@ before packages are loaded."
   (global-set-key (kbd "M-m f d") 'find-name-dired)
   (global-set-key (kbd "M-m f g") 'rgrep)
   (evil-leader/set-key "q q" 'spacemacs/frame-killer)
+  (evil-leader/set-key "y Y" 'helm-show-kill-ring)
   (define-key evil-normal-state-map (kbd "<escape>") 'evil-mc-undo-all-cursors)
   (define-key evil-motion-state-map (kbd "n") 'evil-ex-search-next-auto-clear-highlight)
   (define-key evil-motion-state-map (kbd "N") 'evil-ex-search-previous-auto-clear-highlights)
