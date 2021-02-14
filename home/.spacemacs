@@ -89,10 +89,11 @@ This function should only modify configuration layer settings."
      (markdown :variables markdown-live-preview-engine 'vmd)
      multiple-cursors
      search-engine
-     org
+     (org :variables
+          org-enable-reveal-js-support t
+          org-enable-github-support t)
      (shell :variables
-            org-enable-reveal-js-support t
-            org-enable-github-support t
+            close-window-with-terminal t
             shell-default-height 30
             shell-default-position 'bottom)
      spell-checking ;; fix for auto complete (ac-flyspell-workaround)
@@ -101,6 +102,8 @@ This function should only modify configuration layer settings."
      (version-control :variables
                       version-control-diff-tool 'diff-hl
                       version-control-diff-side 'left)
+     (restclient :variables
+                 restclient-use-org t)
      treemacs)
 
 
@@ -589,21 +592,20 @@ dump."
   (interactive)
   (term-send-raw-string "\C-n"))
 
-(defun ediff-copy-both-to-C ()
-  (interactive)
-  (ediff-copy-diff ediff-current-difference nil 'C nil
-                   (concat
-                    (ediff-get-region-contents ediff-current-difference 'A ediff-control-buffer)
-                    (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
-
-(defun add-d-to-ediff-mode-map () (define-key ediff-mode-map "d" 'ediff-copy-both-to-C))
-
 (defun gen-pass (input)
   "Nonce function"
   (interactive "sPass: ")
   (shell-command
    (concatenate 'string "ruby ~/Documents/psd.rb " input " | pbcopy"))
     )
+
+(defun ediff-copy-both-to-C ()
+  (interactive)
+  (ediff-copy-diff ediff-current-difference nil 'C nil
+                   (concat
+                    (ediff-get-region-contents ediff-current-difference 'A ediff-control-buffer)
+                    (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
+(defun add-d-to-ediff-mode-map () (define-key ediff-mode-map "d" 'ediff-copy-both-to-C))
 
 (defun codefalling//reset-eslint-rc ()
   (let ((rc-path (if (projectile-project-p)
@@ -677,12 +679,15 @@ before packages are loaded."
   ;; (setq org-reveal-root "file:///Users/vucinjo/Dropbox/Slides/reveal.js")
   (setq org-gcal-up-days 7)
   (setq org-refile-targets
-        '(("gcal.org" :maxlevel . 1)
+        '(("projects.org" :maxlevel . 5)
           ("notes.org" :maxlevel . 1)
           ("index.org" :maxlevel . 3)
           ("tasks.org" :maxlevel . 1)
           ("notebook.org" :maxlevel . 5)
           ("access.org" :maxlevel . 1)))
+  ;; ("gcal.org" :maxlevel . 1)
+  (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
+  (setq org-refile-use-outline-path t)                  ; Show full paths for refiling
 
   (setq org-capture-templates
         '(
@@ -719,13 +724,11 @@ before packages are loaded."
           ("f" "Today Focus" entry (file+headline "today.org" "Today Focus")
            "* %? " :prepend t)))
 
-  ;; '(org-todo-keywords
-  ;;   '((sequence "TODO(t)" "DOING(n)" "BLOCKED(b)" "REVIEW(r)" "FIXME(x)" "|" "FAIL(f)" "DONE(d)" "CANCELLED(c)")))
-
   (setq org-todo-keywords
         '((sequence
+           "IDEA(i)"
            "TODO(t)"
-           "IN-PROGRESS(i)"
+           "IN-PROGRESS(n)"
            "WAITING(w)"
            "BLOCKED(b)"
            "REVIEW(r)"
@@ -736,6 +739,7 @@ before packages are loaded."
 
   (setq org-todo-keyword-faces
         '(
+          ("IDEA" . "white")
           ("IN-PROGRESS" . "yellow")
           ("REVIEW" . "DarkOliveGreen3")
           ("WAITING" . "magenta")
@@ -840,6 +844,11 @@ before packages are loaded."
   (add-hook 'term-mode-hook #'bb/setup-term-mode)
   (add-hook 'dap-stopped-hook (lambda (arg) (call-interactively #'dap-hydra)))
   (add-hook 'hack-local-variables-hook #'spacemacs/toggle-truncate-lines)
+
+  (advice-add #'evil-delete-marks :after
+              #'(lambda (&rest rest)
+                  (evil-visual-mark-mode)
+                  (evil-visual-mark-mode)))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
