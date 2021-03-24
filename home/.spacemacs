@@ -58,7 +58,7 @@ This function should only modify configuration layer settings."
      sql
      yaml
      cmake
-     (rust :variables rust-backend 'racer)
+     (rust :variables rust-backend 'lsp)
      (html :variables html-enable-lsp t)
      react
      prettier
@@ -73,6 +73,7 @@ This function should only modify configuration layer settings."
      ;; auto-completion
      (auto-completion :variables
                       ;; auto-completion-idle-delay nil
+                      auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior nil
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-snippets-in-popup t
@@ -85,7 +86,8 @@ This function should only modify configuration layer settings."
      git
      github
      helm
-     lsp
+     ;; lsp
+     (lsp :variables lsp-rust-server 'rust-analyzer)
      mermaid
      (markdown :variables markdown-live-preview-engine 'vmd)
      multiple-cursors
@@ -785,14 +787,9 @@ before packages are loaded."
 
   ;; Rust ===============================================================
   (with-eval-after-load 'rust-mode
-
-    (setq racer-cmd "~/.asdf/shims/racer")
+    ;; (setq racer-cmd "~/.asdf/shims/racer")
     (setq racer-rust-src-path (concat (car (split-string (shell-command-to-string "rustc --print sysroot") "\n")) "/lib/rustlib/src/rust/library"))
-    ;; (setq lsp-rust-analyzer-server-command '("rust-analyzer"))
-    ;; (push 'rustic-clippy flycheck-checkers)
-    (defun racer-setup ()
-      (setq eldoc-idle-delay 1))
-    (add-hook 'racer-mode-hook #'racer-setup)
+    (setq lsp-rust-analyzer-server-command '("rust-analyzer"))
     (add-hook 'rust-mode-hook #'lsp-ui-mode)
     )
 
