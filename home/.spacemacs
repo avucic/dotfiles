@@ -57,6 +57,8 @@ This function should only modify configuration layer settings."
      ruby-on-rails
      sql
      yaml
+     cmake
+     (rust :variables rust-backend 'racer)
      (html :variables html-enable-lsp t)
      react
      prettier
@@ -75,8 +77,7 @@ This function should only modify configuration layer settings."
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-sort-by-usage t
-                      auto-completion-use-company-box t
-                      )
+                      auto-completion-use-company-box t)
      ;; colors
 
      ;; better-defaults
@@ -122,6 +123,8 @@ This function should only modify configuration layer settings."
                                       (emacs-async :location (recipe :fetcher github :repo "jwiegley/emacs-async"))
                                       eslint-fix
                                       org-gcal
+                                      excorporate
+                                      antlr-mode
                                       exunit)
 
    ;; A list of packages that cannot be updated.
@@ -468,7 +471,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
-   dotspacemacs-persistent-server t
+   ;; dotspacemacs-persistent-server t
 
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
@@ -774,6 +777,23 @@ before packages are loaded."
     (require 'dap-ruby)
     (require 'seeing-is-believing)
     (add-hook 'ruby-mode-hook #'lsp-ui-mode)
+
+    ;; (evil-define-key '(normal) ruby-mode-map (kbd "m=") 'rubocopfmt)
+    ;; (spacemacs/declare-prefix-for-mode 'ruby-mode
+    ;;   "==" "rubocop-autocorrect-current-file" "Format code with Rubocop")
+    )
+
+  ;; Rust ===============================================================
+  (with-eval-after-load 'rust-mode
+
+    (setq racer-cmd "~/.asdf/shims/racer")
+    (setq racer-rust-src-path (concat (car (split-string (shell-command-to-string "rustc --print sysroot") "\n")) "/lib/rustlib/src/rust/library"))
+    ;; (setq lsp-rust-analyzer-server-command '("rust-analyzer"))
+    ;; (push 'rustic-clippy flycheck-checkers)
+    (defun racer-setup ()
+      (setq eldoc-idle-delay 1))
+    (add-hook 'racer-mode-hook #'racer-setup)
+    (add-hook 'rust-mode-hook #'lsp-ui-mode)
     )
 
   ;; Rspec ===============================================================
@@ -819,6 +839,30 @@ before packages are loaded."
                                         ("\\.css$" . web)
                                         ("\\.scss$" . web)
                                         ))
+
+  ;; ;;  Excorporate
+  ;; ;; allow opening the exchange calendar with 'e' from calendar 
+  ;; (evil-define-key 'motion calendar-mode-map "e" #'exco-calendar-show-day)
+
+  ;; (setq-default
+  ;;  ;; configure email address and office 365 exchange server adddress for exchange web services
+  ;;  excorporate-configuration
+  ;;  (quote
+  ;;   ("my.email@myorg.com" . "https://outlook.office365.com/EWS/Exchange.asmx"))
+  ;;  ;; integrate emacs diary entries into org agenda
+  ;;  org-agenda-include-diary t
+  ;;  )
+  ;; ;; activate excorporate and request user/password to start connection
+  ;; (excorporate)
+  ;; ;; enable the diary integration (i.e. write exchange calendar to emacs diary file -> ~/.emacs.d/diary must exist)
+  ;; (excorporate-diary-enable)
+  ;; (defun ab/agenda-update-diary ()
+  ;;   "call excorporate to update the diary for today"
+  ;;   (exco-diary-diary-advice (calendar-current-date) (calendar-current-date) #'message "diary updated")
+  ;;   )
+
+  ;; ;; update the diary every time the org agenda is refreshed
+  ;; (add-hook 'org-agenda-cleanup-fancy-diary-hook 'ab/agenda-update-diary )
 
   ;; Keybindings
   ;; (spacemacs/set-leader-keys (kbd "b b") 'switch-to-buffer)

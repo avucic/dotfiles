@@ -171,4 +171,9 @@ export PATH="/usr/local/sbin:$PATH"
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=#666666 # in neovim terminal auto suggestions not visible
 # }}}
 
+# Tree {{{
+export CLICOLOR=1
+export LSCOLORS=gxcxdxdxbxxxxxbxbxgxgx
+# }}}
+
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

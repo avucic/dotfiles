@@ -43,8 +43,10 @@
   lb = !git branch -vv | cut -c 3- | awk '$3 !~/\\[/ { print $1 }'
   # orphan
   ob = !git remote prune origin && git branch -vv | grep ': gone]' | awk '{print $1}'
+	lob = "!git branch --format '%(refname:short) %(upstream:short)' | awk '{if (!$2) print $1;}'"
   fco = "!f() { git branch -a | grep -m1 -e ${1}.*${2} | sed \"s/remotes\\/origin\\///\" | xargs git checkout; }; f"
 	fc = !git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout
+	mrb = !git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
 
 [color]
 	ui = true
