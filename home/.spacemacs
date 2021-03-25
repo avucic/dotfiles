@@ -52,7 +52,7 @@ This function should only modify configuration layer settings."
            ruby-test-runner 'rspec
            ruby-enable-ruby-on-rails-support t
            ;; ruby-enable-enh-ruby-mode t
-           ;; ruby-backend 'lsp
+           ruby-backend 'lsp
            )
      ruby-on-rails
      sql
@@ -73,7 +73,7 @@ This function should only modify configuration layer settings."
      ;; auto-completion
      (auto-completion :variables
                       ;; auto-completion-idle-delay nil
-                      auto-completion-return-key-behavior 'complete
+                      ;; auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior nil
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-snippets-in-popup t
@@ -124,7 +124,6 @@ This function should only modify configuration layer settings."
                                       (helm-taskrunner :location (recipe :fetcher github :repo "avucic/helm-taskrunner"))
                                       (emacs-async :location (recipe :fetcher github :repo "jwiegley/emacs-async"))
                                       eslint-fix
-                                      org-gcal
                                       excorporate
                                       antlr-mode
                                       exunit)
@@ -680,9 +679,7 @@ before packages are loaded."
   (setq org-projectile-projects-file "~/Dropbox/Org/projects.org")
   ;; (setq org-reveal-root "")
   (setq org-reveal-root "file:///Users/vucinjo/Dropbox/Or/reveal.js")
-  (setq org-gcal-file-alist '(("vucinjo@gmail.com" .  "~/Dropbox/Org/gcal.org")))
   ;; (setq org-reveal-root "file:///Users/vucinjo/Dropbox/Slides/reveal.js")
-  (setq org-gcal-up-days 7)
   (setq org-refile-targets
         '(("projects.org" :maxlevel . 5)
           ("notes.org" :maxlevel . 1)
@@ -690,15 +687,11 @@ before packages are loaded."
           ("tasks.org" :maxlevel . 1)
           ("notebook.org" :maxlevel . 5)
           ("access.org" :maxlevel . 1)))
-  ;; ("gcal.org" :maxlevel . 1)
   (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
   (setq org-refile-use-outline-path t)                  ; Show full paths for refiling
 
   (setq org-capture-templates
         '(
-          ("a" "Appointment" entry (file "gcal.org")
-           "* %?\n:PROPERTIES:\n:calendar-id:\tvucinjo@gmail.com\n:END:\n:org-gcal:\n%^T--%^T\n:END:\n\n")
-
           ("b" "Notebook and Bookmarks")
           ("bc" "Category" entry (file "notebook.org")
            "* %? %^G" :prepend t)
@@ -878,8 +871,6 @@ before packages are loaded."
   (define-key evil-visual-state-map (kbd "H") 'move-beginning-of-line)
   (define-key evil-visual-state-map (kbd "L") 'end-of-line)
 
-  (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
-  (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
   (add-hook 'flycheck-mode-hook 'codefalling//reset-eslint-rc)
   (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
   (add-hook 'term-mode-hook #'bb/setup-term-mode)
