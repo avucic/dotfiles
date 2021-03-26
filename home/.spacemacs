@@ -58,7 +58,9 @@ This function should only modify configuration layer settings."
      sql
      yaml
      cmake
-     (rust :variables rust-backend 'lsp)
+     (rust :variables
+           rust-backend 'lsp
+           rust-format-on-save t)
      (html :variables html-enable-lsp t)
      react
      prettier
