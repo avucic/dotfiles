@@ -775,9 +775,11 @@ before packages are loaded."
     (require 'seeing-is-believing)
     (add-hook 'ruby-mode-hook #'lsp-ui-mode)
 
-    ;; (evil-define-key '(normal) ruby-mode-map (kbd "m=") 'rubocopfmt)
-    ;; (spacemacs/declare-prefix-for-mode 'ruby-mode
-    ;;   "==" "rubocop-autocorrect-current-file" "Format code with Rubocop")
+    (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
+      "==" 'rubocopfmt)
+
+    (spacemacs/declare-prefix-for-mode 'ruby-mode
+      "m=" "format" "Format code with Rubocop")
     )
 
   ;; Rust ===============================================================
