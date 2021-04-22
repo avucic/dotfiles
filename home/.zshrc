@@ -68,7 +68,7 @@ alias dki="docker run -i -t -P"
 # Execute interactive container, e.g., $dex base /bin/bash
 alias dex="docker exec -i -t"
 # Run
-alias du="docker-compose up"
+# alias du="docker-compose up"
 # Stop all containers
 dstop() { docker stop $(docker ps -a -q); }
 # Remove all containers
@@ -90,16 +90,6 @@ dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/[
 dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
 dstats() { docker stats --all --format "table {{.ID}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}" }
 alias d='docker'
-
-#  lsof -t -i tcp:3000 | xargs kill
-kill_port() {
-    readonly port=${1:?"The port must be specified."}
-
-    # lsof -i tcp:"$port" | grep LISTEN | awk '{print $2}' | xargs kill
-    echo $(lsof -t -i:${port})
-    kill -9 $(lsof -t -i:${port})
-}
-
 
 alias dclimate="docker run \
   --interactive --tty --rm \
@@ -176,4 +166,26 @@ export CLICOLOR=1
 export LSCOLORS=gxcxdxdxbxxxxxbxbxgxgx
 # }}}
 
+# Yarn {{{
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+# }}}
+
+#  Custom func's  -----------------------------------------------------------{{{
+#  lsof -t -i tcp:3000 | xargs kill
+kill_port() {
+    readonly port=${1:?"The port must be specified."}
+
+    # lsof -i tcp:"$port" | grep LISTEN | awk '{print $2}' | xargs kill
+    echo $(lsof -t -i:${port})
+    kill -9 $(lsof -t -i:${port})
+}
+
+fix_es(){
+    curl -XPUT -H "Content-Type: application/json" http://localhost:9200/_cluster/settings -d '{ "transient": { "cluster.routing.allocation.disk.threshold_enabled": false } }' &&
+        curl -XPUT -H "Content-Type: application/json" http://localhost:9200/_all/_settings -d '{"index.blocks.read_only_allow_delete": null}'
+}
+# }}}
+
+#  Projects ENV -----------------------------------------------------------{{{
+export ENVAR_AWS_SECRET_KEY="ur++X656KsLzxkPOTSWR2bVDl+z5S3kYUC/0bLqB"
+# }}}

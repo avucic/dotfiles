@@ -611,7 +611,7 @@ dump."
                    (concat
                     (ediff-get-region-contents ediff-current-difference 'A ediff-control-buffer)
                     (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
-(defun add-d-to-ediff-mode-map () (define-key ediff-mode-map "d" 'ediff-copy-both-to-C))
+(defun add-d-to-ediff-mode-map () (define-key ediff-mode-map "c" 'ediff-copy-both-to-C))
 
 (defun codefalling//reset-eslint-rc ()
   (let ((rc-path (if (projectile-project-p)
@@ -632,6 +632,26 @@ dump."
   (evil-ex-search-previous)
   (run-with-idle-timer
    1 nil '(lambda () (spacemacs/evil-search-clear-highlight))))
+
+(defun kill-non-active-buffers ()
+  "Kill all other buffers."
+  (interactive)
+  (mapc 'kill-buffer 
+        (delq (current-buffer) 
+              (remove-if-not 'buffer-file-name (buffer-list)))))
+
+(defun kill-matching-buffers (regexp &optional internal-too no-ask)
+  "Kill buffers whose name matches the specified REGEXP.
+Ignores buffers whose name starts with a space, unless optional
+prefix argument INTERNAL-TOO is non-nil.  Asks before killing
+each buffer, unless NO-ASK is non-nil."
+  (interactive "sKill buffers matching this regular expression: \nP")
+  (dolist (buffer (buffer-list))
+    (let ((name (buffer-name buffer)))
+      (when (and name (not (string-equal name ""))
+                 (or internal-too (/= (aref name 0) ?\s))
+                 (string-match regexp name))
+        (funcall (if no-ask 'kill-buffer 'kill-buffer-ask) buffer)))))
 
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
@@ -769,6 +789,15 @@ before packages are loaded."
       "=l" 'eslint-fix)
     )
 
+  ;; React ===============================================================
+  (with-eval-after-load 'rjsx-mode
+    (setq web-mode-code-indent-offset 2)
+    (setq web-mode-indent-style 2)
+    (setq js2-basic-offset 2)
+    (setq js-indent-level 2)
+    )
+
+
   ;; Ruby ===============================================================
   (with-eval-after-load 'ruby-mode
     (require 'dap-ruby)
@@ -864,6 +893,7 @@ before packages are loaded."
   (global-set-key (kbd "M-m f g") 'rgrep)
   (evil-leader/set-key "q q" 'spacemacs/frame-killer)
   (evil-leader/set-key "y Y" 'helm-show-kill-ring)
+  (evil-leader/set-key "bl" 'ibuffer)
   (define-key evil-normal-state-map (kbd "<escape>") 'evil-mc-undo-all-cursors)
   (define-key evil-motion-state-map (kbd "n") 'evil-ex-search-next-auto-clear-highlight)
   (define-key evil-motion-state-map (kbd "N") 'evil-ex-search-previous-auto-clear-highlights)

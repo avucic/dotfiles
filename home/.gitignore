@@ -60,3 +60,5 @@ CS_SESSION
 .\#*
 tusk.yml
 *.http
+_build
+_build/*
