@@ -55,7 +55,10 @@ This function should only modify configuration layer settings."
            ruby-backend 'lsp
            )
      ruby-on-rails
-     sql
+     (sql :variables
+          sql-backend 'lsp
+          sql-capitalize-keywords t
+          sql-lsp-sqls-workspace-config-path 'workspace)
      yaml
      cmake
      (rust :variables
@@ -661,6 +664,7 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
   ;; (setq auth-sources '("~/.authinfo.gpg"))
   (load-library "~/.authinfo")
+  (add-to-list 'exec-path "~/bin")
 
   (prefer-coding-system 'utf-8)
   (set-default-coding-systems 'utf-8)
@@ -670,6 +674,12 @@ before packages are loaded."
   ;; (global-company-mode t)
   ;; (company-quickhelp-mode t)
   ;; (global-auto-complete-mode t)
+
+  (setq lsp-sqls-connections
+        '(((driver . "mysql") (dataSourceName . "yyoncho:local@tcp(localhost:3306)/foo"))
+          ((driver . "postgresql") (dataSourceName . "host=0.0.0.0 port=5432 user=postgres password=postgres dbname=tutorial sslmode=disable"))))
+
+
 
   (xclip-mode 1)
   (global-undo-tree-mode t)
