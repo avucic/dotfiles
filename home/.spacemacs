@@ -98,6 +98,7 @@ This function should only modify configuration layer settings."
      multiple-cursors
      search-engine
      (org :variables
+          verb-enable-elisp-completion t
           org-enable-verb-support t
           org-enable-reveal-js-support t
           org-enable-github-support t)
@@ -657,7 +658,6 @@ each buffer, unless NO-ASK is non-nil."
                  (string-match regexp name))
         (funcall (if no-ask 'kill-buffer 'kill-buffer-ask) buffer)))))
 
-
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
 This function is called at the very end of Spacemacs startup, after layer
@@ -673,8 +673,7 @@ before packages are loaded."
   (set-language-environment 'utf-8)
   (set-selection-coding-system 'utf-8)
 
-  (toggle-scroll-bar -1)
-  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
   (xclip-mode 1)
   (global-undo-tree-mode t)
   (evil-set-undo-system 'undo-tree)
@@ -682,6 +681,7 @@ before packages are loaded."
                           `(org-level-4 ((t (:foreground "#98c379")))))
 
   (spacemacs/toggle-indent-guide-globally-on)
+  (add-to-list 'default-frame-alist '(vertical-scroll-bars . nil))
 
   ;; (setq tab-always-indent t)
   (setq vc-follow-symlinks nil)
@@ -774,7 +774,7 @@ before packages are loaded."
           )
         )
 
-  (with-eval-after-load 'org
+  (with-eval-after-load 'org-mode
     (setq ob-mermaid-cli-path "~/.asdf/shims/mmdc")
     )
 
@@ -936,10 +936,96 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(org-agenda-files (append (file-expand-wildcards "~/Dropbox/Org/*.org")))
  '(package-selected-packages
-   '(magit-todos eslint-fix helm-taskswitch exunit vmd-mode bm ob-mermaid company-statistics company-quickhelp helm helm-core wgrep smex lsp-ivy ivy-yasnippet ivy-xref ivy-purpose ivy-hydra ivy-avy flyspell-correct-ivy counsel-projectile counsel-css counsel swiper ivy outshine outorg sqlup-mode sql-indent tide typescript-mode tern rjsx-mode js2-mode js-doc import-js grizzl add-node-modules-path ibuffer-projectile company-box frame-local company-inf-ruby web-mode web-beautify tagedit slim-mode scss-mode sass-mode pug-mode prettier-js impatient-mode simple-httpd helm-css-scss haml-mode github-search github-clone gist gh marshal logito pcache forge ghub closql emacsql-sqlite emacsql treepy emmet-mode dap-mode posframe bui company-web web-completion-data yasnippet-snippets xterm-color vterm treemacs-magit terminal-here smeargle shell-pop seeing-is-believing rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rbenv projectile-rails rake inflections orgit org-rich-yank org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink org-brain ob-elixir multi-term mmm-mode minitest markdown-toc magit-svn magit-section magit-gitflow magit-popup lsp-ui lsp-treemacs lsp-origami origami htmlize helm-org-rifle helm-lsp lsp-mode markdown-mode dash-functional helm-gitignore helm-git-grep helm-company helm-c-yasnippet gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ fringe-helper git-gutter+ gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-credo feature-mode evil-org evil-magit magit git-commit with-editor transient eshell-z eshell-prompt-extras esh-help chruby bundler inf-ruby browse-at-remote auto-yasnippet yasnippet auto-dictionary atom-one-dark-theme alchemist company elixir-mode ac-ispell auto-complete ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump dotenv-mode diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))
+   '(phpunit phpcbf phpactor composer php-extras php-auto-yasnippets helm-gtags ggtags geben drupal-mode counsel-gtags php-runtime php-mode magit-todos eslint-fix helm-taskswitch exunit vmd-mode bm ob-mermaid company-statistics company-quickhelp helm helm-core wgrep smex lsp-ivy ivy-yasnippet ivy-xref ivy-purpose ivy-hydra ivy-avy flyspell-correct-ivy counsel-projectile counsel-css counsel swiper ivy outshine outorg sqlup-mode sql-indent tide typescript-mode tern rjsx-mode js2-mode js-doc import-js grizzl add-node-modules-path ibuffer-projectile company-box frame-local company-inf-ruby web-mode web-beautify tagedit slim-mode scss-mode sass-mode pug-mode prettier-js impatient-mode simple-httpd helm-css-scss haml-mode github-search github-clone gist gh marshal logito pcache forge ghub closql emacsql-sqlite emacsql treepy emmet-mode dap-mode posframe bui company-web web-completion-data yasnippet-snippets xterm-color vterm treemacs-magit terminal-here smeargle shell-pop seeing-is-believing rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rbenv projectile-rails rake inflections orgit org-rich-yank org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink org-brain ob-elixir multi-term mmm-mode minitest markdown-toc magit-svn magit-section magit-gitflow magit-popup lsp-ui lsp-treemacs lsp-origami origami htmlize helm-org-rifle helm-lsp lsp-mode markdown-mode dash-functional helm-gitignore helm-git-grep helm-company helm-c-yasnippet gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ fringe-helper git-gutter+ gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-credo feature-mode evil-org evil-magit magit git-commit with-editor transient eshell-z eshell-prompt-extras esh-help chruby bundler inf-ruby browse-at-remote auto-yasnippet yasnippet auto-dictionary atom-one-dark-theme alchemist company elixir-mode ac-ispell auto-complete ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump dotenv-mode diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))
  '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e"))
  '(safe-local-variable-values
-   '((eval setq sql-connection-alist
+   '((eval setq lsp-sqls-connections
+           '(((driver . "mysql")
+              (dataSourceName . "root:password@tcp(localhost:3306)/"))))
+     (eval setq lsp-sqls-connections
+           '(((driver . "mysql")
+              (dataSourceName . "root:password@tcp(localhost:3306)/tutorial"))
+             ((driver . "mysql2")
+              (dataSourceName . "root:password@tcp(localhost:3306)/invoicing"))))
+     (eval setq lsp-sqls-connections
+           '(((driver . "mysql")
+              (dataSourceName . "root:password@tcp(localhost:3306)/tutorial"))
+             ((driver . "mysql")
+              (dataSourceName . "root:password@tcp(localhost:3306)/invoicing"))))
+     (eval setq lsp-sqls-connections
+           '(((driver . "mysql")
+              (dataSourceName . "root:password@tcp(localhost:3306)/tutorial"))))
+     (eval setq sql-connection-alist
+           '((tutorial
+              (sql-product 'mysql)
+              (sql-server "127.0.0.1")
+              (sql-user "root")
+              (sql-password "password")
+              (sql-database "tutorial")
+              (sql-port 5432))
+             (inventory
+              (sql-product 'mysql)
+              (sql-server "127.0.0.1")
+              (sql-user "root")
+              (sql-password "password")
+              (sql-database "sql_inventory")
+              (sql-port 5432))
+             (invoicing
+              (sql-product 'mysql)
+              (sql-server "127.0.0.1")
+              (sql-user "root")
+              (sql-password "password")
+              (sql-database "invoicing")
+              (sql-port 5432))
+             (hr
+              (sql-product 'mysql)
+              (sql-server "127.0.0.1")
+              (sql-user "root")
+              (sql-password "password")
+              (sql-database "sql_hr")
+              (sql-port 5432))))
+     (eval setq lsp-sqls-connections
+           '(((driver . "mysql-tutorial")
+              (dataSourceName . "root:password@tcp(localhost:3306)/tutorial"))
+             ((driver . "mysql-inventory")
+              (dataSourceName . "root:password@tcp(localhost:3306)/sql_inventory"))
+             ((driver . "mysql-invoicing")
+              (dataSourceName . "root:password@tcp(localhost:3306)/invoicing"))
+             ((driver . "mysql-hr")
+              (dataSourceName . "root:password@tcp(localhost:3306)/sql_hr"))))
+     (eval setq sql-connection-alist
+           '((tutorial
+              (sql-product 'mysql)
+              (sql-server "127.0.0.1")
+              (sql-user "root")
+              (sql-password "password")
+              (sql-database "tutorial")
+              (sql-port 5432))
+             (inventory
+              (sql-product 'mysql)
+              (sql-server "127.0.0.1")
+              (sql-user "root")
+              (sql-password "password")
+              (sql-database "inventory")
+              (sql-port 5432))
+             (invoicing
+              (sql-product 'mysql)
+              (sql-server "127.0.0.1")
+              (sql-user "root")
+              (sql-password "password")
+              (sql-database "invoicing")
+              (sql-port 5432))
+             (hr
+              (sql-product 'mysql)
+              (sql-server "127.0.0.1")
+              (sql-user "root")
+              (sql-password "password")
+              (sql-database "invoicing")
+              (sql-port 5432))))
+     (eval setq lsp-sqls-connections
+           '(((driver . "mysql")
+              (dataSourceName . "root:password@tcp(localhost:3306)"))))
+     (eval setq sql-connection-alist
            '((pp-db
               (sql-product 'postgres)
               (sql-server "127.0.0.1")
