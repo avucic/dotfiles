@@ -63,3 +63,5 @@ tusk.yml
 _build
 _build/*
 .sqls/*
+repl.sql
+.dir-locals.el

@@ -98,6 +98,7 @@ This function should only modify configuration layer settings."
      multiple-cursors
      search-engine
      (org :variables
+          org-enable-verb-support t
           org-enable-reveal-js-support t
           org-enable-github-support t)
      (shell :variables
@@ -656,6 +657,7 @@ each buffer, unless NO-ASK is non-nil."
                  (string-match regexp name))
         (funcall (if no-ask 'kill-buffer 'kill-buffer-ask) buffer)))))
 
+
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
 This function is called at the very end of Spacemacs startup, after layer
@@ -671,16 +673,8 @@ before packages are loaded."
   (set-language-environment 'utf-8)
   (set-selection-coding-system 'utf-8)
 
-  ;; (global-company-mode t)
-  ;; (company-quickhelp-mode t)
-  ;; (global-auto-complete-mode t)
-
-  (setq lsp-sqls-connections
-        '(((driver . "mysql") (dataSourceName . "yyoncho:local@tcp(localhost:3306)/foo"))
-          ((driver . "postgresql") (dataSourceName . "host=0.0.0.0 port=5432 user=postgres password=postgres dbname=tutorial sslmode=disable"))))
-
-
-
+  (toggle-scroll-bar -1)
+  (tool-bar-mode -1)
   (xclip-mode 1)
   (global-undo-tree-mode t)
   (evil-set-undo-system 'undo-tree)
@@ -941,11 +935,58 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
  '(org-agenda-files (append (file-expand-wildcards "~/Dropbox/Org/*.org")))
- ;; '(org-todo-keywords
- ;;   '((sequence "TODO(t)" "DOING(n)" "BLOCKED(b)" "REVIEW(r)" "FIXME(x)" "|" "FAIL(f)" "DONE(d)" "CANCELLED(c)")))
  '(package-selected-packages
    '(magit-todos eslint-fix helm-taskswitch exunit vmd-mode bm ob-mermaid company-statistics company-quickhelp helm helm-core wgrep smex lsp-ivy ivy-yasnippet ivy-xref ivy-purpose ivy-hydra ivy-avy flyspell-correct-ivy counsel-projectile counsel-css counsel swiper ivy outshine outorg sqlup-mode sql-indent tide typescript-mode tern rjsx-mode js2-mode js-doc import-js grizzl add-node-modules-path ibuffer-projectile company-box frame-local company-inf-ruby web-mode web-beautify tagedit slim-mode scss-mode sass-mode pug-mode prettier-js impatient-mode simple-httpd helm-css-scss haml-mode github-search github-clone gist gh marshal logito pcache forge ghub closql emacsql-sqlite emacsql treepy emmet-mode dap-mode posframe bui company-web web-completion-data yasnippet-snippets xterm-color vterm treemacs-magit terminal-here smeargle shell-pop seeing-is-believing rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rbenv projectile-rails rake inflections orgit org-rich-yank org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink org-brain ob-elixir multi-term mmm-mode minitest markdown-toc magit-svn magit-section magit-gitflow magit-popup lsp-ui lsp-treemacs lsp-origami origami htmlize helm-org-rifle helm-lsp lsp-mode markdown-mode dash-functional helm-gitignore helm-git-grep helm-company helm-c-yasnippet gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ fringe-helper git-gutter+ gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-credo feature-mode evil-org evil-magit magit git-commit with-editor transient eshell-z eshell-prompt-extras esh-help chruby bundler inf-ruby browse-at-remote auto-yasnippet yasnippet auto-dictionary atom-one-dark-theme alchemist company elixir-mode ac-ispell auto-complete ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump dotenv-mode diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))
- '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e")))
+ '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e"))
+ '(safe-local-variable-values
+   '((eval setq sql-connection-alist
+           '((pp-db
+              (sql-product 'postgres)
+              (sql-server "127.0.0.1")
+              (sql-user "postgres")
+              (sql-password "postgres")
+              (sql-database "dispatch_dev")
+              (sql-port 5432))))
+     (eval setq lsp-sqls-connections
+           '(((driver . "postgresql")
+              (dataSourceName . "host=0.0.0.0 port=5432 user=postgres password=postgres dbname=dispatch_dev sslmode=disable"))))
+     (eval setq sql-connection-alist
+           '((pp-db
+              (sql-product 'postgres)
+              (sql-server "127.0.0.1")
+              (sql-user "postgres")
+              (sql-password "postgres")
+              (sql-database "partner-product_development")
+              (sql-port 5432))))
+     (eval setq lsp-sqls-connections
+           '(((driver . "postgresql")
+              (dataSourceName . "host=0.0.0.0 port=5432 user=postgres password=postgres dbname=partner-product_development sslmode=disable"))))
+     (eval setq sql-connection-alist
+           '((pg
+              (sql-product 'postgres)
+              (sql-server "127.0.0.1")
+              (sql-user "postgres")
+              (sql-password "postgres")
+              (sql-database "partner-product_development")
+              (sql-port 5432))))
+     (eval setq lsp-sqls-connections
+           '(((driver . "mysql")
+              (dataSourceName . "root:password@tcp(localhost:3306)/tutorial"))
+             ((driver . "postgresql")
+              (dataSourceName . "host=0.0.0.0 port=5432 user=postgres password=postgres dbname=tutorial sslmode=disable"))))
+     (eval setq lsp-sqls-connections
+           '(((driver . "mysql")
+              (dataSourceName . "root:password@tcp(localhost:3306)/mysql"))
+             ((driver . "postgresql")
+              (dataSourceName . "host=0.0.0.0 port=5432 user=postgres password=postgres dbname=partner-product_development sslmode=disable"))))
+     (lsp-sqls-connections quote
+                           (((driver . "mysql")
+                             (dataSourceName . "root:password@tcp(localhost:3306)/mysql"))
+                            ((driver . "postgresql")
+                             (dataSourceName . "host=0.0.0.0 port=5432 user=postgres password=postgres dbname=partner-product_development sslmode=disable"))))
+     (javascript-backend . tide)
+     (javascript-backend . tern)
+     (javascript-backend . lsp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
