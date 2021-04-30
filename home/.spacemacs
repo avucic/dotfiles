@@ -941,6 +941,108 @@ This function is called at the very end of Spacemacs initialization."
  '(safe-local-variable-values
    '((eval setq lsp-sqls-connections
            '(((driver . "mysql")
+              (alias . "bar")
+              (dataSourceName . "root:password@tcp(localhost:3306)/tutorial"))
+             ((driver . "mysql")
+              (alias . "foo")
+              (dataSourceName . "root:password@tcp(localhost:3306)/mysql"))))
+     (eval setq sql-connection-alist
+           '((tutorial
+              (sql-product 'mysql)
+              (sql-server "127.0.0.1")
+              (sql-user "root")
+              (sql-password "password")
+              (sql-database "tutorial")
+              (sql-port 3306))
+             (inventory
+              (sql-product 'mysql)
+              (sql-server "127.0.0.1")
+              (sql-user "root")
+              (sql-password "password")
+              (sql-database "sql_inventory")
+              (sql-port 3306))
+             (invoicing
+              (sql-product 'mysql)
+              (sql-server "127.0.0.1")
+              (sql-user "root")
+              (sql-password "password")
+              (sql-database "invoicing")
+              (sql-port 3306))
+             (hr
+              (sql-product 'mysql)
+              (sql-server "127.0.0.1")
+              (sql-user "root")
+              (sql-password "password")
+              (sql-database "sql_hr")
+              (sql-port 3306))))
+     (eval setq lsp-sqls-connections
+           '(((alias . "foo")
+              (driver . "mysql")
+              (dataSourceName . "root:password@tcp(localhost:3306)/tutorial"))))
+     (eval setq lsp-sqls-connections
+           '(((driver . "mysql")
+              (alias . "foo")
+              (dataSourceName . "root:password@tcp(localhost:3306)/tutorial"))
+             ((driver . "mysql")
+              (alias . "bar")
+              (dataSourceName . "root:password@tcp(localhost:3306)/sql_inventory"))))
+     (eval setq lsp-sqls-connections
+           '(((driver . "mysql")
+              (alias . "foo")
+              (dataSourceName . "root:password@tcp(localhost:3306)/tutorial"))
+             ((driver . "mysql")
+              (alias . "bar")
+              (dataSourceName . "root:password@tcp(localhost:3306)/tutorial"))))
+     (eval setq sql-connection-alist
+           '((tutorial
+              (sql-product 'mysql)
+              (sql-server "127.0.0.1")
+              (sql-user "root")
+              (sql-password "password")
+              (sql-database "tutorial")
+              (sql-port 5432))))
+     (eval setq sql-connection-alist
+           '((tutorial
+              (sql-product 'tutorial)
+              (sql-server "127.0.0.1")
+              (sql-user "root")
+              (sql-password "password")
+              (sql-database "tutorial")
+              (sql-port 5432))
+             (invoicing
+              (sql-product 'invoicing)
+              (sql-server "127.0.0.1")
+              (sql-user "root")
+              (sql-password "password")
+              (sql-database "invoicing")
+              (sql-port 5432))))
+     (eval setq sql-connection-alist
+           '((tutorial
+              (sql-product 'mysql)
+              (sql-server "127.0.0.1")
+              (sql-user "root")
+              (sql-password "password")
+              (sql-database "tutorial")
+              (sql-port 5432))
+             (invoicing
+              (sql-product 'mysql)
+              (sql-server "127.0.0.1")
+              (sql-user "root")
+              (sql-password "password")
+              (sql-database "invoicing")
+              (sql-port 5432))))
+     (eval setq lsp-sqls-connections
+           '(((driver . "mysql")
+              (alias . "tutorial")
+              (dataSourceName . "root:password@tcp(localhost:3306)/tutorial"))
+             ((driver . "mysql")
+              (alias . "invoicing")
+              (dataSourceName . "root:password@tcp(localhost:3306)/invoicing"))))
+     (eval setq lsp-sqls-connections
+           '(((driver . "mysql")
+              (dataSourceName . "root:password@tcp(localhost:3306)/mysql"))))
+     (eval setq lsp-sqls-connections
+           '(((driver . "mysql")
               (dataSourceName . "root:password@tcp(localhost:3306)/"))))
      (eval setq lsp-sqls-connections
            '(((driver . "mysql")
