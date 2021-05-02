@@ -91,16 +91,7 @@ each buffer, unless NO-ASK is non-nil."
                  (string-match regexp name))
         (funcall (if no-ask 'kill-buffer 'kill-buffer-ask) buffer)))))
 
-;; ============================= sqls ===========================================
-;;;###autoload
-(defmacro any-nil? (&rest args)
-  `(not (and ,@args)))
-
-;;;###autoload
-(defmacro throw-if (condition &optional error-description)
-  "if condition is true, thrown an error"
-  `(if ,condition (error (or ,error-description ""))))
-
+;; ;; ============================= sqls ===========================================
 ;; Variables related to sql configs
 (setq lsp-sqls-connections nil)
 (setq sql-connection-alist nil)
@@ -120,10 +111,9 @@ each buffer, unless NO-ASK is non-nil."
 
 
 ;;;###autoload
-(defun add-to-sqls-connections (db-type alias data-src-name)
+(defun add-to-sqls-connections (db-type data-src-name)
   (add-to-list 'lsp-sqls-connections
                (list (cons 'driver db-type)
-                     (cons 'alias alias)
                      (cons 'dataSourceName data-src-name))))
 
 ;;;###autoload
@@ -153,14 +143,12 @@ each buffer, unless NO-ASK is non-nil."
         :password \"mypassword\")"
   `(let ((port (or ,(plist-get db-info :port) 5432))
          (user ,(plist-get db-info :user))
-         (alias ,(plist-get db-info :alias))
          (password ,(plist-get db-info :password))
          (host ,(plist-get db-info :host))
          (db ,(plist-get db-info :database)))
-     (throw-if (any-nil? user password host db (quote ,name)) "there are info missing!")
      (let ((full-uri (format-postgres-uri host port user password db))
-           (data-src-name (format-postgres-sqls host port user password db)))
-       (add-to-sqls-connections "postgresql" alias data-src-name)
+           (data-src-name (format-postgres-uri host port user password db)))
+       (add-to-sqls-connections "postgresql" data-src-name)
        (add-to-sql-conection-alist 'postgres ,name host port user password full-uri))))
 
 ;;;###autoload
@@ -179,10 +167,9 @@ each buffer, unless NO-ASK is non-nil."
         :password \"mypassword\")"
   `(let ((port (or ,(plist-get db-info :port) 3306))
          (user ,(plist-get db-info :user))
-         (alias ,(plist-get db-info :alias))
          (password ,(plist-get db-info :password))
          (host ,(plist-get db-info :host))
          (db ,(plist-get db-info :database)))
-     (throw-if (any-nil? user password host db (quote ,name)) "there are info missing!")
+
      (add-to-sqls-connections "mysql" (format-mysql-sqls host port user password db))
      (add-to-sql-conection-alist 'mysql ,name host port user password db)))

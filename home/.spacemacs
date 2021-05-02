@@ -58,7 +58,7 @@ This function should only modify configuration layer settings."
      (sql :variables
           sql-backend 'lsp
           sql-capitalize-keywords t
-          sql-lsp-sqls-workspace-config-path 'workspace)
+          sql-lsp-sqls-workspace-config-path nil)
      yaml
      cmake
      (rust :variables
@@ -566,6 +566,7 @@ This function is called only while dumping Spacemacs configuration. You can
 dump."
   )
 
+
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
 This function is called at the very end of Spacemacs startup, after layer
@@ -575,11 +576,7 @@ before packages are loaded."
   ;; (setq auth-sources '("~/.authinfo.gpg"))
   (load-library "~/.authinfo")
   (add-to-list 'exec-path "~/bin")
-
-  (when (file-exists-p "~/personal-config.el")
-    (load-file "~/personal-config.el")
-    (require 'personal-config)
-    )
+  (load-file "~/.personal-config.el")
 
   (prefer-coding-system 'utf-8)
   (set-default-coding-systems 'utf-8)
