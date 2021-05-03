@@ -97,9 +97,9 @@ each buffer, unless NO-ASK is non-nil."
 (setq sql-connection-alist nil)
 
 ;;;###autoload
-(defun format-postgres-sqls (host port user password db)
-  (format "host=%s port=%s user=%s password=%s dbname=%s"
-          host port user password db))
+(defun format-postgres-sqls (host port user password db sslmode)
+  (format "host=%s port=%s user=%s password=%s dbname=%s sslmode=%s"
+          host port user password db sslmode))
 
 ;;;###autoload
 (defun format-mysql-sqls (host port user password db)
@@ -147,7 +147,7 @@ each buffer, unless NO-ASK is non-nil."
          (host ,(plist-get db-info :host))
          (db ,(plist-get db-info :database)))
      (let ((full-uri (format-postgres-uri host port user password db))
-           (data-src-name (format-postgres-uri host port user password db)))
+           (data-src-name (format-postgres-sqls host port user password db "disable")))
        (add-to-sqls-connections "postgresql" data-src-name)
        (add-to-sql-conection-alist 'postgres ,name host port user password full-uri))))
 
