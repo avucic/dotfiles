@@ -583,7 +583,11 @@ before packages are loaded."
   (set-language-environment 'utf-8)
   (set-selection-coding-system 'utf-8)
 
+  ;; scrolling
   (scroll-bar-mode -1)
+  (horizontal-scroll-bar-mode -1)
+  (mouse-wheel-mode -1)
+
   (xclip-mode 1)
   (global-undo-tree-mode t)
   (evil-set-undo-system 'undo-tree)
@@ -591,7 +595,11 @@ before packages are loaded."
                           `(org-level-4 ((t (:foreground "#98c379")))))
 
   (spacemacs/toggle-indent-guide-globally-on)
+
+  ;; disable scrollbars
   (add-to-list 'default-frame-alist '(vertical-scroll-bars . nil))
+  (customize-set-variable 'scroll-bar-mode nil)
+  (customize-set-variable 'horizontal-scroll-bar-mode nil)
 
   ;; (setq tab-always-indent t)
   (setq vc-follow-symlinks nil)
