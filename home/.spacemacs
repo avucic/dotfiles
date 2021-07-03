@@ -436,7 +436,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Show the scroll bar while scrolling. The auto hide time can be configured
    ;; by setting this variable to a number. (default t)
-   dotspacemacs-scroll-bar-while-scrolling t
+   dotspacemacs-scroll-bar-while-scrolling nil
 
    ;; Control line numbers activation.
    ;; If set to `t', `relative' or `visual' then line numbers are enabled in all
@@ -606,21 +606,11 @@ before packages are loaded."
   (set-language-environment 'utf-8)
   (set-selection-coding-system 'utf-8)
 
-  ;; scrolling
-  (scroll-bar-mode -1)
-  (horizontal-scroll-bar-mode -1)
-  (mouse-wheel-mode -1)
-
   (xclip-mode 1)
   (global-undo-tree-mode t)
   (evil-set-undo-system 'undo-tree)
   (custom-theme-set-faces 'user
                           `(org-level-4 ((t (:foreground "#98c379")))))
-
-  ;; disable scrollbars
-  (add-to-list 'default-frame-alist '(vertical-scroll-bars . nil))
-  (customize-set-variable 'scroll-bar-mode nil)
-  (customize-set-variable 'horizontal-scroll-bar-mode nil)
 
   ;; (setq tab-always-indent t)
   (setq vc-follow-symlinks nil)
@@ -873,7 +863,6 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
- '(horizontal-scroll-bar-mode nil)
  '(org-agenda-files (append (file-expand-wildcards "~/Dropbox/Org/*.org")))
  '(package-selected-packages
    '(company-phpactor company-php ac-php-core xcscope phpunit phpcbf phpactor composer php-extras php-auto-yasnippets helm-gtags ggtags geben drupal-mode counsel-gtags php-runtime php-mode magit-todos eslint-fix helm-taskswitch exunit vmd-mode bm ob-mermaid company-statistics company-quickhelp helm helm-core wgrep smex lsp-ivy ivy-yasnippet ivy-xref ivy-purpose ivy-hydra ivy-avy flyspell-correct-ivy counsel-projectile counsel-css counsel swiper ivy outshine outorg sqlup-mode sql-indent tide typescript-mode tern rjsx-mode js2-mode js-doc import-js grizzl add-node-modules-path ibuffer-projectile company-box frame-local company-inf-ruby web-mode web-beautify tagedit slim-mode scss-mode sass-mode pug-mode prettier-js impatient-mode simple-httpd helm-css-scss haml-mode github-search github-clone gist gh marshal logito pcache forge ghub closql emacsql-sqlite emacsql treepy emmet-mode dap-mode posframe bui company-web web-completion-data yasnippet-snippets xterm-color vterm treemacs-magit terminal-here smeargle shell-pop seeing-is-believing rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rbenv projectile-rails rake inflections orgit org-rich-yank org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink org-brain ob-elixir multi-term mmm-mode minitest markdown-toc magit-svn magit-section magit-gitflow magit-popup lsp-ui lsp-treemacs lsp-origami origami htmlize helm-org-rifle helm-lsp lsp-mode markdown-mode dash-functional helm-gitignore helm-git-grep helm-company helm-c-yasnippet gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ fringe-helper git-gutter+ gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-credo feature-mode evil-org evil-magit magit git-commit with-editor transient eshell-z eshell-prompt-extras esh-help chruby bundler inf-ruby browse-at-remote auto-yasnippet yasnippet auto-dictionary atom-one-dark-theme alchemist company elixir-mode ac-ispell auto-complete ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump dotenv-mode diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))
@@ -881,8 +870,7 @@ This function is called at the very end of Spacemacs initialization."
  '(safe-local-variable-values
    '((javascript-backend . tide)
      (javascript-backend . tern)
-     (javascript-backend . lsp)))
- '(scroll-bar-mode nil))
+     (javascript-backend . lsp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
