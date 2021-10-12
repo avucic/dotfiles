@@ -31,7 +31,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(php
+   '(;;php
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -64,12 +64,17 @@ This function should only modify configuration layer settings."
      (rust :variables
            rust-backend 'lsp
            rust-format-on-save t)
-     (html :variables html-enable-lsp t)
+     (html :variables
+           web-fmt-tool 'prettier
+           html-enable-lsp t
+           css-enable-lsp t
+           less-enable-lsp t
+           scss-enable-lsp t)
      react
      prettier
      (javascript :variables
-                 javascript-backend 'tide
-                 ;; javascript-backend 'lsp
+                 ;; javascript-backend 'tide
+                 javascript-backend 'lsp
                  javascript-lsp-linter t
                  javascript-fmt-tool 'prettier
                  javascript-repl 'nodejs)
@@ -92,8 +97,9 @@ This function should only modify configuration layer settings."
      github
      helm
      ;; lsp
-     (lsp :variables lsp-rust-server 'rust-analyzer)
-     mermaid
+     (lsp :variables
+          lsp-rust-server 'rust-analyzer)
+     ;; mermaid
      (markdown :variables markdown-live-preview-engine 'vmd)
      multiple-cursors
      search-engine
@@ -271,6 +277,15 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default major mode of the scratch buffer (default `text-mode')
    dotspacemacs-scratch-mode 'text-mode
+
+   ;; If non-nil, *scratch* buffer will be persistent. Things you write down in
+   ;; *scratch* buffer will be saved and restored automatically.
+   dotspacemacs-scratch-buffer-persistent nil
+
+   ;; If non-nil, `kill-buffer' on *scratch* buffer
+   ;; will bury it instead of killing.
+   dotspacemacs-scratch-buffer-unkillable nil
+
 
    ;; Initial message in the scratch buffer, such as "Welcome to Spacemacs!"
    ;; (default nil)
@@ -493,7 +508,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
-   dotspacemacs-persistent-server nil
+   dotspacemacs-persistent-server t
 
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
@@ -589,7 +604,6 @@ This function is called only while dumping Spacemacs configuration. You can
 dump."
   )
 
-
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
 This function is called at the very end of Spacemacs startup, after layer
@@ -620,9 +634,11 @@ before packages are loaded."
   (setq auto-completion-enable-help-tooltip t)
   (setq x-gtk-use-system-tooltips nil)
   (setq elixir-ls-path "~/.elixir-ls")
+
   (setq lsp-ui-doc-enable nil)
   ;; (setq lsp-ui-doc-position 'at-point)
   (setq lsp-enable-file-watchers nil)
+
   (setq x-gtk-use-system-tooltips nil)
   (setq ranger-show-literal nil)
 
@@ -724,12 +740,16 @@ before packages are loaded."
 
   ;; React ===============================================================
   (with-eval-after-load 'rjsx-mode
-    (setq web-mode-code-indent-offset 2)
-    (setq web-mode-indent-style 2)
-    (setq js2-basic-offset 2)
-    (setq js-indent-level 2)
+    (setq javascript-fmt-tool 'prettier)
+    (setq flycheck-checker 'javascript-eslint)
+    ;; (setq js2-mode-show-strict-warnings nil)
+    ;; (add-hook 'js2-mode-hook #'lsp-ui-mode)
+    ;; (add-hook 'js2-mode-hook #'lsp-mode)
+    ;; (spacemacs/declare-prefix-for-mode 'js2-mode
+    ;;   "m=" "formating" "format code")
+    ;; (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+    ;;   "=l" 'eslint-fix)
     )
-
 
   ;; Ruby ===============================================================
   (with-eval-after-load 'ruby-mode
@@ -741,8 +761,7 @@ before packages are loaded."
       "==" 'rubocopfmt)
 
     (spacemacs/declare-prefix-for-mode 'ruby-mode
-      "m=" "format" "Format code with Rubocop")
-    )
+      "m=" "format" "Format code with Rubocop"))
 
   ;; Rust ===============================================================
   (with-eval-after-load 'rust-mode
@@ -782,6 +801,12 @@ before packages are loaded."
     ;; (setq lsp-ui-sideline-enable nil)
     ;; (setq lsp-ui-doc-max-width 20)
     ;; (setq lsp-ui-doc-max-height 25)
+    )
+
+  ;; SQL ===============================================================
+  (with-eval-after-load 'sql-mode
+    (add-hook 'rust-mode-hook #'lsp-ui)
+    (add-hook 'rust-mode-hook #'lsp-ui-mode)
     )
 
   (purpose-add-user-purposes :regexps '(
@@ -843,6 +868,8 @@ before packages are loaded."
   (add-hook 'term-mode-hook #'bb/setup-term-mode)
   (add-hook 'dap-stopped-hook (lambda (arg) (call-interactively #'dap-hydra)))
   (add-hook 'hack-local-variables-hook #'spacemacs/toggle-truncate-lines)
+  (remove-hook 'prog-mode-hook 'auto-highlight-symbol-mode)
+  (remove-hook 'markdown-mode-hook 'auto-highlight-symbol-mode)
 
   (advice-add #'evil-delete-marks :after
               #'(lambda (&rest rest)
