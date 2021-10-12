@@ -72,18 +72,20 @@ This function should only modify configuration layer settings."
            scss-enable-lsp t)
      react
      prettier
+     import-js
      (javascript :variables
                  ;; javascript-backend 'tide
                  javascript-backend 'lsp
                  javascript-lsp-linter t
                  javascript-fmt-tool 'prettier
-                 javascript-repl 'nodejs)
+                 javascript-repl 'nodejs
+                 javascript-import-tool 'import-js)
      elixir
      ;; outshine
      ;; auto-completion
      (auto-completion :variables
                       ;; auto-completion-idle-delay nil
-                      ;; auto-completion-return-key-behavior 'complete
+                      auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior nil
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-snippets-in-popup t
@@ -638,6 +640,8 @@ before packages are loaded."
   (setq lsp-ui-doc-enable nil)
   ;; (setq lsp-ui-doc-position 'at-point)
   (setq lsp-enable-file-watchers nil)
+  (setq lsp-completion-enable t)
+  (setq lsp-enable-snippet t)
 
   (setq x-gtk-use-system-tooltips nil)
   (setq ranger-show-literal nil)
@@ -723,33 +727,32 @@ before packages are loaded."
     (setq ob-mermaid-cli-path "~/.asdf/shims/mmdc")
     )
 
+  ;; defaults
+  (setq css-indent-offset 2) ; css-mode
+  (setq json-indent-offset 2) ; json-mode
+
   ;; web ===============================================================
-  (setq web-mode-enable-auto-closing t)
+  (with-eval-after-load 'web-mode
+    (setq web-mode-enable-auto-closing t)
+
+    (add-hook 'web-mode-hook #'prettier-js-mode))
+  ;; (setq css-indent-offset 2)
 
   ;; JS ===============================================================
   (with-eval-after-load 'js2-mode
+    (setq javascript-fmt-tool 'prettier)
+    (setq flycheck-checker 'javascript-eslint)
     (setq js2-mode-show-parse-errors nil)
     (setq js2-mode-show-strict-warnings nil)
+
     (add-hook 'js2-mode-hook #'lsp-ui-mode)
     (add-hook 'js2-mode-hook #'lsp-mode)
+    (add-hook 'js2-mode-hook #'prettier-js-mode)
+
     (spacemacs/declare-prefix-for-mode 'js2-mode
       "m=" "formating" "format code")
     (spacemacs/set-leader-keys-for-major-mode 'js2-mode
-      "=l" 'eslint-fix)
-    )
-
-  ;; React ===============================================================
-  (with-eval-after-load 'rjsx-mode
-    (setq javascript-fmt-tool 'prettier)
-    (setq flycheck-checker 'javascript-eslint)
-    ;; (setq js2-mode-show-strict-warnings nil)
-    ;; (add-hook 'js2-mode-hook #'lsp-ui-mode)
-    ;; (add-hook 'js2-mode-hook #'lsp-mode)
-    ;; (spacemacs/declare-prefix-for-mode 'js2-mode
-    ;;   "m=" "formating" "format code")
-    ;; (spacemacs/set-leader-keys-for-major-mode 'js2-mode
-    ;;   "=l" 'eslint-fix)
-    )
+      "=l" 'eslint-fix))
 
   ;; Ruby ===============================================================
   (with-eval-after-load 'ruby-mode
@@ -805,9 +808,8 @@ before packages are loaded."
 
   ;; SQL ===============================================================
   (with-eval-after-load 'sql-mode
-    (add-hook 'rust-mode-hook #'lsp-ui)
-    (add-hook 'rust-mode-hook #'lsp-ui-mode)
-    )
+    (add-hook 'sql-mode-hook #'lsp-ui)
+    (add-hook 'sql-mode-hook #'lsp-ui-mode))
 
   (purpose-add-user-purposes :regexps '(
                                         ("spec\\.rb$" . rspec)
@@ -820,30 +822,6 @@ before packages are loaded."
                                         ("\\.css$" . web)
                                         ("\\.scss$" . web)
                                         ))
-
-  ;; ;;  Excorporate
-  ;; ;; allow opening the exchange calendar with 'e' from calendar 
-  ;; (evil-define-key 'motion calendar-mode-map "e" #'exco-calendar-show-day)
-
-  ;; (setq-default
-  ;;  ;; configure email address and office 365 exchange server adddress for exchange web services
-  ;;  excorporate-configuration
-  ;;  (quote
-  ;;   ("my.email@myorg.com" . "https://outlook.office365.com/EWS/Exchange.asmx"))
-  ;;  ;; integrate emacs diary entries into org agenda
-  ;;  org-agenda-include-diary t
-  ;;  )
-  ;; ;; activate excorporate and request user/password to start connection
-  ;; (excorporate)
-  ;; ;; enable the diary integration (i.e. write exchange calendar to emacs diary file -> ~/.emacs.d/diary must exist)
-  ;; (excorporate-diary-enable)
-  ;; (defun ab/agenda-update-diary ()
-  ;;   "call excorporate to update the diary for today"
-  ;;   (exco-diary-diary-advice (calendar-current-date) (calendar-current-date) #'message "diary updated")
-  ;;   )
-
-  ;; ;; update the diary every time the org agenda is refreshed
-  ;; (add-hook 'org-agenda-cleanup-fancy-diary-hook 'ab/agenda-update-diary )
 
   ;; Keybindings
   ;; (spacemacs/set-leader-keys (kbd "b b") 'switch-to-buffer)
