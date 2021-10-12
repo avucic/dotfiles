@@ -85,7 +85,7 @@ This function should only modify configuration layer settings."
      ;; auto-completion
      (auto-completion :variables
                       ;; auto-completion-idle-delay nil
-                      auto-completion-return-key-behavior 'complete
+                      ;; auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior nil
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-snippets-in-popup t
@@ -724,8 +724,8 @@ before packages are loaded."
         )
 
   (with-eval-after-load 'org-mode
-    (setq ob-mermaid-cli-path "~/.asdf/shims/mmdc")
-    )
+    (setq ob-mermaid-cli-path "~/.asdf/shims/mmdc"))
+
 
   ;; defaults
   (setq css-indent-offset 2) ; css-mode
@@ -841,6 +841,7 @@ before packages are loaded."
   (define-key evil-visual-state-map (kbd "H") 'move-beginning-of-line)
   (define-key evil-visual-state-map (kbd "L") 'end-of-line)
 
+  ;; hooks
   (add-hook 'flycheck-mode-hook 'codefalling//reset-eslint-rc)
   (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
   (add-hook 'term-mode-hook #'bb/setup-term-mode)
@@ -853,6 +854,11 @@ before packages are loaded."
               #'(lambda (&rest rest)
                   (evil-visual-mark-mode)
                   (evil-visual-mark-mode)))
+
+  (add-hook 'lsp-completion-mode-hook
+            (lambda ()
+              (when (eq (car company-backends) 'company-capf)
+                (push '(company-capf :with company-yasnippet) company-backends))))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
