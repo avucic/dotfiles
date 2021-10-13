@@ -829,6 +829,7 @@ before packages are loaded."
 
   ;; Keybindings
   ;; (spacemacs/set-leader-keys (kbd "b b") 'switch-to-buffer)
+  (spacemacs|use-package-add-hook emmet-mode :post-config (define-key emmet-mode-keymap (kbd "<C-tab>") 'spacemacs/emmet-expand))
   (global-set-key (kbd "M-m f d") 'find-name-dired)
   (global-set-key (kbd "M-m f g") 'rgrep)
   (evil-leader/set-key "q q" 'spacemacs/frame-killer)
