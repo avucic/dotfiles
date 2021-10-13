@@ -1,0 +1,6 @@
+#name : function MyComponent() { }...export default MyComponent
+# --
+function ${1:`(file-name-base)`}(){
+  return <div>$0</div>
+}
+export default $1

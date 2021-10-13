@@ -647,6 +647,9 @@ before packages are loaded."
   (setq x-gtk-use-system-tooltips nil)
   (setq ranger-show-literal nil)
 
+  ;;snippets
+  (setq yas-snippet-dirs (append yas-snippet-dirs
+                                 '("~/dotfiles/spacemacs/snippets")))
   ;; org
   (setq org-refile-use-outline-path 'file)
   (setq org-outline-path-complete-in-steps nil)
