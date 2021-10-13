@@ -73,6 +73,7 @@ This function should only modify configuration layer settings."
      react
      prettier
      import-js
+     (docker :variables docker-dockerfile-backend 'lsp)
      (javascript :variables
                  ;; javascript-backend 'tide
                  javascript-backend 'lsp
