@@ -31,7 +31,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(;;php
+   '(typescript
+     ;;php
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -744,6 +745,8 @@ before packages are loaded."
 
   ;; JS ===============================================================
   (with-eval-after-load 'js2-mode
+    (require 'dap-chrome)
+
     (setq javascript-fmt-tool 'prettier)
     (setq flycheck-checker 'javascript-eslint)
     (setq js2-mode-show-parse-errors nil)
@@ -827,6 +830,8 @@ before packages are loaded."
                                         ("\\.scss$" . web)
                                         ))
 
+  ;; ANTLR ===============================================================
+  (add-to-list 'auto-mode-alist '("\\.g4\\'" . antlr-mode))
   ;; Keybindings
   ;; (spacemacs/set-leader-keys (kbd "b b") 'switch-to-buffer)
   (spacemacs|use-package-add-hook emmet-mode :post-config (define-key emmet-mode-keymap (kbd "<C-tab>") 'spacemacs/emmet-expand))
