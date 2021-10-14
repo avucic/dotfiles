@@ -3,4 +3,5 @@
 function ${1:`(file-name-base)`}($2){
   return <div>$0</div>
 }
+
 export default $1
