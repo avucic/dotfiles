@@ -28,10 +28,10 @@ export TERM=xterm-256color
 # alias ed="emacs --daemon="
 # alias e="emacsclient --create-frame -n"
 alias et="TERM=xterm-24bit emacsclient -a '' -c" #spacemacs terminal client
-alias e="em" # spacemacs gui client
+alias e="emacs" # spacemacs gui client
 export ALTERNATE_EDITOR='' # for emacs deamon
 export ALTERNATE_EDITOR=""
-export EDITOR="em"
+export EDITOR="emacs"
 
 alias n='TERM=xterm-24bit nvim'
 alias r='rails'
@@ -187,6 +187,6 @@ fix_es(){
 }
 # }}}
 
-#  Projects ENV -----------------------------------------------------------{{{
-export ENVAR_AWS_SECRET_KEY="ur++X656KsLzxkPOTSWR2bVDl+z5S3kYUC/0bLqB"
+#  Emacs ElixirLS setup  -----------------------------------------------------------{{{
+export PATH="/Users/vucinjo/.elixir-ls:$PATH"
 # }}}

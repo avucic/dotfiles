@@ -1,0 +1,3 @@
+#name : import './MyComponent.module.css'
+# --
+import './${1:`(file-name-base)`.module.css}'
