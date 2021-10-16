@@ -77,7 +77,12 @@
 (map!
  :leader
  :desc "ace-select-window"
- "w a" #'ace-select-window)
+ "w W" #'ace-select-window)
+
+(map!
+ :leader
+ :desc "ace-select-window"
+ "w D" #'ace-delete-window)
 
 (map!
  :leader
