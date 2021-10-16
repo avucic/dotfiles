@@ -58,7 +58,17 @@
 (setq yas-snippet-dirs (append yas-snippet-dirs
                                '("~/dotfiles/emacs/snippets")))
 
-(setq lsp-elixir-local-server-command "~/.eslint-ls/language_server.sh")
+(setq lsp-elixir-local-server-command "~/.eslint-ls/language_server.sh") ;
+
+;; missing finge
+;; (setq doom-fringe-size '4)
+;; (setq left-fringe-width 16)
+;; ;; (dap-auto-configure-mode 1)
+;; (set-fringe-style (quote (20 . 10)))
+
+;; Prevents some cases of Emacs flickering
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
 ;;  keybindings
 ;;  =======================================================================================================
 (define-key evil-normal-state-map (kbd "H") 'move-beginning-of-line)
@@ -105,15 +115,6 @@
 
 ;; hooks
 ;;  =======================================================================================================
-;; Prevents some cases of Emacs flickering
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
-
-;; lsp
-;; (add-hook 'ruby-mode-hook #'lsp-ui-mode)
-;; (add-hook 'js2-mode-hook #'lsp-ui-mode)
-;; (add-hook 'elixir-mode-hook #'lsp-ui-mode)
-;; (after! lsp-ui-mode
-;;   (setq lsp-ui-doc-enable t))
 
 (defun maybe-use-prettier ()
   "Enable prettier-js-mode if an rc file is located."
@@ -124,7 +125,24 @@
 (add-hook 'js2-mode-hook 'maybe-use-prettier)
 (add-hook 'web-mode-hook 'maybe-use-prettier)
 (add-hook 'rjsx-mode-hook 'maybe-use-prettier)
-
 ;; (after! html-mode-hook
 ;;   (lsp)
 ;;   (lsp-ui-mode))
+;;
+;; workaround for fringe
+;; (set-fringe-style (quote (20 . 10)))
+;; (custom-set-faces
+;;  '(dap-ui-pending-breakpoint-face ((t (:underline "dim gray"))))
+;;  '(dap-ui-verified-breakpoint-face ((t (:underline "green")))))
+;; set left margin to show git-gutter again
+
+(setq +vc-gutter-default-style nil)
+(fringe-mode nil)
+
+;; (setq-default left-margin-width 1)
+;; (set-window-buffer nil (current-buffer))
+;; (after! git-gutter-fringe
+;;   (setq-default fringes-outside-margins t)
+;;   (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
+;;   (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
+;;   (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
