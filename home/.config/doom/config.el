@@ -61,14 +61,121 @@
 (setq lsp-elixir-local-server-command "~/.eslint-ls/language_server.sh") ;
 
 ;; missing finge
+;; ------------------------------------------------------------
 ;; (setq doom-fringe-size '4)
 ;; (setq left-fringe-width 16)
 ;; ;; (dap-auto-configure-mode 1)
 ;; (set-fringe-style (quote (20 . 10)))
+;; workaround for fringe
+;; (set-fringe-style (quote (20 . 10)))
+;; (custom-set-faces
+;;  '(dap-ui-pending-breakpoint-face ((t (:underline "dim gray"))))
+;;  '(dap-ui-verified-breakpoint-face ((t (:underline "green")))))
+;; set left margin to show git-gutter again
+
+(setq +vc-gutter-default-style nil)
+(fringe-mode nil)
+
+;; (setq-default left-margin-width 1)
+;; (set-window-buffer nil (current-buffer))
+;; (after! git-gutter-fringe
+;;   (setq-default fringes-outside-margins t)
+;;   (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
+;;   (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
+;;   (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
+
+;; (defun fix-fringe
+;;     (set-window-buffer nil (current-buffer)) )
+
+;; (add-hook 'dap-mode-hook #'fix-fringe nil 'local)
+;; ------------------------------------------------------------
 
 ;; Prevents some cases of Emacs flickering
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
+;; org
+(with-eval-after-load  'org
+  (require 'color)
+  (set-face-attribute 'org-block nil :background
+                      (color-darken-name
+                       (face-attribute 'default :background) 3)))
+
+(setq org-outline-path-complete-in-steps nil
+      org-refile-use-outline-path t
+      org-directory "~/Dropbox/Org"
+      org-default-notes-file "~/Dropbox/Org/notes.org"
+      org-projectile-projects-file "~/Dropbox/Org/projects.org"
+      org-reveal-root "file:///Users/vucinjo/Dropbox/Or/reveal.js"
+
+      ;; org-edit-src-content-indentation 0
+      ;; org-src-tab-acts-natively t
+      ;; org-src-preserve-indentation nil
+
+      org-refile-targets
+      '(("projects.org" :maxlevel . 5)
+        ("notes.org" :maxlevel . 1)
+        ("index.org" :maxlevel . 3)
+        ("tasks.org" :maxlevel . 1)
+        ("notebook.org" :maxlevel . 5)
+        ("access.org" :maxlevel . 1))
+
+      org-todo-keywords
+      '((sequence
+         "IDEA(i)"
+         "TODO(t)"
+         "IN-PROGRESS(n)"
+         "WAITING(w)"
+         "BLOCKED(b)"
+         "REVIEW(r)"
+         "|"
+         "FAIL(f)"
+         "DONE(d)"
+         "CANCELED(c)"))
+
+      org-todo-keyword-faces
+      '(
+        ("IDEA" . "white")
+        ("IN-PROGRESS" . "yellow")
+        ("REVIEW" . "DarkOliveGreen3")
+        ("WAITING" . "magenta")
+        ("BLOCKED" . "DarkOrange")
+        ("CANCELED" . "tomato3")
+        ("FAIL" . "red")
+        ("DONE" . "green3")
+        )
+
+      org-capture-templates
+      '(
+        ("b" "Notebook and Bookmarks")
+        ("bc" "Category" entry (file "notebook.org")
+         "* %? %^G" :prepend t)
+        ("bn" "Note" entry (file "notebook.org")
+         "* %? %^G \n%u" :prepend t)
+        ("bl" "Link" entry (file "notebook.org")
+         "* %A %^G \n%u" :prepend t)
+
+        ("p" "Projects")
+        ("pc" "Project name" entry (file "projects.org")
+         "* %? %^G" :prepend t)
+        ("pn" "Note" entry (file "projects.org")
+         "* %? %^G \n%u" :prepend t)
+        ("pl" "Link" entry (file "projects.org")
+         "* %A %^G \n%u" :prepend t)
+
+        ("t" "Tasks")
+        ("tt" "Today Tasks" entry (file+headline "today.org" "Tasks")
+         "* TODO %?\n%^T" :prepend t)
+        ("tg" "Tasks" entry (file+headline "tasks.org" "Tasks")
+         "* TODO %? %^G \n%u" :prepend t)
+
+        ("n" "Notes")
+        ("nc" "Category" entry (file "notes.org")
+         "* %? %^G" :prepend t)
+        ("nn" "Note" entry (file"notes.org")
+         "* %? %^G \n%u" :prepend t)
+        ("f" "Today Focus" entry (file+headline "today.org" "Today Focus")
+         "* %? " :prepend t))
+      )
 ;;  keybindings
 ;;  =======================================================================================================
 (define-key evil-normal-state-map (kbd "H") 'move-beginning-of-line)
@@ -94,12 +201,42 @@
  :desc "ace-select-window"
  "w D" #'ace-delete-window)
 
+(map! :localleader
+      :map ruby-mode-map
+      (:prefix ("s" . "Send to repl")
+       :desc "ruby-send-line"
+       "l" #'ruby-send-line))
+
+(map! :localleader
+      :map ruby-mode-map
+      (:prefix ("s" . "Send to repl")
+       :desc "ruby-send-buffer"
+       "b" #'ruby-send-buffer))
+
+(map! :localleader
+      :map ruby-mode-map
+      (:prefix ("s" . "Send to repl")
+       :desc "ruby-send-line-go"
+       "L" #'ruby-send-line-and-go))
+
+(map! :localleader
+      :map ruby-mode-map
+      (:prefix ("s" . "Send to repl")
+       :desc "ruby-send-buffer-and-go"
+       "B" #'ruby-send-buffer-and-go))
+
+(map! :localleader
+      :map ruby-mode-map
+      (:prefix ("s" . "Send to repl")
+       :desc "ruby-send-region-and-go"
+       "R" #'ruby-send-region-and-go))
+
+;; multiedit
 (map!
  :leader
  :desc "Multiedit"
  "s e" #'evil-multiedit-match-all)
 
-;; multiedit
 (map!
  :nv
  "C-n" #'evil-multiedit-match-and-next
@@ -125,24 +262,3 @@
 (add-hook 'js2-mode-hook 'maybe-use-prettier)
 (add-hook 'web-mode-hook 'maybe-use-prettier)
 (add-hook 'rjsx-mode-hook 'maybe-use-prettier)
-;; (after! html-mode-hook
-;;   (lsp)
-;;   (lsp-ui-mode))
-;;
-;; workaround for fringe
-;; (set-fringe-style (quote (20 . 10)))
-;; (custom-set-faces
-;;  '(dap-ui-pending-breakpoint-face ((t (:underline "dim gray"))))
-;;  '(dap-ui-verified-breakpoint-face ((t (:underline "green")))))
-;; set left margin to show git-gutter again
-
-(setq +vc-gutter-default-style nil)
-(fringe-mode nil)
-
-;; (setq-default left-margin-width 1)
-;; (set-window-buffer nil (current-buffer))
-;; (after! git-gutter-fringe
-;;   (setq-default fringes-outside-margins t)
-;;   (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
-;;   (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
-;;   (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
