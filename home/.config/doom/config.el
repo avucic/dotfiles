@@ -1,6 +1,6 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
+;; PLACEuuuu your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
 
@@ -9,6 +9,7 @@
 (setq user-full-name "Aleksandar Vucic"
       user-mail-address "vucinjo@gmail.com")
 
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -22,8 +23,7 @@
                                         ; (setq doom-font (font-spec :family "Source Code Pro" :size 14)
                                         ; doom-variable-pitch-font (font-spec :family "sans" :size 14))
 (setq doom-font (font-spec :family "Source Code Pro" :size 14)
-      doom-variable-pitch-font (font-spec :family "Source Code Pro" :size 13)
-      )
+      doom-variable-pitch-font (font-spec :family "Source Code Pro" :size 13))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -32,12 +32,17 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Dropbox/Org")
+(setq org-directory "~/Dropbox/Org"
+      org-annotate-file-storage-file "~/Dropbox/Org/annotated.org")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type nil)
 
+(setq auto-save-default t
+      make-backup-files t)
+
+;; (setq confirm-kill-emacs nil
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -55,43 +60,16 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+;;
+
+(fringe-mode nil)
+
 (setq yas-snippet-dirs (append yas-snippet-dirs
                                '("~/dotfiles/emacs/snippets")))
 
 (setq lsp-elixir-local-server-command "~/.eslint-ls/language_server.sh") ;
 
-;; missing finge
-;; ------------------------------------------------------------
-;; (setq doom-fringe-size '4)
-;; (setq left-fringe-width 16)
-;; ;; (dap-auto-configure-mode 1)
-;; (set-fringe-style (quote (20 . 10)))
-;; workaround for fringe
-;; (set-fringe-style (quote (20 . 10)))
-;; (custom-set-faces
-;;  '(dap-ui-pending-breakpoint-face ((t (:underline "dim gray"))))
-;;  '(dap-ui-verified-breakpoint-face ((t (:underline "green")))))
-;; set left margin to show git-gutter again
-
 (setq +vc-gutter-default-style nil)
-(fringe-mode nil)
-
-;; (setq-default left-margin-width 1)
-;; (set-window-buffer nil (current-buffer))
-;; (after! git-gutter-fringe
-;;   (setq-default fringes-outside-margins t)
-;;   (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
-;;   (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
-;;   (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
-
-;; (defun fix-fringe
-;;     (set-window-buffer nil (current-buffer)) )
-
-;; (add-hook 'dap-mode-hook #'fix-fringe nil 'local)
-;; ------------------------------------------------------------
-
-;; Prevents some cases of Emacs flickering
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
 ;; org
 (with-eval-after-load  'org
@@ -100,12 +78,16 @@
                       (color-darken-name
                        (face-attribute 'default :background) 3)))
 
+;; (add-hook! 'org-mode-hook #'mixed-pitch-mode)
+;; (add-hook! 'org-mode-hook #'solaire-mode)
+;; (setq mixed-pitch-variable-pitch-cursor nil)
 (setq org-outline-path-complete-in-steps nil
       org-refile-use-outline-path t
       org-directory "~/Dropbox/Org"
       org-default-notes-file "~/Dropbox/Org/notes.org"
       org-projectile-projects-file "~/Dropbox/Org/projects.org"
       org-reveal-root "file:///Users/vucinjo/Dropbox/Or/reveal.js"
+      org-cycle-include-plain-lists 'integrate
 
       ;; org-edit-src-content-indentation 0
       ;; org-src-tab-acts-natively t
@@ -201,35 +183,16 @@
  :desc "ace-select-window"
  "w D" #'ace-delete-window)
 
+
 (map! :localleader
       :map ruby-mode-map
       (:prefix ("s" . "Send to repl")
        :desc "ruby-send-line"
-       "l" #'ruby-send-line))
-
-(map! :localleader
-      :map ruby-mode-map
-      (:prefix ("s" . "Send to repl")
-       :desc "ruby-send-buffer"
-       "b" #'ruby-send-buffer))
-
-(map! :localleader
-      :map ruby-mode-map
-      (:prefix ("s" . "Send to repl")
-       :desc "ruby-send-line-go"
-       "L" #'ruby-send-line-and-go))
-
-(map! :localleader
-      :map ruby-mode-map
-      (:prefix ("s" . "Send to repl")
-       :desc "ruby-send-buffer-and-go"
-       "B" #'ruby-send-buffer-and-go))
-
-(map! :localleader
-      :map ruby-mode-map
-      (:prefix ("s" . "Send to repl")
-       :desc "ruby-send-region-and-go"
-       "R" #'ruby-send-region-and-go))
+       "l" #'ruby-send-line
+       "L" #'ruby-send-line-and-go
+       "b" #'ruby-send-buffer
+       "B" #'ruby-send-buffer-and-go
+       ))
 
 ;; multiedit
 (map!
@@ -262,3 +225,4 @@
 (add-hook 'js2-mode-hook 'maybe-use-prettier)
 (add-hook 'web-mode-hook 'maybe-use-prettier)
 (add-hook 'rjsx-mode-hook 'maybe-use-prettier)
+(add-hook 'prog-mode-hook 'lsp-ui-mode)
