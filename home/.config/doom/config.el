@@ -185,16 +185,14 @@
 
 
 (map! :localleader
-      :map ruby-mode-map
+      :map robe-mode-map
       (:prefix ("s" . "Send to repl")
        :desc "ruby-send-line"
-       "l" #'ruby-send-line
-       "L" #'ruby-send-line-and-go
-       "b" #'ruby-send-buffer
-       "B" #'ruby-send-buffer-and-go
-       ))
+       "l" 'ruby-send-line
+       "L" 'ruby-send-line-and-go
+       "b" 'ruby-send-buffer
+       "B" 'ruby-send-buffer-and-go))
 
-;; multiedit
 (map!
  :leader
  :desc "Multiedit"
@@ -226,3 +224,4 @@
 (add-hook 'web-mode-hook 'maybe-use-prettier)
 (add-hook 'rjsx-mode-hook 'maybe-use-prettier)
 (add-hook 'prog-mode-hook 'lsp-ui-mode)
+(add-hook 'ruby-mode-hook 'evil-ruby-text-objects-mode)
