@@ -206,7 +206,8 @@
    "C-n" #'evil-multiedit-match-and-next
    "C-p" #'evil-multiedit-match-and-prev
    "n" #'evil-multiedit-next
-   "p" #'evil-multiedit-prev
+   "N" #'evil-multiedit-prev
+   "p" #'evil-multiedit--paste-replace
    )
   )
  )
