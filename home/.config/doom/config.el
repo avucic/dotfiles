@@ -227,6 +227,7 @@
 (add-hook 'prog-mode-hook 'lsp-ui-mode)
 (add-hook 'ruby-mode-hook 'evil-ruby-text-objects-mode)
 
+;; dired
 (custom-set-faces!
   `(diredfl-file-name :foreground ,(doom-color 'blue))
   `(diredfl-number :inherit 'outline-8)
@@ -241,4 +242,11 @@
   `(diff-hl-margin-change :background nil)
   `(diff-hl-margin-change :inherit 'epa-mark)
   `(all-the-icons-dired-dir-face :inherit 'outline-8)
+  )
+
+;; term
+(custom-set-faces!
+  `(term-color-yellow :foreground "#E5C07B")
+  `(term-color-green :foreground "#98C379")
+  `(term-color-red :foreground "#E06C75")
   )
