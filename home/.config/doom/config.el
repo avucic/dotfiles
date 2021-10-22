@@ -193,6 +193,14 @@
        "b" 'ruby-send-buffer
        "B" 'ruby-send-buffer-and-go))
 
+(map! :localleader
+      :map js2-mode-map
+      (:prefix ("s" . "Send to repl")
+       :desc "ruby-send-line"
+       "l" 'nodejs-repl-send-line
+       "b" 'nodejs-repl-send-buffer
+       "i" 'nodejs-repl-switch-to-repl))
+
 (map!
  :leader
  :desc "Multiedit"
