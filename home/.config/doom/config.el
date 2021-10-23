@@ -216,6 +216,7 @@
    "n" #'evil-multiedit-next
    "N" #'evil-multiedit-prev
    "p" #'evil-multiedit--paste-replace
+   "gzz" #'+multiple-cursors/evil-mc-toggle-cursor-here
    )
   )
  )
