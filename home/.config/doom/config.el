@@ -194,7 +194,7 @@
        "B" 'ruby-send-buffer-and-go))
 
 (map! :localleader
-      :map js2-mode-map
+      :map js-mode-map
       (:prefix ("s" . "Send to repl")
        :desc "ruby-send-line"
        "l" 'nodejs-repl-send-line
