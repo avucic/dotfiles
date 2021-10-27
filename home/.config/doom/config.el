@@ -259,3 +259,10 @@
   `(term-color-green :foreground "#98C379")
   `(term-color-red :foreground "#E06C75")
   )
+
+
+(defun gen-pass (input)
+  "Nonce function"
+  (interactive "sPass: ")
+  (shell-command
+   (concat "ruby ~/Documents/psd.rb " input " | pbcopy")))
