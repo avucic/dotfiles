@@ -52,3 +52,4 @@
 (package! atom-one-dark-theme)
 (package! prettier-js)
 (package! evil-ruby-text-objects)
+(package! google-translate)

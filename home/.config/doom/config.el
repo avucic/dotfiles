@@ -241,6 +241,8 @@
   `(diredfl-file-name :foreground ,(doom-color 'blue))
   `(diredfl-number :inherit 'outline-8)
   `(diredfl-file-suffix :foreground ,(doom-color 'blue))
+  ;; `(diredfl-flag-mark :foreground ,(doom-color 'blue))
+  ;; `(diredfl-flag-mark-line :foreground ,(doom-color 'blue))
   `(diredfl-dir-heading :inherit 'outline-1)
   `(diredfl-dir-name :inherit 'outline-1)
   `(diredfl-dir-priv :inherit 'outline-1)
@@ -266,3 +268,21 @@
   (interactive "sPass: ")
   (shell-command
    (concat "ruby ~/Documents/psd.rb " input " | pbcopy")))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-level-4 ((t (:foreground "#98c379")))))
+
+
+(use-package! google-translate
+  :ensure t
+  :config
+  (defun google-translate--search-tkk ()
+    "Search TKK."
+    (list 430675 2721866130))
+  (setq
+   google-translate-default-source-language "en"
+   google-translate-default-target-language "sr"))
