@@ -9,7 +9,10 @@
 (setq user-full-name "Aleksandar Vucic"
       user-mail-address "vucinjo@gmail.com")
 
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+;; (add-to-list 'initial-frame-alist '(fullscreen . maximized))
+;; TODO workaround for Monterey
+(add-hook 'window-setup-hook 'toggle-frame-maximized t)
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -263,12 +266,6 @@
   )
 
 
-(defun gen-pass (input)
-  "Nonce function"
-  (interactive "sPass: ")
-  (shell-command
-   (concat "ruby ~/Documents/psd.rb " input " | pbcopy")))
-
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -286,3 +283,18 @@
   (setq
    google-translate-default-source-language "en"
    google-translate-default-target-language "sr"))
+
+;; custom functions
+(defun gen-pass (input)
+  "Nonce function"
+  (interactive "sPass: ")
+  (shell-command
+   (concat "ruby ~/Documents/psd.rb " input " | pbcopy")))
+
+(defun show-msg-after-timer ()
+  "Show a message after timer expires. Based on run-at-time and can understand time like it can."
+  (interactive)
+  (let* ((msg-to-show (read-string "Enter msg to show: "))
+         (time-duration (read-string "Time? ")))
+    (message time-duration)
+    (run-at-time time-duration nil #'message-box msg-to-show)))
