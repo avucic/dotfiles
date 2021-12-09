@@ -64,6 +64,8 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 ;;
+;; allow to jump to all windows
+(setq avy-all-windows t)
 
 (fringe-mode nil)
 
@@ -163,9 +165,9 @@
       )
 ;;  keybindings
 ;;  =======================================================================================================
-(define-key evil-normal-state-map (kbd "H") 'move-beginning-of-line)
+(define-key evil-normal-state-map (kbd "H") 'beginning-of-line)
 (define-key evil-normal-state-map (kbd "L") 'end-of-line)
-(define-key evil-visual-state-map (kbd "H") 'move-beginning-of-line)
+(define-key evil-visual-state-map (kbd "H") 'beginning-of-line)
 (define-key evil-visual-state-map (kbd "L") 'end-of-line)
 
 (map!
@@ -209,20 +211,29 @@
  :desc "Multiedit"
  "s e" #'evil-multiedit-match-all)
 
-(map!
- :nv
- "C-n" #'evil-multiedit-match-and-next
- (:after evil-multiedit
-  (:map evil-multiedit-state-map
-   "C-n" #'evil-multiedit-match-and-next
-   "C-p" #'evil-multiedit-match-and-prev
-   "n" #'evil-multiedit-next
-   "N" #'evil-multiedit-prev
-   "p" #'evil-multiedit--paste-replace
-   "gzz" #'+multiple-cursors/evil-mc-toggle-cursor-here
-   )
-  )
- )
+(map! :localleader
+      :map python-mode-map
+      (:prefix ("s" . "Send to repl")
+       :desc "python-send-line"
+       "r" 'python-shell-send-region
+       "b" 'python-shell-send-buffer))
+
+
+
+;; (map!
+;;  :nv
+;;  "C-n" #'evil-multiedit-match-and-next
+;;  (:after evil-multiedit
+;;   (:map evil-multiedit-state-map
+;;    "C-n" #'evil-multiedit-match-and-next
+;;    "C-p" #'evil-multiedit-match-and-prev
+;;    "n" #'evil-multiedit-next
+;;    "N" #'evil-multiedit-prev
+;;    "p" #'evil-multiedit--paste-replace
+;;    "gzz" #'+multiple-cursors/evil-mc-toggle-cursor-here
+;;    )
+;;   )
+;;  )
 
 ;; hooks
 ;;  =======================================================================================================
@@ -291,10 +302,26 @@
   (shell-command
    (concat "ruby ~/Documents/psd.rb " input " | pbcopy")))
 
-(defun show-msg-after-timer ()
+(defun set-timer ()
   "Show a message after timer expires. Based on run-at-time and can understand time like it can."
   (interactive)
   (let* ((msg-to-show (read-string "Enter msg to show: "))
          (time-duration (read-string "Time? ")))
     (message time-duration)
     (run-at-time time-duration nil #'message-box msg-to-show)))
+
+;; fetch url title for link desc in org-mode
+(defun jmn/url-get-title (url &optional descr)
+  "Takes a URL and returns the value of the <title> HTML tag,
+   Thanks to https://frozenlock.org/tag/url-retrieve/ for documenting url-retrieve"
+  (let ((buffer (url-retrieve-synchronously url))
+        (title nil))
+    (save-excursion
+      (set-buffer buffer)
+      (goto-char (point-min))
+      (search-forward-regexp "<title>\\([^<]+?\\)</title>")
+      (setq title (match-string 1 ) )
+      (kill-buffer (current-buffer)))
+    title))
+
+(setq org-make-link-description-function 'jmn/url-get-title)

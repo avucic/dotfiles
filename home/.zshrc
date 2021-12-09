@@ -190,3 +190,13 @@ fix_es(){
 #  Emacs ElixirLS setup  -----------------------------------------------------------{{{
 export PATH="/Users/vucinjo/.elixir-ls:$PATH"
 # }}}
+
+# Go -----------------------------------------------------------{{{
+export GOPATH=$HOME/go-workspace # don't forget to change your path correctly!
+GOV=$(asdf where golang)
+export GOROOT=$GOV/go
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
+# }}}
+
+export DICPATH=$HOME/Library/Spelling
