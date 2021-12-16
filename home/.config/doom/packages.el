@@ -53,5 +53,5 @@
 (package! prettier-js)
 (package! evil-ruby-text-objects)
 (package! google-translate)
-;; (package! org-cv
-;;  :recipe (:host gitlab :repo "Titan-C/org-cv"))
+(package! org-cv
+ :recipe (:host gitlab :repo "Titan-C/org-cv"))
