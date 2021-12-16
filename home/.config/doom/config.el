@@ -296,24 +296,15 @@
    google-translate-default-target-language "sr"))
 
 
-(use-package! ox-awesomecv
-    :load-path "org-cv/"
-    :init (require 'ox-awesomecv))
+;; (use-package! ox-awesomecv
+;;     :load-path "org-cv/"
+;;     :init (require 'ox-awesomecv))
 
-(setq org-latex-pdf-process
-      '("/Library/TeX/texbin/xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "/Library/TeX/texbin/xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "/Library/TeX/texbin/xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-;;
-(setq org-latex-compiler "/Library/TeX/texbin/xelatex")
-
-;; (defun export-my-cv ()
-;;   "Export my cv to pdf"
-;;   (interactive)
-;;   (org-export-to-file 'awesomecv "cv.tex")
-;;   (org-latex-compile "cv.tex"))
-
-
+;; (setq org-latex-pdf-process
+;;       '("/Library/TeX/texbin/xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+;;         "/Library/TeX/texbin/xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+;;         "/Library/TeX/texbin/xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+;; (setq org-latex-compiler "/Library/TeX/texbin/xelatex")
 
 ;; custom functions
 (defun gen-pass (input)
