@@ -77,11 +77,53 @@
 (setq +vc-gutter-default-style nil)
 
 ;; org
-(with-eval-after-load  'org
+(defun find-subheader-for-org-capture()
+  "Capture function to dynamically add an Org entry to an heading that you want to"
+  (interactive)
+  ;; declare function local variables.
+  (let ((headerOrgFile)(name))
+    ;; ask user for header name and same the input to local variable "name"
+    (setq name (read-string "Enter Header to add a capture to: "))
+    (beginning-of-buffer)
+    ;; avoid missing a search result because a headline is collapsed
+    (widen)
+    ;; set RegEx search string
+    (setq headerOrgFile (concat "^\*.* " name))
+    ;; search for proper position
+    (re-search-forward headerOrgFile)
+    ))
+
+(after!  org
   (require 'color)
   (set-face-attribute 'org-block nil :background
                       (color-darken-name
-                       (face-attribute 'default :background) 3)))
+                       (face-attribute 'default :background) 3)) )
+
+(after! org
+        (add-to-list
+          'org-capture-templates
+          '("w" "Weigh" entry
+            (file+regexp "today.org" "Logs")
+            "** Day %t
+:PROPERTIES:
+:ID:    %(format-time-string \"%Y%m%dT%H%M%S\" (current-time) t)
+:WEIGHT: %^{WEIGHT}
+:END:
+
+#+TBLNAME: tbl%(format-time-string \"%Y%m%dT%H%M%S\" (current-time) t)
+| Timestamp | Food | Calories | Quantity | Total |
+|--------------+---+----------+----------+-------|
+| %(format-time-string \"%H:%M\" (current-time) t)       |   |          |          |       |
+|--------------+---+----------+----------+-------|
+| Total        |   |          |          |       |
+#+TBLFM: $5=$3*$4::@>$5=vsum(@2$5..@-I$5)"
+            :empty-lines-after 1
+            )))
+   
+
+(setq-default org-display-custom-times t)
+(setq org-time-stamp-custom-formats '("<%a %b %e %y>" . "<%a %b %e %Y %H:%M>"))
+(setq org-element-use-cache nil)
 
 ;; (add-hook! 'org-mode-hook #'mixed-pitch-mode)
 ;; (add-hook! 'org-mode-hook #'solaire-mode)
@@ -161,8 +203,8 @@
         ("nn" "Note" entry (file"notes.org")
          "* %? %^G \n%u" :prepend t)
         ("f" "Today Focus" entry (file+headline "today.org" "Today Focus")
-         "* %? " :prepend t))
-      )
+         "* %? " :prepend t)))
+
 ;;  keybindings
 ;;  =======================================================================================================
 (define-key evil-normal-state-map (kbd "H") 'beginning-of-line)
