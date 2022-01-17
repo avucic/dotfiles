@@ -53,5 +53,7 @@
 (package! prettier-js)
 (package! evil-ruby-text-objects)
 (package! google-translate)
+(package! ascii-art-to-unicode)
+
 ;; (package! org-cv
 ;;  :recipe (:host github :repo "Titan-C/org-cv"))

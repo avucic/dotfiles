@@ -45,6 +45,7 @@
 (setq auto-save-default t
       make-backup-files t)
 
+(setq load-prefer-newer t)
 ;; (setq confirm-kill-emacs nil
 
 ;; Here are some additional functions/macros that could help you configure Doom:
@@ -77,34 +78,17 @@
 (setq +vc-gutter-default-style nil)
 
 ;; org
-(defun find-subheader-for-org-capture()
-  "Capture function to dynamically add an Org entry to an heading that you want to"
-  (interactive)
-  ;; declare function local variables.
-  (let ((headerOrgFile)(name))
-    ;; ask user for header name and same the input to local variable "name"
-    (setq name (read-string "Enter Header to add a capture to: "))
-    (beginning-of-buffer)
-    ;; avoid missing a search result because a headline is collapsed
-    (widen)
-    ;; set RegEx search string
-    (setq headerOrgFile (concat "^\*.* " name))
-    ;; search for proper position
-    (re-search-forward headerOrgFile)
-    ))
 
-(after!  org
+(after! org
   (require 'color)
   (set-face-attribute 'org-block nil :background
                       (color-darken-name
-                       (face-attribute 'default :background) 3)) )
-
-(after! org
-        (add-to-list
-          'org-capture-templates
-          '("w" "Weigh" entry
-            (file+regexp "today.org" "Logs")
-            "** Day %t
+                       (face-attribute 'default :background) 3))
+  (add-to-list
+   'org-capture-templates
+   '("w" "Weigh" entry
+     (file+regexp "today.org" "Logs")
+     "** Day %t
 :PROPERTIES:
 :ID:    %(format-time-string \"%Y%m%dT%H%M%S\" (current-time) t)
 :WEIGHT: %^{WEIGHT}
@@ -117,93 +101,95 @@
 |--------------+---+----------+----------+-------|
 | Total        |   |          |          |       |
 #+TBLFM: $5=$3*$4::@>$5=vsum(@2$5..@-I$5)"
-            :empty-lines-after 1
-            )))
+     :empty-lines-after 1
+     ))
+  (setq org-outline-path-complete-in-steps nil
+        org-refile-use-outline-path t
+        org-display-custom-times t
+        org-element-use-cache nil
+        org-time-stamp-custom-formats '("<%a %b %e %y>" . "<%a %b %e %Y %H:%M>")
+        org-directory "~/Dropbox/Org"
+        org-default-notes-file "~/Dropbox/Org/notes.org"
+        org-projectile-projects-file "~/Dropbox/Org/projects.org"
+        org-reveal-root "file:///Users/vucinjo/Dropbox/Or/reveal.js"
+        org-cycle-include-plain-lists 'integrate
+
+        ;; org-edit-src-content-indentation 0
+        ;; org-src-tab-acts-natively t
+        ;; org-src-preserve-indentation nil
+
+        org-refile-targets
+        '(("projects.org" :maxlevel . 5)
+          ("notes.org" :maxlevel . 1)
+          ("index.org" :maxlevel . 3)
+          ("tasks.org" :maxlevel . 1)
+          ("notebook.org" :maxlevel . 5)
+          ("access.org" :maxlevel . 1))
+
+        org-todo-keywords
+        '((sequence
+           "IDEA(i)"
+           "TODO(t)"
+           "IN-PROGRESS(n)"
+           "WAITING(w)"
+           "BLOCKED(b)"
+           "REVIEW(r)"
+           "|"
+           "FAIL(f)"
+           "DONE(d)"
+           "CANCELED(c)"))
+
+        org-todo-keyword-faces
+        '(
+          ("IDEA" . "white")
+          ("IN-PROGRESS" . "yellow")
+          ("REVIEW" . "DarkOliveGreen3")
+          ("WAITING" . "magenta")
+          ("BLOCKED" . "DarkOrange")
+          ("CANCELED" . "tomato3")
+          ("FAIL" . "red")
+          ("DONE" . "green3")
+          )
+
+        org-capture-templates
+        '(
+          ("b" "Notebook and Bookmarks")
+          ("bc" "Category" entry (file "notebook.org")
+           "* %? %^G" :prepend t)
+          ("bn" "Note" entry (file "notebook.org")
+           "* %? %^G \n%u" :prepend t)
+          ("bl" "Link" entry (file "notebook.org")
+           "* %A %^G \n%u" :prepend t)
+
+          ("p" "Projects")
+          ("pc" "Project name" entry (file "projects.org")
+           "* %? %^G" :prepend t)
+          ("pn" "Note" entry (file "projects.org")
+           "* %? %^G \n%u" :prepend t)
+          ("pl" "Link" entry (file "projects.org")
+           "* %A %^G \n%u" :prepend t)
+
+          ("t" "Tasks")
+          ("tt" "Today Tasks" entry (file+headline "today.org" "Tasks")
+           "* TODO %?\n%^T" :prepend t)
+          ("tg" "Tasks" entry (file+headline "tasks.org" "Tasks")
+           "* TODO %? %^G \n%u" :prepend t)
+
+          ("n" "Notes")
+          ("nc" "Category" entry (file "notes.org")
+           "* %? %^G" :prepend t)
+          ("nn" "Note" entry (file"notes.org")
+           "* %? %^G \n%u" :prepend t)
+          ("f" "Today Focus" entry (file+headline "today.org" "Today Focus")
+           "* %? " :prepend t)))
+  )
    
 
-(setq-default org-display-custom-times t)
-(setq org-time-stamp-custom-formats '("<%a %b %e %y>" . "<%a %b %e %Y %H:%M>"))
-(setq org-element-use-cache nil)
 
 ;; (add-hook! 'org-mode-hook #'mixed-pitch-mode)
 ;; (add-hook! 'org-mode-hook #'solaire-mode)
 ;; (setq mixed-pitch-variable-pitch-cursor nil)
-(setq org-outline-path-complete-in-steps nil
-      org-refile-use-outline-path t
-      org-directory "~/Dropbox/Org"
-      org-default-notes-file "~/Dropbox/Org/notes.org"
-      org-projectile-projects-file "~/Dropbox/Org/projects.org"
-      org-reveal-root "file:///Users/vucinjo/Dropbox/Or/reveal.js"
-      org-cycle-include-plain-lists 'integrate
 
-      ;; org-edit-src-content-indentation 0
-      ;; org-src-tab-acts-natively t
-      ;; org-src-preserve-indentation nil
-
-      org-refile-targets
-      '(("projects.org" :maxlevel . 5)
-        ("notes.org" :maxlevel . 1)
-        ("index.org" :maxlevel . 3)
-        ("tasks.org" :maxlevel . 1)
-        ("notebook.org" :maxlevel . 5)
-        ("access.org" :maxlevel . 1))
-
-      org-todo-keywords
-      '((sequence
-         "IDEA(i)"
-         "TODO(t)"
-         "IN-PROGRESS(n)"
-         "WAITING(w)"
-         "BLOCKED(b)"
-         "REVIEW(r)"
-         "|"
-         "FAIL(f)"
-         "DONE(d)"
-         "CANCELED(c)"))
-
-      org-todo-keyword-faces
-      '(
-        ("IDEA" . "white")
-        ("IN-PROGRESS" . "yellow")
-        ("REVIEW" . "DarkOliveGreen3")
-        ("WAITING" . "magenta")
-        ("BLOCKED" . "DarkOrange")
-        ("CANCELED" . "tomato3")
-        ("FAIL" . "red")
-        ("DONE" . "green3")
-        )
-
-      org-capture-templates
-      '(
-        ("b" "Notebook and Bookmarks")
-        ("bc" "Category" entry (file "notebook.org")
-         "* %? %^G" :prepend t)
-        ("bn" "Note" entry (file "notebook.org")
-         "* %? %^G \n%u" :prepend t)
-        ("bl" "Link" entry (file "notebook.org")
-         "* %A %^G \n%u" :prepend t)
-
-        ("p" "Projects")
-        ("pc" "Project name" entry (file "projects.org")
-         "* %? %^G" :prepend t)
-        ("pn" "Note" entry (file "projects.org")
-         "* %? %^G \n%u" :prepend t)
-        ("pl" "Link" entry (file "projects.org")
-         "* %A %^G \n%u" :prepend t)
-
-        ("t" "Tasks")
-        ("tt" "Today Tasks" entry (file+headline "today.org" "Tasks")
-         "* TODO %?\n%^T" :prepend t)
-        ("tg" "Tasks" entry (file+headline "tasks.org" "Tasks")
-         "* TODO %? %^G \n%u" :prepend t)
-
-        ("n" "Notes")
-        ("nc" "Category" entry (file "notes.org")
-         "* %? %^G" :prepend t)
-        ("nn" "Note" entry (file"notes.org")
-         "* %? %^G \n%u" :prepend t)
-        ("f" "Today Focus" entry (file+headline "today.org" "Today Focus")
-         "* %? " :prepend t)))
 
 ;;  keybindings
 ;;  =======================================================================================================
@@ -378,3 +364,8 @@
     title))
 
 (setq org-make-link-description-function 'jmn/url-get-title)
+
+(map! :localleader
+      :map artist-mode-map
+       :desc "select-operation"
+       "o" 'artist-select-operation)
