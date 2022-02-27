@@ -1,3 +1,0 @@
-# frozen_string_literal: true
-
-require 'interactive_editor'
