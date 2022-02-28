@@ -1,0 +1,45 @@
+abbr -g g="git"
+abbr -g r="rails"
+abbr -g rk="rake"
+abbr -g cl="clear"
+abbr -g tmux="TERM=xterm-24bit tmux -2"
+abbr -g t="tmux"
+abbr -g ta="tmux a -t"
+abbr -g tk="tmux kill-session -t"
+abbr -g tka="tmux kill-server"
+abbr -g tn="tmux new -s"
+abbr -g f="fzf"
+
+abbr -g drmf='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
+abbr -g dsa='docker stop $(docker ps -a -q)'
+abbr -g dse='docker rm -v $(docker ps -a -q -f status=exited)'
+abbr -g drni="docker rmi $(docker images | grep none | awk '{print $3}')"
+abbr -g dalias="abbr list | grep docker"
+
+# alias dc="docker-compose"
+# alias dr="docker-compose run"
+# # Get latest container ID
+# alias dl="docker ps -l -q"
+# # Get container process
+# alias dps="docker ps"
+# # Get process included stop container
+# alias dpa="docker ps -a"
+# # Get images
+# alias di="docker images"
+# # attach process
+# alias da="docker attach"
+# # Run deamonized container, e.g., $dkd base /bin/echo hello
+# alias dkd="docker run -d -P"
+# # Run interactive container, e.g., $dki base /bin/bash
+# alias dki="docker run -i -t -P"
+# # Execute interactive container, e.g., $dex base /bin/bash
+# alias dex="docker exec -i -t"
+# alias d='docker'
+
+# alias dclimate="docker run \
+#   --interactive --tty --rm \
+#   --env CODECLIMATE_CODE="$PWD" \
+#   --volume "$PWD":/code \
+#   --volume /var/run/docker.sock:/var/run/docker.sock \
+#   --volume /tmp/cc:/tmp/cc \
+#   codeclimate/codeclimate analyze $1"

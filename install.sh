@@ -17,5 +17,5 @@ export DOTFILES_LOCATION
 ./bin/dotfiles install git
 ./bin/dotfiles install tmux
 ./bin/dotfiles install vim
-./bin/dotfiles install starship
+# ./bin/dotfiles install starship
 ./bin/dotfiles install zsh

@@ -1,13 +1,11 @@
 [core]
-	excludesfile = /Users/vucinjo/.gitignore
+  excludesFile = ~/.gitignore
 	autocrlf = input
-	; editor = emacsclient -a '' -c
-	editor = code
+	editor = code --wait
 [user]
 	name = Aleksandar Vucic
 	email = vucinjo@gmail.com
 [alias]
-  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
   ld = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short --graph
   ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
 	l = !"git ld"
@@ -47,8 +45,6 @@
   fco = "!f() { git branch -a | grep -m1 -e ${1}.*${2} | sed \"s/remotes\\/origin\\///\" | xargs git checkout; }; f"
 	fc = !git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout
 	mrb = !git for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
-	# generate branch name from: PP-999 Foo bar => PP-999-foo-bar
-  cog = "!f(){ PREFIX=\"$(tr \"[:upper:]\" \"[:lower:]\" <<< $2)\"; echo \"$1-$PREFIX\" | tr ' ' '-' | xargs git checkout -b; }; f" 
 
 
 [color]

@@ -18,6 +18,7 @@ antigen bundle maosx
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle olets/zsh-abbr
 
 # antigen theme kennethreitz
 antigen theme spaceship-prompt/spaceship-prompt
