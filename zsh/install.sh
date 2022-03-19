@@ -28,7 +28,7 @@ if ! command -v autojump &>/dev/null; then
     echo "▶️  Autojump setup"
     export SHELL=bash
 
-    git clone --depth 1 git://github.com/wting/autojump.git
+    git clone --depth 1 https://github.com/wting/autojump.git
     cd autojump
     /usr/bin/python ./install.py
 fi

@@ -70,3 +70,5 @@ docs/*
 .trunk/*
 .tool-versions
 *.*book
+Gemlocal
+Gemlocal.lock

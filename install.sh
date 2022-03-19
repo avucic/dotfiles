@@ -14,6 +14,7 @@ export DOTFILES_LOCATION
 ###
 # ./bin/dotfiles install brew
 # ./bin/dotfiles install vscode
+./bin/dotfiles install nvim
 ./bin/dotfiles install git
 ./bin/dotfiles install tmux
 ./bin/dotfiles install vim
