@@ -61,10 +61,6 @@ return packer.startup(function(use)
   use {
     "phaazon/hop.nvim",
     branch = 'v1', -- optional but strongly recommended
-    config = function()
-      -- you can configure Hop the way you like here; see :h hop-config
-      require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
-    end
   }
   use "mg979/vim-visual-multi"
   use "mfussenegger/nvim-dap"
@@ -73,6 +69,9 @@ return packer.startup(function(use)
     requires = { {'nvim-lua/plenary.nvim'} }
   }
   use "tpope/vim-surround"
+  use "TimUntersberger/neogit"
+  use "suketa/nvim-dap-ruby"
+  use "windwp/nvim-spectre"
   -- use 'glepnir/lspsaga.nvim'
 
   -- Colorschemes
