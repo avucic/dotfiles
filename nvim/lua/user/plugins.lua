@@ -29,7 +29,7 @@ if not status_ok then
   return
 end
 
--- Have packer use a popup window
+-- Have packer use a popup
 packer.init {
   display = {
     open_fn = function()
@@ -72,7 +72,12 @@ return packer.startup(function(use)
   use "TimUntersberger/neogit"
   use "suketa/nvim-dap-ruby"
   use "windwp/nvim-spectre"
-  -- use 'glepnir/lspsaga.nvim'
+  use {
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+  }
+  use "andymass/vim-matchup"
+  use "ii14/exrc.vim"
 
   -- Colorschemes
   -- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
@@ -95,10 +100,18 @@ return packer.startup(function(use)
   use "williamboman/nvim-lsp-installer" -- simple to use language server installer
   use "tamago324/nlsp-settings.nvim" -- language server settings defined in json for
   use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
-
+  use "lukas-reineke/lsp-format.nvim"
+  use 'leoluz/nvim-dap-go'
+  -- use "tami5/lspsaga.nvim" -- fork
 
   -- Telescope
   use "nvim-telescope/telescope.nvim"
+  use "nvim-telescope/telescope-file-browser.nvim"
+  use "nvim-telescope/telescope-ui-select.nvim"
+  use "nvim-telescope/telescope-media-files.nvim"
+  use "nvim-telescope/telescope-symbols.nvim"
+  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+
 
   -- Treesitter
   use {
@@ -109,6 +122,7 @@ return packer.startup(function(use)
 
   -- Git
   use "lewis6991/gitsigns.nvim"
+  use "APZelos/blamer.nvim"
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

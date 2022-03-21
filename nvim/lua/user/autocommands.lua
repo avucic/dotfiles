@@ -28,10 +28,20 @@ vim.cmd [[
     autocmd!
     autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
   augroup end
-]]
 
--- Autoformat
--- augroup _lsp
---   autocmd!
---   autocmd BufWritePre * lua vim.lsp.buf.formatting()
--- augroup end
+  augroup _ruby
+    autocmd!
+    autocmd FileType ruby setlocal spell
+  augroup end
+
+  augroup _go
+    autocmd!
+    autocmd FileType go setlocal spell
+  augroup end
+
+  augroup _lsp
+    autocmd! BufWritePre * if ( get(g:, 'autoformat_on_save') == 1 )
+    \| execute 'lua vim.lsp.buf.formatting() '
+    \| endif
+  augroup end
+]]

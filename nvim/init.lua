@@ -1,3 +1,7 @@
+
+-- https://github.com/hackorum/nfs
+-- credits https://github.com/ChristianChiarulli/nvim
+
 require "user.options"
 require "user.keymaps"
 require "user.plugins"
@@ -21,3 +25,6 @@ require "user.whichkey"
 require "user.autocommands"
 require "user.hop"
 require "user.dap"
+require "user.telescope-file-browser"
+require "user.exrc"
+require "user.blank-line"

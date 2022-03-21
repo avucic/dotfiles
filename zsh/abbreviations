@@ -2,13 +2,14 @@ abbr -g g="git"
 abbr -g r="rails"
 abbr -g rk="rake"
 abbr -g cl="clear"
-abbr -g tmux="TERM=xterm-24bit tmux -2"
+# abbr -g tmux="TERM=xterm-24bit tmux -2"
 abbr -g t="tmux"
 abbr -g ta="tmux a -t"
 abbr -g tk="tmux kill-session -t"
 abbr -g tka="tmux kill-server"
 abbr -g tn="tmux new -s"
 abbr -g f="fzf"
+abbr -g lvim="~/.local/bin/lvim"
 
 abbr -g drmf='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
 abbr -g dsa='docker stop $(docker ps -a -q)'

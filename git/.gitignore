@@ -72,3 +72,4 @@ docs/*
 *.*book
 Gemlocal
 Gemlocal.lock
+.nvimrc.lua
