@@ -58,11 +58,13 @@ return packer.startup(function(use)
 	use("goolord/alpha-nvim")
 	use("antoinemadec/FixCursorHold.nvim") -- This is needed to fix lsp doc highlight
 	use("folke/which-key.nvim")
-	use({
+	--[[ use({
 		"phaazon/hop.nvim",
 		branch = "v1", -- optional but strongly recommended
-	})
+	}) ]]
+	use({ "ggandor/lightspeed.nvim", event = "BufReadPre" })
 	use({ "unblevable/quick-scope" })
+
 	use({
 		"mg979/vim-visual-multi",
 		branch = "master",
@@ -105,16 +107,9 @@ return packer.startup(function(use)
 		},
 	})
 
+	use({ "echasnovski/mini.nvim", branch = "stable" })
+
 	use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
-	--[[ use({
-		"sindrets/diffview.nvim",
-		cmd = {
-			"DiffviewOpen",
-			"DiffviewClose",
-			"DiffviewToggleFiles",
-			"DiffviewFocusFiles",
-		},
-	}) ]]
 
 	-- pictograms
 	use({ "onsails/lspkind-nvim", requires = { { "famiu/bufdelete.nvim" } } })
@@ -150,9 +145,9 @@ return packer.startup(function(use)
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 	use({
 		"JoosepAlviste/nvim-ts-context-commentstring",
-		requires = {
+		--[[ requires = {
 			{ "b3nj5m1n/kommentary" },
-		},
+		}, ]]
 	})
 	use("nvim-treesitter/nvim-treesitter-textobjects")
 

@@ -5,8 +5,8 @@ end
 
 local setup = {
 	plugins = {
-		marks = true, -- shows a list of your marks on ' and `
-		registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+		marks = false, -- shows a list of your marks on ' and `
+		registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
 		spelling = {
 			enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
 			suggestions = 20, -- how many suggestions should be shown in the list?
@@ -100,6 +100,7 @@ local mappings = {
 		name = "Buffers",
 		j = { "<cmd>BufferLinePick<cr>", "Jump to buffer" },
 		q = { "<cmd>Bdelete!<CR>", "Close Buffer" },
+		b = { "<cmd>Telescope buffers <CR>", "List of buffers" },
 	},
 
 	j = {
@@ -107,6 +108,7 @@ local mappings = {
 		c = { "<cmd>HopChar1<cr>", "Jump to char" },
 		w = { "<cmd>HopWordMW<cr>", "Jump to word" },
 		l = { "<cmd>HopLine<cr>", "Jump to line" },
+		s = { "<cmd>Telescope lsp_document_symbols<cr>", "Jump to symbol" },
 	},
 
 	t = {
@@ -254,7 +256,6 @@ local mappings = {
 		R = { "<cmd>Telescope registers<cr>", "Registers" },
 		k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
 		C = { "<cmd>Telescope commands<cr>", "Commands" },
-		j = { "<cmd>Telescope lsp_document_symbols<cr>", "Jump to symbol" },
 		e = { "<cmd>Telescope symbols<cr>", "Emoji" },
 		T = { "<cmd>Telescope<cr>", "Telescope" },
 		s = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Fuzzy buffer find" },
