@@ -37,6 +37,8 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
 keymap("n", "<S-l>", "$", opts)
 keymap("n", "<S-h>", "^", opts)
+keymap("v", "<S-l>", "$", opts)
+keymap("v", "<S-h>", "^", opts)
 
 -- Move text up and down
 -- keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
@@ -68,6 +70,6 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 keymap("n", "<esc><esc>", "<cmd>nohlsearch<cr>", opts)
 keymap("n", "Q", "<cmd>Bdelete!<CR>", opts)
 
+-- vim.api.nvim_set_keymap('n', '<CR>', '<cmd>NeoZoomToggle<CR>', { noremap=true, silent=true, nowait=true })
 -- keymap("n", "gh", "<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>", opts)
-
-
+-- keymap("n", "<C-P>", "<cmd>FineCmdline<CR>", { noremap = true })

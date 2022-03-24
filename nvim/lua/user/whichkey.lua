@@ -84,22 +84,22 @@ local mappings = {
 	--   "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
 	--   "Buffers",
 	-- },
-	["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
+	["q"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
 	["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-	["w"] = { "<cmd>w!<CR>", "Save" },
-	["q"] = { "<cmd>q!<CR>", "Quit" },
-	["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
-	["f"] = {
-		-- "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
-		"<cmd>Telescope find_files<cr>",
-		"Find files",
-	},
+	-- ["q"] = { "<cmd>q!<CR>", "Quit" },
+	-- ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
+	-- ["f"] = {
+	-- 	-- "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
+	-- 	"<cmd>Telescope find_files<cr>",
+	-- 	"Find files",
+	-- },
 	["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
 	["p"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
 
 	b = {
 		name = "Buffers",
 		j = { "<cmd>BufferLinePick<cr>", "Jump to buffer" },
+		q = { "<cmd>Bdelete!<CR>", "Close Buffer" },
 	},
 
 	j = {
@@ -107,6 +107,16 @@ local mappings = {
 		c = { "<cmd>HopChar1<cr>", "Jump to char" },
 		w = { "<cmd>HopWordMW<cr>", "Jump to word" },
 		l = { "<cmd>HopLine<cr>", "Jump to line" },
+	},
+
+	t = {
+		name = "Trouble",
+		w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
+		d = { "<cmd>Trouble document_diagnostics<cr>", "Document Diagnostic" },
+		l = { "<cmd>Trouble loclist<cr>", "Loclist" },
+		q = { "<cmd>Trouble quickfix<cr>", "Quickfix" },
+		t = { "<cmd>TodoTrouble<cr>", "Todos" },
+		r = { "<cmd>Trouble lsp_references<cr>", "LSP References" },
 	},
 
 	r = {
@@ -125,28 +135,82 @@ local mappings = {
 		u = { "<cmd>PackerUpdate<cr>", "Update" },
 	},
 
+	f = {
+		name = "Files",
+		b = { "<cmd>Telescope file_browser<cr>", "File browser" },
+		f = {
+			-- "<cmd>lua require'telescope.builtin'.find_files({ find_command = {'fd', '--hidden', '--type', 'file', '--follow'}})<cr>",
+			"<cmd>Telescope find_files<cr>",
+			"Find File",
+		},
+		l = { "<cmd>Lf<cr>", "Open LF" },
+		p = { "<cmd>NvimTreeToggle<cr>", "Toogle Tree" },
+		r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+		s = { "<cmd>w<cr>", "Save Buffer" },
+		T = { "<cmd>NvimTreeFindFile<CR>", "Find in Tree" },
+		z = { "<cmd>Telescope zoxide list<CR>", "Zoxide" },
+	},
+
 	g = {
 		name = "Git",
-		-- g = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
-		s = { "<cmd>Neogit<CR>", "Git status" },
-		-- j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
-		-- k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
-		-- l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
-		-- p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
-		-- r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
-		-- R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
+		j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
+		k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
+		p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
+		r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
+		R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
 		-- s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
-		-- u = {
-		--   "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>",
-		--   "Undo Stage Hunk",
-		-- },
-		-- o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
-		b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-		-- c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
-		d = {
-			"<cmd>Gitsigns diffthis HEAD<cr>",
-			"Diff",
+		-- t = "Open Gitui", -- comand in toggleterm.lua
+		g = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
+		s = { "<cmd>Neogit<CR>", "Git status" },
+		u = {
+			"<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>",
+			"Undo Stage Hunk",
 		},
+		-- g = { "<cmd>Telescope git_status<cr>", "Open changed file" },
+		b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+		B = { "<cmd>GitBlameToggle<cr>", "Toogle Blame" },
+		c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
+		C = {
+			"<cmd>Telescope git_bcommits<cr>",
+			"Checkout commit(for current file)",
+		},
+		d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },
+		D = { "<cmd>DiffviewOpen<cr>", "Diff view" },
+	},
+	h = {
+		name = "Harpoon",
+		a = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "Add file" },
+		u = {
+			"<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",
+			"Open Menu",
+		},
+		["1"] = {
+			"<cmd>lua require('harpoon.ui').nav_file(1)<cr>",
+			"Open File 1",
+		},
+		["2"] = {
+			"<cmd>lua require('harpoon.ui').nav_file(1)<cr>",
+			"Open File 2",
+		},
+		["3"] = {
+			"<cmd>lua require('harpoon.ui').nav_file(1)<cr>",
+			"Open File 3",
+		},
+		["4"] = {
+			"<cmd>lua require('harpoon.ui').nav_file(1)<cr>",
+			"Open File 4",
+		},
+	},
+
+	w = {
+		name = "Window",
+		q = { "<cmd>:q<cr>", "Close" },
+		s = { "<cmd>:split<cr>", "Horizontal Split" },
+		t = { "<c-w>t", "Move to new tab" },
+		["="] = { "<c-w>=", "Equally size" },
+		v = { "<cmd>:vsplit<cr>", "Verstical Split" },
+		w = { "<c-w>x", "Swap" },
+		m = { "<cmd>NeoZoomToggle<CR>", "Maximazie" },
 	},
 
 	l = {
@@ -191,18 +255,56 @@ local mappings = {
 		k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
 		C = { "<cmd>Telescope commands<cr>", "Commands" },
 		j = { "<cmd>Telescope lsp_document_symbols<cr>", "Jump to symbol" },
-		s = { "<cmd>Telescope symbols<cr>", "Emoji" },
+		e = { "<cmd>Telescope symbols<cr>", "Emoji" },
 		T = { "<cmd>Telescope<cr>", "Telescope" },
-		f = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Fuzzy buffer find" },
+		s = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Fuzzy buffer find" },
+		f = { "<cmd>Telescope live_grep<cr>", "Text" },
 	},
 
-	t = {
-		name = "Tabs",
-		-- n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
-		c = { "<cmd>tabnew<cr>", "New" },
-		n = { "<cmd>tabNext<cr>", "Next" },
-		p = { "<cmd>tabprevious<cr>", "Previous" },
-		d = { "<cmd>tabclose<cr>", "Close" },
+	-- t = {
+	-- 	name = "Tabs",
+	-- 	-- n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
+	-- 	c = { "<cmd>tabnew<cr>", "New" },
+	-- 	n = { "<cmd>tabNext<cr>", "Next" },
+	-- 	p = { "<cmd>tabprevious<cr>", "Previous" },
+	-- 	d = { "<cmd>tabclose<cr>", "Close" },
+	-- },
+	--
+	x = {
+		name = "LanguageTool",
+		c = { "<cmd>GrammarousCheck<cr>", "Grammar check" },
+		i = { "<Plug>(grammarous-open-info-window)", "Open the info window" },
+		r = { "<Plug>(grammarous-reset)", "Reset the current check" },
+		f = { "<Plug>(grammarous-fixit)", "Fix the error under the cursor" },
+		x = {
+			"<Plug>(grammarous-close-info-window)",
+			"Close the information window",
+		},
+		e = {
+			"<Plug>(grammarous-remove-error)",
+			"Remove the error under the cursor",
+		},
+		n = {
+			"<Plug>(grammarous-move-to-next-error)",
+			"Move cursor to the next error",
+		},
+		p = {
+			"<Plug>(grammarous-move-to-previous-error)",
+			"Move cursor to the previous error",
+		},
+		d = {
+			"<Plug>(grammarous-disable-rule)",
+			"Disable the grammar rule under the cursor",
+		},
+	},
+
+	z = {
+		name = "Spelling",
+		n = { "]s", "Next" },
+		p = { "[s", "Previous" },
+		a = { "zg", "Add word" },
+		f = { "1z=", "Use 1. correction" },
+		l = { "<cmd>Telescope spell_suggest<cr>", "List corrections" },
 	},
 
 	[":"] = {
@@ -215,7 +317,12 @@ local mappings = {
 		v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
 		["."] = { "<cmd>term<cr>", "Here" },
 	},
+
+	y = {
+		f = { "<cmd>cp :let @' = expand('%')<cr>", "Copy file path" },
+	},
 }
 
+-- keymap("n", "<c-w-z>", "<cmd>NeoZoomToggle<CR>", opts)
 which_key.setup(setup)
 which_key.register(mappings, opts)

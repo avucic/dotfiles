@@ -84,6 +84,16 @@ _G.packer_plugins = {
     path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
+  ["Navigator.nvim"] = {
+    loaded = true,
+    path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/Navigator.nvim",
+    url = "https://github.com/numToStr/Navigator.nvim"
+  },
+  ["NeoZoom.lua"] = {
+    loaded = true,
+    path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/NeoZoom.lua",
+    url = "https://github.com/nyngwang/NeoZoom.lua"
+  },
   ["alpha-nvim"] = {
     loaded = true,
     path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/alpha-nvim",
@@ -94,6 +104,11 @@ _G.packer_plugins = {
     path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/blamer.nvim",
     url = "https://github.com/APZelos/blamer.nvim"
   },
+  ["bufdelete.nvim"] = {
+    loaded = true,
+    path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/bufdelete.nvim",
+    url = "https://github.com/famiu/bufdelete.nvim"
+  },
   ["bufferline.nvim"] = {
     loaded = true,
     path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/bufferline.nvim",
@@ -103,6 +118,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/cmp-buffer",
     url = "https://github.com/hrsh7th/cmp-buffer"
+  },
+  ["cmp-calc"] = {
+    loaded = true,
+    path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/cmp-calc",
+    url = "https://github.com/hrsh7th/cmp-calc"
   },
   ["cmp-cmdline"] = {
     loaded = true,
@@ -119,6 +139,16 @@ _G.packer_plugins = {
     path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
   },
+  ["cmp-spell"] = {
+    loaded = true,
+    path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/cmp-spell",
+    url = "https://github.com/f3fora/cmp-spell"
+  },
+  ["cmp-vsnip"] = {
+    loaded = true,
+    path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/cmp-vsnip",
+    url = "https://github.com/hrsh7th/cmp-vsnip"
+  },
   cmp_luasnip = {
     loaded = true,
     path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
@@ -129,6 +159,11 @@ _G.packer_plugins = {
     path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/dap-go.nvim",
     url = "https://github.com/yriveiro/dap-go.nvim"
   },
+  ["diffview.nvim"] = {
+    loaded = true,
+    path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/diffview.nvim",
+    url = "https://github.com/sindrets/diffview.nvim"
+  },
   ["exrc.vim"] = {
     loaded = true,
     path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/exrc.vim",
@@ -138,6 +173,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/friendly-snippets",
     url = "https://github.com/rafamadriz/friendly-snippets"
+  },
+  fzf = {
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/opt/fzf",
+    url = "https://github.com/junegunn/fzf"
   },
   ["gitsigns.nvim"] = {
     loaded = true,
@@ -159,10 +201,20 @@ _G.packer_plugins = {
     path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
     url = "https://github.com/lukas-reineke/indent-blankline.nvim"
   },
-  ["lsp-format.nvim"] = {
+  kommentary = {
     loaded = true,
-    path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/lsp-format.nvim",
-    url = "https://github.com/lukas-reineke/lsp-format.nvim"
+    path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/kommentary",
+    url = "https://github.com/b3nj5m1n/kommentary"
+  },
+  ["lazygit.nvim"] = {
+    loaded = true,
+    path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/lazygit.nvim",
+    url = "https://github.com/kdheepak/lazygit.nvim"
+  },
+  ["lspkind-nvim"] = {
+    loaded = true,
+    path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
+    url = "https://github.com/onsails/lspkind-nvim"
   },
   ["lualine.nvim"] = {
     loaded = true,
@@ -189,6 +241,11 @@ _G.packer_plugins = {
     path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
     url = "https://github.com/windwp/nvim-autopairs"
   },
+  ["nvim-bqf"] = {
+    loaded = true,
+    path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/nvim-bqf",
+    url = "https://github.com/kevinhwang91/nvim-bqf"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/nvim-cmp",
@@ -214,6 +271,11 @@ _G.packer_plugins = {
     path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
+  ["nvim-notify"] = {
+    loaded = true,
+    path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/nvim-notify",
+    url = "https://github.com/rcarriga/nvim-notify"
+  },
   ["nvim-spectre"] = {
     loaded = true,
     path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/nvim-spectre",
@@ -228,6 +290,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
+  },
+  ["nvim-treesitter-textobjects"] = {
+    loaded = true,
+    path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/nvim-treesitter-textobjects",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
   },
   ["nvim-ts-context-commentstring"] = {
     loaded = true,
@@ -263,6 +330,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/project.nvim",
     url = "https://github.com/ahmedkhalf/project.nvim"
+  },
+  ["quick-scope"] = {
+    loaded = true,
+    path = "/Users/vucinjo/.local/share/nvim/site/pack/packer/start/quick-scope",
+    url = "https://github.com/unblevable/quick-scope"
   },
   ["telescope-file-browser.nvim"] = {
     loaded = true,
@@ -335,6 +407,34 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+local module_lazy_loads = {
+  ["^nvim%-bqf"] = "fzf"
+}
+local lazy_load_called = {['packer.load'] = true}
+local function lazy_load_module(module_name)
+  local to_load = {}
+  if lazy_load_called[module_name] then return nil end
+  lazy_load_called[module_name] = true
+  for module_pat, plugin_name in pairs(module_lazy_loads) do
+    if not _G.packer_plugins[plugin_name].loaded and string.match(module_name, module_pat) then
+      to_load[#to_load + 1] = plugin_name
+    end
+  end
+
+  if #to_load > 0 then
+    require('packer.load')(to_load, {module = module_name}, _G.packer_plugins)
+    local loaded_mod = package.loaded[module_name]
+    if loaded_mod then
+      return function(modname) return loaded_mod end
+    end
+  end
+end
+
+if not vim.g.packer_custom_loader_enabled then
+  table.insert(package.loaders, 1, lazy_load_module)
+  vim.g.packer_custom_loader_enabled = true
+end
+
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)

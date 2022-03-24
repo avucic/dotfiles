@@ -77,3 +77,5 @@ kill_port() {
   echo $(lsof -t -i:${port})
   kill -9 $(lsof -t -i:${port})
 }
+
+export PATH=${PATH}:`go env GOPATH`/bin
