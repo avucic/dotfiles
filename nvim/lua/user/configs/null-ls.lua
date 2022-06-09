@@ -32,31 +32,31 @@ function M.config()
   --   factory = h.formatter_factory,
   -- })
 
-  local rubocop_daemon = h.make_builtin({
-    name = "rubocop",
-    meta = {
-      url = "https://github.com/rubocop/rubocop",
-      description = "Ruby static code analyzer and formatter, based on the community Ruby style guide.",
-    },
-    method = FORMATTING,
-    filetypes = { "ruby" },
-    generator_opts = {
-      command = "rubocop",
-      args = {
-        -- "exec",
-        -- "--",
-        "--autocorrect",
-        "-f",
-        "quiet",
-        "--stderr",
-        "--stdin",
-        "$FILENAME",
-      },
-      to_stdin = true,
-    },
-    factory = h.formatter_factory,
-  })
-
+  -- local rubocop_daemon = h.make_builtin({
+  --   name = "rubocop",
+  --   meta = {
+  --     url = "https://github.com/rubocop/rubocop",
+  --     description = "Ruby static code analyzer and formatter, based on the community Ruby style guide.",
+  --   },
+  --   method = FORMATTING,
+  --   filetypes = { "ruby" },
+  --   generator_opts = {
+  --     command = "rubocop-daemon",
+  --     args = {
+  --       "exec",
+  --       "--",
+  --       "--autocorrect",
+  --       "-f",
+  --       "quiet",
+  --       "--stderr",
+  --       "--stdin",
+  --       "$FILENAME",
+  --     },
+  --     to_stdin = true,
+  --   },
+  --   factory = h.formatter_factory,
+  -- })
+  --
   local null_ls = require("user.utils").load_module("null-ls")
   -- Check supported formatters
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
@@ -74,8 +74,8 @@ function M.config()
     debug = false,
     sources = {
       -- Set a formatter
-      rubocop_daemon,
-      -- formatting.rubocop,
+      -- rubocop_daemon,
+      formatting.rubocop,
       -- Set a linter
       -- diagnostics.rubocop,
       -- Set formatter
