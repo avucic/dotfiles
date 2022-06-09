@@ -1,0 +1,12 @@
+root = true
+
+[*.lua]
+# [basic code reformat option]
+# optional space/tab
+indent_style = space
+# if indent_style is space, this is valid
+indent_size = 2
+# if indent_style is tab, this is valid
+tab_width = 2
+# only support number
+continuation_indent_size = 2

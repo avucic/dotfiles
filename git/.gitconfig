@@ -1,7 +1,7 @@
 [core]
   excludesFile = ~/.gitignore
 	autocrlf = input
-	editor = code --wait
+	editor = nvim
 [user]
 	name = Aleksandar Vucic
 	email = vucinjo@gmail.com
@@ -57,30 +57,25 @@
 	smudge = git media smudge %f
 [fetch]
 	prune = true
-[merge]
-	tool = fugitive
-[mergetool]
-	keepBackup = false
-[mergetool "fugitive"]
-	cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
+
 [rebase]
 	autosquash = true
 
-; [diff]
-    ; tool = default-difftool
-; [difftool "default-difftool"]
-    ; cmd = code --wait --diff $LOCAL $REMOTE
-
 [diff]
-  tool = ediff
+  tool = nvimdiff
   guitool = ediff
 
-[difftool "ediff"]
-  cmd = ~/dotfiles/ediff.sh $LOCAL $REMOTE $MERGED
+[difftool "nvimdiff"]
+  cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 
 [merge]
-  tool = ediff
+	tool = nvimdiff
 
-[mergetool "ediff"]
-  cmd = ~/dotfiles/ediff.sh $LOCAL $REMOTE $MERGED $BASE
+[mergetool]
+	keepBackup = false
+
+[mergetool "nvimdiff"]
+	cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
   trustExitCode = true
+[mergetool "fugitive"]
+	cmd = nvim -d -c \"wincmd l\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\"

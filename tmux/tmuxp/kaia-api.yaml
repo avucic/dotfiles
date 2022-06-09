@@ -1,0 +1,16 @@
+# tuto
+# https://tmuxp.git-pull.com/
+# https://pnote.eu/notes/tmux-colors/
+session_name: "api"
+shell_command_before:
+  - cd ~/Work/Kaiahealth/dev/kaia-backend/kaia-api/
+
+options:
+  status-fg: "#000000"
+  status-bg: "#586941"
+
+windows:
+  - window_name: API
+    layout: even-horizontal
+    panes:
+      - nvim

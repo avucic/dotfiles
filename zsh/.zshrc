@@ -37,10 +37,23 @@ fi
 export PATH=/Users/vucinjo/bin:$PATH
 export ERL_AFLAGS="-kernel shell_history enabled" # enable history in iex
 export PATH="$HOME/dotfiles/bin:$PATH"
-export EDITOR="code"
+export EDITOR="nvim"
 export TERM=xterm-256color
 export FZF_DEFAULT_OPTS='--preview "pygmentize {}" --color dark --bind "?:toggle-preview" --preview-window "right:50%:hidden"'
+export DISABLE_AUTO_TITLE='true'
 
+
+if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+  alias nvim=nvr -cc split --remote-wait +'set bufhidden=wipe'
+fi
+
+if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+    export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+    export EDITOR="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+else
+    export VISUAL="nvim"
+    export EDITOR="nvim"
+fi
 # # Run
 # # alias du="docker-compose up"
 # # Stop all containers
@@ -79,3 +92,6 @@ kill_port() {
 }
 
 export PATH=${PATH}:`go env GOPATH`/bin
+
+. $(brew --prefix asdf)/libexec/asdf.sh
+. $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash

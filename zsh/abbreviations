@@ -1,4 +1,5 @@
 abbr -g g="git"
+abbr -g n="nvim"
 abbr -g r="rails"
 abbr -g rk="rake"
 abbr -g cl="clear"
