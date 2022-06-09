@@ -1,0 +1,6 @@
+{
+  "Module": {
+    "prefix": ["md"],
+    "body": ["local M = {}", "", "function M.config()", "end", "", "return M"]
+  }
+}
