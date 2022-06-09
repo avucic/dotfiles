@@ -1,8 +1,11 @@
 #!/usr/bin/env zsh
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 set -e
 
 command="${1}"
+# stow command
 
 # Shift the first argument off, as we are using that.
 # http://www.tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_07.html
@@ -11,7 +14,13 @@ shift
 case "${command}" in
   "install")
     package="${1}"
+
     echo "🚀 Installing package: ${package}"
+
+    stow foo
+
+    echo "Stow package installed"
+
     if [ -f "${DOTFILES_LOCATION}/${package}/install.sh" ]; then
         (cd "${DOTFILES_LOCATION}/${package}" && ./install.sh)
     else
