@@ -25,11 +25,11 @@ function M.config()
       -- v = { ":FocusSplitRight<CR>", "Focus split right" },
       -- s = { ":FocusSplitDown<CR>", "Focus split down" },
     },
-    -- ["<c-t>"] = {
-    --   name = "Tan",
-    --   q = { "<cmd>:tabclose<cr>", "Close" },
-    --   n = { "<cmd>:tabnew<CR>", "New tab" },
-    -- },
+    ["<c-t>"] = {
+      name = "Tab",
+      q = { "<cmd>:tabclose<cr>", "Close" },
+      n = { "<cmd>:tabnew<CR>", "New tab" },
+    },
   }
 
   which_key.register(ctrl_mappings, ctrl_opts)
