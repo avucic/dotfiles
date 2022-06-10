@@ -1,0 +1,6 @@
+{
+  "byebug": {
+    "prefix": ["bb"],
+    "body": ["byebug"]
+  }
+}
