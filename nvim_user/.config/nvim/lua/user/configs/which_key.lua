@@ -50,12 +50,12 @@ function M.config()
     ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
     ["p"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
 
-    S = {
-      name = "Session",
-      s = { "<cmd>SaveSession<cr>", "Save Session" },
-      l = { "<cmd>RestoreSession<cr>", "Restore Session" },
-    },
-
+    -- S = {
+    --   name = "Session",
+    --   s = { "<cmd>SaveSession<cr>", "Save Session" },
+    --   l = { "<cmd>RestoreSession<cr>", "Restore Session" },
+    -- },
+    --
     b = {
       name = "Buffers",
       j = { "<cmd>BufferLinePick<cr>", "Jump to buffer" },

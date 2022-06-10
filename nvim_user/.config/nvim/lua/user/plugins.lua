@@ -440,18 +440,6 @@ function M.config()
         require("user.configs.inflector").config()
       end,
     },
-    -- Session
-    {
-      "rmagatti/auto-session",
-      config = function()
-        require("user.configs.auto_session").config()
-      end,
-      opt = true,
-      cmd = {
-        "RestoreSession",
-      },
-    },
-
     -- Browser search
     {
       "voldikss/vim-browser-search",
