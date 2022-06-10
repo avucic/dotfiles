@@ -3,6 +3,7 @@ local M = {}
 function M.config()
   return {
     {
+      event = "BufRead",
       "kevinhwang91/nvim-bqf",
       requires = { { "junegunn/fzf", module = "nvim-bqf", ft = "qf" } },
       config = function()
@@ -17,6 +18,7 @@ function M.config()
     -- load local config
     {
       "ii14/exrc.vim",
+      event = "BufRead",
       config = function()
         require("user.configs.exrc").config()
       end,
@@ -32,6 +34,7 @@ function M.config()
     --  Surround text with anything
     {
       "tpope/vim-surround",
+      event = "BufRead",
     },
 
     -- Jump between tmux splits
@@ -285,9 +288,13 @@ function M.config()
     -- LSP
     {
       "folke/lsp-colors.nvim",
+      opt = true,
+      after = "nvim-lspconfig",
     },
     {
       "ray-x/lsp_signature.nvim",
+      opt = true,
+      after = "nvim-lspconfig",
     },
     {
       "kosayoda/nvim-lightbulb",
@@ -299,6 +306,7 @@ function M.config()
     -- Window picker
     {
       "s1n7ax/nvim-window-picker",
+      event = "BufRead",
       tag = "v1.*",
       config = function()
         require("user.configs.window_picker").config()
@@ -307,14 +315,20 @@ function M.config()
 
     -- Notes
     {
+      "nvim-neorg/neorg-telescope",
+      opt = true,
+      cmd = {
+        "Neorg",
+        "NeorgStart",
+      },
+      ft = "norg",
+    },
+    {
       "nvim-neorg/neorg",
+      opt = true,
       config = function()
         require("user.configs.neorg").config()
       end,
-      requires = {
-        "nvim-lua/plenary.nvim",
-        "nvim-neorg/neorg-telescope",
-      },
       cmd = {
         "Neorg",
         "NeorgStart",
@@ -432,6 +446,10 @@ function M.config()
       config = function()
         require("user.configs.auto_session").config()
       end,
+      opt = true,
+      cmd = {
+        "RestoreSession",
+      },
     },
 
     -- Browser search
