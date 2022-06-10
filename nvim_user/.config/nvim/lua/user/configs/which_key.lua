@@ -121,11 +121,11 @@ function M.config()
         "<cmd>lua require('user.utils').toggle_term_cmd('lazygit --use-config-file ~/.config/lazygit/config.yml', {direction = 'float'})<CR>",
         "Lazygit",
       },
-      -- s = {
-      --   "<cmd>lua require('user.utils').toggle_term_cmd('lazygit --use-config-file ~/.config/lazygit/config.yml', {direction = 'float'})<CR>",
-      --   "Lazygit",
-      -- },
-      s = { "<cmd>Neogit<CR>", "Git status" },
+      s = {
+        "<cmd>lua require('user.utils').toggle_term_cmd('lazygit --use-config-file ~/.config/lazygit/config.yml', {direction = 'float'})<CR>",
+        "Lazygit",
+      },
+      -- s = { "<cmd>Neogit<CR>", "Git status" },
       -- u = {
       --   "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>",
       --   "Undo Stage Hunk",
@@ -136,9 +136,10 @@ function M.config()
       b = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Toogle Blame" },
       c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
       C = { "<cmd>Telescope git_bcommits<cr>", "Checkout commit(for current file)" },
-      d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },
-      D = { "<cmd>DiffviewOpen<cr>", "Diff view" },
-      o = { "<cmd>lua require('git.browse').open(false)<cr>", "Open on Github" },
+      -- d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },
+      d = { "<cmd>DiffviewOpen<cr>", "Diff view" },
+      h = { "<cmd>DiffviewFileHistory %<cr>", "Diff view file history" },
+      o = { "<cmd>OpenGithubFile<cr>", "Open on Github" },
     },
 
     h = {

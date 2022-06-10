@@ -131,6 +131,11 @@ function M.config()
   map("n", [[<c-\>]], "<cmd>ToggleTermToggleAll<cr>", opts)
   map("t", [[<c-\>]], "<cmd>ToggleTermToggleAll<cr>", opts)
 
+  -- search google
+  map("n", "<leader>sg", ":BrowserSearch<cr>", opts)
+  map("v", "<leader>sg", ":BrowserSearch<cr>", opts)
+
+  -- command line
   vim.cmd([[
     cnoremap <C-A> <Home>
 	  cnoremap <C-F> <Right>

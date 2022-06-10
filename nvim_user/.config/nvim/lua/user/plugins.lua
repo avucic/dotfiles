@@ -40,6 +40,14 @@ function M.config()
       config = function()
         require("user.configs.navigator").config()
       end,
+      opt = true,
+      cmd = {
+        "NavigatorLeft",
+        "NavigatorRight",
+        "NavigatorUp",
+        "NavigatorDown",
+        "NavigatorPrevious",
+      },
     },
 
     -- Multicursor
@@ -114,19 +122,14 @@ function M.config()
       cmd = {
         "Diffview",
         "DiffviewOpen",
+        "DiffviewFileHistory",
       },
+      config = function()
+        require("user.configs.diffview").config()
+      end,
       opt = true,
     },
 
-    -- open file to github
-    {
-      "dinhhuy258/git.nvim",
-      opt = true,
-      cmd = "Git",
-      config = function()
-        require("user.configs.git").config()
-      end,
-    },
     -- Jump to char
     {
       "ggandor/lightspeed.nvim",
@@ -429,6 +432,31 @@ function M.config()
       config = function()
         require("user.configs.auto_session").config()
       end,
+    },
+
+    -- Browser search
+    {
+      "voldikss/vim-browser-search",
+      opt = true,
+      cmd = {
+        "BrowserSearch",
+      },
+    },
+    {
+      "tyru/open-browser.vim",
+      opt = true,
+      cmd = {
+        "OpenGithubFile",
+        "OpenGithubProject",
+      },
+    },
+    {
+      "tyru/open-browser-github.vim",
+      opt = true,
+      cmd = {
+        "OpenGithubFile",
+        "OpenGithubProject",
+      },
     },
     -- {
     --   "ray-x/go.nvim",
