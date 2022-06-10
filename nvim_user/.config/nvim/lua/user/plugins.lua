@@ -98,22 +98,22 @@ function M.config()
     },
 
     -- Git
-    {
-      "TimUntersberger/neogit",
-      config = function()
-        require("neogit").setup({
-          integrations = {
-            diffview = true,
-          },
-        })
-      end,
-      requires = {
-        "nvim-lua/plenary.nvim",
-        "sindrets/diffview.nvim",
-      },
-      cmd = { "Neogit" },
-      opt = true,
-    },
+    -- {
+    --   "TimUntersberger/neogit",
+    --   config = function()
+    --     require("neogit").setup({
+    --       integrations = {
+    --         diffview = true,
+    --       },
+    --     })
+    --   end,
+    --   requires = {
+    --     "nvim-lua/plenary.nvim",
+    --     "sindrets/diffview.nvim",
+    --   },
+    --   cmd = { "Neogit" },
+    --   opt = true,
+    -- },
     {
       "APZelos/blamer.nvim",
       cmd = "GitBlameToggle",
