@@ -253,8 +253,6 @@ function M.config()
     -- required by telescope_freceny
     {
       "tami5/sqlite.lua",
-      after = "telescope.nvim",
-      opt = true,
       event = "BufWinEnter",
     },
     -- Treesitter
