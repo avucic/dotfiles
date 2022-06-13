@@ -242,6 +242,21 @@ function M.config()
       end,
     },
 
+    {
+      "nvim-telescope/telescope-frecency.nvim",
+      after = "telescope.nvim",
+      config = function()
+        require("user.configs.telescope_freceny").config()
+      end,
+    },
+
+    -- required by telescope_freceny
+    {
+      "tami5/sqlite.lua",
+      after = "telescope.nvim",
+      opt = true,
+      event = "BufWinEnter",
+    },
     -- Treesitter
     {
       "ahmedkhalf/project.nvim",

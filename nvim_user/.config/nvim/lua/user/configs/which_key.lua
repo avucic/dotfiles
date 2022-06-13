@@ -98,7 +98,7 @@ function M.config()
       b = { "<cmd>lua require('telescope.builtin').file_browser()<cr>", "File browser" },
       f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find File" },
       -- l = { "<cmd>Lf<cr>", "Open LF" },
-      r = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "Open Recent File" },
+      r = { "<cmd>lua require('telescope').extensions.frecency.frecency()<cr>", "Open Recent File" },
       s = { "<cmd>w<cr>", "Save Buffer" },
       t = { "<cmd>Neotree focus<CR>", "Focus Tree" },
       -- T = { "<cmd>NvimTreeFindFile<CR>", "Find in Tree" },
