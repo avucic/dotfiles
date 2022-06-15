@@ -17,7 +17,7 @@ case "${command}" in
 
     echo "🚀 Installing package: ${package}"
 
-    stow foo
+    stow ${package}
 
     echo "Stow package installed"
 
