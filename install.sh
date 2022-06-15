@@ -12,6 +12,13 @@ export DOTFILES_LOCATION
 ###
 # Install dependencies
 ###
+# TODO: linux support
+if ! command -v stow &> /dev/null
+then
+  brew install stow
+fi
+
+
 # ./bin/dotfiles install brew
 # ./bin/dotfiles install vscode
 ./bin/dotfiles install nvim
