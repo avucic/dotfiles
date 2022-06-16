@@ -79,3 +79,5 @@
   trustExitCode = true
 [mergetool "fugitive"]
 	cmd = nvim -d -c \"wincmd l\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+[init]
+	defaultBranch = master
