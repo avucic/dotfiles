@@ -2,6 +2,10 @@ local M = {}
 function M.config()
   local cmp = require("user.utils").load_module("cmp")
 
+  if not cmp then
+    return
+  end
+
   cmp.setup.cmdline("/", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {

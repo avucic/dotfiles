@@ -40,12 +40,9 @@ end
 
 function M.load_module(name)
   local ok, module = pcall(require, name)
-  if not ok then
-    print(module)
-    return
-  end
+  if ok then return module end
   -- assert(ok, string.format("Module %s not installed", name))
-  return module
+  return nil
 end
 
 function M.modul_exists(name)

@@ -3,6 +3,10 @@ local M = {}
 function M.config()
   local which_key = require("user.utils").load_module("which-key")
 
+  if not which_key then
+    return {}
+  end
+
   local ctrl_opts = {
     mode = "n",
     prefix = "",

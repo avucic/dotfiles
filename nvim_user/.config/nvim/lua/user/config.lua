@@ -1,25 +1,25 @@
 local M = {}
 
-local plugins = require("user.plugins").config()
-local wk = require("user.configs.which_key").config()
-local treesitter = require("user.configs.treesitter").config()
-local telescope = require("user.configs.telescope").config()
-local neotree = require("user.configs.neo-tree").config()
-local toogleterm = require("user.configs.toggleterm").config()
-local cmp = require("user.configs.cmp").config()
-local bufferline = require("user.configs.bufferline").config()
-local lsp = require("user.configs.lsp").config()
-local null_ls = require("user.configs.null-ls").config()
-local alpha = require("user.configs.alpha").config()
-local aerial = require("user.configs.aerial").config()
-local _lazygit = require("user.configs.lazygit").config()
-
 function M.config()
   local colorscheme = "default_theme"
   local present, _ = pcall(require, "onedark")
   if present then
     colorscheme = "onedark"
   end
+
+  local plugins = require("user.plugins").config()
+  local wk = require("user.configs.which_key").config()
+  local treesitter = require("user.configs.treesitter").config()
+  local telescope = require("user.configs.telescope").config()
+  local neotree = require("user.configs.neo-tree").config()
+  local toogleterm = require("user.configs.toggleterm").config()
+  local cmp = require("user.configs.cmp").config()
+  local bufferline = require("user.configs.bufferline").config()
+  local lsp = require("user.configs.lsp").config()
+  local null_ls = require("user.configs.null-ls").config()
+  local alpha = require("user.configs.alpha").config()
+  local aerial = require("user.configs.aerial").config()
+  local _lazygit = require("user.configs.lazygit").config()
 
   return {
     -- Set colorscheme
