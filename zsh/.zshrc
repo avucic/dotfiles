@@ -98,5 +98,11 @@ then
   export PATH=${PATH}:`go env GOPATH`/bin
 fi
 
+if test -f "$HOME/.asdf/asdf.sh"
+then
+  . $HOME/.asdf/asdf.sh
+  . $HOME/.asdf/completions/asdf.bash
+else
 . $(brew --prefix asdf)/libexec/asdf.sh
 . $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash
+fi
