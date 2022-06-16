@@ -93,7 +93,10 @@ kill_port() {
   kill -9 $(lsof -t -i:${port})
 }
 
-export PATH=${PATH}:`go env GOPATH`/bin
+if command -v go &> /dev/null
+then
+  export PATH=${PATH}:`go env GOPATH`/bin
+fi
 
 . $(brew --prefix asdf)/libexec/asdf.sh
 . $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash
