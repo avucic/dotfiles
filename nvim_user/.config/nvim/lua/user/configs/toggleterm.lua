@@ -2,7 +2,7 @@ local M = {}
 
 function M.config()
   local settings = {
-    open_mapping = [[<c-t>]],
+    open_mapping = [[<c-\>]],
     persist_size = true,
     shade_terminals = true,
     shading_factor = -8,
