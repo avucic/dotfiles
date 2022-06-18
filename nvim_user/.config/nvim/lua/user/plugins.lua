@@ -315,7 +315,12 @@ function M.config()
         require("user.configs.lightbulb").config()
       end,
     },
-    --
+    -- emmet
+    {
+      "aca/emmet-ls",
+      opt = true,
+      after = "nvim-lspconfig",
+    },
     -- Window picker
     {
       "s1n7ax/nvim-window-picker",
@@ -477,6 +482,7 @@ function M.config()
         "OpenGithubProject",
       },
     },
+
     -- {
     --   "ray-x/go.nvim",
     --   config = function()

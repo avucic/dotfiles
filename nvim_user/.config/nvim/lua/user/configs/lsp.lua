@@ -1,6 +1,17 @@
 local M = {}
 function M.config()
   local lsp_installer = require("user.utils").load_module("nvim-lsp-installer")
+  local lspconfig = require("lspconfig")
+  local configs = require("lspconfig/configs")
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+  lspconfig.emmet_ls.setup({
+    -- on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby" },
+  })
+
   local map = vim.keymap.set
 
   local default_lsp_servers = {
