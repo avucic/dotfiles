@@ -20,6 +20,7 @@ function M.config()
   local alpha = require("user.configs.alpha").config()
   local aerial = require("user.configs.aerial").config()
   local _lazygit = require("user.configs.lazygit").config()
+  local session_manager = require("user.configs.session_manager").config()
 
   return {
     -- Set colorscheme
@@ -101,6 +102,7 @@ function M.config()
       ["which-key"] = wk["settings"],
       alpha = alpha,
       aerial = aerial,
+      session_manager = session_manager,
     },
 
     -- Add paths for including more VS Code style snippets in luasnip
