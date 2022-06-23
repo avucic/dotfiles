@@ -176,12 +176,6 @@ function M.config()
       g.autoformat_on_save = 1
       g["vim_current_word#highlight_current_word"] = 0
 
-      -- vim.cmd([[
-      --   if has('nvim') && executable('nvr')
-      --     let $GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
-      --   endif
-      -- ]])
-
       -- Set autocommands
       -- vim.api.nvim_create_augroup("packer_conf", {})
       -- vim.api.nvim_create_autocmd("BufWritePost", {
