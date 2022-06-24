@@ -20,6 +20,7 @@ function M.config()
   local alpha = require("user.configs.alpha").config()
   local aerial = require("user.configs.aerial").config()
   local _lazygit = require("user.configs.lazygit").config()
+  local session_manager = require("user.configs.session_manager").config()
 
   return {
     -- Set colorscheme
@@ -101,6 +102,7 @@ function M.config()
       ["which-key"] = wk["settings"],
       alpha = alpha,
       aerial = aerial,
+      session_manager = session_manager,
     },
 
     -- Add paths for including more VS Code style snippets in luasnip
@@ -173,12 +175,6 @@ function M.config()
 
       g.autoformat_on_save = 1
       g["vim_current_word#highlight_current_word"] = 0
-
-      -- vim.cmd([[
-      --   if has('nvim') && executable('nvr')
-      --     let $GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
-      --   endif
-      -- ]])
 
       -- Set autocommands
       -- vim.api.nvim_create_augroup("packer_conf", {})
