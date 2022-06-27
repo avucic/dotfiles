@@ -1,8 +1,13 @@
 local M = {}
 
 function M.config()
-  local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+  local module = require("user.utils").load_module("nvim-treesitter.parsers")
 
+  if not module then
+    return {}
+  end
+
+  local parser_config = module.get_parser_configs()
   parser_config.embedded_template = {
     install_info = {
       url = "https://github.com/tree-sitter/tree-sitter-embedded-template",

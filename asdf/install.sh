@@ -7,16 +7,11 @@ if ! [ -e $HOME/.asdf ]; then
     git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.2
 fi
 
-if ! [ -e $HOME/.oh-my-zsh ]; then
-    echo "▶️  Oh my zsh setup"
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc
-fi
 
-if ! command -v autojump &>/dev/null; then
-    echo "▶️  Autojump setup"
-    export SHELL=bash
-
-    git clone --depth 1 https://github.com/wting/autojump.git
-    cd autojump
-    /usr/bin/python ./install.py
-fi
+go get golang.org/x/tools/gopls@latest
+go get golang.org/x/tools/gomodifytags@latest
+go get golang.org/x/tools/impl@latest
+go get golang.org/x/tools/goplay@latest
+go get golang.org/x/tools/dlv@latest
+go get golang.org/x/tools/staticcheck@latest
+go get golang.org/x/tools/gotests@latest

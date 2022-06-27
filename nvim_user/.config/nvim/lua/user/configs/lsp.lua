@@ -1,7 +1,20 @@
 local M = {}
 function M.config()
   local lsp_installer = require("user.utils").load_module("nvim-lsp-installer")
+  if not lsp_installer then
+    return {}
+  end
+
+  -- lsp_installer.setup({
+  --   automatic_installation = true,
+  -- })
+
   local lspconfig = require("lspconfig")
+  local lspconfig = require("user.utils").load_module("lspconfig")
+  if not lspconfig then
+    return {}
+  end
+
   local configs = require("lspconfig/configs")
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -38,8 +51,8 @@ function M.config()
   return {
     -- add to the server on_attach function
     on_attach = function(client, bufnr)
-      client.resolved_capabilities.document_formatting = false
-      client.resolved_capabilities.document_range_formatting = false
+      -- client.resolved_capabilities.document_formatting = false
+      -- client.resolved_capabilities.document_range_formatting = false
 
       vim.opt.foldmethod = "expr"
       vim.opt.foldexpr = "nvim_treesitter#foldexpr()"

@@ -17,7 +17,17 @@ if ! command -v stow &>/dev/null; then
   brew install stow
 fi
 
+if ! command -v yarn &>/dev/null; then
+  brew install yarn
+fi
+
+if ! command -v stylua &>/dev/null; then
+  brew install stylua
+fi
+
+
 # ./bin/dotfiles install brew
+./bin/dotfiles install stow
 ./bin/dotfiles install asdf
 ./bin/dotfiles install nvim
 ./bin/dotfiles install nvim_user

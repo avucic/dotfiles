@@ -2,8 +2,16 @@ local M = {}
 function M.config()
   -- Formatting and linting
   -- https://github.com/jose-elias-alvarez/null-ls.nvim
-  local h = require("null-ls.helpers")
-  local methods = require("null-ls.methods")
+
+  local h = require("user.utils").load_module("null-ls.helpers")
+  if not h then
+    return {}
+  end
+
+  local methods = require("user.utils").load_module("null-ls.methods")
+  if not methods then
+    return {}
+  end
 
   local FORMATTING = methods.internal.FORMATTING
 
@@ -85,6 +93,7 @@ function M.config()
       formatting.pg_format,
       diagnostics.sqlfluff,
       code_actions.eslint_d,
+      formatting.gofmt,
       -- completion.spell,
     },
     -- NOTE: You can remove this on attach function to disable format on save
