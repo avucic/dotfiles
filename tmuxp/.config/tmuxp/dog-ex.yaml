@@ -1,0 +1,15 @@
+# tuto
+# https://tmuxp.git-pull.com/
+# https://pnote.eu/notes/tmux-colors/
+session_name: "Dog Elixir"
+options:
+  status-fg: "#000000"
+  status-bg: "#586941"
+
+windows:
+  - window_name: Dog
+    layout: even-horizontal
+    shell_command_before:
+      - cd ~/Work/Dropongo/Development/dropongo_ex/
+    panes:
+      - nvim

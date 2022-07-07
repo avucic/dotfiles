@@ -7,43 +7,43 @@ function M.config()
     return {}
   end
 
-  local parser_config = module.get_parser_configs()
-  parser_config.embedded_template = {
-    install_info = {
-      url = "https://github.com/tree-sitter/tree-sitter-embedded-template",
-      files = { "src/parser.c" },
-      requires_generate_from_grammar = true,
-    },
-    filetype = "eruby",
-    -- used_by = { "eruby", "erb" },
-  }
+  -- local parser_config = module.get_parser_configs()
+  -- parser_config.embedded_template = {
+  --   install_info = {
+  --     url = "https://github.com/tree-sitter/tree-sitter-embedded-template",
+  --     files = { "src/parser.c" },
+  --     requires_generate_from_grammar = true,
+  --   },
+  --   filetype = "eruby",
+  --   -- used_by = { "eruby", "erb" },
+  -- }
 
-  -- These two are optional and provide syntax highlighting
-  -- for Neorg tables and the @document.meta tag
-  parser_config.norg_meta = {
-    install_info = {
-      url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
-      files = { "src/parser.c" },
-      branch = "main",
-    },
-  }
+  -- -- These two are optional and provide syntax highlighting
+  -- -- for Neorg tables and the @document.meta tag
+  -- parser_config.norg_meta = {
+  --   install_info = {
+  --     url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
+  --     files = { "src/parser.c" },
+  --     branch = "main",
+  --   },
+  -- }
 
-  parser_config.norg_table = {
-    install_info = {
-      url = "https://github.com/nvim-neorg/tree-sitter-norg-table",
-      files = { "src/parser.c" },
-      branch = "main",
-    },
-  }
+  -- parser_config.norg_table = {
+  --   install_info = {
+  --     url = "https://github.com/nvim-neorg/tree-sitter-norg-table",
+  --     files = { "src/parser.c" },
+  --     branch = "main",
+  --   },
+  -- }
 
   require("nvim-treesitter.configs").setup({
     textobjects = {
       select = {
         enable = true,
-
+  
         -- Automatically jump forward to textobj, similar to targets.vim
         lookahead = true,
-
+  
         use_languagetree = true,
         keymaps = {
           -- You can use the capture groups defined in textobjects.scm
@@ -89,6 +89,7 @@ function M.config()
       "hcl",
       "javascript",
       "json",
+      "http",
       "ledger",
       "lua",
       "python",

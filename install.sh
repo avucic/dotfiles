@@ -12,18 +12,13 @@ export DOTFILES_LOCATION
 ###
 # Install dependencies
 ###
-# TODO: linux support
-if ! command -v stow &>/dev/null; then
-  brew install stow
-fi
 
-if ! command -v yarn &>/dev/null; then
-  brew install yarn
+for i in stow yarn stylua tmuxp sqlfluff rg direnv pgformatter protobuf jq zoxide
+do
+	if ! command -v $i &>/dev/null; then
+  brew install $i
 fi
-
-if ! command -v stylua &>/dev/null; then
-  brew install stylua
-fi
+done
 
 
 # ./bin/dotfiles install brew

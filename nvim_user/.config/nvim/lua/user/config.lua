@@ -21,10 +21,27 @@ function M.config()
   local aerial = require("user.configs.aerial").config()
   local _lazygit = require("user.configs.lazygit").config()
   local session_manager = require("user.configs.session_manager").config()
+  local mappings = require("user.configs.mappings").config()
 
   return {
     -- Set colorscheme
     colorscheme = colorscheme,
+    -- Configure AstroNvim updates
+    updater = {
+      remote = "origin", -- remote to use
+      channel = "nightly", -- "stable" or "nightly"
+      version = "latest", -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
+      branch = "main", -- branch name (NIGHTLY ONLY)
+      commit = nil, -- commit hash (NIGHTLY ONLY)
+      pin_plugins = nil, -- nil, true, false (nil will pin plugins on stable only)
+      skip_prompts = false, -- skip prompts about breaking changes
+      show_changelog = true, -- show the changelog after performing an update
+      -- remotes = { -- easily ad new remotes to track
+      --   ["remote_name"] = "https://remote_url.come/repo.git", -- full remote url
+      --   ["remote2"] = "github_user/repo", -- GitHub user/repo shortcut,
+      --   ["remote3"] = "github_user", -- GitHub user assume AstroNvim fork
+      -- },
+    },
 
     -- set vim options here (vim.<first_key>.<second_key> =  value)
     options = {
@@ -74,7 +91,7 @@ function M.config()
         symbols_outline = false,
         telescope = true,
         vimwiki = false,
-        ["which-key"] = true,
+        ["which-key"] = wk["settings"],
       },
     },
 
@@ -111,8 +128,8 @@ function M.config()
     },
 
     ["which-key"] = {
-      -- Add bindings to the normal mode <leader> mappings
-      register_n_leader = wk["mappings"],
+      -- Add bindings
+      register_mappings = wk["mappings"],
     },
 
     lsp = lsp,
@@ -142,19 +159,15 @@ function M.config()
 
     -- null-ls configuration
     ["null-ls"] = null_ls,
+    mappings = mappings,
 
     -- This function is run last
     -- good place to configure mappings and vim options
     polish = function()
-      -- require("user.configs.alpha").config()
-      require("user.mappings").config()
-      require("user.configs.colors.onedark").config()
-      -- require("user.configs.alpha").config()
-
-      -- vim.o.expandtab = true
-      -- vim.o.tabstop = 2
-      -- vim.o.shiftwidth = 2
-      -- vim.o.laststatus = 3
+      -- require("user.mymappings").config()
+      if colorscheme == "onedark" then
+        require("user.configs.colors.onedark").config()
+      end
 
       local sources = {
         "user.configs.autocmds",
@@ -167,14 +180,14 @@ function M.config()
         end
       end
 
-      local set = vim.opt
-      local g = vim.g
-      set.relativenumber = false
-      set.spell = true
-      set.spelllang = { "en_us" }
-
-      g.autoformat_on_save = 1
-      g["vim_current_word#highlight_current_word"] = 0
+      -- local set = vim.opt
+      -- local g = vim.g
+      -- set.relativenumber = true
+      -- set.spell = true
+      -- set.spelllang = { "en_us" }
+      --
+      -- g.autoformat_on_save = 1
+      -- g["vim_current_word#highlight_current_word"] = 0
 
       -- Set autocommands
       -- vim.api.nvim_create_augroup("packer_conf", {})

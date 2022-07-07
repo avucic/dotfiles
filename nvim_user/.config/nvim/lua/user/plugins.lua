@@ -18,8 +18,7 @@ function M.config()
     -- load local config
     {
       "ii14/exrc.vim",
-      event = "BufRead",
-      config = function()
+      setup = function()
         require("user.configs.exrc").config()
       end,
     },
@@ -29,6 +28,14 @@ function M.config()
       "ful1e5/onedark.nvim",
       config = function()
         require("user.configs.colors.onedark").config()
+      end,
+    },
+    {
+      "rmehri01/onenord.nvim",
+      config = function()
+        require("onenord").setup({
+          theme = "light",
+        })
       end,
     },
     --  Surround text with anything
@@ -98,22 +105,6 @@ function M.config()
     },
 
     -- Git
-    -- {
-    --   "TimUntersberger/neogit",
-    --   config = function()
-    --     require("neogit").setup({
-    --       integrations = {
-    --         diffview = true,
-    --       },
-    --     })
-    --   end,
-    --   requires = {
-    --     "nvim-lua/plenary.nvim",
-    --     "sindrets/diffview.nvim",
-    --   },
-    --   cmd = { "Neogit" },
-    --   opt = true,
-    -- },
     {
       "APZelos/blamer.nvim",
       cmd = "GitBlameToggle",
@@ -481,6 +472,20 @@ function M.config()
         "OpenGithubFile",
         "OpenGithubProject",
       },
+    },
+
+    -- rest client
+    {
+      "NTBBloodbath/rest.nvim",
+      config = function()
+        require("user.configs.rest").config()
+      end,
+      -- opt = true,
+      -- cmd = {
+      --   "RestNvim",
+      --   "RestNvimPreview",
+      --   "RestNvimLast",
+      -- },
     },
 
     -- {

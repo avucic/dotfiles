@@ -15,10 +15,14 @@ function M.config()
     popup_border_style = "rounded",
     enable_git_status = true,
     enable_diagnostics = true,
-    follow_current_file = true,
+    filesystem = {
+      follow_current_file = false,
+    },
     window = {
       width = 40,
       mappings = {
+        ["S"] = "split_with_window_picker",
+        ["s"] = "vsplit_with_window_picker",
         w = function(state)
           local node = state.tree:get_node()
           local success, picker = pcall(require, "window-picker")

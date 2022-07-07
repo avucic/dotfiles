@@ -43,7 +43,7 @@ coverage/
 .eslint*
 .vscode/*
 .vscode
-.tmp/
+tmp/
 coverage/
 .nyc_output
 *.code-workspace

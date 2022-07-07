@@ -67,7 +67,7 @@ function M.config()
 
   -- Insert --
   -- Press jk fast to enter
-  map("i", "jk", "<ESC>", opts)
+  -- map("i", "jk", "<ESC>", opts)
 
   -- Visual --
   -- Stay in indent mode
