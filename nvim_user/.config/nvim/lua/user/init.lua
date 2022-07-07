@@ -1,7 +1,10 @@
-local ok, utils = pcall(require, "user.utils")
+local ok, _ = pcall(require, "user.utils")
 if not ok then
   return {}
 end
 
 local config = require("user.utils").load_module("user.config")
-return config.config()
+
+if config then
+  return config.config()
+end

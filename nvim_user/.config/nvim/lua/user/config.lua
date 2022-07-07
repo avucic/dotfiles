@@ -62,7 +62,7 @@ function M.config()
       diagnostics_style = { italic = true },
       -- Modify the color table
       colors = {
-        fg = "#abb2bf",
+        -- fg = "#abb2bf",
       },
       -- Modify the highlight groups
       highlights = function(highlights)
@@ -180,14 +180,14 @@ function M.config()
         end
       end
 
-      -- local set = vim.opt
-      -- local g = vim.g
-      -- set.relativenumber = true
-      -- set.spell = true
-      -- set.spelllang = { "en_us" }
+      local set = vim.opt
+      local g = vim.g
+      set.relativenumber = true
+      set.spell = true
+      set.spelllang = { "en_us" }
       --
-      -- g.autoformat_on_save = 1
-      -- g["vim_current_word#highlight_current_word"] = 0
+      g.autoformat_on_save = 1
+      g["vim_current_word#highlight_current_word"] = 0
 
       -- Set autocommands
       -- vim.api.nvim_create_augroup("packer_conf", {})

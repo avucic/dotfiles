@@ -9,13 +9,13 @@ function M.config()
   --   automatic_installation = true,
   -- })
 
-  local lspconfig = require("lspconfig")
   local lspconfig = require("user.utils").load_module("lspconfig")
+  local util = require("user.utils").load_module("lspconfig/util")
+
   if not lspconfig then
     return {}
   end
 
-  local configs = require("lspconfig/configs")
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
 
@@ -23,6 +23,20 @@ function M.config()
     -- on_attach = on_attach,
     capabilities = capabilities,
     filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby" },
+  })
+
+  lspconfig.gopls.setup({
+    cmd = { "gopls", "serve" },
+    filetypes = { "go", "gomod" },
+    root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+    settings = {
+      gopls = {
+        analyses = {
+          unusedparams = true,
+        },
+        staticcheck = true,
+      },
+    },
   })
 
   local map = vim.keymap.set
@@ -44,6 +58,7 @@ function M.config()
     if server_is_found and not server:is_installed() then
       print("Installing " .. name)
       server:install()
+      server.gopls.setup({})
       -- vim.cmd("LspInstallInfo")
     end
   end
@@ -57,6 +72,7 @@ function M.config()
       vim.opt.foldmethod = "expr"
       vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
+      require("lspconfig").gopls.setup({})
       require("aerial").on_attach(client, bufnr)
 
       -- require("lsp_signature").on_attach()
