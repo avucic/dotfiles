@@ -13,15 +13,7 @@ export DOTFILES_LOCATION
 # Install dependencies
 ###
 
-for i in stow yarn stylua tmuxp sqlfluff rg direnv pgformatter protobuf jq zoxide yaml-language-server fd
-do
-	if ! command -v $i &>/dev/null; then
-  brew install $i
-fi
-done
-
-
-# ./bin/dotfiles install brew
+./bin/dotfiles install brew
 ./bin/dotfiles install stow
 ./bin/dotfiles install asdf
 ./bin/dotfiles install nvim
