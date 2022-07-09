@@ -115,7 +115,7 @@ function M.config()
   -- inflect
   map("v", "gI", "<Plug>(Inflect)", opts)
 
-  local smart_splits = require("user.utils").load_module("smart-splits")
+  local smart_splits = require("user.core.utils").load_module("smart-splits")
 
   if smart_splits then
     vim.keymap.set("n", "<A-h>", require("smart-splits").resize_left)

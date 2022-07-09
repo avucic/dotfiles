@@ -1,6 +1,6 @@
 local M = {}
 function M.config()
-  local wp = require("user.utils").load_module("window-picker")
+  local wp = require("user.core.utils").load_module("window-picker")
 
   wp.setup({
     autoselect_one = true,

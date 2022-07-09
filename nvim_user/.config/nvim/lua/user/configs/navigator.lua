@@ -6,7 +6,7 @@ function M.config()
     return
   end
 
-  local navigator = require("user.utils").load_module("Navigator")
+  local navigator = require("user.core.utils").load_module("Navigator")
 
   navigator.setup()
 

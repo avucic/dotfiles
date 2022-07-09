@@ -1,7 +1,7 @@
 local M = {}
 
 M.config = function()
-  local util = require("user.utils")
+  local util = require("user.core.utils")
 
   if not util.modul_exists("dap") then
     return

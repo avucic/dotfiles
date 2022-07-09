@@ -1,7 +1,7 @@
 local M = {}
 
 function M.config()
-  local notes = require("user.utils").load_module("neo-tree")
+  local notes = require("user.core.utils").load_module("neo-tree")
 
   notes.setup({})
 end

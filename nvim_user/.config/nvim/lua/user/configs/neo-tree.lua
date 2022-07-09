@@ -1,7 +1,7 @@
 local M = {}
 
 function M.config()
-  local neo_tree = require("user.utils").load_module("neo-tree")
+  local neo_tree = require("user.core.utils").load_module("neo-tree")
 
   vim.g.nvim_tree_git_hl = 1
   vim.g.nvim_tree_respect_buf_cwd = 1

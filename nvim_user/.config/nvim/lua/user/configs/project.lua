@@ -1,8 +1,8 @@
 local M = {}
 
 function M.config()
-  local project = require("user.utils").load_module("project_nvim")
-  local telescope = require("user.utils").load_module("telescope")
+  local project = require("user.core.utils").load_module("project_nvim")
+  local telescope = require("user.core.utils").load_module("telescope")
   telescope.load_extension("projects")
 
   project.setup({

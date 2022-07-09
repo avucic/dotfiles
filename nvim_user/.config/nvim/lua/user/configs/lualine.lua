@@ -1,7 +1,7 @@
 local M = {}
 
 function M.config()
-  require("user.utils").load_module("lualine")
+  require("user.core.utils").load_module("lualine")
 
   local function get_hl_by_name(name)
     return string.format("#%06x", vim.api.nvim_get_hl_by_name(name.group, true)[name.prop])

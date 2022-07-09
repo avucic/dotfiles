@@ -476,16 +476,19 @@ function M.config()
 
     -- rest client
     {
+      -- checkout manually commit e5f68db73276c4d4d255f75a77bbe6eff7a476ef
+      -- https://github.com/NTBBloodbath/rest.nvim/issues/114
       "NTBBloodbath/rest.nvim",
       config = function()
         require("user.configs.rest").config()
       end,
-      -- opt = true,
-      -- cmd = {
-      --   "RestNvim",
-      --   "RestNvimPreview",
-      --   "RestNvimLast",
-      -- },
+      ft = "http",
+      opt = true,
+      cmd = {
+        "RestNvim",
+        "RestNvimPreview",
+        "RestNvimLast",
+      },
     },
 
     -- {

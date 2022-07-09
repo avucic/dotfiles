@@ -13,7 +13,7 @@ export DOTFILES_LOCATION
 # Install dependencies
 ###
 
-for i in stow yarn stylua tmuxp sqlfluff rg direnv pgformatter protobuf jq zoxide
+for i in stow yarn stylua tmuxp sqlfluff rg direnv pgformatter protobuf jq zoxide yaml-language-server fd
 do
 	if ! command -v $i &>/dev/null; then
   brew install $i

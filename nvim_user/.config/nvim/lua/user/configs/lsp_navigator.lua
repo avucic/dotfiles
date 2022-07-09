@@ -1,7 +1,7 @@
 local M = {}
 
 function M.config()
-  local navigator = require("user.utils").load_module("navigator")
+  local navigator = require("user.core.utils").load_module("navigator")
 
   navigator.setup({
     debug = false, -- log output, set to true and log path: ~/.cache/nvim/gh.log

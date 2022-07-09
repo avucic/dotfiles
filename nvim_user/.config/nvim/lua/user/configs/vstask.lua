@@ -1,7 +1,7 @@
 local M = {}
 
 function M.config()
-  local vstask = require("user.utils").load_module("vstask")
+  local vstask = require("user.core.utils").load_module("vstask")
   if vstask then
     vstask.setup({
       terminal = "toggleterm",

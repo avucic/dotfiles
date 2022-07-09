@@ -1,7 +1,7 @@
 local M = {}
 
 function M.config()
-  local module = require("user.utils").load_module("nvim-treesitter.parsers")
+  local module = require("user.core.utils").load_module("nvim-treesitter.parsers")
 
   if not module then
     return {}
@@ -18,8 +18,8 @@ function M.config()
   --   -- used_by = { "eruby", "erb" },
   -- }
 
-  -- -- These two are optional and provide syntax highlighting
-  -- -- for Neorg tables and the @document.meta tag
+  -- These two are optional and provide syntax highlighting
+  -- for Neorg tables and the @document.meta tag
   -- parser_config.norg_meta = {
   --   install_info = {
   --     url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
@@ -40,10 +40,10 @@ function M.config()
     textobjects = {
       select = {
         enable = true,
-  
+
         -- Automatically jump forward to textobj, similar to targets.vim
         lookahead = true,
-  
+
         use_languagetree = true,
         keymaps = {
           -- You can use the capture groups defined in textobjects.scm
@@ -88,6 +88,7 @@ function M.config()
       "dockerfile",
       "hcl",
       "javascript",
+      "elixir",
       "json",
       "http",
       "ledger",

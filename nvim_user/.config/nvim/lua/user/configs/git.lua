@@ -1,7 +1,7 @@
 local M = {}
 
 function M.config()
-  local git = require("user.utils").load_module("git")
+  local git = require("user.core.utils").load_module("git")
 
   git.setup({
     keymaps = {

@@ -1,6 +1,6 @@
 local M = {}
 
-local util = require("user.utils")
+local util = require("user.core.utils")
 -- local job = util.load_module("plenary.job")
 -- local uv = vim.loop
 
@@ -29,7 +29,7 @@ function M.config()
       for k, v in pairs(config.env) do
         env[k] = v
       end
-      opts.env = require("user.utils").env_merge(env)
+      opts.env = require("user.core.utils").env_merge(env)
     end
 
     local spawn_command

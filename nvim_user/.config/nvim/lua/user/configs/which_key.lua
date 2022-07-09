@@ -1,7 +1,7 @@
 local M = {}
 
 function M.config()
-  local which_key = require("user.utils").load_module("which-key")
+  local which_key = require("user.core.utils").load_module("which-key")
 
   if not which_key then
     return {}
@@ -21,7 +21,7 @@ function M.config()
       ["<C-w>"] = {
         name = "Window",
         q = { "<cmd>:q<cr>", "Close" },
-        d = { "<cmd>lua require('user.utils').delete_window()<cr>", "Close" },
+        d = { "<cmd>lua require('user.core.utils').delete_window()<cr>", "Close" },
         D = { "<cmd>:only<cr>", "Close other windows" },
         t = { "<c-w>t", "Move to new tab" },
         ["="] = { "<cmd>FocusEqualise<CR><cmd>FocusDisable<CR>", "Equally size" },
@@ -38,7 +38,7 @@ function M.config()
       ["<leader>"] = {
         ["N"] = { "<cmd>tabnew<cr>", "New Buffer" },
         ["q"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
-        ["/"] = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Fuzzy buffer find" },
+        ["/"] = { "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", "Fuzzy buffer find" },
         ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
         ["p"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
 
@@ -60,7 +60,7 @@ function M.config()
           name = "Jump",
           -- c = { "<cmd>HopChar1<cr>", "Jump to char" },
           -- w = { "<cmd>HopWordMW<cr>", "Jump to word" },
-          w = { "<cmd>lua require('user.utils').focus_window()<cr>", "Pick Window" },
+          w = { "<cmd>lua require('user.core.utils').focus_window()<cr>", "Pick Window" },
           -- l = { "<cmd>HopLine<cr>", "Jump to line" },
           s = { "<cmd>Telescope lsp_document_symbols<cr>", "Jump to Document symbol" },
           S = { "<cmd>Telescope lsp_workspace_symbols<cr>", "Jump to Workspace symbol" },
@@ -110,11 +110,11 @@ function M.config()
           -- s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
           -- t = "Open Gitui", -- comand in toggleterm.lua
           g = {
-            "<cmd>lua require('user.utils').toggle_term_cmd('lazygit --use-config-file ~/.config/lazygit/config.yml', {direction = 'float'})<CR>",
+            "<cmd>lua require('user.core.utils').toggle_term_cmd('lazygit --use-config-file ~/.config/lazygit/config.yml', {direction = 'float'})<CR>",
             "Lazygit",
           },
           s = {
-            "<cmd>lua require('user.utils').toggle_term_cmd('lazygit --use-config-file ~/.config/lazygit/config.yml', {direction = 'float'})<CR>",
+            "<cmd>lua require('user.core.utils').toggle_term_cmd('lazygit --use-config-file ~/.config/lazygit/config.yml', {direction = 'float'})<CR>",
             "Lazygit",
           },
           -- s = { "<cmd>Neogit<CR>", "Git status" },
@@ -138,7 +138,7 @@ function M.config()
           name = "Harpoon",
           a = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "Add file" },
           -- h = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "Open Menu" },
-          h = { "<cmd>Telescope harpoon marks<cr>", "Open Menu" },
+          h = { "<cmd>lua require('telescope').extensions.harpoon.marks()<cr>", "Open Menu" },
           ["1"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", "Open File 1" },
           ["2"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", "Open File 2" },
           ["3"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", "Open File 3" },

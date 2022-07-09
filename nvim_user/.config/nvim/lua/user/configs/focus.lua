@@ -1,7 +1,7 @@
 local M = {}
 
 function M.config()
-  local focus = require("user.utils").load_module("focus")
+  local focus = require("user.core.utils").load_module("focus")
 
   focus.setup({
     excluded_filetypes = {

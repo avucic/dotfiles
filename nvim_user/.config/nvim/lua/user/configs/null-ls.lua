@@ -3,17 +3,22 @@ function M.config()
   -- Formatting and linting
   -- https://github.com/jose-elias-alvarez/null-ls.nvim
 
-  local h = require("user.utils").load_module("null-ls.helpers")
+  local h = require("user.core.utils").load_module("null-ls.helpers")
   if not h then
     return {}
   end
 
-  local methods = require("user.utils").load_module("null-ls.methods")
+  local methods = require("user.core.utils").load_module("null-ls.methods")
   if not methods then
     return {}
   end
 
-  local FORMATTING = methods.internal.FORMATTING
+  local null_ls = require("user.core.utils").load_module("null-ls")
+  if not null_ls then
+    return {}
+  end
+
+  -- local FORMATTING = methods.internal.FORMATTING
 
   -- local rubocop_daemon = h.make_builtin({
   --   name = "rubocop_daemon",
@@ -65,7 +70,6 @@ function M.config()
   --   factory = h.formatter_factory,
   -- })
   --
-  local null_ls = require("user.utils").load_module("null-ls")
   -- Check supported formatters
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
   local formatting = null_ls.builtins.formatting

@@ -1,7 +1,7 @@
 local M = {}
 
 function M.config()
-  local marks = require("user.utils").load_module("marks")
+  local marks = require("user.core.utils").load_module("marks")
 
   marks.setup({
     -- whether to map keybinds or not. default true

@@ -1,7 +1,7 @@
 local M = {}
 
 function M.config()
-  local lightbulb = require("user.utils").load_module("nvim-lightbulb")
+  local lightbulb = require("user.core.utils").load_module("nvim-lightbulb")
   lightbulb.setup({
     -- LSP client names to ignore
     -- Example: {"sumneko_lua", "null-ls"}

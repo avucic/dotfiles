@@ -33,7 +33,7 @@ function M.config()
     }
 
     if config.env then
-      opts.env = require("user.utils").env_merge(config.env)
+      opts.env = require("user.core.utils").env_merge(config.env)
     end
 
     handle, pid_or_err = vim.loop.spawn("rdbg", opts, function(code)

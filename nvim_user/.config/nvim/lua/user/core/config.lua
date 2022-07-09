@@ -7,7 +7,7 @@ function M.config()
     colorscheme = "onedark"
   end
 
-  local plugins = require("user.plugins").config()
+  local plugins = require("user.core.plugins").config()
   local wk = require("user.configs.which_key").config()
   local treesitter = require("user.configs.treesitter").config()
   local telescope = require("user.configs.telescope").config()
@@ -21,7 +21,7 @@ function M.config()
   local aerial = require("user.configs.aerial").config()
   local _lazygit = require("user.configs.lazygit").config()
   local session_manager = require("user.configs.session_manager").config()
-  local mappings = require("user.configs.mappings").config()
+  local mappings = require("user.core.mappings").config()
 
   return {
     -- Set colorscheme
@@ -133,7 +133,17 @@ function M.config()
     },
 
     lsp = lsp,
-
+    -- lsp = {
+    --   -- enable servers that you already have installed without lsp-installer
+    --   servers = {
+    --     -- "pyright"
+    --   },
+    --   -- easily add or disable built in mappings added during LSP attaching
+    --   mappings = {
+    --     n = {
+    --       -- ["<leader>lf"] = false -- disable formatting keymap
+    --     },
+    --   },
     -- CMP Source Priorities
     -- modify here the priorities of default cmp sources
     -- higher value == higher priority

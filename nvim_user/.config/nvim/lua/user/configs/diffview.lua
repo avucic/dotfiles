@@ -1,8 +1,8 @@
 local M = {}
 
 function M.config()
-  local diffview = require("user.utils").load_module("diffview")
-  -- local actions = require("user.utils").load_module("diffview.actions")
+  local diffview = require("user.core.utils").load_module("diffview")
+  -- local actions = require("user.core.utils").load_module("diffview.actions")
   local actions = require("diffview.actions")
 
   diffview.setup({

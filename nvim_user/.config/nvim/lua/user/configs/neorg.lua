@@ -1,7 +1,7 @@
 local M = {}
 
 M.config = function()
-  local neorg = require("user.utils").load_module("neorg")
+  local neorg = require("user.core.utils").load_module("neorg")
 
   neorg.setup({
     ensure_installed = { "norg", "norg_meta", "norg_table", "latex", "markdown" },

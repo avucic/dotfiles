@@ -96,7 +96,7 @@ function M.config()
     },
   }
 
-  local smart_splits = require("user.utils").load_module("smart-splits")
+  local smart_splits = require("user.core.utils").load_module("smart-splits")
 
   if smart_splits then
     map.n["<M-Up>"] = { "<cmd>lua require'smart-splits'.resize_up(2)<cr>" }
