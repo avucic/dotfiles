@@ -18,7 +18,7 @@ function M.config()
       ["<leader>/"] = { "<Nop>" },
       ["<leader>o"] = { "<Nop>" },
       ["<leader>gg"] = { "<Nop>" },
-      ["<esc>"] = { "<cmd>silent! cclose<cr>" },
+      ["q"] = { "<cmd>silent! cclose<cr>" },
       ["<esc><esc>"] = { "<cmd>nohlsearch<cr>" },
       ["<c-q>"] = { ":qall<cr>" },
       ["<S-q>"] = { "qall!" },
@@ -27,11 +27,6 @@ function M.config()
       ["z="] = { "<cmd>Telescope spell_suggest<CR>" },
 
       -- Better window navigation
-      ["<c-h>"] = { "<cmd>lua require'smart-splits'.move_cursor_left()<cr>" },
-      ["<c-j>"] = { "<cmd>lua require'smart-splits'.move_cursor_down()<cr>" },
-      ["<c-k>"] = { "<cmd>lua require'smart-splits'.move_cursor_up()<cr>" },
-      ["<c-l>"] = { "<cmd>lua require'smart-splits'.move_cursor_right()<cr>" },
-
       -- Bookmarks
       ["mm"] = { ":BookmarkToggle<cr>" },
       ["ma"] = { ":lua require('telescope').extensions.vim_bookmarks.all()<cr>", desc = "List all Bookmarks" },
