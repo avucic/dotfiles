@@ -17,6 +17,29 @@ function M.config()
   }
 
   local mappings = {
+    v = {
+      ["<leader>"] = {
+        x = {
+          name = "Text manipulation",
+          i = {
+            "<Plug>(Inflect)",
+            "Inflect",
+          },
+          e = {
+            name = "Base64",
+
+            e = {
+              "<cmd>lua vim.cmd[[packadd vim-base64]]<cr>:<c-u>call base64#v_btoa()<cr>",
+              "To base64",
+            },
+            d = {
+              "<cmd>lua vim.cmd[[packadd vim-base64]]<cr>:<c-u>call base64#v_atob()<cr>",
+              "From base64",
+            },
+          },
+        },
+      },
+    },
     n = {
       ["<C-w>"] = {
         name = "Window",
@@ -215,8 +238,9 @@ function M.config()
         },
 
         x = {
-          name = "LanguageTool",
+          name = "Text manipulation",
           g = {
+            name = "Grammar",
             c = { "<cmd>GrammarousCheck<cr>", "Grammar check" },
             i = { "<Plug>(grammarous-open-info-window)", "Open the info window" },
             r = { "<Plug>(grammarous-reset)", "Reset the current check" },

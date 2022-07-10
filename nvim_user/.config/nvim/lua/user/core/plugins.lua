@@ -491,6 +491,12 @@ function M.config()
       },
     },
 
+    -- base64
+    {
+      "christianrondeau/vim-base64",
+      opt = true
+    },
+
     -- {
     --   "ray-x/go.nvim",
     --   config = function()

@@ -133,17 +133,7 @@ function M.config()
     },
 
     lsp = lsp,
-    -- lsp = {
-    --   -- enable servers that you already have installed without lsp-installer
-    --   servers = {
-    --     -- "pyright"
-    --   },
-    --   -- easily add or disable built in mappings added during LSP attaching
-    --   mappings = {
-    --     n = {
-    --       -- ["<leader>lf"] = false -- disable formatting keymap
-    --     },
-    --   },
+
     -- CMP Source Priorities
     -- modify here the priorities of default cmp sources
     -- higher value == higher priority
@@ -190,15 +180,7 @@ function M.config()
         end
       end
 
-      local set = vim.opt
-      local g = vim.g
-      set.relativenumber = true
-      set.spell = true
-      set.spelllang = { "en_us" }
-      --
-      g.autoformat_on_save = 1
-      g["vim_current_word#highlight_current_word"] = 0
-
+      vim.g.vim_base64_disable_default_key_mappings = 1
       -- Set autocommands
       -- vim.api.nvim_create_augroup("packer_conf", {})
       -- vim.api.nvim_create_autocmd("BufWritePost", {

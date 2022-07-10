@@ -96,6 +96,7 @@ function M.config()
       formatting.prettierd,
       formatting.pg_format,
       diagnostics.sqlfluff,
+      diagnostics.checkmake,
       code_actions.eslint_d,
       formatting.gofmt,
       -- completion.spell,
