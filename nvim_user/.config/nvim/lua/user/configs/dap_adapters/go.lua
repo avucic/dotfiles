@@ -12,18 +12,34 @@ function M.config()
     local host = config.host or "127.0.0.1"
     local port = config.port or "38697"
     local addr = string.format("%s:%s", host, port)
-    local use_arch = config.use_arch or false
+    local use_arch = config.useArch or false
+    local attach = config.request == "attach"
     local env = {
       CGO_ENABLED = 0,
     }
+
+    if attach == true then
+      callback({
+        type = "server",
+        host = host,
+        port = port,
+        mode = "remote",
+      })
+      return
+    end
+
     local opts = {
       stdio = { nil, stdout },
-      args = { "dap", "-l", addr },
+      args = {},
       detached = true,
     }
     if use_arch == true then
-      opts.args = { "-arch", "arm64", "dlv", "dap", "-l", addr }
+      opts.args = { "-arch", "arm64", "dlv" }
     end
+
+    table.insert(opts.args, "dap")
+    table.insert(opts.args, "-l")
+    table.insert(opts.args, addr)
 
     if config.env then
       for k, v in pairs(config.env) do

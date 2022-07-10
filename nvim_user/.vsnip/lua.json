@@ -2,5 +2,24 @@
   "Module": {
     "prefix": ["md"],
     "body": ["local M = {}", "", "function M.config()", "end", "", "return M"]
+  },
+  "Dump": {
+    "prefix": ["dmp"],
+    "body": [
+      "function dump(o)",
+      "\tif type(o) == \"table\" then",
+      "\t\tlocal s = \"{ \"",
+      "\t\tfor k, v in pairs(o) do",
+      "\t\t\tif type(k) ~= \"number\" then",
+      "\t\t\t\tk = '\"' .. k .. '\"'",
+      "\t\t\tend",
+      "\t\t\ts = s .. \"[\" .. k .. \"] = \" .. dump(v) .. \",\"",
+      "\t\tend",
+      "\t\treturn s .. \"} \"",
+      "\telse",
+      "\t\treturn tostring(o)",
+      "\tend",
+      "end"
+    ]
   }
 }

@@ -3,12 +3,15 @@ local M = {}
 M.config = function()
   local util = require("user.core.utils")
 
-  if not util.modul_exists("dap") then
+  local dap = util.load_module("dap")
+  if not dap then
     return
   end
 
-  local dap = util.load_module("dap")
   local dapui = util.load_module("dapui")
+  if not dapui then
+    return
+  end
 
   dap.listeners.after.event_initialized["dapui_config"] = function()
     dapui.open()
@@ -27,6 +30,7 @@ M.config = function()
 
   dap.adapters.ruby = require("user.configs.dap_adapters.ruby").config()
   dap.adapters.go = require("user.configs.dap_adapters.go").config()
+  -- dap.adapters.go = { type = "server", host = "127.0.0.1", port = 38697 }
 end
 
 return M
