@@ -34,7 +34,7 @@ function M.config()
       "rmehri01/onenord.nvim",
       config = function()
         require("onenord").setup({
-          theme = "dark",
+          theme = vim.g.colortheme or "dark",
         })
       end,
     },

@@ -164,11 +164,6 @@ function M.config()
     -- This function is run last
     -- good place to configure mappings and vim options
     polish = function()
-      -- require("user.mymappings").config()
-      if colorscheme == "onedark" then
-        require("user.configs.colors.onedark").config()
-      end
-
       local sources = {
         "user.configs.autocmds",
       }
@@ -181,6 +176,15 @@ function M.config()
       end
 
       vim.g.vim_base64_disable_default_key_mappings = 1
+
+      if vim.g.colorscheme then
+        colorscheme = vim.g.colorscheme
+        vim.cmd([[colorscheme ]] .. colorscheme)
+      end
+
+      if colorscheme == "onedark" then
+        require("user.configs.colors.onedark").config()
+      end
       -- Set autocommands
       -- vim.api.nvim_create_augroup("packer_conf", {})
       -- vim.api.nvim_create_autocmd("BufWritePost", {
