@@ -40,6 +40,7 @@ function M.config()
         },
       },
     },
+
     n = {
       ["<C-w>"] = {
         name = "Window",
@@ -270,6 +271,16 @@ function M.config()
             "<Plug>(Inflect)",
             "Inflect",
           },
+
+          e = {
+            name = "Base64",
+            t = {
+              -- [[<cmd>lua os.execute("jwt decode ".. vim.fn.getreg('"') .. " | pbcopy")<cr>]],
+              [[<cmd>lua print(io.popen("jwt decode ".. vim.fn.getreg('"') or ""):read("*a"))<cr>]],
+              "Decode token",
+              -- eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTc1MjYxMjAsImlhdCI6MTY1NzUyNTU4MCwibmJmIjoxNDQ0NDc4NDAwLCJzY29wZXMiOlsiYXBpOnJlYWQiLCJhcGk6d3JpdGUiXX0.hQQ2vWMmrh_wugiNPc1UzqOgkPFD9FfMFU_tenqA0TI
+            },
+          },
         },
 
         z = {
@@ -282,7 +293,10 @@ function M.config()
         },
 
         y = {
-          f = { "<cmd>cp :let @' = expand('%')<cr>", "Copy file path" },
+          name = "Yank",
+          y = { "<cmd>lua require('telescope').extensions.neoclip.default()<cr>", "History" },
+          m = { "<cmd>lua require('telescope').extensions.macroscope.default()<cr>", "Macro History" },
+          d = { "<cmd>lua require('neoclip').clear_history()<cr>", "Clear History" },
         },
 
         d = {
@@ -342,11 +356,6 @@ function M.config()
             t = { "<cmd>Neorg journal tommorow<cr>", "Tommorow" },
           },
         },
-        -- x = {
-        --   name = "Text",
-        --   t = { "<cmd>lua require('telescope').extensions.vstask.tasks()<cr>", "Tasks" },
-        --   p = {},
-        -- },
       },
     },
   }

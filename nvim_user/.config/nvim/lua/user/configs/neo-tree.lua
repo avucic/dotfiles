@@ -2,6 +2,9 @@ local M = {}
 
 function M.config()
   local neo_tree = require("user.core.utils").load_module("neo-tree")
+  if not neo_tree then
+    return
+  end
 
   vim.g.nvim_tree_git_hl = 1
   vim.g.nvim_tree_respect_buf_cwd = 1
@@ -21,6 +24,8 @@ function M.config()
     window = {
       width = 40,
       mappings = {
+        ["o"] = "open_with_window_picker",
+        ["<cr>"] = "open_with_window_picker",
         ["S"] = "split_with_window_picker",
         ["s"] = "vsplit_with_window_picker",
         w = function(state)

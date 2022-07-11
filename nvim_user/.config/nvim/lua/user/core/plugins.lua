@@ -494,7 +494,18 @@ function M.config()
     -- base64
     {
       "christianrondeau/vim-base64",
-      opt = true
+      opt = true,
+    },
+
+    -- yank history
+    {
+      "AckslD/nvim-neoclip.lua",
+      requires = { "kkharji/sqlite.lua", module = "sqlite" },
+      config = function()
+        require("user.configs.neoclip").config()
+      end,
+      opt = true,
+      after = "telescope.nvim",
     },
 
     -- {
