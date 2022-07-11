@@ -13,10 +13,10 @@ gui:
       - bold
     inactiveBorderColor:
       - white
-    optionsTextColor:
-      - blue
+    # optionsTextColor:
+    #   - blue
     selectedLineBgColor:
-      - "#2c313a"
+      - reverse
     selectedRangeBgColor:
       # - reverse
       - default
