@@ -94,10 +94,10 @@ function M.config()
   local smart_splits = require("user.core.utils").load_module("smart-splits")
 
   if smart_splits then
-    map.n["<M-k>"] = { "<cmd>lua require'smart-splits'.resize_up(2)<cr>" }
-    map.n["<M-j>"] = { "<cmd>lua require'smart-splits'.resize_down(2)<cr>" }
-    map.n["<M-h>"] = { "<cmd>lua require'smart-splits'.resize_left(2)<cr>" }
-    map.n["<M-l>"] = { "<cmd>lua require'smart-splits'.resize_right(2)<cr>" }
+    map.n["<M-Up>"] = { "<cmd>lua require'smart-splits'.resize_up(2)<cr>" }
+    map.n["<M-Down>"] = { "<cmd>lua require'smart-splits'.resize_down(2)<cr>" }
+    map.n["<M-Left>"] = { "<cmd>lua require'smart-splits'.resize_left(2)<cr>" }
+    map.n["<M-Right>"] = { "<cmd>lua require'smart-splits'.resize_right(2)<cr>" }
   end
   return map
 end
