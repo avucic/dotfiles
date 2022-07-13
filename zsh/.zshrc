@@ -45,17 +45,8 @@ export FZF_DEFAULT_OPTS='--preview "pygmentize {}" --color dark --bind "?:toggle
 export DISABLE_AUTO_TITLE='true'
 
 
-if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-  alias nvim=nvr -cc split --remote-wait +'set bufhidden=wipe'
-fi
+export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
 
-if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-    export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
-    export EDITOR="nvr -cc split --remote-wait +'set bufhidden=wipe'"
-else
-    export VISUAL="nvim"
-    export EDITOR="nvim"
-fi
 # # Run
 # # alias du="docker-compose up"
 # # Stop all containers

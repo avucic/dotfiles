@@ -69,7 +69,7 @@ git:
   parseEmoji: false
   diffContextSize: 3 # how many lines of context are shown around a change in diffs
 os:
-  editCommand: "nvr --nostart --servername $NVIM_LISTEN_ADDRESS --remote-silent -l" # see 'Configuring File Editing' section
+  editCommand: "nvr --nostart --servername /tmp/nvimsocket --remote-silent -l" # see 'Configuring File Editing' section
   # editCommand: "nvim --server /tmp/nvimsocket --remote-silent" # see 'Configuring File Editing' section
   editCommandTemplate: "{{editor}} {{filename}}"
   openCommand: ""
