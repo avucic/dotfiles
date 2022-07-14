@@ -4,3 +4,4 @@ set -e
 
 echo "▶️  Node setup"
 npm install -g @fsouza/prettierd
+npm install -g dotenv
