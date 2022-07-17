@@ -19,13 +19,14 @@ function M.config()
       ["<leader>o"] = { "<Nop>" },
       ["<leader>gg"] = { "<Nop>" },
       ["q"] = { "<cmd>silent! cclose<cr>" },
+      ["<esc>"] = { "<cmd>nohlsearch<cr>" },
       ["<esc><esc>"] = { "<cmd>nohlsearch<cr>" },
       ["<c-q>"] = { ":qall<cr>" },
-      ["<S-q>"] = { "qall!" },
+      ["<S-q>"] = { "qall!<cr>" },
       ["<S-l>"] = { "$" },
       ["<S-h>"] = { "^" },
       ["z="] = { "<cmd>Telescope spell_suggest<CR>" },
-
+      ["<leader>W"] = { "<cmd>:noa w<cr>" },
       -- Better window navigation
       -- Bookmarks
       ["mm"] = { ":BookmarkToggle<cr>" },
