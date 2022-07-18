@@ -385,6 +385,9 @@ function M.config()
       "kraftwerk28/gtranslate.nvim",
       cmd = "Translate",
       opt = true,
+      setup = function()
+        require("user.configs.gtranslate").config()
+      end,
     },
 
     -- db
@@ -506,6 +509,15 @@ function M.config()
       end,
       opt = true,
       after = "telescope.nvim",
+    },
+    -- go
+    {
+      "cappyzawa/go-playground.nvim",
+      opt = true,
+      cmd = {
+        "GoPlayground",
+        "GotipPlayground",
+      },
     },
 
     -- {

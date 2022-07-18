@@ -1,11 +1,11 @@
 local M = {}
 
-local pickers = require "telescope.pickers"
-local finders = require "telescope.finders"
+local pickers = require("telescope.pickers")
+local finders = require("telescope.finders")
 local dropdown = require("telescope.themes").get_dropdown()
-local actions = require "telescope.actions"
-local action_state = require "telescope.actions.state"
-local sorters = require "telescope.sorters"
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
+local sorters = require("telescope.sorters")
 local dbs = vim.g.dbs
 
 local function enter(prompt_buffer)
@@ -13,16 +13,18 @@ local function enter(prompt_buffer)
   actions.close(prompt_buffer)
   local url = dbs[selected["index"]]["url"]
   vim.cmd([[DB ]] .. url .. [["]])
-  vim.cmd [[DBUIToggle]]
+  vim.cmd([[DBUIToggle]])
 end
 
 function M.config()
-  vim.cmd [[
+  vim.g.db_ui_auto_execute_table_helpers = 1
+
+  vim.cmd([[
   augroup _sql
     autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
     autocmd FileType sql,mysql,plsql nnoremap <buffer> <C-q> :DBUIToggle<CR>
   augroup end
-]]
+]])
 end
 
 function M.db_tasks()

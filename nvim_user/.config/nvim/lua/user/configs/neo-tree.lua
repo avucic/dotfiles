@@ -19,7 +19,7 @@ function M.config()
     enable_git_status = true,
     enable_diagnostics = true,
     filesystem = {
-      follow_current_file = false,
+      -- follow_current_file = false,
     },
     window = {
       width = 40,
