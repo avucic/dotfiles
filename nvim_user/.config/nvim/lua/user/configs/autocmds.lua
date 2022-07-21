@@ -21,7 +21,7 @@ vim.cmd([[
 
   augroup _lsp
     autocmd! BufWritePre * if ( get(g:, 'autoformat_on_save') == 1 )
-    \| execute 'lua vim.lsp.buf.formatting() '
+    \| execute 'lua vim.lsp.buf.formatting_sync(nil, 2000)'
     \| endif
   augroup end
 ]])

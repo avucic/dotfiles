@@ -1,0 +1,6 @@
+{
+  "Print Object": {
+    "prefix": ["pp"],
+    "body": ["fmt.Printf(\"%+v\", ${1:Object})"]
+  }
+}

@@ -59,6 +59,7 @@ function M.config()
         q = { "<cmd>:tabclose<cr>", "Close" },
         n = { "<cmd>:tabnew<CR>", "New tab" },
       },
+
       ["<leader>"] = {
         ["N"] = { "<cmd>tabnew<cr>", "New Buffer" },
         ["q"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
@@ -208,15 +209,12 @@ function M.config()
           },
         },
 
-        -- t = {
-        -- 	name = "Tabs",
-        -- 	-- n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
-        -- 	c = { "<cmd>tabnew<cr>", "New" },
-        -- 	n = { "<cmd>tabNext<cr>", "Next" },
-        -- 	p = { "<cmd>tabprevious<cr>", "Previous" },
-        -- 	d = { "<cmd>tabclose<cr>", "Close" },
-        -- },
-        --
+        S = {
+          name = "Session",
+          s = { "<cmd>SaveSession<cr>", "Save this session" },
+          l = { "<cmd>RestoreSession<cr>", "Restore session" },
+          d = { "<cmd>DeleteSession<cr>", "Delete session" },
+        },
         o = {
           o = { "<cmd>AerialToggle! right<cr>", "Symbols Outline" },
           t = {

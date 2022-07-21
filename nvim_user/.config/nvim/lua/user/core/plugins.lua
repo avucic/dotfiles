@@ -2,6 +2,7 @@ local M = {}
 
 function M.config()
   return {
+    ["Shatur/neovim-session-manager"] = { disable = true },
     {
       event = "BufRead",
       "kevinhwang91/nvim-bqf",
@@ -360,6 +361,12 @@ function M.config()
       opt = true,
       cmd = "Neorg",
     },
+    {
+      "mtth/scratch.vim",
+      config = function()
+        require("user.configs.scratch").config()
+      end,
+    },
 
     -- my
     -- {
@@ -510,16 +517,22 @@ function M.config()
       opt = true,
       after = "telescope.nvim",
     },
-    -- go
+    -- session
     {
-      "cappyzawa/go-playground.nvim",
-      opt = true,
-      cmd = {
-        "GoPlayground",
-        "GotipPlayground",
-      },
+      "rmagatti/auto-session",
+      config = function()
+        require("user.configs.auto-session").config()
+      end,
     },
+    {
+      "rmagatti/session-lens",
+      config = function()
+        require("session-lens").setup({--[[your custom config--]]
+        })
 
+        -- require("telescope").load_extension("session-lens")
+      end,
+    },
     -- {
     --   "ray-x/go.nvim",
     --   config = function()

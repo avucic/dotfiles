@@ -48,13 +48,15 @@ function M.config()
       ["<C-l>"] = { "<CMD>NavigatorRight<CR>" },
       ["<C-k>"] = { "<CMD>NavigatorUp<CR>" },
       ["<C-j>"] = { "<CMD>NavigatorDown<CR>" },
-      ["<C-p>"] = { "<CMD>NavigatorPrevious<CR>" },
+      -- ["<C-p>"] = { "<CMD>NavigatorPrevious<CR>" },
 
       -- quickfix
       -- ["<C-n>"] = { "<CMD>:cn<CR>" },
       -- ["<C-p>"] = { "<CMD>:cp<CR>" },
 
       -- multiple Cursor
+      ["<C-n>"] = "<Nop>",
+      ["<C-p>"] = "<Nop>",
       ["<M-n>"] = { "<Plug>(VM-Add-Cursor-Down)" },
       ["<M-p>"] = { "<Plug>(VM-Add-Cursor-up)" },
 
