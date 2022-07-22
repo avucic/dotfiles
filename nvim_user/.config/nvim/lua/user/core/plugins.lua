@@ -2,7 +2,7 @@ local M = {}
 
 function M.config()
   return {
-    ["Shatur/neovim-session-manager"] = { disable = true },
+    -- ["Shatur/neovim-session-manager"] = { disable = true },
     {
       event = "BufRead",
       "kevinhwang91/nvim-bqf",
@@ -518,38 +518,27 @@ function M.config()
       after = "telescope.nvim",
     },
     -- session
-    {
-      "rmagatti/auto-session",
-      config = function()
-        require("user.configs.auto-session").config()
-      end,
-    },
-    {
-      "rmagatti/session-lens",
-      config = function()
-        require("session-lens").setup({--[[your custom config--]]
-        })
-
-        -- require("telescope").load_extension("session-lens")
-      end,
-    },
     -- {
-    --   "ray-x/go.nvim",
+    --   "rmagatti/auto-session",
     --   config = function()
-    --     require("go").setup({
-    --       test_runner = "ginkgo",
-    --       goimport = "gopls", -- if set to 'gopls' will use golsp format
-    --       gofmt = "gopls", -- if set to gopls will use golsp format
-    --       max_line_len = 120,
-    --       tag_transform = false,
-    --       test_dir = "",
-    --       comment_placeholder = " ?  ",
-    --       lsp_cfg = true, -- false: use your own lspconfig
-    --       lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
-    --       lsp_on_attach = true, -- use on_attach from go.nvim
-    --       dap_debug = true,
-    --     })
+    --     require("user.configs.auto-session").config()
     --   end,
+    --   opt = true,
+    --   cmd = {
+    --     "RestoreSession",
+    --     "Autosession",
+    --   },
+    -- },
+    -- {
+    --   "rmagatti/session-lens",
+    --   config = function()
+    --     require("user.configs.session_lens").config()
+    --   end,
+    --   -- opt = true,
+    --   -- cmd = {
+    --   --   "RestoreSession",
+    --   --   "Autosession",
+    --   -- },
     -- },
   }
 end

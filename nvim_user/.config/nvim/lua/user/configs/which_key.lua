@@ -67,12 +67,6 @@ function M.config()
         ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
         ["p"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
 
-        -- S = {
-        --   name = "Session",
-        --   s = { "<cmd>SaveSession<cr>", "Save Session" },
-        --   l = { "<cmd>RestoreSession<cr>", "Restore Session" },
-        -- },
-        --
         b = {
           name = "Buffers",
           j = { "<cmd>BufferLinePick<cr>", "Jump to buffer" },
@@ -209,12 +203,13 @@ function M.config()
           },
         },
 
-        S = {
-          name = "Session",
-          s = { "<cmd>SaveSession<cr>", "Save this session" },
-          l = { "<cmd>RestoreSession<cr>", "Restore session" },
-          d = { "<cmd>DeleteSession<cr>", "Delete session" },
-        },
+        -- S = {
+        --   name = "Session",
+        --   s = { "<cmd>SaveSession<cr>", "Save this session" },
+        --   l = { "<cmd>RestoreSession<cr>", "Restore session" },
+        --   f = { "<cmd>lua require('session-lens').search_session()<cr>", "Search session" },
+        --   d = { "<cmd>Autosession delete<cr>", "Delete session" },
+        -- },
         o = {
           o = { "<cmd>AerialToggle! right<cr>", "Symbols Outline" },
           t = {
