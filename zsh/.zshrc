@@ -45,8 +45,13 @@ export FZF_DEFAULT_OPTS='--preview "pygmentize {}" --color dark --bind "?:toggle
 export DISABLE_AUTO_TITLE='true'
 
 
-export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
+# nvim and lazygit
+export NVIM_LISTEN_ADDRESS=/tmp/nvim-$(basename $PWD)
 
+# if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+#     alias nvim=nvr --servername $NVIM_LISTEN_ADDRESS --nostart -cc split --remote-wait +'set bufhidden=wipe'
+# fi
+#
 # # Run
 # # alias du="docker-compose up"
 # # Stop all containers

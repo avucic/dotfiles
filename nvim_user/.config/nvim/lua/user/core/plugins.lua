@@ -314,14 +314,14 @@ function M.config()
       after = "nvim-lspconfig",
     },
     -- Window picker
-    {
-      "s1n7ax/nvim-window-picker",
-      event = "BufRead",
-      tag = "v1.*",
-      config = function()
-        require("user.configs.window_picker").config()
-      end,
-    },
+    -- {
+    --   "s1n7ax/nvim-window-picker",
+    --   event = "BufRead",
+    --   tag = "v1.*",
+    --   config = function()
+    --     require("user.configs.window_picker").config()
+    --   end,
+    -- },
 
     -- Notes
     {

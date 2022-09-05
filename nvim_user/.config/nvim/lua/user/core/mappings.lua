@@ -18,7 +18,7 @@ function M.config()
       ["<leader>/"] = { "<Nop>" },
       ["<leader>o"] = { "<Nop>" },
       ["<leader>gg"] = { "<Nop>" },
-      ["q"] = { "<cmd>silent! cclose<cr><cmd>nohlsearch<cr>" },
+      ["q"] = { "<cmd>silent! cclose<cr><cmd>nohlsearch<cr><cmd>ToggleTermToggleAll<cr>" },
       ["<esc>"] = { "<cmd>nohlsearch<cr>" },
       ["<esc><esc>"] = { "<cmd>nohlsearch<cr>" },
       ["<c-q>"] = { "<cmd>qall<cr>" },
