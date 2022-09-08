@@ -364,8 +364,7 @@ function M.config()
       "max397574/colortils.nvim",
       cmd = "Colortils",
       config = function()
-        require("colortils").setup()
-        -- require("user.config.colortils").config()
+        require("user.config.colortils").config()
       end,
     },
 
@@ -507,6 +506,14 @@ function M.config()
       end,
       opt = true,
       after = "telescope.nvim",
+    },
+
+    -- window
+    {
+      "levouh/tint.nvim",
+      config = function()
+        require("user.configs.tint").config()
+      end,
     },
   }
 end

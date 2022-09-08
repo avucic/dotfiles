@@ -102,9 +102,15 @@ function M.config()
     -- set_default_formatter_for_filetypes("solargraph", { "ruby" })
 
     if client.name == "solargraph" then
-      client.resolved_capabilities.document_formatting = false
-      client.resolved_capabilities.document_range_formatting = false
+      client.server_capabilities.document_formatting = false
+      client.server_capabilities.document_range_formatting = false
     end
+
+    if client.name == "sumneko_lua" then
+      client.server_capabilities.document_formatting = false -- 0.7 and earlier
+      client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
+    end
+
     -- client.resolved_capabilities.document_formatting = false
     -- client.resolved_capabilities.document_range_formatting = false
 
@@ -183,4 +189,5 @@ function M.config()
     mappings = mappings,
   }
 end
+
 return M
