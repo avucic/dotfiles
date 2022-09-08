@@ -99,8 +99,8 @@ function M.config()
       --"eruby",
       "markdown",
       "embedded_template",
-      "norg_meta",
-      "norg_table",
+--      "norg_meta",
+ --     "norg_table",
       "query",
     },
   }

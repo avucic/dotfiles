@@ -313,25 +313,16 @@ function M.config()
       opt = true,
       after = "nvim-lspconfig",
     },
-    -- Window picker
-    -- {
-    --   "s1n7ax/nvim-window-picker",
-    --   event = "BufRead",
-    --   tag = "v1.*",
-    --   config = function()
-    --     require("user.configs.window_picker").config()
-    --   end,
-    -- },
 
     -- Notes
     {
       "nvim-neorg/neorg-telescope",
-      opt = true,
-      cmd = {
-        "Neorg",
-        "NeorgStart",
-      },
-      ft = "norg",
+      --[[ opt = true, ]]
+      --[[ cmd = { ]]
+      --[[   "Neorg", ]]
+      --[[   "NeorgStart", ]]
+      --[[ }, ]]
+      --[[ ft = "norg", ]]
     },
     {
       "nvim-neorg/neorg",
@@ -348,18 +339,18 @@ function M.config()
     },
     {
       "esquires/neorg-gtd-project-tags",
-      opt = true,
-      cmd = "Neorg",
+      --[[ opt = true, ]]
+      --[[ cmd = "Neorg", ]]
     },
     {
       "max397574/neorg-kanban",
-      opt = true,
-      cmd = "Neorg",
+      --[[ opt = true, ]]
+      --[[ cmd = "Neorg", ]]
     },
     {
       "max397574/neorg-contexts",
-      opt = true,
-      cmd = "Neorg",
+      --[[ opt = true, ]]
+      --[[ cmd = "Neorg", ]]
     },
     {
       "mtth/scratch.vim",
@@ -368,15 +359,15 @@ function M.config()
       end,
     },
 
-    -- my
-    -- {
-    --   "~/Work/Neovim/nvim-notes",
-    --   config = function()
-    --     require("user.configs.notes").config()
-    --   end,
-    --   after = "telescope.nvim",
-    --   opt = true,
-    -- },
+    -- color utils
+    {
+      "max397574/colortils.nvim",
+      cmd = "Colortils",
+      config = function()
+        require("colortils").setup()
+        -- require("user.config.colortils").config()
+      end,
+    },
 
     -- Harpoon
     {
@@ -517,29 +508,6 @@ function M.config()
       opt = true,
       after = "telescope.nvim",
     },
-    -- session
-    -- {
-    --   "rmagatti/auto-session",
-    --   config = function()
-    --     require("user.configs.auto-session").config()
-    --   end,
-    --   opt = true,
-    --   cmd = {
-    --     "RestoreSession",
-    --     "Autosession",
-    --   },
-    -- },
-    -- {
-    --   "rmagatti/session-lens",
-    --   config = function()
-    --     require("user.configs.session_lens").config()
-    --   end,
-    --   -- opt = true,
-    --   -- cmd = {
-    --   --   "RestoreSession",
-    --   --   "Autosession",
-    --   -- },
-    -- },
   }
 end
 
