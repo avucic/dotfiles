@@ -168,6 +168,7 @@ function M.config()
       "yamlls",
       "sqlls",
       "eslint",
+      "marksman",
     },
     -- server_registration = {
     --   gopls = {
@@ -184,6 +185,17 @@ function M.config()
     --     },
     --   },
     -- },
+    server_registration = {
+      marksman = {
+        cmd = { "marksman", "server" },
+        filetypes = { "markdown" },
+        root_dir = util.root_pattern(".git", ".marksman.toml"),
+        auto_attach = {
+          enabled = true,
+          filetypes = { "markdown" },
+        },
+      },
+    },
     on_attach = on_attach,
     ["server-settings"] = server_settings,
     mappings = mappings,

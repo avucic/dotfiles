@@ -1,7 +1,23 @@
 {
   "Module": {
     "prefix": ["md"],
-    "body": ["local M = {}", "", "function M.config()", "end", "", "return M"]
+    "body": [
+      "local M = {}",
+      "",
+      "function M.setup()",
+      "end",
+      "",
+      "function M.config()",
+      "\tlocal plugin = require(\"user.core.utils\").load_module(\"plugin\")",
+      "\tif not plugin then",
+      "\t\treturn {}",
+      "\tend",
+      "",
+      "\tplugin.setup()",
+      "end",
+      "",
+      "return M"
+    ]
   },
   "Dump": {
     "prefix": ["dmp"],

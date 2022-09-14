@@ -17,6 +17,7 @@ function M.config()
       ["<leader>d"] = { "<Nop>" },
       ["<leader>/"] = { "<Nop>" },
       ["<leader>o"] = { "<Nop>" },
+      ["<leader>e"] = { "<cmd>MindClose<cr><cmd>Neotree toggle<cr>" },
       ["<leader>gg"] = { "<Nop>" },
       ["q"] = { "<cmd>silent! cclose<cr><cmd>nohlsearch<cr><cmd>ToggleTermToggleAll<cr>" },
       ["<esc>"] = { "<cmd>nohlsearch<cr>" },
@@ -65,6 +66,9 @@ function M.config()
 
       -- search google
       ["<leader>sg"] = { ":BrowserSearch<cr>" },
+      -- EasyAlign
+      ["ga"] = { "<Plug>(EasyAlign)" },
+      -- Markdown bullets
     },
     i = {
       ["i"] = { "i" },
@@ -88,6 +92,8 @@ function M.config()
       ["K"] = { ":move '<-2<CR>gv-gv" },
       ["A-j"] = { ":move '>+1<CR>gv-gv" },
       ["A-k"] = { ":move '<-2<CR>gv-gv" },
+      -- EasyAlign
+      ["ga"] = { "<Plug>(EasyAlign)" },
     },
     t = {
       ["<c-\\>"] = { "<cmd>ToggleTermToggleAll<cr>" },
@@ -102,6 +108,7 @@ function M.config()
     map.n["<M-Left>"] = { "<cmd>lua require'smart-splits'.resize_left(2)<cr>" }
     map.n["<M-Right>"] = { "<cmd>lua require'smart-splits'.resize_right(2)<cr>" }
   end
+
   return map
 end
 

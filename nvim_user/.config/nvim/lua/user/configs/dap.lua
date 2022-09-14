@@ -1,6 +1,6 @@
 local M = {}
 
-M.config = function()
+M.setup = function()
   local util = require("user.core.utils")
 
   local dap = util.load_module("dap")

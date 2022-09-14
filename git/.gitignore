@@ -73,3 +73,5 @@ docs/*
 Gemlocal
 Gemlocal.lock
 .nvimrc.lua
+.zk/*
+.mind/*

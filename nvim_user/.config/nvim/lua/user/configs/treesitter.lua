@@ -6,7 +6,7 @@ function M.config()
   if not module then
     return {}
   end
-
+  --
   -- local parser_config = module.get_parser_configs()
   -- parser_config.embedded_template = {
   --   install_info = {
@@ -18,25 +18,33 @@ function M.config()
   --   -- used_by = { "eruby", "erb" },
   -- }
 
-  -- These two are optional and provide syntax highlighting
-  -- for Neorg tables and the @document.meta tag
-  -- parser_config.norg_meta = {
-  --   install_info = {
-  --     url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
-  --     files = { "src/parser.c" },
-  --     branch = "main",
-  --   },
-  -- }
+  require("nvim-treesitter.highlight").set_custom_captures({
+    ["block_quote"] = "comment",
+    ["block_quote_marker"] = "comment",
+    ["block_continuation"] = "comment",
+    ["fenced_code_block_delimiter"] = "comment",
+    ["atx_h1_marker"] = "MarkdownHeaderMarker",
+    ["atx_h2_marker"] = "MarkdownHeaderMarker",
+    ["atx_h3_marker"] = "MarkdownHeaderMarker",
+    ["atx_h4_marker"] = "MarkdownHeaderMarker",
+    ["atx_h5marker"] = "MarkdownHeaderMarker",
+    ["atx_h6marker"] = "MarkdownHeaderMarker",
+    ["list_marker_dot"] = "text.title",
+    ["list_marker_minus"] = "text.title",
+    ["list_marker_star"] = "text.title",
+    ["(pipe_table_header (pipe_table_cell))"] = "text.title",
+    ["pipe_table"] = "MarkdownTable",
+  })
 
-  -- parser_config.norg_table = {
-  --   install_info = {
-  --     url = "https://github.com/nvim-neorg/tree-sitter-norg-table",
-  --     files = { "src/parser.c" },
-  --     branch = "main",
-  --   },
-  -- }
-
-  require("nvim-treesitter.configs").setup({
+  return {
+    highlight = {
+      enable = true, -- false will disable the whole extension
+      additional_vim_regex_highlighting = false,
+      -- disable = {}, -- list of language that will be disabled
+    },
+    indent = {
+      enable = true,
+    },
     textobjects = {
       select = {
         enable = true,
@@ -64,14 +72,7 @@ function M.config()
         },
       },
     },
-  })
 
-  return {
-    -- highlight = {
-    --   enable = true, -- false will disable the whole extension
-    --   additional_vim_regex_highlighting = true,
-    --   disable = {}, -- list of language that will be disabled
-    -- },
     -- matchup = {
     --   enable = false, -- mandatory, false will disable the whole extension
     --   -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
@@ -95,13 +96,13 @@ function M.config()
       "lua",
       "python",
       "yaml",
-      "norg",
-      --"eruby",
       "markdown",
+      "markdown_inline",
       "embedded_template",
---      "norg_meta",
- --     "norg_table",
       "query",
+      "norg",
+      -- "norg_meta",
+      -- "norg_table",
     },
   }
 end

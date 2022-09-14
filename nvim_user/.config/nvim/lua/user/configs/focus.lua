@@ -3,6 +3,10 @@ local M = {}
 function M.config()
   local focus = require("user.core.utils").load_module("focus")
 
+  if not focus then
+    return {}
+  end
+
   focus.setup({
     excluded_filetypes = {
       "toggleterm",
@@ -30,8 +34,6 @@ function M.config()
       "terminal",
     },
     compatible_filetrees = { "neo-tree" },
-    minwidth = 20,
-    -- width = 175,
     treewidth = 40,
     bufnew = false,
     cursorline = true,

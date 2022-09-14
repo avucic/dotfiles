@@ -1,5 +1,5 @@
 local M = {}
-function M.config()
+function M.setup()
   vim.g["exrc#names"] = { ".nvimrc.lua" }
 end
 return M

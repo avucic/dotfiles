@@ -25,9 +25,12 @@ function M.config()
       width = 40,
       mappings = {
         ["o"] = "open_with_window_picker",
-        ["<cr>"] = "open_with_window_picker",
+        ["<tab>"] = "open_with_window_picker",
         ["S"] = "split_with_window_picker",
         ["s"] = "vsplit_with_window_picker",
+        ["<esc>"] = "revert_preview",
+        ["q"] = "revert_preview",
+        ["P"] = { "toggle_preview", config = { use_float = true } },
         w = function(state)
           local node = state.tree:get_node()
           local success, picker = pcall(require, "window-picker")

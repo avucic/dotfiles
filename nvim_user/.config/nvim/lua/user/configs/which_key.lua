@@ -19,6 +19,19 @@ function M.config()
   local mappings = {
     v = {
       ["<leader>"] = {
+        n = {
+          name = "Notes",
+          w = { ":'<,'>ZkMatch<CR>", "Search notes" },
+          n = { "<Cmd>ZkNewFromTitleSelection<CR>", "New note" },
+          t = {
+            name = "Table",
+            ["m"] = { "Tabelize map" },
+          },
+          l = {
+            name = "List",
+            r = { "<cmd>RenumberSelection<cr>", "RenumberSelection" },
+          },
+        },
         x = {
           name = "Text manipulation",
           i = {
@@ -106,10 +119,9 @@ function M.config()
 
         f = {
           name = "Files",
-          b = { "<cmd>lua require('telescope.builtin').file_browser()<cr>", "File browser" },
+          b = { "<cmd>Telescope file_browser<cr>", "File browser" },
           f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find File" },
-          -- l = { "<cmd>Lf<cr>", "Open LF" },
-          r = { "<cmd>lua require('telescope').extensions.frecency.frecency()<cr>", "Open Recent File" },
+          r = { "<cmd>lua require('telescope').extensions.recent_files.pick()<cr>", "Open Recent File" },
           s = { "<cmd>w<cr>", "Save Buffer" },
           t = { "<cmd>Neotree focus<CR>", "Focus Tree" },
           -- T = { "<cmd>NvimTreeFindFile<CR>", "Find in Tree" },
@@ -169,6 +181,7 @@ function M.config()
           a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
           d = { "<cmd>Telescope diagnostics bufnr=0<cr>", "Document Diagnostics" },
           w = { "<cmd>Telescope diagnostics<cr>", "Workspace Diagnostics" },
+          -- f = { "<cmd>lua vim.lsp.buf.format({async = true })<cr>", "Format" },
           f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
           i = { "<cmd>LspInfo<cr>", "Info" },
           I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
@@ -183,11 +196,11 @@ function M.config()
           name = "Search",
           b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
           -- h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
-          M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-          R = { "<cmd>Telescope registers<cr>", "Registers" },
-          k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
-          c = { "<cmd>Telescope commands<cr>", "Commands" },
-          h = { "<cmd>Telescope command_history<cr>", "Command History" },
+          M = { "<cmd>lua require('telescope.builtin').man_pages()<cr>", "Man Pages" },
+          R = { "<cmd>lua require('telescope.builtin').registers()<cr>", "Registers" },
+          k = { "<cmd>lua require('telescope.builtin').keymaps()<cr>", "Keymaps" },
+          c = { "<cmd>lua require('telescope.builtin').commands()<cr>", "Commands" },
+          h = { "<cmd>lua require('telescope.builtin').command_history()<cr>", "Command History" },
           -- c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
           -- e = { "<cmd>Telescope symbols<cr>", "Emoji" },
           T = { "<cmd>Telescope<cr>", "Telescope" },
@@ -282,7 +295,7 @@ function M.config()
           p = { "[s", "Previous" },
           a = { "zg", "Add word" },
           f = { "1z=", "Use 1. correction" },
-          l = { "<cmd>Telescope spell_suggest<cr>", "List corrections" },
+          l = { "<cmd>lua require('telescope.builtin').spell_suggest()<cr>", "List corrections" },
         },
 
         y = {
@@ -336,18 +349,89 @@ function M.config()
         },
         n = {
           name = "Notes",
-          n = { "<cmd>Neorg keybind all core.norg.dirman.new.note<cr>", "New note" },
-          i = { "<cmd>e ~/Dropbox/Neorg/me/index.norg<cr>", "Index" },
-          f = { "<cmd>Neorg keybind allcore.integrations.telescope.find_linkable<cr>", "Find note" },
-          v = { "<cmd>Neorg gtd views<cr>", "Views" },
-          e = { "<cmd>Neorg gtd edit<cr>", "Edit" },
-          c = { "<cmd>Neorg gtd capture<cr>", "Capture" },
-          m = { "<cmd>Neorg inject-metadata<cr>", "Metadata" },
-          j = {
-            name = "Journal",
-            d = { "<cmd>Neorg journal today<cr>", "Today" },
-            t = { "<cmd>Neorg journal tommorow<cr>", "Tommorow" },
+          -- i = { "<Cmd>WikiIndex<CR>", "Index" },
+          i = { "<cmd>Neotree close<cr><Cmd>MindOpenMain<CR>", "Open Main" },
+          ["."] = { "<Cmd>MindOpenProject<CR>", "Open Project" },
+          q = { "<Cmd>MindClose<CR>", "Close mind" },
+
+          R = { "<Cmd>MindReloadState<CR><Cmd>ZkIndex<CR>", "Reindex" },
+          n = { "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>", "New note" },
+          o = { "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", "Open notes" },
+          l = { "<Cmd>ZkLinks<CR>", "List links" },
+          b = { "<Cmd>ZkBacklinks<CR>", "List backlinks" },
+          s = {
+            name = "Search",
+            t = { "<Cmd>ZkTags<CR>", "Open notes by tags" },
+            -- w = { "<Cmd>ZkNotes { sort = { 'modified' }, match = vim.fn.input('Search: ') }<CR>", "Search notes" },
+            w = { "<Cmd>ZkGrep<CR>", "Search notes" },
           },
+          -- j = {
+          --   name = "Journal",
+          --   d = { "<cmd>ZkNew { group = 'journal', dir = 'journal/daily' }<CR>", "Daily" },
+          --   f = { "<cmd>ZkNew { group = 'fer', dir = 'fer' }<CR>", "Fer tretman" },
+          --   i = { "<cmd>WikiJournalIndex<CR>", "Create index" },
+          --   n = { "<Plug>(wiki-journal-next)", "Next day" },
+          --   p = { "<Plug>(wiki-journal-prev)", "Prev day" },
+          -- },
+          p = {
+            name = "Preview",
+            p = { "<cmd>MarkdownPreview<CR>", "Start preview" },
+            s = { "<cmd>MarkdownPreviewStop<CR>", "Stop preview" },
+          },
+          t = {
+            name = "Table",
+            t = { "<cmd>TableModeEnable<CR>", "Enable table mode" },
+            r = { "<Plug>(table-mode-realign)", "Realign table" },
+            d = {
+              name = "Delete rows and cells",
+              r = { "<Plug>(table-mode-delete-row)", "Delete row" },
+              c = { "<Plug>(table-mode-delete-cell)", "Delete cell" },
+            },
+            m = {
+              name = "Map",
+              t = { "<Plug>(table-mode-tableize)", "Tabelize" },
+              s = { "<Plug>(table-mode-sort)", "Sort" },
+            },
+            i = {
+              name = "Inser rows and cells",
+              c = { "<Plug>(table-mode-insert-column-after)", "Insert column after" },
+              C = { "<Plug>(table-mode-insert-column-before)", "Insert column before" },
+            },
+            f = {
+              name = "Formula",
+              a = { "<Plug>(table-mode-add-formula)", "Add formula" },
+              e = { "<Plug>(table-mode-eval-formula)", "Eval formula" },
+            },
+            l = {
+              name = "List",
+              r = { "<cmd>RenumberList<cr>", "RenumberSelection" },
+            },
+            ["?"] = { "<Plug>(table-mode-echo-cell-map)", "Echo cell map" },
+          },
+
+          -- p = { "<cmd>Neorg presenter start<cr>", "Start Presentation" },
+          -- n = { "<cmd>Neorg keybind all core.norg.dirman.new.note<cr>", "New note" },
+          -- i = { "<cmd>Neorg<cr>", "Index" },
+          -- f = { "<cmd>Neorg keybind allcore.integrations.telescope.find_linkable<cr>", "Find note" },
+          -- v = { "<cmd>Neorg gtd views<cr>", "Views" },
+          -- e = { "<cmd>Neorg gtd edit<cr>", "Edit" },
+          -- c = { "<cmd>Neorg gtd capture<cr>", "Capture" },
+          -- m = { "<cmd>Neorg inject-metadata<cr>", "Metadata" },
+          -- j = {
+          --   name = "Journal",
+          --   d = { "<cmd>Neorg journal today<cr>", "Today" },
+          --   t = { "<cmd>Neorg journal tommorow<cr>", "Tommorow" },
+          -- },
+          -- t = {
+          --   name = "Neorg Task Motions",
+          --   r = { "<Cmd>Neorg keybind norg core.norg.qol.todo_items.todo.task_recurring<CR>", "Task Recurring" },
+          --   c = { "<Cmd>Neorg keybind norg core.norg.qol.todo_items.todo.task_cancelled<CR>", "Task Cancelled" },
+          --   i = { "<Cmd>Neorg keybind norg core.norg.qol.todo_items.todo.task_important<CR>", "Task Important" },
+          --   h = { "<Cmd>Neorg keybind norg core.norg.qol.todo_items.todo.task_on_hold<CR>", "Task On Hold" },
+          --   p = { "<Cmd>Neorg keybind norg core.norg.qol.todo_items.todo.task_pending<CR>", "Task Pending" },
+          --   u = { "<Cmd>Neorg keybind norg core.norg.qol.todo_items.todo.task_undone<CR>", "Task Pending" },
+          --   d = { "<Cmd>Neorg keybind norg core.norg.qol.todo_items.todo.task_done<CR>", "Task Done" },
+          -- },
         },
       },
     },

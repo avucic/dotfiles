@@ -8,6 +8,7 @@ function M.config()
   end
 
   local actions = require("telescope.actions")
+  local fb_actions = require("telescope").extensions.file_browser.actions
 
   telescope.load_extension("fzf")
 
@@ -38,7 +39,7 @@ function M.config()
         i = {
           ["<C-j>"] = actions.cycle_history_next,
           ["<C-k>"] = actions.cycle_history_prev,
-
+          ["<C-h>"] = fb_actions.goto_home_dir,
           ["<C-n>"] = actions.move_selection_next,
           ["<C-p>"] = actions.move_selection_previous,
 

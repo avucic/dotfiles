@@ -6,7 +6,10 @@ vim.cmd([[
 
   augroup _markdown
     autocmd!
-    autocmd FileType markdown setlocal wrap
+    " autocmd FileType markdown setlocal wrap
+    autocmd FileType markdown setlocal conceallevel=2
+    autocmd FileType markdown setlocal foldlevel=99
+    autocmd BufRead, BufNewFile * setlocal spell
   augroup end
 
   augroup _auto_resize
@@ -20,8 +23,11 @@ vim.cmd([[
   augroup end
 
   augroup _lsp
-    autocmd! BufWritePre * if ( get(g:, 'autoformat_on_save') == 1 )
-    \| execute 'lua vim.lsp.buf.format()'
+    autocmd! BufWritePre *\(.norg\|.other\)\@<! if ( get(g:, 'autoformat_on_save') == 1 )
+    \| execute 'lua vim.lsp.buf.formatting_sync()'
+    " \| execute 'lua vim.lsp.buf.formatting_sync(nil, 2000)'
+    " \| execute 'lua vim.lsp.buf.formatting()'
+    " \| execute 'lua vim.lsp.buf.format()'
     \| endif
   augroup end
 ]])
@@ -56,10 +62,3 @@ vim.api.nvim_exec(
   ]],
   false
 )
-
-vim.cmd([[
-  augroup _neorg
-    au!
-    autocmd BufWritePre *.norg :normal gg=G
-  augroup end
-]])

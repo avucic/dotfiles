@@ -20,7 +20,7 @@ function M.config()
     {
       "ii14/exrc.vim",
       setup = function()
-        require("user.configs.exrc").config()
+        require("user.configs.exrc").setup()
       end,
     },
 
@@ -66,9 +66,6 @@ function M.config()
       "mg979/vim-visual-multi",
       branch = "master",
       event = "BufRead",
-      setup = function()
-        require("user.configs.vim_multi_cursor").config()
-      end,
     },
 
     -- Autocompletion
@@ -165,7 +162,7 @@ function M.config()
       "mfussenegger/nvim-dap",
       -- event = "BufWinEnter",
       setup = function()
-        require("user.configs.dap").config()
+        require("user.configs.dap").setup()
       end,
     },
     {
@@ -229,24 +226,16 @@ function M.config()
     {
       "gbrlsnchs/telescope-lsp-handlers.nvim",
       after = "telescope.nvim",
-      config = function()
-        require("telescope").load_extension("lsp_handlers")
-      end,
+      config = function() end,
     },
-
     {
-      "nvim-telescope/telescope-frecency.nvim",
+      "smartpde/telescope-recent-files",
       after = "telescope.nvim",
       config = function()
-        require("user.configs.telescope_freceny").config()
+        require("user.configs.telescope_recent_files").config()
       end,
     },
 
-    -- required by telescope_freceny
-    {
-      "tami5/sqlite.lua",
-      event = "BufWinEnter",
-    },
     -- Treesitter
     {
       "ahmedkhalf/project.nvim",
@@ -267,6 +256,13 @@ function M.config()
         "TSPlaygroundToggle",
         "TSHighlightCapturesUnderCursor",
       },
+    },
+    {
+      "David-Kunz/markid",
+      after = "nvim-treesitter",
+      config = function()
+        require("user.configs.markid").config()
+      end,
     },
 
     -- Tasks
@@ -314,15 +310,108 @@ function M.config()
       after = "nvim-lspconfig",
     },
 
-    -- Notes
+    -- Notes and Markdown
+    {
+      "mtth/scratch.vim",
+      config = function()
+        require("user.configs.scratch").config()
+      end,
+    },
+    {
+      "iamcco/markdown-preview.nvim",
+      run = function()
+        vim.fn["mkdp#util#install"]()
+      end,
+      opt = true,
+      cmd = { "MarkdownPreview" },
+      ft = "markdown",
+    },
+    {
+      "AckslD/nvim-FeMaco.lua",
+      config = 'require("femaco").setup()',
+      ft = { "markdown" },
+      opt = true,
+      cmd = { "FeMaco" },
+    },
+    {
+      "mickael-menu/zk-nvim",
+      config = function()
+        require("user.configs.zk").config()
+      end,
+      ft = { "markdown" },
+      opt = true,
+      cmd = {
+        "ZkNew",
+        "ZkIndex",
+      }
+    },
+    -- {
+    --   "lervag/wiki.vim",
+    --   setup = function()
+    --     require("user.configs.wiki").setup()
+    --   end,
+    --   ft = { "markdown" },
+    --   opt = true,
+    --   cmd = "WikiIndex",
+    -- },
+    -- {
+    --   "tools-life/taskwiki",
+    --   setup = function()
+    --     vim.cmd([[
+    --       let g:taskwiki_markup_syntax = "markdown"
+    --     ]])
+    --   end,
+    --   -- opt = true,
+    -- },
+    -- {
+    --   "vimwiki/vimwiki",
+    --   setup = function()
+    --     -- require("taskwiki").setup()
+    --     vim.cmd([[
+    --     let g:vimwiki_list = [{'path': '~/Dropbox/Notes','syntax': 'markdown', 'ext': '.md'}]
+    --     let g:vimwiki_ext2syntax = {".md": "markdown", '.markdown': "markdown"}
+    --     let g:vimwiki_markdown_link_ext = 1
+    --     ]])
+    --   end,
+    -- },
+    {
+      "phaazon/mind.nvim",
+      branch = "v2.2",
+      requires = { "nvim-lua/plenary.nvim" },
+      config = function()
+        require("user.configs.mind").config()
+      end,
+    },
+    {
+      "dhruvasagar/vim-table-mode",
+      setup = function()
+        require("user.configs.vim_table_mode").setup()
+      end,
+      ft = { "markdown" },
+      opt = true,
+    },
+    {
+      "dkarter/bullets.vim",
+      setup = function()
+        require("user.configs.bullets").setup()
+      end,
+      ft = "markdown",
+      opt = true,
+      config = function()
+        require("user.configs.bullets").config()
+      end,
+    },
+
+    -- Neorg
     {
       "nvim-neorg/neorg-telescope",
-      --[[ opt = true, ]]
-      --[[ cmd = { ]]
-      --[[   "Neorg", ]]
-      --[[   "NeorgStart", ]]
-      --[[ }, ]]
-      --[[ ft = "norg", ]]
+      opt = true,
+      -- cmd = {
+      --   "Neorg",
+      --   "NeorgStart",
+      -- },
+      -- ft = "norg",
+      after = "neorg",
     },
     {
       "nvim-neorg/neorg",
@@ -334,38 +423,38 @@ function M.config()
         "Neorg",
         "NeorgStart",
       },
-      ft = "norg",
+      -- ft = "norg",
       after = "nvim-treesitter",
     },
     {
       "esquires/neorg-gtd-project-tags",
-      --[[ opt = true, ]]
-      --[[ cmd = "Neorg", ]]
+      opt = true,
+      -- ft = "norg",
+      -- cmd = "Neorg",
+      after = "neorg",
     },
     {
       "max397574/neorg-kanban",
-      --[[ opt = true, ]]
-      --[[ cmd = "Neorg", ]]
+      opt = true,
+      -- ft = "norg",
+      -- cmd = "Neorg",
+      after = "neorg",
     },
     {
       "max397574/neorg-contexts",
-      --[[ opt = true, ]]
-      --[[ cmd = "Neorg", ]]
+      opt = true,
+      -- ft = "norg",
+      -- cmd = "Neorg",
+      after = "neorg",
     },
-    {
-      "mtth/scratch.vim",
-      config = function()
-        require("user.configs.scratch").config()
-      end,
-    },
-
     -- color utils
     {
       "max397574/colortils.nvim",
       cmd = "Colortils",
       config = function()
-        require("user.config.colortils").config()
+        require("colortils").setup()
       end,
+      opt = true,
     },
 
     -- Harpoon
@@ -382,7 +471,7 @@ function M.config()
       "kraftwerk28/gtranslate.nvim",
       cmd = "Translate",
       opt = true,
-      setup = function()
+      config = function()
         require("user.configs.gtranslate").config()
       end,
     },
@@ -416,9 +505,9 @@ function M.config()
         "Minimap",
         "MinimapToggle",
       },
-      -- event = "BufRead",
+      event = "BufRead",
       setup = function()
-        require("user.configs.minimap").config()
+        require("user.configs.minimap").setup()
       end,
     },
     {
@@ -445,10 +534,11 @@ function M.config()
     {
       "farfanoide/inflector.vim",
       event = "InsertEnter",
-      setup = function()
-        require("user.configs.inflector").config()
-      end,
     },
+    {
+      "junegunn/vim-easy-align",
+    },
+
     -- Browser search
     {
       "voldikss/vim-browser-search",
@@ -509,12 +599,13 @@ function M.config()
     },
 
     -- window
-    {
-      "levouh/tint.nvim",
-      config = function()
-        require("user.configs.tint").config()
-      end,
-    },
+    -- works for new nvim version 0.8
+    -- {
+    --   "levouh/tint.nvim",
+    --   config = function()
+    --     require("user.configs.tint").config()
+    --   end,
+    -- },
   }
 end
 
