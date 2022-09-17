@@ -2,8 +2,17 @@ local M = {}
 
 function M.config()
   local project = require("user.core.utils").load_module("project_nvim")
+  if not project then
+    return {}
+  end
+
   local telescope = require("user.core.utils").load_module("telescope")
-  telescope.load_extension("projects")
+
+  if not telescope then
+    return {}
+  end
+
+  telescope.load_extension("project")
 
   project.setup({
     ---@usage set to false to disable project.nvim.

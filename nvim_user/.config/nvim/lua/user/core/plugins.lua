@@ -2,6 +2,9 @@ local M = {}
 
 function M.config()
   return {
+    -- disable
+    ["folke/which-key.nvim"] = { disable = true },
+    -- ["akinsho/bufferline.nvim"] = { disable = true },
     -- ["Shatur/neovim-session-manager"] = { disable = true },
     {
       event = "BufRead",
@@ -228,23 +231,22 @@ function M.config()
       after = "telescope.nvim",
       config = function() end,
     },
-    {
-      "smartpde/telescope-recent-files",
-      after = "telescope.nvim",
-      config = function()
-        require("user.configs.telescope_recent_files").config()
-      end,
-    },
+    -- {
+    --   "smartpde/telescope-recent-files",
+    --   after = "telescope.nvim",
+    --   config = function()
+    --     require("user.configs.telescope_recent_files").config()
+    --   end,
+    -- },
 
     -- Treesitter
     {
-      "ahmedkhalf/project.nvim",
+      "nvim-telescope/telescope-project.nvim",
       after = "telescope.nvim",
       config = function()
         require("user.configs.project").config()
       end,
     },
-
     {
       "nvim-treesitter/nvim-treesitter-textobjects",
       after = "nvim-treesitter",
@@ -263,6 +265,9 @@ function M.config()
       config = function()
         require("user.configs.markid").config()
       end,
+    },
+    {
+      "ziontee113/syntax-tree-surfer",
     },
 
     -- Tasks
@@ -343,44 +348,34 @@ function M.config()
       cmd = {
         "ZkNew",
         "ZkIndex",
-      }
+        "ZkNotes",
+        "ZkLinks",
+        "ZkBacklinks",
+        "ZkTags",
+        "ZkGrep",
+      },
     },
-    -- {
-    --   "lervag/wiki.vim",
-    --   setup = function()
-    --     require("user.configs.wiki").setup()
-    --   end,
-    --   ft = { "markdown" },
-    --   opt = true,
-    --   cmd = "WikiIndex",
-    -- },
-    -- {
-    --   "tools-life/taskwiki",
-    --   setup = function()
-    --     vim.cmd([[
-    --       let g:taskwiki_markup_syntax = "markdown"
-    --     ]])
-    --   end,
-    --   -- opt = true,
-    -- },
-    -- {
-    --   "vimwiki/vimwiki",
-    --   setup = function()
-    --     -- require("taskwiki").setup()
-    --     vim.cmd([[
-    --     let g:vimwiki_list = [{'path': '~/Dropbox/Notes','syntax': 'markdown', 'ext': '.md'}]
-    --     let g:vimwiki_ext2syntax = {".md": "markdown", '.markdown': "markdown"}
-    --     let g:vimwiki_markdown_link_ext = 1
-    --     ]])
-    --   end,
-    -- },
+    {
+      "jbyuki/venn.nvim",
+      ft = { "markdown" },
+      opt = true,
+      cmd = { "VBox" },
+    },
     {
       "phaazon/mind.nvim",
-      branch = "v2.2",
+      -- branch = "v2.2",
       requires = { "nvim-lua/plenary.nvim" },
       config = function()
         require("user.configs.mind").config()
       end,
+      after = "telescope.nvim",
+      opt = true,
+      cmd = {
+        "MindOpenProject",
+        "MindOpenMain",
+        "MindFindOrCreateNote",
+        "MindImportFiles",
+      },
     },
     {
       "dhruvasagar/vim-table-mode",
@@ -537,6 +532,7 @@ function M.config()
     },
     {
       "junegunn/vim-easy-align",
+      event = "BufRead",
     },
 
     -- Browser search
@@ -598,7 +594,7 @@ function M.config()
       after = "telescope.nvim",
     },
 
-    -- window
+    -- window and buffer management
     -- works for new nvim version 0.8
     -- {
     --   "levouh/tint.nvim",
@@ -606,6 +602,17 @@ function M.config()
     --     require("user.configs.tint").config()
     --   end,
     -- },
+    {
+      "anuvyklack/hydra.nvim",
+      config = function()
+        require("user.configs.hydra").config()
+      end,
+    },
+    {
+      "sindrets/winshift.nvim",
+      opt = true,
+      cmd = "WinShift",
+    },
   }
 end
 

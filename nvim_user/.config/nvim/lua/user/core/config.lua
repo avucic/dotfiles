@@ -8,7 +8,7 @@ function M.config()
   end
 
   local plugins = require("user.core.plugins").config()
-  local wk = require("user.configs.which_key").config()
+  -- local wk = require("user.configs.which_key").config()
   local treesitter = require("user.configs.treesitter").config()
   local telescope = require("user.configs.telescope").config()
   local neotree = require("user.configs.neo-tree").config()
@@ -24,6 +24,7 @@ function M.config()
   local mappings = require("user.core.mappings").config()
   local mason = require("user.configs.mason").config()
   local window_picker = require("user.configs.window_picker").config()
+  local dressing = require("user.configs.dressing").config()
 
   return {
     -- Set colorscheme
@@ -81,7 +82,7 @@ function M.config()
         aerial = true,
         -- alpha = true,
         beacon = false,
-        bufferline = true,
+        bufferline = false,
         dashboard = true,
         highlighturl = true,
         hop = false,
@@ -95,7 +96,7 @@ function M.config()
         symbols_outline = false,
         telescope = true,
         vimwiki = false,
-        ["which-key"] = wk["settings"],
+        ["which-key"] = false,
       },
     },
 
@@ -120,7 +121,7 @@ function M.config()
       toggleterm = toogleterm,
       cmp = cmp,
       bufferline = bufferline,
-      ["which-key"] = wk["settings"],
+      -- ["which-key"] = wk["settings"],
       alpha = alpha,
       aerial = aerial,
       session_manager = session_manager,
@@ -129,6 +130,8 @@ function M.config()
       -- use mason-tool-installer to configure DAP/Formatters/Linter installation
       ["mason-tool-installer"] = mason["mason-tool-installer"],
       ["window-picker"] = window_picker,
+
+      dressing = dressing,
     },
 
     -- Add paths for including more VS Code style snippets in luasnip
@@ -138,7 +141,7 @@ function M.config()
 
     ["which-key"] = {
       -- Add bindings
-      register_mappings = wk["mappings"],
+      -- register_mappings = wk["mappings"],
     },
 
     lsp = lsp,

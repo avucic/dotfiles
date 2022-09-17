@@ -40,6 +40,8 @@ M.config = function()
    hi MarkdownHeaderMarker guifg=#d19a66
    hi MarkdownTableHeaderCell guifg=#d19a66 gui=italic
    " hi MarkdownTable guifg=#393f4a
+   hi HydraHint guibg=#24282f
+   hi FloatBorder guifg=#69707d
   ]])
 
   -- hi NeorgQuote1Content guifg=#798294

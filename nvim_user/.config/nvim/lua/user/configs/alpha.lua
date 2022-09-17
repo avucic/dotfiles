@@ -62,8 +62,8 @@ function M.config()
         type = "group",
         val = {
           alpha_button("LDR f f", "  Find File  "),
-          alpha_button("LDR f r", "  Recents  "),
-          alpha_button("LDR f w", "  Find Word  "),
+          alpha_button("LDR f o", "  Recents  "),
+          alpha_button("LDR f g", "  Find Word  "),
           alpha_button("LDR f n", "  New File  "),
           alpha_button("LDR f m", "  Bookmarks  "),
           alpha_button("LDR S l", "  Last Session  "),

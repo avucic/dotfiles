@@ -37,8 +37,8 @@ function M.config()
 
       mappings = {
         i = {
-          ["<C-j>"] = actions.cycle_history_next,
-          ["<C-k>"] = actions.cycle_history_prev,
+          -- ["<C-j>"] = actions.cycle_history_next,
+          -- ["<C-k>"] = actions.cycle_history_prev,
           ["<C-h>"] = fb_actions.goto_home_dir,
           ["<C-n>"] = actions.move_selection_next,
           ["<C-p>"] = actions.move_selection_previous,
@@ -70,6 +70,8 @@ function M.config()
 
         n = {
           ["q"] = actions.close,
+          ["<C-n>"] = actions.move_selection_next,
+          ["<C-p>"] = actions.move_selection_previous,
           --   ["<CR>"] = actions.select_default,
           --   ["<C-x>"] = actions.select_horizontal,
           --   ["<C-v>"] = actions.select_vertical,

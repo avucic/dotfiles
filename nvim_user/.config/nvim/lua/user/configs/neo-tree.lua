@@ -26,10 +26,11 @@ function M.config()
       mappings = {
         ["o"] = "open_with_window_picker",
         ["<tab>"] = "open_with_window_picker",
+        ["<cr>"] = "open_with_window_picker",
         ["S"] = "split_with_window_picker",
         ["s"] = "vsplit_with_window_picker",
         ["<esc>"] = "revert_preview",
-        ["q"] = "revert_preview",
+        ["q"] = "close_window",
         ["P"] = { "toggle_preview", config = { use_float = true } },
         w = function(state)
           local node = state.tree:get_node()

@@ -6,7 +6,7 @@ vim.cmd([[
 
   augroup _markdown
     autocmd!
-    " autocmd FileType markdown setlocal wrap
+    autocmd FileType markdown setlocal wrap
     autocmd FileType markdown setlocal conceallevel=2
     autocmd FileType markdown setlocal foldlevel=99
     autocmd BufRead, BufNewFile * setlocal spell

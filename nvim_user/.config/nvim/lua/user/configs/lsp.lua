@@ -1,14 +1,5 @@
 local M = {}
 function M.config()
-  local lsp_installer = require("user.core.utils").load_module("nvim-lsp-installer")
-  if not lsp_installer then
-    return {}
-  end
-
-  -- lsp_installer.setup({
-  --   automatic_installation = true,
-  -- })
-
   local lspconfig = require("user.core.utils").load_module("lspconfig")
   local util = require("user.core.utils").load_module("lspconfig/util")
 
@@ -155,7 +146,14 @@ function M.config()
     },
   }
 
-  local mappings = {}
+  local mappings = {
+    n = {
+      ["<leader>la"] = false,
+      ["<leader>lf"] = false,
+      ["<leader>lh"] = false,
+      ["<leader>lr"] = false,
+    },
+  }
 
   return {
     servers = {
@@ -169,6 +167,7 @@ function M.config()
       "sqlls",
       "eslint",
       "marksman",
+      "jsonls",
     },
     -- server_registration = {
     --   gopls = {
