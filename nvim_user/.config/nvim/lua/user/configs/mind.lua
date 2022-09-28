@@ -8,6 +8,13 @@ function M.config()
     return {}
   end
 
+  local mind_ = require("mind.node")
+
+  local function close_mind()
+    require("mind.commands").commands.quit()
+    vim.cmd([[q]])
+  end
+
   mind.setup({
     persistence = {
       state_path = "/Users/vucinjo/Dropbox/Notes/mind.json",
@@ -25,6 +32,16 @@ function M.config()
         name = function()
           return "/Journal/Daily/" .. os.date("%d.%m.%Y")
         end,
+      },
+    },
+    keymaps = {
+      normal = {
+        q = close_mind,
+        -- x = nil,
+        -- ["<space>"] = "select",
+      },
+      select = {
+        q = close_mind,
       },
     },
   })
