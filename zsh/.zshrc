@@ -101,3 +101,6 @@ fi
 
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
+
+# Golang
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
