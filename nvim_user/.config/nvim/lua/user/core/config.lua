@@ -132,6 +132,7 @@ function M.config()
       ["window-picker"] = window_picker,
 
       dressing = dressing,
+      ["null-ls"] = null_ls,
     },
 
     -- Add paths for including more VS Code style snippets in luasnip
@@ -169,8 +170,6 @@ function M.config()
       underline = true,
     },
 
-    -- null-ls configuration
-    ["null-ls"] = null_ls,
     mappings = mappings,
 
     -- This function is run last
