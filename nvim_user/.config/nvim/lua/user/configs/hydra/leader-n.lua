@@ -95,9 +95,8 @@ function M.setup(Hydra, _, _)
   _n_: new                _o_: open notes
   _l_: links              _b_: backlinks
   _st_: search tags      _sg_: grep
-  _pp_: preview          _pq_: quit preview
+  _P_: preview            _j_: journal
   _t_: table              _p_: project tree
-  _j_: journal
 ]]
 
   local function choose_note()
@@ -137,10 +136,9 @@ function M.setup(Hydra, _, _)
       { "b", "<Cmd>ZkBacklinks<CR>", { exit = true } },
       { "st", "<Cmd>ZkTags<CR>", { exit = true } },
       { "sg", "<Cmd>ZkGrep<CR>", { exit = true } },
-      { "pp", "<Cmd>MarkdownPreview<CR>", { nowait = true } },
-      { "pq", "<Cmd>MarkdownPreviewStop<CR>", { exit = true } },
+      { "P", "<Cmd>MarkdownPreview<CR>", { nowait = true } },
       { "t", choose_table_normal, { exit = true } },
-      { "<Esc>", nil, { exit = true, nowait = true, desc = false } },
+      { "<Esc>", "<Cmd>MarkdownPreviewStop<CR>", { exit = true, nowait = true, desc = false } },
     },
   })
 end

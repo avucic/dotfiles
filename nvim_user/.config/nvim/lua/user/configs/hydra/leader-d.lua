@@ -15,7 +15,7 @@ function M.setup(Hydra, _, _)
     config = {
       on_key = false,
       invoke_on_body = true,
-      -- color = "pink",
+      color = "pink",
       timeout = false,
       hint = {
         border = "rounded",
@@ -29,7 +29,7 @@ function M.setup(Hydra, _, _)
       {
         "d",
         "<cmd>lua require('vstask').load_dap_tasks()<cr><cmd>lua require('dap').continue()<cr>",
-        { desc = "Start Debug" },
+        { desc = "Start Debug", nowait = true },
       },
       {
         "c",

@@ -136,6 +136,7 @@ function M.config()
           map("i", "<tab>", run_expand_command)
           map("i", "<c-o>", select_selection)
           map("i", "<CR>", select_input_text)
+          map("n", "<CR>", select_selection)
 
           return true
         end,

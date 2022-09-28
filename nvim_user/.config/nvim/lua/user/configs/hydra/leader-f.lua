@@ -39,7 +39,7 @@ function M.setup(Hydra, cmd, _)
   _p_: projects          _/_: search in file
   _R_: reload fils       _?_: search history
   _r_: resume            _h_: harpoon
-  _t_: focus on tree
+  _t_: focus on tree     _y_: copy file path
   ^
   _<Enter>_: Telescope
 ]]
@@ -78,6 +78,7 @@ function M.setup(Hydra, cmd, _)
       { "R", "<cmd>e %<CR>", { exit = true } },
       { "h", choose_harpoon, { exit = true, desc = "choose harpoon" } },
       { "t", "<cmd>Neotree focus<CR>", { exit = true } },
+      { "y", ':let @*=expand("%")<cr>', { exit = true, desc = "Copy file path" } },
       {
         "<Enter>",
         "<cmd>lua require('telescope.builtin')<CR>:Telescope<CR>",
