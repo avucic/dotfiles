@@ -10,3 +10,4 @@ if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
 fi
 
 export NVIM_LISTEN_ADDRESS=/tmp/nvim-$(basename $PWD)
+. "$HOME/.cargo/env"

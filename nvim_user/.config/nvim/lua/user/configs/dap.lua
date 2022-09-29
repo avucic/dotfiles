@@ -28,9 +28,9 @@ M.setup = function()
 
   dapui.setup()
 
-  dap.adapters.ruby = require("user.configs.dap_adapters.ruby").config()
-  dap.adapters.go = require("user.configs.dap_adapters.go").config()
-  -- dap.adapters.go = { type = "server", host = "127.0.0.1", port = 38697 }
+  require("user.configs.dap_adapters.ruby").setup(dap)
+  require("user.configs.dap_adapters.go").setup(dap)
+  require("user.configs.dap_adapters.rust").setup(dap)
 end
 
 return M

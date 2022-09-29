@@ -168,6 +168,7 @@ function M.config()
       "eslint",
       "marksman",
       "jsonls",
+      "rust_analyzer",
     },
     -- server_registration = {
     --   gopls = {
@@ -185,6 +186,12 @@ function M.config()
     --   },
     -- },
     server_registration = {
+      -- rust_analyzer = {
+      --   completion = {
+      --     addCallArgumentSnippets = false,
+      --     addCallParenthesis = false,
+      --   },
+      -- },
       marksman = {
         cmd = { "marksman", "server" },
         filetypes = { "markdown" },

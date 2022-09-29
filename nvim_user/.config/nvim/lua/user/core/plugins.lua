@@ -398,50 +398,51 @@ function M.config()
     },
 
     -- Neorg
-    {
-      "nvim-neorg/neorg-telescope",
-      opt = true,
-      -- cmd = {
-      --   "Neorg",
-      --   "NeorgStart",
-      -- },
-      -- ft = "norg",
-      after = "neorg",
-    },
-    {
-      "nvim-neorg/neorg",
-      opt = true,
-      config = function()
-        require("user.configs.neorg").config()
-      end,
-      cmd = {
-        "Neorg",
-        "NeorgStart",
-      },
-      -- ft = "norg",
-      after = "nvim-treesitter",
-    },
-    {
-      "esquires/neorg-gtd-project-tags",
-      opt = true,
-      -- ft = "norg",
-      -- cmd = "Neorg",
-      after = "neorg",
-    },
-    {
-      "max397574/neorg-kanban",
-      opt = true,
-      -- ft = "norg",
-      -- cmd = "Neorg",
-      after = "neorg",
-    },
-    {
-      "max397574/neorg-contexts",
-      opt = true,
-      -- ft = "norg",
-      -- cmd = "Neorg",
-      after = "neorg",
-    },
+    -- {
+    --   "nvim-neorg/neorg-telescope",
+    --   opt = true,
+    --   -- cmd = {
+    --   --   "Neorg",
+    --   --   "NeorgStart",
+    --   -- },
+    --   -- ft = "norg",
+    --   after = "neorg",
+    -- },
+    -- {
+    --   "nvim-neorg/neorg",
+    --   opt = true,
+    --   config = function()
+    --     require("user.configs.neorg").config()
+    --   end,
+    --   cmd = {
+    --     "Neorg",
+    --     "NeorgStart",
+    --   },
+    --   -- ft = "norg",
+    --   after = "nvim-treesitter",
+    -- },
+    -- {
+    --   "esquires/neorg-gtd-project-tags",
+    --   opt = true,
+    --   -- ft = "norg",
+    --   -- cmd = "Neorg",
+    --   after = "neorg",
+    -- },
+    -- {
+    --   "max397574/neorg-kanban",
+    --   opt = true,
+    --   -- ft = "norg",
+    --   -- cmd = "Neorg",
+    --   after = "neorg",
+    -- },
+    -- {
+    --   "max397574/neorg-contexts",
+    --   opt = true,
+    --   -- ft = "norg",
+    --   -- cmd = "Neorg",
+    --   after = "neorg",
+    -- },
+
     -- color utils
     {
       "max397574/colortils.nvim",
@@ -612,6 +613,15 @@ function M.config()
       "sindrets/winshift.nvim",
       opt = true,
       cmd = "WinShift",
+    },
+    -- rust
+    {
+      "simrat39/rust-tools.nvim",
+      opt = true,
+      ft = "rust",
+      config = function()
+        require("user.configs.rust_tools").config()
+      end,
     },
   }
 end

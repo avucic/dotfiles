@@ -101,6 +101,7 @@ function M.config()
       "embedded_template",
       "query",
       "norg",
+      "rust",
       -- "norg_meta",
       -- "norg_table",
     },
