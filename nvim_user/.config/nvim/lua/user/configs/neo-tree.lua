@@ -20,19 +20,17 @@ function M.config()
     enable_diagnostics = true,
     filesystem = {
       -- follow_current_file = false,
-    },
-    window = {
-      width = 40,
-      mappings = {
-        ["o"] = "open_with_window_picker",
-        ["<tab>"] = "open_with_window_picker",
-        ["<cr>"] = "open_with_window_picker",
-        ["S"] = "split_with_window_picker",
-        ["s"] = "vsplit_with_window_picker",
-        ["<esc>"] = "revert_preview",
-        ["q"] = "close_window",
-        ["P"] = { "toggle_preview", config = { use_float = true } },
-        w = function(state)
+      commands = {
+        system_open = function(state)
+          local node = state.tree:get_node()
+          local path = node:get_id()
+          -- macOs: open file in default application in the background.
+          -- Probably you need to adapt the Linux recipe for manage path with spaces. I don't have a mac to try.
+          vim.api.nvim_command("silent !open -g " .. path)
+          -- Linux: open file in default application
+          vim.api.nvim_command(string.format("silent !xdg-open '%s'", path))
+        end,
+        pick_window = function(state)
           local node = state.tree:get_node()
           local success, picker = pcall(require, "window-picker")
           if not success then
@@ -47,6 +45,21 @@ function M.config()
             vim.cmd("edit " .. vim.fn.fnameescape(node.path))
           end
         end,
+      },
+    },
+    window = {
+      width = 40,
+      mappings = {
+        ["o"] = "open_with_window_picker",
+        ["<tab>"] = "open_with_window_picker",
+        ["<cr>"] = "open_with_window_picker",
+        ["S"] = "split_with_window_picker",
+        ["s"] = "vsplit_with_window_picker",
+        ["<esc>"] = "revert_preview",
+        ["q"] = "close_window",
+        ["x"] = "system_open",
+        ["P"] = { "toggle_preview", config = { use_float = true } },
+        ["w"] = "pick_window",
       },
     },
   }
