@@ -43,7 +43,7 @@ function M.config()
       -- disable = {}, -- list of language that will be disabled
     },
     indent = {
-      enable = true,
+      enable = false,
     },
     textobjects = {
       select = {

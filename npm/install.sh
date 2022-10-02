@@ -6,3 +6,4 @@ echo "▶️  Node setup"
 npm install -g @fsouza/prettierd
 npm install -g dotenv
 npm install -g markserv
+npm install -g emmet-ls

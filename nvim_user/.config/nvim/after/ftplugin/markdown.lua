@@ -3,7 +3,7 @@ local Hydra = require("hydra")
 local hint = [[
  Arrow^^^^^^   Select region with <C-v>
  ^ ^ _K_ ^ ^   _f_: surround it with box
- _H_ ^ ^ _L_
+ _H_ ^ ^ _L_   _p_: preview
  ^ ^ _J_ ^ ^                      _<Esc>_
 ]]
 
@@ -29,6 +29,7 @@ Hydra({
 		{ "K", "<C-v>k:VBox<CR>" },
 		{ "L", "<C-v>l:VBox<CR>" },
 		{ "f", ":VBox<CR>", { mode = "v" } },
-		{ "<Esc>", nil, { exit = true } },
+		{ "p", "<Cmd>MarkdownPreview<CR>", { nowait = true } },
+		{ "<Esc>", "<Cmd>MarkdownPreviewStop<CR>", { exit = true, nowait = true } },
 	},
 })

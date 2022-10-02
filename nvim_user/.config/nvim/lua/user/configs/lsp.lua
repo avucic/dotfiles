@@ -142,6 +142,15 @@ function M.config()
             ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
           },
         },
+        json = {
+          schemas = {
+            resucje = {
+              description = "JSON Resume",
+              fileMatch = { "resume.json" },
+              url = "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+            },
+          },
+        },
       },
     },
   }

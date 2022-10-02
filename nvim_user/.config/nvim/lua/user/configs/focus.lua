@@ -30,6 +30,8 @@ function M.config()
       -- "toggleterm",
       -- "terminal",
       -- "term",
+      "prompt",
+      "popup",
       "TelescopePrompt",
       "terminal",
     },
