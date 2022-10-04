@@ -6,17 +6,6 @@ function M.config()
   if not module then
     return {}
   end
-  --
-  -- local parser_config = module.get_parser_configs()
-  -- parser_config.embedded_template = {
-  --   install_info = {
-  --     url = "https://github.com/tree-sitter/tree-sitter-embedded-template",
-  --     files = { "src/parser.c" },
-  --     requires_generate_from_grammar = true,
-  --   },
-  --   filetype = "eruby",
-  --   -- used_by = { "eruby", "erb" },
-  -- }
 
   require("nvim-treesitter.highlight").set_custom_captures({
     ["block_quote"] = "comment",
@@ -32,7 +21,7 @@ function M.config()
     ["list_marker_dot"] = "text.title",
     ["list_marker_minus"] = "text.title",
     ["list_marker_star"] = "text.title",
-    ["(pipe_table_header (pipe_table_cell))"] = "text.title",
+    -- ["(pipe_table_header (pipe_table_cell))"] = "text.title",
     ["pipe_table"] = "MarkdownTable",
   })
 
@@ -100,10 +89,7 @@ function M.config()
       "markdown_inline",
       "embedded_template",
       "query",
-      "norg",
       "rust",
-      -- "norg_meta",
-      -- "norg_table",
     },
   }
 end

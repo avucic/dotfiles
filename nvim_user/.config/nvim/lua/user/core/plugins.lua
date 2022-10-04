@@ -69,6 +69,10 @@ function M.config()
       "mg979/vim-visual-multi",
       branch = "master",
       event = "BufRead",
+      setup = function()
+        vim.g["VM_leader"] = "\\"
+        vim.g["VM_default_mappings"] = 1
+      end,
     },
 
     -- Autocompletion
@@ -265,6 +269,7 @@ function M.config()
       config = function()
         require("user.configs.markid").config()
       end,
+      opt = true,
     },
     {
       "ziontee113/syntax-tree-surfer",
@@ -316,12 +321,12 @@ function M.config()
     },
 
     -- Notes and Markdown
-    {
-      "mtth/scratch.vim",
-      config = function()
-        require("user.configs.scratch").config()
-      end,
-    },
+    -- {
+    --   "mtth/scratch.vim",
+    --   config = function()
+    --     require("user.configs.scratch").config()
+    --   end,
+    -- },
     {
       "iamcco/markdown-preview.nvim",
       run = function()
@@ -597,12 +602,14 @@ function M.config()
 
     -- window and buffer management
     -- works for new nvim version 0.8
-    -- {
-    --   "levouh/tint.nvim",
-    --   config = function()
-    --     require("user.configs.tint").config()
-    --   end,
-    -- },
+    {
+      "levouh/tint.nvim",
+      config = function()
+        require("user.configs.tint").config()
+      end,
+      event = "BufRead",
+      after = "nvim-treesitter",
+    },
     {
       "anuvyklack/hydra.nvim",
       config = function()

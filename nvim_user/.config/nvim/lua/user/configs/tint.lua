@@ -10,6 +10,7 @@ function M.config()
   end
 
   tint.setup()
+  -- tint.refresh()
 end
 
 return M

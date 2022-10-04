@@ -23,12 +23,17 @@ vim.cmd([[
   augroup end
 
   augroup _lsp
-    autocmd! BufWritePre *\(.norg\|.other\)\@<! if ( get(g:, 'autoformat_on_save') == 1 )
-    \| execute 'lua vim.lsp.buf.formatting_sync()'
+    autocmd!
+    " au BufWritePre *\(.norg\|.other\)\@<! if ( get(g:, 'autoformat_on_save') == 1 )
+    au BufWritePre * if ( get(g:, 'autoformat_on_save') == 1 )
+      \| execute 'lua vim.lsp.buf.format()'
+      \| endif
+    " \| execute 'lua vim.lsp.buf.formatting_sync()'
     " \| execute 'lua vim.lsp.buf.formatting_sync(nil, 2000)'
     " \| execute 'lua vim.lsp.buf.formatting()'
+    " \| execute 'lua vim.lsp.buf.format({async = true })'
     " \| execute 'lua vim.lsp.buf.format()'
-    \| endif
+    " \| endif
   augroup end
 ]])
 

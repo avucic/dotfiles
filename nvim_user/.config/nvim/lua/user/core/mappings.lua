@@ -65,10 +65,11 @@ function M.config()
       ["<leader>lD"] = false,
       ["<leader>lr"] = false,
       ["<leader>lR"] = false,
+      ["<leader>e"] = false,
       -- ["<C-h>"] = false,
       -- ["<C-l>"] = false,
 
-      ["<leader>e"] = { "<cmd>lua require'mind'.close()<cr><cmd>Neotree toggle<cr>" },
+      -- ["<leader>e"] = { "<cmd>lua require'mind'.close()<cr><cmd>Neotree toggle<cr>" },
 
       ["<c-q>"] = { "<cmd>silent! cclose<cr><cmd>nohlsearch<cr><cmd>ToggleTermToggleAll<cr>" },
       ["<esc>"] = { "<cmd>nohlsearch<cr>" },
@@ -112,8 +113,8 @@ function M.config()
       -- multiple Cursor
       ["<C-n>"] = "<Nop>",
       ["<C-p>"] = "<Nop>",
-      ["<M-n>"] = { "<Plug>(VM-Add-Cursor-Down)" },
-      ["<M-p>"] = { "<Plug>(VM-Add-Cursor-up)" },
+      -- ["<M-n>"] = { "<Plug>(VM-Add-Cursor-Down)" },
+      -- ["<M-p>"] = { "<Plug>(VM-Add-Cursor-up)" },
 
       -- toggle term
       ["<c-\\>"] = { "<cmd>ToggleTermToggleAll<cr>" },

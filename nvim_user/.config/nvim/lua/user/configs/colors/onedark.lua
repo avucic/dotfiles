@@ -9,6 +9,7 @@ M.config = function()
   onedark.setup()
 
   vim.cmd([[
+   " hi CurrentWordTwins guibg=#3e4452 cterm=NONE
    hi CurrentWordTwins guibg=#21252b gui=none cterm=none
    hi DiagnosticHint guibg=#003C48 guifg=#009999
    hi DiagnosticSignHint guifg=#009999 guibg=NONE
@@ -32,8 +33,7 @@ M.config = function()
    hi FocusedSymbol guibg=NONE guifg=#d19a66
    hi Folded guifg = #69707d  guibg=#2c313a
 
-   hi CurrentWordTwins guibg=#3e4452 cterm=NONE
-   hi MatchParen ctermbg=blue guibg=#3e4452 cterm=NONE
+   hi MatchParen ctermbg=blue guibg=#2C303A cterm=NONE
 
    hi NeorgTodoItem1Content guifg=#e86671
    hi NeorgMarkupSpoiler guifg=#e37933 guibg=NONE

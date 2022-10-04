@@ -11,6 +11,7 @@ function M.setup(Hydra, _, _)
 ^ _i_: next import       _I_: previous import
 ^ _c_: next comment      _C_: previous comment
 ^ _r_: references        _s_: toggle symbols
+^ _j_: jump to any
 ]]
 
   local heads = {
@@ -44,7 +45,7 @@ function M.setup(Hydra, _, _)
     {
       "p",
       function()
-        sts.filtered_jump({ "public_field_definitio" }, true)
+        sts.filtered_jump({ "public_field_definition" }, true)
       end,
     },
     {
@@ -56,13 +57,15 @@ function M.setup(Hydra, _, _)
     {
       "m",
       function()
-        sts.filtered_jump({ "method_definition" }, true)
+        -- sts.filtered_jump({ "function_definition" }, false)
+        sts.filtered_jump({ "function" }, true)
       end,
     },
     {
       "M",
       function()
-        sts.filtered_jump({ "method_definition" }, false)
+        -- sts.filtered_jump({ "function_definition" }, false)
+        sts.filtered_jump({ "function" }, false)
       end,
     },
     {
@@ -87,6 +90,38 @@ function M.setup(Hydra, _, _)
       "C",
       function()
         sts.filtered_jump({ "comment" }, false)
+      end,
+    },
+    {
+      "j",
+      function()
+        sts.filtered_jump({
+          "function",
+          "function_definition",
+          "if_statement",
+          "else_clause",
+          "else_statement",
+          "elseif_statement",
+          "for_statement",
+          "while_statement",
+          "switch_statement",
+        }, true)
+      end,
+    },
+    {
+      "J",
+      function()
+        sts.filtered_jump({
+          "function",
+          "function_definition",
+          "if_statement",
+          "else_clause",
+          "else_statement",
+          "elseif_statement",
+          "for_statement",
+          "while_statement",
+          "switch_statement",
+        }, false)
       end,
     },
     -- {

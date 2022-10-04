@@ -1,4 +1,5 @@
-local ok, _ = pcall(require, "user.core.utils")
+local ok, err = pcall(require, "user.core.utils")
+
 if not ok then
   return {}
 end

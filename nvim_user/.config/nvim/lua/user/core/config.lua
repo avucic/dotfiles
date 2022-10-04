@@ -140,10 +140,10 @@ function M.config()
       vscode_snippet_paths = {},
     },
 
-    ["which-key"] = {
-      -- Add bindings
-      -- register_mappings = wk["mappings"],
-    },
+    -- ["which-key"] = {
+    -- Add bindings
+    -- register_mappings = wk["mappings"],
+    -- },
 
     lsp = lsp,
 

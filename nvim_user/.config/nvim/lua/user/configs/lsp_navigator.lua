@@ -71,7 +71,7 @@ function M.config()
           -- your special on attach here
           -- e.g. disable gopls format because a known issue https://github.com/golang/go/issues/45732
           print("i am a hook, I will disable document format")
-          client.resolved_capabilities.document_formatting = false
+          client.server_capabilities.document_formatting = false
         end,
         settings = {
           gopls = { gofumpt = false }, -- disable gofumpt etc,

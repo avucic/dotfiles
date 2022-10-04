@@ -28,6 +28,7 @@ function M.setup(Hydra, cmd, _)
     heads = {
       { "h", "<cmd>lua require('telescope.builtin').help_tags()<CR>", { exit = true } },
       { "k", "<cmd>lua require('telescope.builtin').keymaps()<CR>", { exit = true } },
+      { "s", "<cmd>lua require('telescope.builtin').symbols()<CR>", { exit = true } },
       { "O", "<cmd>lua require('telescope.builtin').vim_options()<CR>", { exit = true } },
       { ";", "<cmd>lua require('telescope.builtin').command_history()<CR>", { exit = true } },
       { "c", "<cmd>lua require('telescope.builtin').commands()<CR>", { exit = true } },

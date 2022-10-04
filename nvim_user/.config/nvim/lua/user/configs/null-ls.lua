@@ -90,34 +90,6 @@ function M.config()
     extra_args = { "--dialect", "postgres", "--config", "/Users/vucinjo/.sqlfluff" },
   })
 
-  -- null_ls.builtins.completion.spell
-  -- null_ls.setup({
-  --   debug = false,
-  --   sources = {
-  --     -- Set a formatter
-  --     -- rubocop_daemon,
-  --     formatting.rubocop,
-  --     -- Set a linter
-  --     -- diagnostics.rubocop,
-  --     -- Set formatter
-  --
-  --     formatting.stylua,
-  --     formatting.prettierd,
-  --     -- formatting.pg_format,
-  --     sqlfluff,
-  --     diagnostics.sqlfluff,
-  --     diagnostics.checkmake,
-  --     code_actions.eslint_d,
-  --     formatting.gofmt,
-  --     -- completion.spell,
-  --   },
-  --   -- NOTE: You can remove this on attach function to disable format on save
-  --   -- on_attach = function(client)
-  --   --   if client.resolved_capabilities.document_formatting then
-  --   --     -- vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()"
-  --   --   end
-  --   -- end,
-  -- })
   return function(config) -- overrides `require("null-ls").setup(config)`
     -- config variable is the default configuration table for the setup functino call
     -- local null_ls = require "null-ls"
@@ -136,7 +108,7 @@ function M.config()
       -- Set formatter
 
       formatting.stylua,
-      formatting.prettierd,
+      formatting.prettierd.with({ extra_filetypes = { "html", "template" } }),
 
       formatting.pg_format,
 
