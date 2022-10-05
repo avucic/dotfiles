@@ -3,7 +3,10 @@ local M = {}
 function M.setup() end
 
 function M.config()
-  local Hydra = require("hydra")
+  local Hydra = require("user.core.utils").load_module("hydra")
+  if not Hydra then
+    return {}
+  end
 
   local cmd = require("hydra.keymap-util").cmd
   local pcmd = require("hydra.keymap-util").pcmd

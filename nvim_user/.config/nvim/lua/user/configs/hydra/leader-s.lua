@@ -6,6 +6,7 @@ function M.setup(Hydra, cmd, _)
   _k_: keymaps        _c_: execute command
   _O_: options        _b_: buffers
   _w_: search web     _t_: tasks
+  _s_: symbols
 
   _r_: resume         _<Enter>_: Telescope
 ]]
@@ -28,7 +29,7 @@ function M.setup(Hydra, cmd, _)
     heads = {
       { "h", "<cmd>lua require('telescope.builtin').help_tags()<CR>", { exit = true } },
       { "k", "<cmd>lua require('telescope.builtin').keymaps()<CR>", { exit = true } },
-      { "s", "<cmd>lua require('telescope.builtin').symbols()<CR>", { exit = true } },
+      { "s", "<cmd>AerialToggle! right<cr>", { exit = true } },
       { "O", "<cmd>lua require('telescope.builtin').vim_options()<CR>", { exit = true } },
       { ";", "<cmd>lua require('telescope.builtin').command_history()<CR>", { exit = true } },
       { "c", "<cmd>lua require('telescope.builtin').commands()<CR>", { exit = true } },

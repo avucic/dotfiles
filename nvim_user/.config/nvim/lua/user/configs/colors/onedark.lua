@@ -42,6 +42,7 @@ M.config = function()
    " hi MarkdownTable guifg=#393f4a
    hi HydraHint guibg=#24282f
    hi FloatBorder guifg=#69707d
+   hi STS_highlight guifg=#40E6EA
   ]])
 
   -- hi NeorgQuote1Content guifg=#798294

@@ -273,6 +273,9 @@ function M.config()
     },
     {
       "ziontee113/syntax-tree-surfer",
+      config = function()
+        require("user.configs.syntax_tree_surfer").config()
+      end,
     },
 
     -- Tasks

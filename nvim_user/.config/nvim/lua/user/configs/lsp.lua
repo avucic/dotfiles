@@ -149,7 +149,7 @@ function M.config()
         },
         json = {
           schemas = {
-            resucje = {
+            resume = {
               description = "JSON Resume",
               fileMatch = { "resume.json" },
               url = "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
@@ -183,6 +183,7 @@ function M.config()
       "marksman",
       "jsonls",
       "rust_analyzer",
+      "taplo",
     },
     -- server_registration = {
     --   gopls = {

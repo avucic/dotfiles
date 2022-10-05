@@ -1,17 +1,11 @@
 local M = {}
-
-function M.setup(Hydra, _, _)
+function M.activate_hydra()
+  local Hydra = require("hydra")
   local aerial = require("aerial")
   local sts = require("syntax-tree-surfer")
-
   local hint = [[
-^ _n_: next              _N_: previous
-^ _p_: next property     _P_: previous property
-^ _m_: next method       _M_: previous method
-^ _i_: next import       _I_: previous import
-^ _c_: next comment      _C_: previous comment
 ^ _r_: references        _s_: toggle symbols
-^ _j_: jump to any
+^ _n_: next              _N_: previous
 ]]
 
   local heads = {
@@ -43,105 +37,30 @@ function M.setup(Hydra, _, _)
       { desc = "LSP references", exit = true },
     },
     {
-      "p",
-      function()
-        sts.filtered_jump({ "public_field_definition" }, true)
-      end,
-    },
-    {
-      "P",
-      function()
-        sts.filtered_jump({ "public_field_definition" }, false)
-      end,
-    },
-    {
-      "m",
-      function()
-        -- sts.filtered_jump({ "function_definition" }, false)
-        sts.filtered_jump({ "function" }, true)
-      end,
-    },
-    {
-      "M",
-      function()
-        -- sts.filtered_jump({ "function_definition" }, false)
-        sts.filtered_jump({ "function" }, false)
-      end,
-    },
-    {
-      "i",
-      function()
-        sts.filtered_jump({ "import_statement" }, true)
-      end,
-    },
-    {
-      "I",
-      function()
-        sts.filtered_jump({ "import_statement" }, false)
-      end,
-    },
-    {
-      "c",
-      function()
-        sts.filtered_jump({ "comment" }, true)
-      end,
-    },
-    {
-      "C",
-      function()
-        sts.filtered_jump({ "comment" }, false)
-      end,
-    },
-    {
-      "j",
-      function()
-        sts.filtered_jump({
-          "function",
-          "function_definition",
-          "if_statement",
-          "else_clause",
-          "else_statement",
-          "elseif_statement",
-          "for_statement",
-          "while_statement",
-          "switch_statement",
-        }, true)
-      end,
-    },
-    {
-      "J",
-      function()
-        sts.filtered_jump({
-          "function",
-          "function_definition",
-          "if_statement",
-          "else_clause",
-          "else_statement",
-          "elseif_statement",
-          "for_statement",
-          "while_statement",
-          "switch_statement",
-        }, false)
-      end,
-    },
-    -- {
-    --   "q",
-    --   nil,
-    --   { exit = true, nowait = true },
-    -- },
-    {
       "<esc>",
       nil,
       { exit = true, nowait = true, desc = false },
     },
   }
 
-  Hydra({
-    hint = hint,
+  local lang_def = require("user.core.utils").load_module("user.configs.hydra.leader-j-configs." .. vim.bo.filetype)
+
+  if lang_def then
+    local config = lang_def.config(sts.targeted_jump)
+    hint = hint .. config["hint"]
+    local lang_heads = config["heads"]
+
+    for k, v in pairs(lang_heads) do
+      table.insert(heads, v)
+    end
+  end
+
+  local hydra = Hydra({
     name = "Jump",
+    hint = hint,
     config = {
       invoke_on_body = true,
-      -- color = "pink",
+      color = "pink",
       hint = {
         position = "bottom",
         border = "rounded",
@@ -153,9 +72,23 @@ function M.setup(Hydra, _, _)
         aerial.close()
       end,
     },
-    mode = { "n" },
-    body = "<leader>j",
     heads = heads,
+  })
+
+  hydra:activate()
+end
+
+function M.setup(_, _, _)
+  vim.api.nvim_create_autocmd({ "BufEnter" }, {
+    pattern = "*.*",
+    callback = function()
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>j",
+        ":lua require('user.configs.hydra.leader-j').activate_hydra()<CR>",
+        { noremap = true, silent = true }
+      )
+    end,
   })
 end
 

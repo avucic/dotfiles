@@ -1,69 +1,71 @@
-vim.cmd([[
-  augroup _git
-    autocmd!
-    autocmd FileType gitcommit setlocal wrap
-  augroup end
+local aucmd_dict = {
+  FileType = {
+    {
+      pattern = "*",
+      callback = function()
+        vim.cmd([[setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])
+      end,
+    },
+    {
+      pattern = "gitcommit",
+      callback = function()
+        vim.api.nvim_win_set_option(0, "wrap", true)
+      end,
+    },
+    {
+      pattern = "markdown",
+      callback = function()
+        vim.api.nvim_win_set_option(0, "wrap", true)
+        vim.api.nvim_win_set_option(0, "conceallevel", 2)
+        vim.api.nvim_win_set_option(0, "foldlevel", 99)
+      end,
+    },
+  },
+  VimResized = {
+    {
+      pattern = "*",
+      callback = function()
+        vim.cmd([[ tabdo wincmd = ]])
+      end,
+    },
+  },
 
-  augroup _markdown
-    autocmd!
-    autocmd FileType markdown setlocal wrap
-    autocmd FileType markdown setlocal conceallevel=2
-    autocmd FileType markdown setlocal foldlevel=99
-    autocmd BufRead, BufNewFile * setlocal spell
-  augroup end
+  BufRead = {
+    {
+      pattern = "*",
+      callback = function()
+        vim.api.nvim_win_set_option(0, "spell", true)
+      end,
+    },
+  },
+  BufNewFile = {
+    {
+      pattern = "*",
+      callback = function()
+        vim.api.nvim_win_set_option(0, "spell", true)
+      end,
+    },
+  },
 
-  augroup _auto_resize
-    autocmd!
-    autocmd VimResized * tabdo wincmd =
-  augroup end
+  BufWritePre = {
+    {
+      callback = function()
+        if vim.g.autoformat_on_save == 1 then
+          vim.lsp.buf.format()
+        end
+      end,
+    },
+    -- new line
+    {
+      callback = function()
+        vim.cmd([[%s/\s\+$//e]])
+      end,
+    },
+  },
+}
 
-  augroup _spell
-    autocmd!
-    autocmd BufRead, BufNewFile * setlocal spell
-  augroup end
-
-  augroup _lsp
-    autocmd!
-    " au BufWritePre *\(.norg\|.other\)\@<! if ( get(g:, 'autoformat_on_save') == 1 )
-    au BufWritePre * if ( get(g:, 'autoformat_on_save') == 1 )
-      \| execute 'lua vim.lsp.buf.format()'
-      \| endif
-    " \| execute 'lua vim.lsp.buf.formatting_sync()'
-    " \| execute 'lua vim.lsp.buf.formatting_sync(nil, 2000)'
-    " \| execute 'lua vim.lsp.buf.formatting()'
-    " \| execute 'lua vim.lsp.buf.format({async = true })'
-    " \| execute 'lua vim.lsp.buf.format()'
-    " \| endif
-  augroup end
-]])
-
--- Remove all trailing whitespace on save
-vim.api.nvim_exec(
-  [[
-  augroup TrimWhiteSpace
-    au!
-    autocmd BufWritePre * :%s/\s\+$//e
-  augroup END
-  ]],
-  false
-)
--- Prevent new line to also start with a comment
-vim.api.nvim_exec(
-  [[
-  augroup NewLineComment
-    au!
-    au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-  augroup END
-  ]],
-  false
-)
-
-vim.api.nvim_exec(
-  [[
-  augroup laststatus_line
-    au!
-    au FileType * set laststatus=3
-  augroup END
-  ]],
-  false
-)
+for event, opt_tbls in pairs(aucmd_dict) do
+  for _, opt_tbl in pairs(opt_tbls) do
+    vim.api.nvim_create_autocmd(event, opt_tbl)
+  end
+end

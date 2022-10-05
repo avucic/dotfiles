@@ -23,6 +23,7 @@ plugins=(
     brew
     yarn
     golang
+    rust
     ruby
     rails
     rake
