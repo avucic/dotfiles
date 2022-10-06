@@ -1,45 +1,6 @@
 local M = {}
 
 function M.setup(Hydra, _, _)
-  local table_hint = [[
-   _r_: realig         _dr_: delete row     _dc_: delete column
-  _mt_: tableize       _ms_: sort table     _ic_: insert column after
-  _fa_: add formula    _fe_: eval formula   _iC_: insert column before ^ ^
-  _lr_: renumber list  _?_: echo cell map
-]]
-
-  local table_hydra_normal = Hydra({
-    name = "Table",
-    hint = table_hint,
-    config = {
-      on_key = false,
-      invoke_on_body = true,
-      hint = {
-        border = "rounded",
-        type = "window",
-      },
-    },
-    heads = {
-      -- {"t", "<cmd>TableModeEnable<CR>",{exit = true}},
-      { "r", "<Plug>(table-mode-realign)", { desc = "realign", exit = true } },
-      { "dr", "<Plug>(table-mode-delete-row)", { desc = "delete row", exit = true } },
-      { "dc", "<Plug>(table-mode-delete-cell)", { desc = "delete cell", exit = true } },
-      { "mt", "<Plug>(table-mode-tableize)", { desc = "tableize", exit = true } },
-      { "ms", "<Plug>(table-mode-sort)", { desc = "sort", exit = true } },
-      { "ic", "<Plug>(table-mode-insert-column-after)", { desc = "insert column after", exit = true } },
-      { "iC", "<Plug>(table-mode-insert-column-before)", { desc = "insert column before", exit = true } },
-      { "fa", "<Plug>(table-mode-add-formula)", { desc = "add formula", exit = true } },
-      { "fe", "<Plug>(table-mode-eval-formula)", { desc = "eval formula", exit = true } },
-      { "lr", "<cmd>RenumberList<cr>", { desc = "renumber list", exit = true } },
-      { "?", "<Plug>(table-mode-echo-cell-map)", { desc = "Echo cell map", exit = true } },
-      { "<Esc>", nil, { exit = true, nowait = true, desc = false } },
-    },
-  })
-
-  local function choose_table_normal()
-    table_hydra_normal:activate()
-  end
-
   local hint_visual = [[
   _w_: search notes    _n_: new note from title
 ]]
@@ -71,7 +32,7 @@ function M.setup(Hydra, _, _)
       on_key = false,
     },
     heads = {
-      { "g", "<cmd> MindFindOrCreateNote<cr>", { on_key = false, desc = "new global noe" } },
+      { "g", "<cmd> MindFindOrCreateNote<cr>", { on_key = false, desc = "new global noe", nowait = true } },
       { "p", "<cmd> MindFindOrCreateNote project<cr>", { on_key = false, desc = "new project note" } },
       { "<Esc>", nil, { exit = true, desc = false } },
     },
@@ -91,12 +52,11 @@ function M.setup(Hydra, _, _)
 
   local hint_normal = [[
   _i_: index/main         _._: project notes
-  _q_: close              _R_: reload index
+  _R_: reload index       _p_: project tree
   _n_: new                _o_: open notes
   _l_: links              _b_: backlinks
  _st_: search tags       _sg_: grep
-  _j_: journal            _t_: table
-  _p_: project tree
+  _j_: journal            _q_: close tree
 ]]
 
   local function choose_note()
@@ -137,7 +97,6 @@ function M.setup(Hydra, _, _)
       { "st", "<Cmd>ZkTags<CR>", { exit = true } },
       { "sg", "<Cmd>ZkGrep<CR>", { exit = true } },
       -- { "pq", "<Cmd>MarkdownPreviewStop<CR>", { exit = true } },
-      { "t", choose_table_normal, { exit = true } },
       { "<Esc>", nil, { exit = true, desc = false } },
     },
   })
