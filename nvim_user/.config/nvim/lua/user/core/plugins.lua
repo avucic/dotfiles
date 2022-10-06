@@ -624,6 +624,18 @@ function M.config()
       opt = true,
       cmd = "WinShift",
     },
+    {
+      "mrjones2014/legendary.nvim",
+      opt = true,
+      keys = { [[<C-p>]] },
+      wants = { "dressing.nvim" },
+      module = { "legendary" },
+      cmd = { "Legendary" },
+      config = function()
+        require("user.configs.legendary").config()
+      end,
+      requires = { "stevearc/dressing.nvim" },
+    },
     -- rust
     {
       "simrat39/rust-tools.nvim",
