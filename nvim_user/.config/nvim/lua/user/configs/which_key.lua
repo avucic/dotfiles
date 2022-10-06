@@ -8,6 +8,10 @@ function M.config()
   end
 
   local settings = {
+    plugins = {
+      spelling = { enabled = true },
+      presets = { operators = false, windows = false },
+    },
     layout = {
       height = { min = 4, max = 25 },
       width = { min = 20, max = 50 },

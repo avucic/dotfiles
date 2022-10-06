@@ -19,6 +19,7 @@ function M.config()
       ["<leader>/"] = false,
       ["<leader>o"] = false,
       ["<leader>x"] = false,
+      ["<c-w>"] = false,
 
       ["<leader>P"] = false,
       ["<leader>p"] = false,
@@ -78,7 +79,7 @@ function M.config()
       ["<S-l>"] = { "$" },
       ["<S-h>"] = { "^" },
       ["z="] = { "<cmd>Telescope spell_suggest<CR>" },
-      ["<leader>W"] = { "<cmd>:noa w<cr>" },
+      ["<leader>W"] = { "<cmd>:noa w<cr>", desc = "Save without format" },
 
       -- Bookmarks
       ["mm"] = { ":BookmarkToggle<cr>" },

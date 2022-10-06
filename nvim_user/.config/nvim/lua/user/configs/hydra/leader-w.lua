@@ -148,11 +148,10 @@ function M.setup(Hydra, cmd, pcmd)
     hint = window_hint,
     config = {
       invoke_on_body = true,
-      show_name = true,
+      color = "pink",
       hint = {
         border = "rounded",
         offset = -1,
-        show_name = true,
       },
     },
     mode = "n",
