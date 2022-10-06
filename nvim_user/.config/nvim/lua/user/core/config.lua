@@ -8,7 +8,7 @@ function M.config()
   end
 
   local plugins = require("user.core.plugins").config()
-  -- local wk = require("user.configs.which_key").config()
+  local wk = require("user.configs.which_key").config()
   local treesitter = require("user.configs.treesitter").config()
   local telescope = require("user.configs.telescope").config()
   local neotree = require("user.configs.neo-tree").config()
@@ -121,7 +121,7 @@ function M.config()
       toggleterm = toogleterm,
       cmp = cmp,
       bufferline = bufferline,
-      -- ["which-key"] = wk["settings"],
+      ["which-key"] = wk["settings"],
       alpha = alpha,
       aerial = aerial,
       session_manager = session_manager,
@@ -140,10 +140,10 @@ function M.config()
       vscode_snippet_paths = {},
     },
 
-    -- ["which-key"] = {
-    -- Add bindings
-    -- register_mappings = wk["mappings"],
-    -- },
+    ["which-key"] = {
+      -- Add bindings
+      register_mappings = wk["mappings"],
+    },
 
     lsp = lsp,
 

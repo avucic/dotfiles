@@ -3,7 +3,7 @@ local M = {}
 function M.config()
   return {
     -- disable
-    ["folke/which-key.nvim"] = { disable = true },
+    -- ["folke/which-key.nvim"] = { disable = true },
     -- ["akinsho/bufferline.nvim"] = { disable = true },
     -- ["Shatur/neovim-session-manager"] = { disable = true },
     {
@@ -623,18 +623,6 @@ function M.config()
       "sindrets/winshift.nvim",
       opt = true,
       cmd = "WinShift",
-    },
-    {
-      "mrjones2014/legendary.nvim",
-      opt = true,
-      keys = { [[<C-p>]] },
-      wants = { "dressing.nvim" },
-      module = { "legendary" },
-      cmd = { "Legendary" },
-      config = function()
-        require("user.configs.legendary").config()
-      end,
-      requires = { "stevearc/dressing.nvim" },
     },
     -- rust
     {

@@ -17,7 +17,7 @@ function M.setup(Hydra, _, _)
       on_key = false,
       invoke_on_body = true,
       color = "pink",
-      timeout = 5000,
+      -- timeout = 5000,
       hint = {
         border = "rounded",
         type = "window",
