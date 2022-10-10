@@ -59,7 +59,7 @@ function M.setup(Hydra, cmd, _)
     mode = "n",
     body = "<Leader>f",
     heads = {
-      { "e", "<cmd>lua require'mind'.close()<cr><cmd>Neotree toggle<cr>", { exit = true } },
+      { "e", "<cmd>Neotree toggle<cr>", { exit = true } },
       { "m", cmd("MarksListBuf"), { desc = "marks" } },
       { "f", "<cmd>FocusDisable<cr><cmd>lua require('telescope.builtin').find_files()<CR>", { exit = true } },
       { "g", "<cmd>FocusDisable<cr><cmd>lua require('telescope.builtin').live_grep()<CR>", { exit = true } },

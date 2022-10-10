@@ -43,7 +43,7 @@ function M.config()
           ["<C-n>"] = actions.move_selection_next,
           ["<C-p>"] = actions.move_selection_previous,
 
-          ["<C-d>"] = require("telescope.actions").delete_buffer,
+          ["<m-d>"] = require("telescope.actions").delete_buffer,
 
           -- ["<C-c>"] = actions.close,
           --
@@ -85,7 +85,7 @@ function M.config()
           -- ["<C-c>"] = require("telescope.actions").create_note,
           ["n"] = actions.move_selection_next,
           ["p"] = actions.move_selection_previous,
-          ["<C-d>"] = require("telescope.actions").delete_buffer,
+          ["<m-d>"] = require("telescope.actions").delete_buffer,
           --   ["H"] = actions.move_to_top,
           --   ["M"] = actions.move_to_middle,
           --   ["L"] = actions.move_to_bottom,

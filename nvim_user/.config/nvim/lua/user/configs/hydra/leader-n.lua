@@ -26,26 +26,14 @@ function M.setup(Hydra, _, _)
     },
   })
 
-  local note_hydra = Hydra({
-    name = "New Note",
-    config = {
-      on_key = false,
-    },
-    heads = {
-      { "g", "<cmd> MindFindOrCreateNote<cr>", { on_key = false, desc = "new global noe", nowait = true } },
-      { "p", "<cmd> MindFindOrCreateNote project<cr>", { on_key = false, desc = "new project note" } },
-      { "<Esc>", nil, { exit = true, desc = false } },
-    },
-  })
-
   local journal_hydra = Hydra({
     name = "Journal",
     config = {
       on_key = false,
     },
     heads = {
-      { "d", "<cmd> MindFindOrCreateNote global journal_daily<cr>", { on_key = false, desc = "new daily journal" } },
-      { "f", "<cmd> MindFindOrCreateNote global fer<cr>", { on_key = false, desc = "new daily journal" } },
+      { "d", "<cmd>:ZkNew{group='journal', dir='journal/daily'}<cr>", { desc = "new daily journal", exit = true } },
+      { "f", "<cmd>:ZkNew{group='fer', dir='journal/fer'}<cr>", { desc = "new fer session", exit = true } },
       { "<Esc>", nil, { exit = true, desc = false } },
     },
   })
@@ -56,12 +44,8 @@ function M.setup(Hydra, _, _)
   _n_: new                _o_: open notes
   _l_: links              _b_: backlinks
  _st_: search tags       _sg_: grep
-  _j_: journal            _q_: close tree
+  _j_: journal
 ]]
-
-  local function choose_note()
-    note_hydra:activate()
-  end
 
   local function choose_journal()
     journal_hydra:activate()
@@ -82,13 +66,10 @@ function M.setup(Hydra, _, _)
     mode = "n",
     body = "<Leader>n",
     heads = {
-      { "i", "<cmd>Neotree close<cr><Cmd>MindOpenMain<CR>", { exit = true } },
-      { ".", "<Cmd>MindOpenProject<CR>", { exit = true } },
-      { "q", "<cmd>Neotree close<cr><Cmd>MindClose<CR>", { exit = true } },
-      { "R", "<Cmd>MindReloadState<CR><Cmd>ZkIndex<CR>", { exit = true } },
-      -- { "n", "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>", { exit = true } },
-
-      { "n", choose_note, { exit = true } },
+      { "i", "<cmd>ZkOpenNotebook<CR>", { exit = true } },
+      { ".", "<Cmd>ZkCd<CR>", { exit = true } },
+      { "R", "<Cmd>ZkIndex<CR>", { exit = true } },
+      { "n", "<cmd>ZkFindOrCreateNote<cr>", { exit = true } },
       { "j", choose_journal, { exit = true } },
       { "p", "<Cmd>MindOpenProject<CR>", { exit = true } },
       { "o", "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", { exit = true } },

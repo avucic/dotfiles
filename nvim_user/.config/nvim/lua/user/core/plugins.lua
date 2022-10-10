@@ -354,6 +354,9 @@ function M.config()
       ft = { "markdown" },
       opt = true,
       cmd = {
+        "ZkCd",
+        "ZkOpenNotebook",
+        "ZkFindOrCreateNote",
         "ZkNew",
         "ZkIndex",
         "ZkNotes",
@@ -369,22 +372,35 @@ function M.config()
       opt = true,
       cmd = { "VBox" },
     },
-    {
-      "phaazon/mind.nvim",
-      -- branch = "v2.2",
-      requires = { "nvim-lua/plenary.nvim" },
-      config = function()
-        require("user.configs.mind").config()
-      end,
-      after = "telescope.nvim",
-      opt = true,
-      cmd = {
-        "MindOpenProject",
-        "MindOpenMain",
-        "MindFindOrCreateNote",
-        "MindImportFiles",
-      },
-    },
+    -- {
+    --   "phaazon/mind.nvim",
+    --   -- branch = "v2.2",
+    --   requires = { "nvim-lua/plenary.nvim" },
+    --   config = function()
+    --     require("user.configs.mind").config()
+    --   end,
+    --   after = "telescope.nvim",
+    --   opt = true,
+    --   cmd = {
+    --     "MindOpenProject",
+    --     "MindOpenMain",
+    --     "MindFindOrCreateNote",
+    --     "MindImportFiles",
+    --   },
+    -- },
+    -- {
+    --   "axkirillov/easypick.nvim",
+    --   requires = "nvim-telescope/telescope.nvim",
+    --   after = "telescope.nvim",
+    --   opt = true,
+    --   cmd = {
+    --     "Easypick",
+    --     "ZkFindOrCreateNote",
+    --   },
+    --   config = function()
+    --     require("user.configs.easypick").config()
+    --   end,
+    -- },
     {
       "dhruvasagar/vim-table-mode",
       setup = function()
