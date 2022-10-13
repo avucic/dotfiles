@@ -1,7 +1,5 @@
 local M = {}
 
-function M.setup() end
-
 function M.config()
   local Hydra = require("user.core.utils").load_module("hydra")
   if not Hydra then

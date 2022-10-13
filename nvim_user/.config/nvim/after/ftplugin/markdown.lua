@@ -97,6 +97,7 @@ Hydra({
 	heads = {
 		{ "t", choose_table_hydra },
 		{ "d", choose_diagram_hydra },
+		{ "i", ":PasteMDLink<cr>", { nowait = true, exit = true, desc = "Insert link" } },
 		{ "p", "<Cmd>MarkdownPreview<CR>", { nowait = true } },
 		{ "<Esc>", "<Cmd>MarkdownPreviewStop<CR>", { exit = true, nowait = true, desc = false } },
 	},

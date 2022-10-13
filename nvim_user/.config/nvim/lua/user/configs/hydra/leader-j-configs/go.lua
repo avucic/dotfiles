@@ -2,12 +2,12 @@ local M = {}
 
 function M.config(fn)
   local hint = [[
-^ _a_: next params       _A_: previous params
-^ _m_: next method       _M_: previous method
-^ _i_: next import       _I_: previous import
-^ _c_: next comment      _C_: previous comment
-^ _t_: next type         _T_: previous type
-^ _cn_: next const       _Cn_: previous const
+^ _a_: next params          _A_: previous params
+^ _m_: next method          _M_: previous method
+^ _i_: next import          _I_: previous import
+^ _c_: next comment         _C_: previous comment
+^ _t_: next type            _T_: previous type
+^ _cn_: next const          _Cn_: previous const
 ]]
 
   local heads = {

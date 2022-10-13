@@ -35,27 +35,15 @@ M.config = function()
 
    hi MatchParen ctermbg=blue guibg=#2C303A cterm=NONE
 
-   hi NeorgTodoItem1Content guifg=#e86671
-   hi NeorgMarkupSpoiler guifg=#e37933 guibg=NONE
    hi MarkdownHeaderMarker guifg=#d19a66
    hi MarkdownTableHeaderCell guifg=#d19a66 gui=italic
+
    " hi MarkdownTable guifg=#393f4a
    hi HydraHint guibg=#24282f
    hi FloatBorder guifg=#69707d
    hi STS_highlight guifg=#40E6EA
+   hi h1 guifg=#40E6EA
   ]])
-
-  -- hi NeorgQuote1Content guifg=#798294
-  -- hi NeorgHeading1 guifg=#798294
-  -- hi NeorgMarkupVerbatim guifg=#798294
-  -- hi Folded guifg = #69707d  guibg=none
-  -- hi FoldColumn guifg=#4f5663 guibg=none
-  -- original #5C6370
-  -- vim.cmd [[
-  --   hi Folded guifg = #69707d  guibg=none
-  --   hi LineNr guifg = #69707d  guibg=none
-  --   hi FoldColumn guifg=#4f5663 guibg=none
-  -- ]]
 end
 
 -- hi @punctuation.special guifg=#009999

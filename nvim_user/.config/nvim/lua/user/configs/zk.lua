@@ -16,8 +16,10 @@ function M.config()
       config = {
         cmd = { "zk", "lsp" },
         name = "zk",
-        -- on_attach = ...
-        -- etc, see `:h vim.lsp.start_client()`
+        on_attach = function(client, bufnr)
+          vim.keymap.set("n", "<cr>", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to Declaration" })
+          vim.keymap.set("n", "<bs>", ":ZkBacklinks<cr>", { buffer = bufnr, desc = "Back links" })
+        end,
       },
 
       -- automatically attach buffers in a zk notebook that match the given filetypes
@@ -56,15 +58,37 @@ function M.config()
   end
 
   local titleize = function(s)
+    s = s:gsub("%-", " ")
     return s:sub(1, 1):upper() .. s:sub(2)
   end
 
-  function M.open_note(path)
+  function M.open_note(path, dirType)
     assert(path ~= nil, "No text for note path")
     assert(path ~= "", "No text for note path")
-    local title = titleize(parse_text(path))
+    local dir, group
+    local pathDir, filename = path:match("([^,]+)/([^,]+)")
 
-    require("zk").new({ title = title })
+    if filename == nil then
+      filename = path
+    end
+
+    if dirType == "fleeting" then
+      dir = "Fleeting notes"
+      group = "fleeting_notes"
+    elseif dirType == "permanent" then
+      dir = "Permanent Notes"
+      group = "permanent_notes"
+    elseif dirType == "literature" then
+      group = "literature_notes"
+      dir = "Literature Notes"
+    end
+
+    assert(path ~= nil or dir ~= nil, "No directory for the note")
+    assert(group ~= nil or dir ~= nil, "No group for the note")
+
+    local title = titleize(parse_text(filename))
+
+    require("zk").new({ title = title, group = group, dir = dir or pathDir })
   end
 
   function M.open_notebook()
@@ -72,8 +96,9 @@ function M.config()
   end
 
   function M.find_or_create_note(opts)
+    local dir = opts.args
     local options = vim.tbl_deep_extend("force", {
-      prompt_title = "Notes",
+      prompt_title = titleize(dir) .. " Notes",
       cwd = vim.env.ZK_NOTEBOOK_DIR,
       find_command = {
         "fd",
@@ -119,12 +144,12 @@ function M.config()
           local selection = state.get_selected_entry()
           local input_text = state.get_current_line()
           if selection ~= nil then
-            M.open_note(selection.value)
+            M.open_note(selection.value, dir)
             actions.close(prompt_bufnr)
           else
             vim.ui.input({ prompt = "Do you want to create note " .. input_text .. " (y/N) " }, function(input)
               if input ~= nil and input == "y" then
-                M.open_note(input_text)
+                M.open_note(input_text, dir)
               end
 
               actions.close(prompt_bufnr)
@@ -134,7 +159,7 @@ function M.config()
 
         local create_note = function(prompt_bufnr, _)
           local input_text = state.get_current_line()
-          M.open_note(input_text)
+          M.open_note(input_text, dir)
 
           actions.close(prompt_bufnr)
         end
@@ -149,15 +174,36 @@ function M.config()
       end,
 
       path_display = function(_, path)
-        return path:match("(.+)%..+")
+        local icon
+
+        if path:match("^Fleeting Notes/.*") then
+          icon = "📓"
+        elseif path:match("^Literature Notes/.*") then
+          icon = "📙"
+        elseif path:match("^Permanent Notes/.*") then
+          icon = "📗"
+        end
+
+        if icon then
+          return icon .. " " .. path:match("(.+)%..+")
+        else
+          return path:match("(.+)%..+")
+        end
       end,
     }, opts or {})
     require("telescope.builtin").find_files(options)
   end
 
-  vim.api.nvim_create_user_command("ZkGrep", M.grep_notes, {})
-  vim.api.nvim_create_user_command("ZkFindOrCreateNote", M.find_or_create_note, {})
   vim.api.nvim_create_user_command("ZkOpenNotebook", M.open_notebook, {})
+  vim.api.nvim_create_user_command("ZkGrep", M.grep_notes, {})
+  vim.api.nvim_create_user_command("ZkFindOrCreateNote", M.find_or_create_note, {
+    nargs = "?",
+    desc = "Open or create node",
+    complete = function()
+      -- return system("git branch --sort=-committerdate --format='%(refname:short)'") ?
+      return { "Permanent Notes", "Fleeting Notes", "Literature Notes" }
+    end,
+  })
 end
 
 return M

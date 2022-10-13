@@ -54,6 +54,7 @@ function M.config()
         relativenumber = false, -- sets vim.opt.relativenumber
         spell = true,
         spelllang = { "en_us" },
+        conceallevel = 2,
       },
       g = {
         mapleader = " ", -- sets vim.g.mapleader

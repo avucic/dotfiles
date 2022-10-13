@@ -2,47 +2,34 @@ local M = {}
 
 function M.config(fn)
   local hint = [[
-^ _a_: next params          _A_: previous params
-^ _m_: next method          _M_: previous method
-^ _l_: next local           _L_: previous import
+^ _a_: next link            _A_: previous link
 ^ _c_: next comment         _C_: previous comment
+^ _l_: next list item       _L_: previous list item
 ]]
 
   local heads = {
     {
       "a",
       function()
-        fn({ "parameter_list" }, true)
+        fn({ "shortcut_link" }, true)
       end,
     },
     {
       "A",
       function()
-        fn({ "parameter_list" }, false)
-      end,
-    },
-    {
-      "m",
-      function()
-        fn({ "function" }, true)
-      end,
-    },
-    {
-      "M",
-      function()
-        fn({ "function" }, false)
+        fn({ "shortcut_link" }, false)
       end,
     },
     {
       "l",
       function()
-        fn({ "local" }, true)
+        fn({ "list_item" }, true)
       end,
     },
     {
       "L",
       function()
-        fn({ "local" }, false)
+        fn({ "list_item" }, false)
       end,
     },
     {

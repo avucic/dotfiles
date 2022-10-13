@@ -4,8 +4,8 @@ function M.activate_hydra()
   local aerial = require("aerial")
   local sts = require("syntax-tree-surfer")
   local hint = [[
-^ _r_: references        _s_: toggle symbols
-^ _n_: next              _N_: previous
+^ _r_: references           _s_: toggle symbols
+^ _n_: next                 _N_: previous
 ]]
 
   local heads = {

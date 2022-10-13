@@ -221,6 +221,10 @@ function M.config()
         })
       end,
     },
+    {
+      "RRethy/nvim-treesitter-textsubjects",
+      after = "nvim-treesitter",
+    },
 
     -- Telescope
     {
@@ -261,10 +265,11 @@ function M.config()
       cmd = {
         "TSPlaygroundToggle",
         "TSHighlightCapturesUnderCursor",
+        "TSCaptureUnderCursor",
       },
     },
     {
-      "David-Kunz/markid",
+      "David-Kunz/markid", -- A Neovim extension to highlight same-name identifiers with the same color.
       after = "nvim-treesitter",
       config = function()
         require("user.configs.markid").config()
@@ -330,6 +335,22 @@ function M.config()
     --     require("user.configs.scratch").config()
     --   end,
     -- },
+    -- {
+    --   "sat0b/markdown-url-paste.nvim",
+    --   -- run = "pip3 install requests beautifulsoup4",
+    --   -- opt = true,
+    --   -- cmd = { "MarkdownUrlPaste" },
+    --   -- ft = "markdown",
+    -- },
+    {
+      "avucic/paste-markdown-url",
+      run = "pip3 install requests beautifulsoup4 lxml",
+      config = function()
+        require("paste-markdown-url")
+      end,
+      opt = true,
+      cmd = { "PasteMDLink" },
+    },
     {
       "iamcco/markdown-preview.nvim",
       run = function()
@@ -339,6 +360,7 @@ function M.config()
       cmd = { "MarkdownPreview" },
       ft = "markdown",
     },
+    -- edit code blocks in markdown
     {
       "AckslD/nvim-FeMaco.lua",
       config = 'require("femaco").setup()',
@@ -366,28 +388,22 @@ function M.config()
         "ZkGrep",
       },
     },
+    -- {
+    --   "renerocksai/telekasten.nvim",
+    --   config = function()
+    --     require("user.configs.telekasten").config()
+    --   end,
+    -- },
+    -- {
+    --   "renerocksai/calendar-vim",
+    -- },
     {
+      -- drowing
       "jbyuki/venn.nvim",
       ft = { "markdown" },
       opt = true,
       cmd = { "VBox" },
     },
-    -- {
-    --   "phaazon/mind.nvim",
-    --   -- branch = "v2.2",
-    --   requires = { "nvim-lua/plenary.nvim" },
-    --   config = function()
-    --     require("user.configs.mind").config()
-    --   end,
-    --   after = "telescope.nvim",
-    --   opt = true,
-    --   cmd = {
-    --     "MindOpenProject",
-    --     "MindOpenMain",
-    --     "MindFindOrCreateNote",
-    --     "MindImportFiles",
-    --   },
-    -- },
     -- {
     --   "axkirillov/easypick.nvim",
     --   requires = "nvim-telescope/telescope.nvim",
