@@ -1,6 +1,8 @@
 {
   "Module": {
-    "prefix": ["md"],
+    "prefix": [
+      "md"
+    ],
     "body": [
       "local M = {}",
       "",
@@ -20,7 +22,9 @@
     ]
   },
   "Dump": {
-    "prefix": ["dmp"],
+    "prefix": [
+      "dmp"
+    ],
     "body": [
       "function dump(o)",
       "\tif type(o) == \"table\" then",
@@ -35,6 +39,26 @@
       "\telse",
       "\t\treturn tostring(o)",
       "\tend",
+      "end"
+    ]
+  },
+  "FileExists": {
+    "prefix": [
+      "fex"
+    ],
+    "body": [
+      "local function file_exists(fname)",
+      "  if fname == nil then",
+      "    return false",
+      "  end",
+      "",
+      "  local f = io.open(fname, \"r\")",
+      "  if f ~= nil then",
+      "    io.close(f)",
+      "    return true",
+      "  else",
+      "    return false",
+      "  end",
       "end"
     ]
   }

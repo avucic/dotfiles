@@ -180,7 +180,7 @@ function M.config()
       "yamlls",
       "sqlls",
       "eslint",
-      -- "marksman",
+      "marksman",
       "jsonls",
       "rust_analyzer",
       "taplo",
@@ -207,15 +207,15 @@ function M.config()
       --     addCallParenthesis = false,
       --   },
       -- },
-      -- marksman = {
-      --   cmd = { "marksman", "server" },
-      --   filetypes = { "markdown" },
-      --   root_dir = util.root_pattern(".git", ".marksman.toml"),
-      --   auto_attach = {
-      --     enabled = true,
-      --     filetypes = { "markdown" },
-      --   },
-      -- },
+      marksman = {
+        cmd = { "marksman", "server" },
+        filetypes = { "markdown" },
+        root_dir = util.root_pattern(".git", ".marksman.toml"),
+        auto_attach = {
+          enabled = true,
+          filetypes = { "markdown" },
+        },
+      },
     },
     on_attach = on_attach,
     ["server-settings"] = server_settings,

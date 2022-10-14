@@ -458,6 +458,7 @@ function M.config()
         d = { "Debug" },
         t = { "Toggle" },
         j = { "Jump" },
+        p = { "Projects" },
       },
       ["<C-w>"] = { "Window" },
     },

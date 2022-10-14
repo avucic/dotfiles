@@ -20,9 +20,10 @@ function M.config()
       ["<leader>o"] = false,
       ["<leader>x"] = false,
       ["<c-w>"] = false,
+      ["n"] = "<nop>",
 
-      ["<leader>P"] = false,
-      ["<leader>p"] = false,
+      -- ["<leader>p"] = false,
+      -- ["<leader>p"] = "<Nop>",
       ["<leader>gs"] = false,
       ["<leader>gg"] = false,
       ["<leader>tn"] = false,
@@ -67,6 +68,8 @@ function M.config()
       ["<leader>lr"] = false,
       ["<leader>lR"] = false,
       ["<leader>e"] = false,
+
+      ["<leader>p"] = "<cmd>FocusDisable<cr><cmd>lua require('telescope').extensions.project.project{}<CR>",
       -- ["<C-h>"] = false,
       -- ["<C-l>"] = false,
 
@@ -89,8 +92,15 @@ function M.config()
         desc = "List current file Bookmarks",
       },
       -- Lighspeed
-      ["s"] = { "<Plug>Lightspeed_s" },
-      ["S"] = { "<Plug>Lightspeed_S" },
+      -- ["s"] = { "<Plug>Lightspeed_s" },
+      -- ["S"] = { "<Plug>Lightspeed_S" },
+
+      -- Leap
+      ["s"] = { "<Plug>(leap-forward-to)" },
+      ["ss"] = { "<Plug>(leap-forward-till)" },
+      ["S"] = { "<Plug>(leap-backward-to)" },
+      ["SS"] = { "<Plug>(leap-backward-till)" },
+      ["gs"] = "<Plug>(leap-cross-window)",
 
       -- Navigate buffers
       -- ["<leader><tab>"] = { "<cmd>bNext<cr>" },
@@ -141,6 +151,12 @@ function M.config()
       -- ["gI"] = { "<Plug>(Inflect)" },
       -- search google
       -- ["<leader>sg"] = { ":BrowserSearch<cr>" },
+
+      -- Leap
+      ["s"] = { "<Plug>(leap-forward-to)" },
+      ["ss"] = { "<Plug>(leap-forward-till)" },
+      ["S"] = { "<Plug>(leap-backward-to)" },
+      ["SS"] = { "<Plug>(leap-backward-till)" },
     },
     x = {
       -- Move text up and down

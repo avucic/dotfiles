@@ -11,6 +11,7 @@ function M.config()
   local fb_actions = require("telescope").extensions.file_browser.actions
 
   telescope.load_extension("fzf")
+  -- telescope.load_extension("media_files")
 
   return {
     defaults = {
@@ -129,6 +130,12 @@ function M.config()
         code_action = {
           telescope = require("telescope.themes").get_dropdown({}),
         },
+      },
+      media_files = {
+        -- filetypes whitelist
+        -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+        filetypes = { "png", "webp", "jpg", "jpeg" },
+        find_cmd = "rg", -- find command (defaults to `fd`)
       },
     },
   }

@@ -28,8 +28,14 @@ function M.config()
     },
 
     -- Themes
+    -- {
+    --   "ful1e5/onedark.nvim",
+    --   config = function()
+    --     require("user.configs.colors.onedark").config()
+    --   end,
+    -- },
     {
-      "ful1e5/onedark.nvim",
+      "navarasu/onedark.nvim",
       config = function()
         require("user.configs.colors.onedark").config()
       end,
@@ -64,7 +70,7 @@ function M.config()
       },
     },
 
-    -- Multicursor
+    -- Multi cursor
     {
       "mg979/vim-visual-multi",
       branch = "master",
@@ -131,8 +137,12 @@ function M.config()
 
     -- Jump to char
     {
-      "ggandor/lightspeed.nvim",
+      -- "ggandor/lightspeed.nvim",
+      "ggandor/leap.nvim",
       event = "BufReadPre",
+      config = function()
+        require("user.configs.leap").config()
+      end,
     },
 
     -- Highlight current word
@@ -210,23 +220,13 @@ function M.config()
       event = "InsertEnter",
     },
 
-    -- Syntax
-    {
-      "lewis6991/spellsitter.nvim",
-      after = "nvim-treesitter",
-      config = function()
-        require("spellsitter").setup({
-          -- Whether enabled, can be a list of filetypes, e.g. {'python', 'lua'}
-          enable = true,
-        })
-      end,
-    },
-    {
-      "RRethy/nvim-treesitter-textsubjects",
-      after = "nvim-treesitter",
-    },
-
     -- Telescope
+    {
+      "nvim-telescope/telescope-media-files.nvim",
+      after = "telescope.nvim",
+      opt = true,
+      config = function() end,
+    },
     {
       "nvim-telescope/telescope-file-browser.nvim",
       after = "telescope.nvim",
@@ -239,14 +239,8 @@ function M.config()
       after = "telescope.nvim",
       config = function() end,
     },
-    -- {
-    --   "smartpde/telescope-recent-files",
-    --   after = "telescope.nvim",
-    --   config = function()
-    --     require("user.configs.telescope_recent_files").config()
-    --   end,
-    -- },
 
+    -- Syntax
     -- Treesitter
     {
       "nvim-telescope/telescope-project.nvim",
@@ -256,9 +250,24 @@ function M.config()
       end,
     },
     {
+      "lewis6991/spellsitter.nvim",
+      after = "nvim-treesitter",
+      config = function()
+        require("spellsitter").setup({
+          -- Whether enabled, can be a list of filetypes, e.g. {'python', 'lua'}
+          enable = true,
+        })
+      end,
+    },
+    {
       "nvim-treesitter/nvim-treesitter-textobjects",
       after = "nvim-treesitter",
     },
+    {
+      "RRethy/nvim-treesitter-textsubjects",
+      after = "nvim-treesitter",
+    },
+
     {
       "nvim-treesitter/playground",
       opt = true,
@@ -329,19 +338,6 @@ function M.config()
     },
 
     -- Notes and Markdown
-    -- {
-    --   "mtth/scratch.vim",
-    --   config = function()
-    --     require("user.configs.scratch").config()
-    --   end,
-    -- },
-    -- {
-    --   "sat0b/markdown-url-paste.nvim",
-    --   -- run = "pip3 install requests beautifulsoup4",
-    --   -- opt = true,
-    --   -- cmd = { "MarkdownUrlPaste" },
-    --   -- ft = "markdown",
-    -- },
     {
       "avucic/paste-markdown-url",
       run = "pip3 install requests beautifulsoup4 lxml",
@@ -370,15 +366,23 @@ function M.config()
     },
     {
       "mickael-menu/zk-nvim",
+      requires = "renerocksai/calendar-vim",
+      setup = function()
+        require("user.configs.zk").setup()
+      end,
       config = function()
         require("user.configs.zk").config()
       end,
-      ft = { "markdown" },
+      -- ft = { "markdown" },
       opt = true,
       cmd = {
+        "ZkOrphans",
         "ZkCd",
         "ZkOpenNotebook",
+        "ZkShowCalendar",
         "ZkFindOrCreateNote",
+        "ZkFindOrCreateProjectNote",
+        "ZkFindOrCreateJournalDailyNote",
         "ZkNew",
         "ZkIndex",
         "ZkNotes",
@@ -388,15 +392,6 @@ function M.config()
         "ZkGrep",
       },
     },
-    -- {
-    --   "renerocksai/telekasten.nvim",
-    --   config = function()
-    --     require("user.configs.telekasten").config()
-    --   end,
-    -- },
-    -- {
-    --   "renerocksai/calendar-vim",
-    -- },
     {
       -- drowing
       "jbyuki/venn.nvim",

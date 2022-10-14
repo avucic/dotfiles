@@ -13,7 +13,7 @@ function M.config()
         "yamlls",
         "sqlls",
         "eslint",
-        -- "marksman",
+        "marksman",
       },
     },
     -- TODO
@@ -23,7 +23,7 @@ function M.config()
         "prettier",
         "stylua",
         "gopls",
-        -- "marksman",
+        "marksman",
       },
     },
   }

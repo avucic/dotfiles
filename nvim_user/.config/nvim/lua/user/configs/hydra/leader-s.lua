@@ -17,7 +17,7 @@ function M.setup(Hydra, cmd, _)
     config = {
       on_key = false,
       invoke_on_body = true,
-      -- color = "pink",
+      color = "pink",
       hint = {
         border = "rounded",
         type = "window",
@@ -27,8 +27,8 @@ function M.setup(Hydra, cmd, _)
     body = "<Leader>s",
     heads = {
       { "h", "<cmd>lua require('telescope.builtin').help_tags()<CR>", { exit = true } },
-      { "k", "<cmd>lua require('legendary').find({kind = 'keymaps'})<CR>", { exit = true } },
-      -- { "k", "<cmd>lua require('telescope.builtin').keymaps()<CR>", { exit = true } },
+      -- { "k", "<cmd>lua require('legendary').find({kind = 'keymaps'})<CR>", { exit = true } },
+      { "k", "<cmd>lua require('telescope.builtin').keymaps()<CR>", { exit = true } },
       { "s", "<cmd>AerialToggle! right<cr>", { exit = true } },
       { "O", "<cmd>lua require('telescope.builtin').vim_options()<CR>", { exit = true } },
       { ";", "<cmd>lua require('telescope.builtin').command_history()<CR>", { exit = true } },

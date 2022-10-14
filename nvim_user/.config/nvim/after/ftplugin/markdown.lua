@@ -5,6 +5,11 @@ local table_hint = [[
   _mt_: tableize       _ms_: sort table     _ic_: insert column after
   _fa_: add formula    _fe_: eval formula   _iC_: insert column before ^ ^
   _lr_: renumber list  _?_: echo cell map
+
+  ^   _k_   ^
+  _h_     _l_
+  ^   _j_   ^
+
 ]]
 
 local table_hydra_normal = Hydra({
@@ -30,6 +35,10 @@ local table_hydra_normal = Hydra({
 		{ "fa", "<Plug>(table-mode-add-formula)", { desc = "add formula", exit = true } },
 		{ "fe", "<Plug>(table-mode-eval-formula)", { desc = "eval formula", exit = true } },
 		{ "lr", "<cmd>RenumberList<cr>", { desc = "renumber list", exit = true } },
+		{ "k", "<Plug>(table-mode-motion-up)", { desc = "up" } },
+		{ "j", "<Plug>(table-mode-motion-down)", { desc = "down" } },
+		{ "l", "<Plug>(table-mode-motion-right)", { desc = "right" } },
+		{ "h", "<Plug>(table-mode-motion-left)", { desc = "left" } },
 		{ "?", "<Plug>(table-mode-echo-cell-map)", { desc = "Echo cell map", exit = true } },
 		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },
 	},

@@ -29,18 +29,17 @@ local _user_terminals = {}
 
 function M.toggle_term_cmd(cmd, opts)
   if _user_terminals[cmd] == nil then
-    _user_terminals[cmd] = require("toggleterm.terminal").Terminal:new({
-      cmd = cmd,
-      hidden = true,
-      direction = opts.direction,
-    })
+    _user_terminals[cmd] =
+      require("toggleterm.terminal").Terminal:new({ cmd = cmd, hidden = true, direction = opts.direction })
   end
   _user_terminals[cmd]:toggle()
 end
 
 function M.load_module(name)
   local ok, module = pcall(require, name)
-  if ok then return module end
+  if ok then
+    return module
+  end
   -- assert(ok, string.format("Module %s not installed", name))
   return nil
 end
@@ -70,10 +69,10 @@ end
 function M.fileExists(file)
   local ok, err, code = os.rename(file, file)
   if not ok then
-     if code == 13 then
-        -- Permission denied, but it exists
-        return true
-     end
+    if code == 13 then
+      -- Permission denied, but it exists
+      return true
+    end
   end
   return ok, err
 end

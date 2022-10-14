@@ -14,7 +14,7 @@ function M.setup(Hydra, _, _)
     hint = git_hint,
     config = {
       invoke_on_body = true,
-      -- color = "pink",
+      color = "pink",
       hint = {
         border = "rounded",
         type = "window",

@@ -40,7 +40,7 @@ function M.setup(Hydra, cmd, _)
   _R_: reload fils       _?_: search history
   _r_: resume            _h_: harpoon
   _t_: focus on tree     _y_: copy file path
-  _e_: file explorer
+  _e_: file explorer     _E_: browser
   ^
   _<Enter>_: Telescope
 ]]
@@ -60,6 +60,7 @@ function M.setup(Hydra, cmd, _)
     body = "<Leader>f",
     heads = {
       { "e", "<cmd>Neotree toggle<cr>", { exit = true } },
+      { "E", "<cmd>Telescope file_browser<cr>", { exit = true } },
       { "m", cmd("MarksListBuf"), { desc = "marks" } },
       { "f", "<cmd>FocusDisable<cr><cmd>lua require('telescope.builtin').find_files()<CR>", { exit = true } },
       { "g", "<cmd>FocusDisable<cr><cmd>lua require('telescope.builtin').live_grep()<CR>", { exit = true } },

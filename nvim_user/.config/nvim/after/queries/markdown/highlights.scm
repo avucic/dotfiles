@@ -1,15 +1,15 @@
 ; extends
 
-(block_quote) @comment
-(block_quote_marker) @comment
-(block_continuation) @comment
+(block_quote) @MarkdownBlockQuote
+(block_quote_marker)@MarkdownBlockQuote
+(block_continuation)@MarkdownBlockQuote
 (fenced_code_block_delimiter) @comment
-(atx_h1_marker) @MarkdownHeaderMarker
-(atx_h2_marker) @MarkdownHeaderMarker
-(atx_h3_marker) @MarkdownHeaderMarker
-(atx_h4_marker) @MarkdownHeaderMarker
-(atx_h5_marker) @MarkdownHeaderMarker
-(atx_h6_marker) @MarkdownHeaderMarker
+(atx_h1_marker) @MarkdownHeaderMarkerH1
+(atx_h2_marker) @MarkdownHeaderMarkerH2
+(atx_h3_marker) @MarkdownHeaderMarkerH3
+(atx_h4_marker) @MarkdownHeaderMarkerH4
+(atx_h5_marker) @MarkdownHeaderMarkerH5
+(atx_h6_marker) @MarkdownHeaderMarkerH6
 (list_marker_dot) @text.title
 (list_marker_minus) @text.title
 (list_marker_star) @text.title
@@ -41,6 +41,22 @@
 ((atx_heading
   (atx_h5_marker) @_h5
   (_) @h5))
+((atx_heading
+  (atx_h6_marker) @_h6
+  (_) @h6))
+
+
+; markdown meta section
+(section
+  (paragraph) @MarkdownMeta (#match? @MarkdownMeta "^Created.*"))
+
+(list_item [
+  (list_marker_plus)
+  (list_marker_minus)
+  (list_marker_star)
+  (list_marker_dot)
+  (list_marker_parenthesis)
+] @MarkdownListItemMarker )
 
 
 ; ((shortcut_link) @conceal (#set! conceal "") (eq? @conceal "[ ]"))

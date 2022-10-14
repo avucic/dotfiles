@@ -18,6 +18,9 @@ local aucmd_dict = {
         vim.api.nvim_win_set_option(0, "wrap", true)
         vim.api.nvim_win_set_option(0, "conceallevel", 2)
         vim.api.nvim_win_set_option(0, "foldlevel", 99)
+
+        vim.keymap.set("n", "<cr>", vim.lsp.buf.definition, { desc = "Go to Declaration" })
+        vim.keymap.set("n", "<bs>", ":ZkBacklinks<cr>", { desc = "Back links" })
       end,
     },
   },

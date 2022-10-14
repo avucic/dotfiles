@@ -32,7 +32,11 @@ function M.setup(Hydra, _, _)
       on_key = false,
     },
     heads = {
-      { "d", "<cmd>:ZkNew{group='journal', dir='journal/daily'}<cr>", { desc = "new daily journal", exit = true } },
+      {
+        "d",
+        "<cmd>:ZkFindOrCreateJournalDailyNote<cr>",
+        { desc = "new daily journal", exit = true },
+      },
       { "f", "<cmd>:ZkNew{group='fer', dir='journal/fer'}<cr>", { desc = "new fer session", exit = true } },
       { "<Esc>", nil, { exit = true, desc = false } },
     },
@@ -48,6 +52,7 @@ function M.setup(Hydra, _, _)
       { "t", "<Cmd>ZkTags<CR>", { exit = true, desc = "by tags" } },
       { "l", "<Cmd>ZkLinks<CR>", { exit = true, desc = "links" } },
       { "b", "<Cmd>ZkBacklinks<CR>", { exit = true, desc = "backlinks" } },
+      { "o", "<Cmd>ZkOrphans<CR>", { exit = true, desc = "orphans" } },
       { "<Esc>", nil, { exit = true, desc = false } },
     },
   })
@@ -55,35 +60,25 @@ function M.setup(Hydra, _, _)
   local note_hydra = Hydra({
     name = "New note",
     heads = {
-      -- {
-      --   "l",
-      --   "<cmd>:ZkNew{group='literature_notes', dir='Literature Notes'}<cr>",
-      --   { desc = "Literature note", exit = true },
-      -- },
-      -- {
-      --   "p",
-      --   "<cmd>:ZkNew{group='permanent_notes', dir='Permanent Notes'}<cr>",
-      --   { desc = "Permanent note", exit = true },
-      -- },
-      -- {
-      --   "f",
-      --   "<cmd>:ZkNew{group='fleeting_notes', dir='Fleeting Notes'}<cr>",
-      --   { desc = "Fleeting note", exit = true },
-      -- },
       {
-        "l",
-        "<cmd>:ZkFindOrCreateNote literature<cr>",
-        { desc = "literature", exit = true },
+        "r",
+        "<cmd>:ZkFindOrCreateNote { group='literature_notes', dir='references'}<cr>",
+        { desc = "references", exit = true },
       },
       {
         "p",
-        "<cmd>:ZkFindOrCreateNote permanent<cr>",
+        "<cmd>:ZkFindOrCreateNote { group='permanent_notes', dir='slip-box'}<cr>",
         { desc = "permanent", exit = true },
       },
       {
-        "f",
-        "<cmd>:ZkFindOrCreateNote fleeting<cr>",
-        { desc = "fleeting", exit = true },
+        "d",
+        "<cmd>:ZkFindOrCreateNote { group='fleeting_notes', dir='daily_notes'}<cr>",
+        { desc = "daily notes", exit = true },
+      },
+      {
+        "w",
+        "<cmd>:ZkFindOrCreateProjectNote<cr>",
+        { desc = "project notes", exit = true },
       },
       { "<Esc>", nil, { exit = true, desc = false } },
     },
@@ -93,7 +88,7 @@ function M.setup(Hydra, _, _)
   _i_: index/main         _._: cdw
   _R_: reload index       _n_: new note
   _o_: open notes         _j_: journal
-  _f_: search
+  _f_: search             _c_: calendar
 ]]
 
   local function choose_journal()
@@ -126,7 +121,7 @@ function M.setup(Hydra, _, _)
       { "i", "<cmd>ZkOpenNotebook<CR>", { exit = true } },
       { ".", "<Cmd>ZkCd<CR>", { exit = true } },
       { "R", "<Cmd>ZkIndex<CR>", { exit = true } },
-      -- { "n", "<cmd>ZkFindOrCreateNote<cr>", { exit = true } },
+      { "c", "<cmd>ZkShowCalendar<cr>", { exit = true } },
       { "n", choose_note, { exit = true } },
       { "j", choose_journal, { exit = true } },
       -- { "p", "<Cmd>MindOpenProject<CR>", { exit = true } },

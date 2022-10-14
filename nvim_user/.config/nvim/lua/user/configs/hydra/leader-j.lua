@@ -46,7 +46,7 @@ function M.activate_hydra()
   local lang_def = require("user.core.utils").load_module("user.configs.hydra.leader-j-configs." .. vim.bo.filetype)
 
   if lang_def then
-    local config = lang_def.config(sts.targeted_jump)
+    local config = lang_def.config(sts.filtered_jump)
     hint = hint .. config["hint"]
     local lang_heads = config["heads"]
 
