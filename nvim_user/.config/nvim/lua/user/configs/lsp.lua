@@ -107,6 +107,12 @@ function M.config()
       client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
     end
 
+    local vim = vim
+    local opt = vim.opt
+
+    opt.foldmethod = "expr"
+    opt.foldexpr = "nvim_treesitter#foldexpr()"
+
     -- client.resolved_capabilities.document_formatting = false
     -- client.resolved_capabilities.document_range_formatting = false
 

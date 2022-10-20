@@ -38,14 +38,18 @@ fi
 
 #  Vars and Paths
 export PATH=/Users/vucinjo/bin:$PATH
+export PATH="$HOME/dotfiles/bin:$PATH"
 export ERL_AFLAGS="-kernel shell_history enabled" # enable history in iex
 export PATH="$HOME/dotfiles/bin:$PATH"
-export EDITOR="nvim"
-export TERM=xterm-256color
+# export EDITOR="nvim"
+# export TERM=xterm-256color
+export TERM=xterm-kitty
 export FZF_DEFAULT_OPTS='--preview "pygmentize {}" --color dark --bind "?:toggle-preview" --preview-window "right:50%:hidden"'
 export DISABLE_AUTO_TITLE='true'
 
 
+export DISABLE_AUTO_TITLE='true'
+export ZK_NOTEBOOK_DIR='/Users/vucinjo/Dropbox/Notes'
 # nvim and lazygit
 export NVIM_LISTEN_ADDRESS=/tmp/nvim-$(basename $PWD)
 

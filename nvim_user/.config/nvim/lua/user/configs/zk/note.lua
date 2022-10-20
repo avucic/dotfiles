@@ -76,7 +76,7 @@ function M.find_or_create_note(opts)
       "file",
       "--strip-cwd-prefix",
       "-e",
-      "md",
+      "jpg",
     },
     attach_mappings = function(_, map)
       actions.select_default:replace(function()
