@@ -42,6 +42,8 @@ M.config = function()
   hl("@MarkdownTableHeaderCell", { link = "BufferInactiveMod" })
   hl("@MarkdownTable", { link = "BufferVisibleTarget" })
   hl("@MarkdownListItemMarker", { link = "@comment" })
+  hl("@MarkdownTag", { link = "@constant" })
+  vim.cmd("hi @MarkdownCodeBlockBG guibg=" .. palette.black)
 
   -- vim.cmd("hi clear MarkdownTableHeaderCell")
   -- vim.cmd("hi MarkdownBlockQuote guifg=#ff6600")
@@ -54,6 +56,7 @@ M.config = function()
   vim.cmd("hi FocusedSymbol guibg=NONE guifg=" .. palette.orange)
   vim.cmd("hi Folded guifg = " .. palette.grey .. "  guibg=" .. palette.bg0)
   vim.cmd("hi MatchParen guifg=" .. palette.bg_blue .. " guibg=NONE")
+  vim.cmd("hi Conceal ctermfg=7 ctermbg=242 guibg=NONE")
 
   -- black = "#181a1f",
   -- bg0 = "#282c34",

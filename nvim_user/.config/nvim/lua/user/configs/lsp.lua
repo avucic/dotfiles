@@ -113,6 +113,19 @@ function M.config()
     opt.foldmethod = "expr"
     opt.foldexpr = "nvim_treesitter#foldexpr()"
 
+    vim.cmd([[
+    " list
+    syn match  mkdListItem    "^\s*[-*+]\s\+"   contains=mkdListTab,mkdListBullet2
+    syn match  mkdListItem    "^\s*\d\+\.\s\+"  contains=mkdListTab
+    syn match  mkdListTab     "^\s*\*"          contained contains=mkdListBullet1
+    syn match  mkdListBullet1 "\*"              contained conceal cchar=•
+    syn match  mkdListBullet2 "[-*+]"           contained conceal cchar=•
+
+    " tag
+    syn match  mkdTagItem    "\v#([a-zA-Z_-]\/?)+"  contains=mkdTag
+    syn match  mkdTag    "#"  contained conceal cchar=🏷️
+
+  ]])
     -- client.resolved_capabilities.document_formatting = false
     -- client.resolved_capabilities.document_range_formatting = false
 

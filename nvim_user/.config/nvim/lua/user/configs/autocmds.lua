@@ -21,6 +21,8 @@ local aucmd_dict = {
 
         vim.keymap.set("n", "<cr>", vim.lsp.buf.definition, { desc = "Go to Declaration" })
         vim.keymap.set("n", "<bs>", ":ZkBacklinks<cr>", { desc = "Back links" })
+
+        vim.cmd([[ call MarkdownBlocks() ]])
       end,
     },
   },
@@ -62,6 +64,30 @@ local aucmd_dict = {
     {
       callback = function()
         vim.cmd([[%s/\s\+$//e]])
+      end,
+    },
+  },
+  InsertLeave = {
+    {
+      pattern = "*.md",
+      callback = function()
+        vim.cmd([[ call MarkdownBlocks() ]])
+      end,
+    },
+  },
+  BufEnter = {
+    {
+      pattern = "*.md",
+      callback = function()
+        vim.cmd([[ call MarkdownBlocks() ]])
+      end,
+    },
+  },
+  BufWritePost = {
+    {
+      pattern = "*.md",
+      callback = function()
+        vim.cmd([[ call MarkdownBlocks() ]])
       end,
     },
   },
