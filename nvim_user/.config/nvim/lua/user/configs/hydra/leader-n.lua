@@ -88,7 +88,7 @@ function M.setup(Hydra, _, _)
   _i_: index/main         _._: cdw
   _R_: reload index       _n_: new note
   _o_: open notes         _j_: journal
-  _f_: search             _c_: calendar
+  _s_: search             _c_: calendar
 ]]
 
   local function choose_journal()
@@ -130,7 +130,7 @@ function M.setup(Hydra, _, _)
       -- { "b", "<Cmd>ZkBacklinks<CR>", { exit = true } },
       -- { "st", "<Cmd>ZkTags<CR>", { exit = true } },
       -- { "s", "<cmd>:ZkNew{group='scratch', dir='scratch'}<cr>", { desc = "new scratch", exit = true } },
-      { "f", choose_search, { exit = true } },
+      { "s", choose_search, { exit = true } },
       { "<Esc>", nil, { exit = true, desc = false } },
     },
   })
