@@ -82,9 +82,41 @@ local function choose_diagram_hydra()
 	diagram_hydra:activate()
 end
 
+local bullet_hint = [[
+_l_: demote           _h_: promote
+_x_: toggle checkbox  _n_: renumber
+]]
+
+local bullet_hydra = Hydra({
+	name = "Draw Diagram",
+	hint = bullet_hint,
+	config = {
+		buffer = true,
+		invoke_on_body = true,
+		hint = {
+			border = "rounded",
+		},
+		on_enter = function()
+			vim.o.virtualedit = "all"
+		end,
+	},
+	heads = {
+		{ "l", "<cmd>BulletDemote<cr>", { exit = false } },
+		{ "h", "<cmd>BulletPromote<cr>", { exit = false } },
+		{ "x", "<Plug>(bullets-toggle-checkbox)", { exit = false } },
+		{ "n", "<Plug>(bullets-renumber)", { exit = true } },
+		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },
+	},
+})
+
+local function choose_bullet_hydra()
+	bullet_hydra:activate()
+end
+
 local hint = [[
  _t_: table        _d_: diagram
- _p_: preview
+ _p_: preview      _s_: server
+ _b_: bullet       _i_: paste link
 ]]
 
 Hydra({
@@ -106,8 +138,36 @@ Hydra({
 	heads = {
 		{ "t", choose_table_hydra },
 		{ "d", choose_diagram_hydra },
+		{ "b", choose_bullet_hydra },
 		{ "i", ":PasteMDLink<cr>", { nowait = true, exit = true, desc = "Insert link" } },
 		{ "p", "<Cmd>MarkdownPreview<CR>", { nowait = true } },
+		{
+			"s",
+			"<cmd>lua require('user.core.utils').toggle_term_cmd('cd $ZK_NOTEBOOK_DIR && markserv', {direction = 'horizontal'})<CR>",
+			{ desc = false, nowait = true, exit = true },
+		},
 		{ "<Esc>", "<Cmd>MarkdownPreviewStop<CR>", { exit = true, nowait = true, desc = false } },
 	},
 })
+
+vim.api.nvim_win_set_option(0, "wrap", true)
+vim.api.nvim_win_set_option(0, "conceallevel", 2)
+vim.api.nvim_win_set_option(0, "foldlevel", 99)
+vim.api.nvim_buf_set_keymap(
+	0,
+	"n",
+	"<cr>",
+	[[:lua vim.lsp.buf.definition()<CR>]],
+	{ noremap = true, desc = "Go to Declaration" }
+)
+
+vim.api.nvim_buf_set_keymap(0, "n", "<bs>", [[:ZkBacklinks<CR>]], { noremap = true, desc = "Back links" })
+vim.api.nvim_buf_set_keymap(0, "n", "<bs>", [[:ZkBacklinks<CR>]], { noremap = true, desc = "Back links" })
+
+-- bullets
+vim.api.nvim_buf_set_keymap(0, "i", "<C-CR>", "<Plug>(bullets-newline)", { noremap = true, desc = "New line" })
+vim.api.nvim_buf_set_keymap(0, "i", "<CR>", "<Plug>(bullets-newline)", { noremap = true, desc = "New line" })
+vim.api.nvim_buf_set_keymap(0, "n", "o", "<Plug>(bullets-newline)", { noremap = true, desc = "New line" })
+vim.api.nvim_buf_set_keymap(0, "v", ">", "<cmd>BulletDemote<cr>", { noremap = true, desc = "Bullet demote" })
+vim.api.nvim_buf_set_keymap(0, "v", "<", "<cmd>BulletPromote<cr>", { noremap = true, desc = "Bullet promote" })
+vim.api.nvim_buf_set_keymap(0, "v", "gN", "<Plug>(bullets-renumber)", { noremap = true, desc = "Bullet renumber" })

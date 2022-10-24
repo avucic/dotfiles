@@ -194,9 +194,10 @@ function M.config()
     {
       "tom-anders/telescope-vim-bookmarks.nvim",
       config = function()
-        require("user.configs.vim_bookmarks").config()
+        require("telescope").load_extension("vim_bookmarks")
       end,
       requires = { "MattesGroeger/vim-bookmarks" },
+      after = "telescope.nvim",
       opt = true,
       cmd = {
         "Telescope",
@@ -225,7 +226,9 @@ function M.config()
       "nvim-telescope/telescope-media-files.nvim",
       after = "telescope.nvim",
       opt = true,
-      config = function() end,
+      config = function()
+        require("telescope").load_extension("media_files")
+      end,
     },
     {
       "nvim-telescope/telescope-file-browser.nvim",
@@ -301,6 +304,11 @@ function M.config()
       after = "telescope.nvim",
       opt = true,
     },
+    {
+      "xarthurx/taskwarrior.vim",
+      opt = true,
+      cmd = { "TW" },
+    },
 
     -- Enhance visibility
     {
@@ -366,7 +374,6 @@ function M.config()
     },
     {
       "mickael-menu/zk-nvim",
-      requires = "renerocksai/calendar-vim",
       setup = function()
         require("user.configs.zk").setup()
       end,
@@ -659,6 +666,29 @@ function M.config()
       config = function()
         require("user.configs.rust_tools").config()
       end,
+    },
+    -- image preview
+    -- {
+    --   "edluffy/hologram.nvim",
+    --   config = function()
+    --     require("hologram").setup({
+    --       auto_display = true, -- WIP automatic markdown image display, may be prone to breaking
+    --     })
+    --   end,
+    -- },
+    -- picker
+    {
+      "mattn/calendar-vim",
+      opt = true,
+      setup = function()
+        require("user.configs.calendar").setup()
+      end,
+      cmd = {
+        "Calendar",
+        "CalendarH",
+        "CalendarT",
+        "CalendarVR",
+      },
     },
   }
 end

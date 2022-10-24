@@ -14,16 +14,7 @@ local aucmd_dict = {
     },
     {
       pattern = "markdown",
-      callback = function()
-        vim.api.nvim_win_set_option(0, "wrap", true)
-        vim.api.nvim_win_set_option(0, "conceallevel", 2)
-        vim.api.nvim_win_set_option(0, "foldlevel", 99)
-
-        vim.keymap.set("n", "<cr>", vim.lsp.buf.definition, { desc = "Go to Declaration" })
-        vim.keymap.set("n", "<bs>", ":ZkBacklinks<cr>", { desc = "Back links" })
-
-        vim.cmd([[ call MarkdownBlocks() ]])
-      end,
+      callback = function() end,
     },
   },
   VimResized = {
@@ -53,41 +44,17 @@ local aucmd_dict = {
   },
 
   BufWritePre = {
-    {
-      callback = function()
-        if vim.g.autoformat_on_save == 1 then
-          vim.lsp.buf.format()
-        end
-      end,
-    },
+    -- {
+    --   callback = function()
+    --     if vim.g.autoformat_on_save == 1 then
+    --       vim.lsp.buf.format()
+    --     end
+    --   end,
+    -- },
     -- new line
     {
       callback = function()
         vim.cmd([[%s/\s\+$//e]])
-      end,
-    },
-  },
-  InsertLeave = {
-    {
-      pattern = "*.md",
-      callback = function()
-        vim.cmd([[ call MarkdownBlocks() ]])
-      end,
-    },
-  },
-  BufEnter = {
-    {
-      pattern = "*.md",
-      callback = function()
-        vim.cmd([[ call MarkdownBlocks() ]])
-      end,
-    },
-  },
-  BufWritePost = {
-    {
-      pattern = "*.md",
-      callback = function()
-        vim.cmd([[ call MarkdownBlocks() ]])
       end,
     },
   },

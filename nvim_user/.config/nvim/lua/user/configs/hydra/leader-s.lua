@@ -13,6 +13,20 @@ function M.setup(Hydra, cmd, _)
 
   Hydra({
     name = "Search",
+    config = {
+      on_key = false,
+      invoke_on_body = true,
+    },
+    mode = "v",
+    body = "<Leader>s",
+    heads = {
+      { "w", ":'<,'>BrowserSearch<cr>" },
+      { "<Esc>", nil, { exit = true, nowait = true, desc = false } },
+    },
+  })
+
+  Hydra({
+    name = "Search",
     hint = hint,
     config = {
       on_key = false,

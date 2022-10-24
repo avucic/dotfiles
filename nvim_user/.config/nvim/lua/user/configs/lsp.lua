@@ -11,38 +11,6 @@ function M.config()
     return {}
   end
 
-  -- local set_contains = function(set, val)
-  --   for key, value in pairs(set) do
-  --     if value == val then
-  --       return true
-  --     end
-  --   end
-  --   return false
-  -- end
-
-  -- local set_default_formatter_for_filetypes = function(language_server_name, filetypes)
-  --   if not set_contains(filetypes, vim.bo.filetype) then
-  --     return
-  --   end
-  --
-  --   local active_servers = {}
-  --
-  --   vim.lsp.for_each_buffer_client(0, function(client)
-  --     table.insert(active_servers, client.config.name)
-  --   end)
-  --
-  --   if not set_contains(active_servers, language_server_name) then
-  --     return
-  --   end
-  --
-  --   vim.lsp.for_each_buffer_client(0, function(client)
-  --     if client.name ~= language_server_name then
-  --       client.resolved_capabilities.document_formatting = false
-  --       client.resolved_capabilities.document_range_formatting = false
-  --     end
-  --   end)
-  -- end
-  --
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
 
@@ -112,20 +80,6 @@ function M.config()
 
     opt.foldmethod = "expr"
     opt.foldexpr = "nvim_treesitter#foldexpr()"
-
-    vim.cmd([[
-    " list
-    syn match  mkdListItem    "^\s*[-*+]\s\+"   contains=mkdListTab,mkdListBullet2
-    syn match  mkdListItem    "^\s*\d\+\.\s\+"  contains=mkdListTab
-    syn match  mkdListTab     "^\s*\*"          contained contains=mkdListBullet1
-    syn match  mkdListBullet1 "\*"              contained conceal cchar=•
-    syn match  mkdListBullet2 "[-*+]"           contained conceal cchar=•
-
-    " tag
-    syn match  mkdTagItem    "\v#([a-zA-Z_-]\/?)+"  contains=mkdTag
-    syn match  mkdTag    "#"  contained conceal cchar=🏷️
-
-  ]])
     -- client.resolved_capabilities.document_formatting = false
     -- client.resolved_capabilities.document_range_formatting = false
 

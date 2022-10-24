@@ -1,0 +1,21 @@
+#!/bin/sh
+
+TODO_FILE=$HOME/.local/share/calcurse/todo
+
+# if [ -e $TODO_FILE ]; then
+#   rm $TODO_FILE
+# fi
+
+# task export | python3 \
+#   -c "import sys, json; res = json.load(sys.stdin); print('\n'.join(['{0} {1} {2}'.format('[0]', t['id'],  t['description']) for i, t in enumerate(res)]))" | > $TODO_FILE
+#
+# exit
+
+#!/bin/bash
+# task -WAITING and -PARENT and \(+OVERDUE or +DUETODAY or sched.before:today or sched:today \) _ids | {
+task  _ids | {
+# task | {
+    while read -r i
+    do
+        echo "[0] $(task _get "$i.description" 2> /dev/null)"
+    done } | sort --unique > $TODO_FILE

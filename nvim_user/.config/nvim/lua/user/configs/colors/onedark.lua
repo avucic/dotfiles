@@ -7,7 +7,12 @@ M.config = function()
     return
   end
 
-  onedark.setup({ style = theme_style })
+  onedark.setup({
+    style = theme_style,
+    colors = {
+      red = "#e06c75",
+    },
+  })
   onedark.load()
 
   -- TODO: remove this once treesitter and ondedark theme are fixed
@@ -43,21 +48,34 @@ M.config = function()
   hl("@MarkdownTable", { link = "BufferVisibleTarget" })
   hl("@MarkdownListItemMarker", { link = "@comment" })
   hl("@MarkdownTag", { link = "@constant" })
+  hl("@MarkdownTagItem", { link = "@constant" })
   vim.cmd("hi @MarkdownCodeBlockBG guibg=" .. palette.black)
 
   -- vim.cmd("hi clear MarkdownTableHeaderCell")
   -- vim.cmd("hi MarkdownBlockQuote guifg=#ff6600")
   -- vim.cmd([[hi MarkdownBlockQuote cterm=bold,italic gui=bold,italic guifg=#80858f guibg=#282c34 ]])
   -- vim.cmd("hi MarkdownTableHeaderCell cterm=italic gui=italic guifg=" .. palette.orange)
-  vim.cmd("hi SpellBad guifg=NONE gui=undercurl guisp=" .. palette.dark_red)
+  -- vim.cmd("hi SpellBad guifg=NONE gui=undercurl guisp=red")
   vim.cmd("hi CmpItemAbbrDeprecated cterm=italic gui=italic")
   vim.cmd("hi DashboardHeader guifg=" .. palette.bg2)
+  vim.cmd("hi DashboardFooter guifg=" .. palette.light_grey)
+  vim.cmd("hi DashboardTasks guifg=" .. palette.purple)
   vim.cmd("hi CurrentWordTwins guibg=" .. palette.bg2 .. " gui=none cterm=none")
   vim.cmd("hi FocusedSymbol guibg=NONE guifg=" .. palette.orange)
   vim.cmd("hi Folded guifg = " .. palette.grey .. "  guibg=" .. palette.bg0)
   vim.cmd("hi MatchParen guifg=" .. palette.bg_blue .. " guibg=NONE")
   vim.cmd("hi Conceal ctermfg=7 ctermbg=242 guibg=NONE")
 
+  vim.cmd([[
+hi SpellBad   guifg=NONE guisp=red    gui=undercurl term=underline cterm=undercurl
+hi SpellCap   guifg=NONE guisp=yellow gui=undercurl term=underline cterm=undercurl
+hi SpellRare  guifg=NONE guisp=blue   gui=undercurl term=underline cterm=undercurl
+hi SpellLocal guifg=NONE guisp=red gui=undercurl term=underline cterm=undercurl
+  ]])
+
+  -- red0 = '#e06c75',
+  --   red1 = '#e86671',
+  --   red2 = '#f65866',
   -- black = "#181a1f",
   -- bg0 = "#282c34",
   -- bg1 = "#31353f",

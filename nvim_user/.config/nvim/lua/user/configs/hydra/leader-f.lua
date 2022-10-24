@@ -18,7 +18,7 @@ function M.setup(Hydra, cmd, _)
       },
     },
     heads = {
-      { "a", "<cmd>lua require('harpoon.mark').add_file()<cr>", { desc = "Add file", exit = true } },
+      { "a", "<cmd>lua require('harpoon.kark').add_file()<cr>", { desc = "Add file", exit = true } },
       -- h = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "Open Menu" },
       { "h", "<cmd>lua require('telescope').extensions.harpoon.marks()<cr>", { exit = true } },
       { "1", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", { exit = true, desc = "Open File 1" } },
@@ -34,13 +34,14 @@ function M.setup(Hydra, cmd, _)
   end
 
   local telescopehint = [[
-  _f_: files             _m_: marks
+  _f_: files             _F_: all files
   _o_: old files         _g_: live grep
   _p_: projects          _/_: search in file
   _R_: reload fils       _?_: search history
   _r_: resume            _h_: harpoon
   _t_: focus on tree     _y_: copy file path
   _e_: file explorer     _E_: browser
+  _n_: new file          _m_: bookmarks
   ^
   _<Enter>_: Telescope
 ]]
@@ -60,9 +61,15 @@ function M.setup(Hydra, cmd, _)
     body = "<Leader>f",
     heads = {
       { "e", "<cmd>Neotree toggle<cr>", { exit = true } },
+      { "n", "<cmd>enew<cr>", { exit = true } },
       { "E", "<cmd>Telescope file_browser<cr>", { exit = true } },
-      { "m", cmd("MarksListBuf"), { desc = "marks" } },
+      { "m", "<cmd>FocusDisable<cr><cmd>lua require('telescope').extensions.vim_bookmarks.all()<cr>", { exit = true } },
       { "f", "<cmd>FocusDisable<cr><cmd>lua require('telescope.builtin').find_files()<CR>", { exit = true } },
+      {
+        "F",
+        "<cmd>FocusDisable<cr><cmd>lua require('telescope.builtin').find_files({ hidden = true, no_ignore = true })<CR>",
+        { exit = true },
+      },
       { "g", "<cmd>FocusDisable<cr><cmd>lua require('telescope.builtin').live_grep()<CR>", { exit = true } },
       {
         "o",

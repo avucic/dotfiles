@@ -20,7 +20,7 @@ function M.config()
       ["<leader>o"] = false,
       ["<leader>x"] = false,
       ["<c-w>"] = false,
-      ["n"] = "<nop>",
+      -- ["n"] = "<nop>",
 
       -- ["<leader>p"] = false,
       -- ["<leader>p"] = "<Nop>",
@@ -53,6 +53,7 @@ function M.config()
       ["<leader>fb"] = false,
       ["<leader>fh"] = false,
       ["<leader>fm"] = false,
+      ["<leader>fn"] = false,
       ["<leader>fo"] = false,
       ["<leader>fc"] = false,
       ["<leader>sb"] = false,
@@ -69,6 +70,23 @@ function M.config()
       ["<leader>lR"] = false,
       ["<leader>e"] = false,
 
+      ["<leader>ua"] = false,
+      ["<leader>ub"] = false,
+      ["<leader>uc"] = false,
+      ["<leader>uC"] = false,
+      ["<leader>ud"] = false,
+      ["<leader>ug"] = false,
+      ["<leader>ui"] = false,
+      ["<leader>ul"] = false,
+      ["<leader>un"] = false,
+      ["<leader>us"] = false,
+      ["<leader>up"] = false,
+      ["<leader>ut"] = false,
+      ["<leader>uu"] = false,
+      ["<leader>uw"] = false,
+      ["<leader>uy"] = false,
+      ["<leader>uf"] = false,
+
       ["<leader>p"] = "<cmd>FocusDisable<cr><cmd>lua require('telescope').extensions.project.project{}<CR>",
       -- ["<C-h>"] = false,
       -- ["<C-l>"] = false,
@@ -81,7 +99,7 @@ function M.config()
       ["Q"] = { "<cmd>qall!<cr>" },
       ["<S-l>"] = { "$" },
       ["<S-h>"] = { "^" },
-      ["z="] = { "<cmd>Telescope spell_suggest<CR>" },
+      ["z="] = { "<cmd>FocusDisable<cr><cmd>lua require('telescope.builtin').spell_suggest()<CR>" },
       ["<leader>W"] = { "<cmd>:noa w<cr>", desc = "Save without format" },
 
       -- Bookmarks
@@ -131,14 +149,14 @@ function M.config()
       ["<c-\\>"] = { "<cmd>ToggleTermToggleAll<cr>" },
 
       -- search google
-      -- ["<leader>sg"] = { ":BrowserSearch<cr>" },
+      -- ["<leader>sw"] = { ":BrowserSearch<cr>" },
       -- EasyAlign
       -- ["ga"] = { "<Plug>(EasyAlign)" },
       -- Markdown bullets
     },
     i = {
-      ["i"] = { "i" },
-      ["f"] = { "f" },
+      -- ["i"] = { "i" },
+      -- ["f"] = { "f" },
     },
     v = {
       ["<S-l>"] = { "$", desc = "Jump to end of line" },

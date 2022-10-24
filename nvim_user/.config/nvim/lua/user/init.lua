@@ -4,6 +4,7 @@ if not ok then
   return {}
 end
 
+-- return config
 local config = require("user.core.utils").load_module("user.core.config")
 if config then
   return config.config()

@@ -1,16 +1,3 @@
-hi MyStrikethrough gui=strikethrough
-call matchadd('MyStrikethrough', '\~\~\zs.\+\ze\~\~')
-call matchadd('Conceal',  '\~\~\ze.\+\~\~', 10, -1, {'conceal':''})
-call matchadd('Conceal',  '\~\~.\+\zs\~\~\ze', 10, -1, {'conceal':''})
-
-call matchadd('Conceal',  '\[\ \]', 10, -1, {'conceal':''})
-call matchadd('Conceal',  '\[x\]', 10, -1, {'conceal':''})
-call matchadd('Conceal',  '\[-\]', 10, -1, {'conceal':'☒'})
-call matchadd('Conceal',  '\[\.\]', 10, -1, {'conceal':'⊡'})
-call matchadd('Conceal',  '\[o\]', 10, -1, {'conceal':'⬕'})
-call matchadd('@MarkdownTag',  '\v#([a-zA-Z_-]\/?)+')
-
-
 sign define codeblock linehl=@MarkdownCodeBlockBG
 
 function! MarkdownBlocks()
@@ -32,6 +19,53 @@ function! MarkdownBlocks()
         endif
     endfor
 endfunction
+
+function! MarkdownConceal()
+    hi MyStrikethrough gui=strikethrough
+    call matchadd('MyStrikethrough', '\~\~\zs.\+\ze\~\~')
+    call matchadd('Conceal',  '\~\~\ze.\+\~\~', 10, -1, {'conceal':''})
+    call matchadd('Conceal',  '\~\~.\+\zs\~\~\ze', 10, -1, {'conceal':''})
+    call matchadd('Conceal',  '\[\ \]', 10, -1, {'conceal':''})
+    call matchadd('Conceal',  '\[[xX]\]', 10, -1, {'conceal':''})
+    call matchadd('Conceal',  '\[-\]', 10, -1, {'conceal':'☒'})
+    call matchadd('Conceal',  '\[\.\]', 10, -1, {'conceal':'⊡'})
+    call matchadd('Conceal',  '\[[oO]\]', 10, -1, {'conceal':'⬕'})
+    call matchadd('Conceal',  '\~\~\ze.\+\~\~', 10, -1, {'conceal':''})
+    call matchadd('Conceal',  '\~\~.\+\zs\~\~\ze', 10, -1, {'conceal':''})
+
+    call matchadd('@MarkdownTag',  '\v#([a-zA-Z_-]\/?)+')
+    call matchadd('MyStrikethrough', '\~\~\zs.\+\ze\~\~')
+
+    syn match  mkdListItem    "^\s*[-*+]\s\+"   contains=mkdListTab,mkdListBullet2
+    syn match  mkdListItem    "^\s*\d\+\.\s\+"  contains=mkdListTab
+    syn match  mkdListTab     "^\s*\*"          contained contains=mkdListBullet1
+    syn match  mkdListBullet1 "\*"              contained conceal cchar=•
+    syn match  mkdListBullet2 "[-*+]"           contained conceal cchar=•
+endfunction
+
+au BufWinEnter *.md call MarkdownConceal()
+
+" block
+au BufWinEnter *.md call MarkdownBlocks()
+au BufWritePost *.md call MarkdownBlocks()
+au InsertLeave *.md call MarkdownBlocks()
+au BufWinLeave *.md call clearmatches()
+
+" tag
+" au BufWinEnter *.md syn match  mkdTagItem    "\v#([a-zA-Z_-]\/?)+"  contains=mkdTag
+" au BufWinEnter *.md syn match  mkdTag    "#"  contained conceal cchar=🏷️
+
+" au BufWinEnter *.md call matchadd('Conceal', '#[a-z]+', 10, -1, {'conceal':'🏷️'})
+" au BufWinEnter *.md call matchadd('Conceal', '#\zs-', 10, -1, {'conceal':' '})
+
+" hi Conceal        ctermbg=NONE ctermfg=red guifg=red
+
+
+" au BufWinEnter *.md syn match mdTag contained "#" conceal cchar=🏷️
+" au BufWinEnter *.md syn match mkdTagItem contained "#" conceal cchar=─
+" au BufWinEnter *.md syn match ArrowFull "->" contains=ArrowHead,ArrowTail
+
+
 
 " Use signs to highlight code blocks
 " Set signs on loading the file, leaving insert mode, and after writing it

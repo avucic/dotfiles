@@ -62,13 +62,13 @@ function M.setup(Hydra, _, _)
     heads = {
       {
         "r",
-        "<cmd>:ZkFindOrCreateNote { group='literature_notes', dir='references'}<cr>",
+        "<cmd>:ZkFindOrCreateNote { group='reference_notes', dir='references'}<cr>",
         { desc = "references", exit = true },
       },
       {
-        "p",
+        "s",
         "<cmd>:ZkFindOrCreateNote { group='permanent_notes', dir='slip-box'}<cr>",
-        { desc = "permanent", exit = true },
+        { desc = "slip box", exit = true },
       },
       {
         "d",
@@ -76,7 +76,12 @@ function M.setup(Hydra, _, _)
         { desc = "daily notes", exit = true },
       },
       {
-        "w",
+        "l",
+        "<cmd>:ZkFindOrCreateNote { group='literature_notes', dir='literature_notes'}<cr>",
+        { desc = "literature notes", exit = true },
+      },
+      {
+        "p",
         "<cmd>:ZkFindOrCreateProjectNote<cr>",
         { desc = "project notes", exit = true },
       },
@@ -85,10 +90,11 @@ function M.setup(Hydra, _, _)
   })
 
   local hint_normal = [[
-  _i_: index/main         _._: cdw
   _R_: reload index       _n_: new note
   _o_: open notes         _j_: journal
   _s_: search             _c_: calendar
+  _t_: tasks              _._: cdw
+  _i_: nootbook
 ]]
 
   local function choose_journal()
@@ -122,6 +128,11 @@ function M.setup(Hydra, _, _)
       { ".", "<Cmd>ZkCd<CR>", { exit = true } },
       { "R", "<Cmd>ZkIndex<CR>", { exit = true } },
       { "c", "<cmd>ZkShowCalendar<cr>", { exit = true } },
+      {
+        "t",
+        "<cmd>lua require('user.core.utils').toggle_term_cmd('vit', {direction = 'float'})<CR>",
+        { exit = true },
+      },
       { "n", choose_note, { exit = true } },
       { "j", choose_journal, { exit = true } },
       -- { "p", "<Cmd>MindOpenProject<CR>", { exit = true } },

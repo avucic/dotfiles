@@ -6,8 +6,9 @@ echo "▶️  Brew setup"
 
 for i in stow yarn stylua tmuxp sqlfluff rg direnv \
 	pgformatter protobuf jq zoxide yaml-language-server \
-	fd checkmake jwt-cli nvr direnv zk code-minimap fd \
-	sqlfluff rust-analyzer
+	fd checkmake jwt-cli nvr direnv zk code-minimap fd  \
+	sqlfluff rust-analyzer viu tree htop taskwarrior taskwarrior-tui taskd timewarrior nim vit \
+	xclip wget
 do
 	if ! command -v $i &>/dev/null; then
   brew install $i
@@ -21,6 +22,7 @@ npm install -g dotenv
 npm install -g markserv
 npm install -g emmet-ls
 
+pip3 install httplib2 oauth2client
 # echo "▶️  Pip setup"
 # pip install \
 #   --global-option=build_ext \

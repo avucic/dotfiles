@@ -176,6 +176,24 @@ function M.config()
     -- This function is run last
     -- good place to configure mappings and vim options
     polish = function()
+      require("alpha.term")
+      -- load plugins
+      local psd = require("user.core.utils").load_module("user.plugins.gen_pass")
+      if psd then
+        psd.config()
+      end
+
+      local date_picker = require("user.core.utils").load_module("user.plugins.date_picker")
+      if date_picker then
+        date_picker.config()
+      end
+
+      local taskopen = require("user.core.utils").load_module("user.plugins.taskopen")
+      if taskopen then
+        taskopen.config()
+      end
+
+      -- load autocommands
       local sources = {
         "user.configs.autocmds",
       }

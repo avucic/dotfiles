@@ -14,8 +14,36 @@ local parse_text = function(text)
   return formatted_text
 end
 
+local remove_note_prefix = function(s)
+  return s:gsub("^%w%w%s\xF0\x9F..%s", "")
+end
+
+local path_display = function(_, path)
+  local icon = " "
+
+  if path:match("daily_notes") then
+    icon = "🗒️"
+  elseif path:match("references") then
+    icon = "🔖"
+  elseif path:match("literature_notes") then
+    icon = "📚"
+  elseif path:match("slip") then
+    icon = "📖"
+  elseif path:match("journal/daily") then
+    icon = "📅"
+  elseif path:match("projects") then
+    icon = "💼"
+  end
+
+  if icon then
+    return icon .. " " .. path:match("(.+)%..+")
+  else
+    return path:match("(.+)%..+")
+  end
+end
+
 function M.open_notebook()
-  M.open_note("index")
+  vim.cmd("e " .. vim.env.ZK_NOTEBOOK_DIR .. "/index.md")
 end
 
 function M.open_note(path, dir, group)
@@ -33,7 +61,7 @@ function M.open_note(path, dir, group)
 
   local title = titleize(parse_text(filename))
 
-  require("zk").new({ title = title, group = group, dir = dir or pathDir })
+  require("zk").new({ title = title, group = group, dir = pathDir or dir })
 end
 
 function M.grep_notes(opts)
@@ -62,22 +90,7 @@ function M.find_or_create_note(opts)
   local cwd = opts.cwd or vim.env.ZK_NOTEBOOK_DIR
   local options = vim.tbl_deep_extend("force", {
     prompt_title = opts.title or titleize(dir),
-    -- default_text = opts.default,
-    cwd = cwd,
-    find_command = {
-      "fd",
-      "--exclude",
-      "templates",
-      "--exclude",
-      "journal",
-      "--exclude",
-      "files",
-      "--type",
-      "file",
-      "--strip-cwd-prefix",
-      "-e",
-      "jpg",
-    },
+    path_display = path_display,
     attach_mappings = function(_, map)
       actions.select_default:replace(function()
         return true
@@ -93,8 +106,9 @@ function M.find_or_create_note(opts)
         local nline
 
         if selection ~= nil then
-          nline = line:sub(0, cursor[2] + 1) .. selection.value .. line:sub(cursor[2] + 2)
-          text = parse_text(selection.value)
+          local note_name = remove_note_prefix(selection.value.title)
+          nline = line:sub(0, cursor[2] + 1) .. note_name .. line:sub(cursor[2] + 2)
+          text = parse_text(note_name)
         else
           local input_text = state.get_current_line()
           text = parse_text(input_text)
@@ -114,7 +128,7 @@ function M.find_or_create_note(opts)
         local selection = state.get_selected_entry()
         local input_text = state.get_current_line()
         if selection ~= nil then
-          M.open_note(selection.value, dir, group)
+          M.open_note(selection.value.path, dir, group)
           actions.close(prompt_bufnr)
         else
           vim.ui.input({ prompt = "Do you want to create note " .. input_text .. " (y/N) " }, function(input)
@@ -142,28 +156,8 @@ function M.find_or_create_note(opts)
 
       return true
     end,
-
-    path_display = function(_, path)
-      local icon
-
-      if path:match("^Fleeting Notes/.*") then
-        icon = "📓"
-      elseif path:match("^Literature Notes/.*") then
-        icon = "📙"
-      elseif path:match("^Permanent Notes/.*") then
-        icon = "📗"
-      elseif path:match("^Journal/Daily/.*") then
-        icon = "📅"
-      end
-
-      if icon then
-        return icon .. " " .. path:match("(.+)%..+")
-      else
-        return path:match("(.+)%..+")
-      end
-    end,
   }, opts or {})
-  require("telescope.builtin").find_files(options)
+  require("zk").edit({ path = cwd }, { picker = "telescope", telescope = options })
 end
 
 function M.find_or_create_project_note()
@@ -193,6 +187,7 @@ function M.find_or_create_project_note()
       return true
     end,
   }
+
   require("telescope.builtin").find_files(options)
 end
 
@@ -203,7 +198,7 @@ function M.find_or_create_note_without_picker(opts)
 
   local _, picker = pcall(require, "window-picker")
   local picked_window_id = picker.pick_window()
-  if picked_window_id ~= nil then
+  if picked_window_id then
     vim.api.nvim_set_current_win(picked_window_id)
   end
 

@@ -14,6 +14,7 @@ function M.config()
         "sqlls",
         "eslint",
         "marksman",
+        "vimls",
       },
     },
     -- TODO

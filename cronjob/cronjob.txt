@@ -1,0 +1,2 @@
+* * * * * cd ~/.scripts && ./hello.sh >/tmp/stdout.log 2>/tmp/stderr.log
+

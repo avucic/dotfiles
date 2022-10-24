@@ -1,4 +1,16 @@
 local M = {}
+function os.capture(cmd, raw)
+  local f = assert(io.popen(cmd, "r"))
+  local s = assert(f:read("*a"))
+  f:close()
+  if raw then
+    return s
+  end
+  s = string.gsub(s, "^%s+", "")
+  s = string.gsub(s, "%s+$", "")
+  s = string.gsub(s, "[\n\r]+", " ")
+  return s
+end
 
 function M.config()
   local telescope = require("user.core.utils").load_module("telescope")
@@ -11,7 +23,6 @@ function M.config()
   local fb_actions = require("telescope").extensions.file_browser.actions
 
   telescope.load_extension("fzf")
-  telescope.load_extension("media_files")
 
   return {
     defaults = {
@@ -30,10 +41,15 @@ function M.config()
                 vim.api.nvim_chan_send(term, d .. "\r\n")
               end
             end
-            vim.fn.jobstart({ "viu", filepath }, {
-              on_stdout = send_output,
-              stdout_buffered = true,
-            })
+
+            vim.fn.jobstart(
+              --
+              { "viu", filepath },
+              {
+                on_stdout = send_output,
+                stdout_buffered = true,
+              }
+            )
           else
             require("telescope.previewers.utils").set_preview_message(bufnr, opts.winid, "Binary cannot be previewed")
           end
@@ -75,7 +91,7 @@ function M.config()
           -- ["<Up>"] = actions.move_selection_previous,
           --
           -- ["<CR>"] = actions.select_default,
-          -- ["<C-x>"] = actions.select_horizontal,
+          ["<C-s>"] = actions.select_horizontal,
           -- ["<C-v>"] = actions.select_vertical,
           -- ["<C-t>"] = actions.select_tab,
           --
@@ -97,7 +113,7 @@ function M.config()
           ["<C-n>"] = actions.move_selection_next,
           ["<C-p>"] = actions.move_selection_previous,
           --   ["<CR>"] = actions.select_default,
-          --   ["<C-x>"] = actions.select_horizontal,
+          ["<C-s>"] = actions.select_horizontal,
           --   ["<C-v>"] = actions.select_vertical,
           --   ["<C-t>"] = actions.select_tab,
           --
@@ -157,7 +173,7 @@ function M.config()
       media_files = {
         -- filetypes whitelist
         -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
-        filetypes = { "png", "webp", "jpg", "jpeg" },
+        filetypes = { "png", "webp", "jpg", "jpeg", "gif" },
         find_cmd = "rg", -- find command (defaults to `fd`)
       },
     },

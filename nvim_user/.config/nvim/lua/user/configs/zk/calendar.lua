@@ -9,8 +9,9 @@ function M.setup(opts)
       " function! MyCalSign(day, month, year)
       "       return luaeval('require("telekasten").CalendarSignDay(_A[1], _A[2], _A[3])', [a:day, a:month, a:year])
       "   endfunction
-        function! MyCalAction(day, month, year, weekday, dir)
+        function! OpenJournalNote(day, month, year, weekday, dir)
             " day : day
+
             " month : month
             " year year
             " weekday : day of week (monday=1)
@@ -18,13 +19,19 @@ function M.setup(opts)
             return luaeval('require("user.configs.zk.calendar").calendar_action(_A[1], _A[2], _A[3], _A[4], _A[5])',
                                                                  \ [a:day, a:month, a:year, a:weekday, g:calendar_diary])
         endfunction
-        function! MyCalBegin()
-            " too early, windown doesn't exist yet
-            " cannot resize
+
+        function! InsertDate(day, month, year, weekday, dir)
+            " day : day
+            " month : month
+            " year year
+            " weekday : day of week (monday=1)
+            " dir : direction of calendar
+            wincmd p
+            exe "normal! a" . "FFFFFF" . "\<Esc>"
+            " execute "normal! i\<C-r>\<C-r>=text\<CR>\<Esc>"
         endfunction
-        " let g:calendar_sign = 'MyCalSign'
-        let g:calendar_action = 'MyCalAction'
-        " let g:calendar_begin = 'MyCalBegin'
+
+        let g:calendar_action = 'InsertDate'
         let g:calendar_mark = 'left-fit'
         let g:calendar_weeknm = 4
         ]])

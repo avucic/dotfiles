@@ -27,6 +27,15 @@ function M.config()
     }
   end
 
+  local handle = io.popen("task next")
+  local result = handle:read("*a")
+  handle:close()
+
+  local lines = {}
+  for s in result:gmatch("[^\r\n]+") do
+    table.insert(lines, s)
+  end
+
   return {
     layout = {
       { type = "padding", val = vim.fn.max({ 2, vim.fn.floor(vim.fn.winheight(0) * 0.2) }) },
@@ -61,27 +70,46 @@ function M.config()
       {
         type = "group",
         val = {
-          alpha_button("LDR f f", "  Find File  "),
+          alpha_button("LDR f p", "  Find Project  "),
           alpha_button("LDR f o", "  Recents  "),
+          alpha_button("LDR f f", "  Find File  "),
           alpha_button("LDR f g", "  Find Word  "),
           alpha_button("LDR f n", "  New File  "),
           alpha_button("LDR f m", "  Bookmarks  "),
           alpha_button("LDR S l", "  Last Session  "),
         },
+
         opts = { spacing = 1 },
       },
-
+      { type = "padding", val = 2 },
       {
         type = "text",
         val = {
-          " ",
-          " ",
-          " ",
-          " AstroNvim loaded " .. plugins_count .. " plugins ",
+          "AstroNvim loaded " .. plugins_count .. " plugins ",
         },
         opts = {
           position = "center",
           hl = "DashboardFooter",
+        },
+      },
+
+      { type = "padding", val = 5 },
+      -- {
+      --   type = "terminal",
+      --   command = "task next",
+      --   width = 70,
+      --   height = 10,
+      --   opts = {
+      --     redraw = true,
+      --     window_config = {},
+      --   },
+      -- },
+      {
+        type = "text",
+        val = lines,
+        opts = {
+          position = "center",
+          hl = "DashboardTasks",
         },
       },
     },

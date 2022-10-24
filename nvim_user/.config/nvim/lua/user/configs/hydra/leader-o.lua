@@ -2,10 +2,11 @@ local M = {}
 
 function M.setup(Hydra, cmd, _)
   local hint = [[
-  _o_: symbols outline          _tf_: float terminal
-  _th_: horizontal terminal     _tv_: vertical terminal
-  _tt_: tab terminal            _t._: terminal here
-  _do_: open db                 _dt_: toggle db
+   _o_: symbols outline          _tf_: float terminal
+  _th_: horizontal terminal      _tv_: vertical terminal
+  _tt_: tab terminal             _t._: terminal here
+  _do_: open db                  _dt_: toggle db
+   _c_: open calendar
 ]]
 
   Hydra({
@@ -38,6 +39,11 @@ function M.setup(Hydra, cmd, _)
         "dt",
         "<cmd>DBUIToggle<cr>",
         { desc = "Toggle DB Connection" },
+      },
+      {
+        "c",
+        "<cmd>lua require('user.core.utils').toggle_term_cmd('calcurse', {direction = 'float'})<CR>",
+        { exit = true },
       },
       { "<Esc>", nil, { exit = true, nowait = true, desc = false } },
     },

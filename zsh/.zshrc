@@ -39,11 +39,15 @@ fi
 #  Vars and Paths
 export PATH=/Users/vucinjo/bin:$PATH
 export PATH="$HOME/dotfiles/bin:$PATH"
+# pip dir
+export PATH=$PATH:/usr/local/bin
 export ERL_AFLAGS="-kernel shell_history enabled" # enable history in iex
 export PATH="$HOME/dotfiles/bin:$PATH"
 # export EDITOR="nvim"
-# export TERM=xterm-256color
-export TERM=xterm-kitty
+export TERM=xterm-256color
+export COLORTERM='24bit'
+# export TERM=wezterm
+# export TERM=xterm-kitty
 export FZF_DEFAULT_OPTS='--preview "pygmentize {}" --color dark --bind "?:toggle-preview" --preview-window "right:50%:hidden"'
 export DISABLE_AUTO_TITLE='true'
 
@@ -109,3 +113,25 @@ fi
 
 # Golang
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+
+# Taskwarrior
+alias in='task add'
+onday () {
+    deadline=$1
+    shift
+    in +onday wait:$deadline $@
+}
+
+read_and_review (){
+    link="$1"
+    title=$(wget -qO- $link | perl -l -0777 -ne 'print $1 if /<title.*?>\s*(.*?)\s*<\/title/si')
+    echo $title
+    descr="\"Read and review: $title\""
+    id=$(task add +review "$descr" | sed -n 's/Created task \(.*\)./\1/p')
+    task "$id" annotate "$link"
+}
+
+alias rnr=read_and_review
