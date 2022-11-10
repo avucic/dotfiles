@@ -5,9 +5,9 @@ function M.setup(Hydra, _, _)
    _h_: previous                   _l_: next
    _H_: move previous              _L_: move next
    _b_: list                       _P_: pin
-   _p_: pick                       _D_: close others
-  _oe_: sort by extension         _od_: sort by directory ^ ^
-  _or_: sort by relative dir       _q_: quit
+   _p_: pick                       _o_: close others
+  _se_: sort by extension         _sd_: sort by directory ^ ^
+  _sr_: sort by relative dir       _q_: quit
 ]]
 
   Hydra({
@@ -73,7 +73,7 @@ function M.setup(Hydra, _, _)
         { desc = "pin" },
       },
       {
-        "D",
+        "o",
         "<cmd>w | %bd | e#<CR>",
         { desc = "close others" },
       },
@@ -86,21 +86,21 @@ function M.setup(Hydra, _, _)
         { desc = "close others" },
       },
       {
-        "oe",
+        "se",
         function()
           vim.cmd("BufferLineSortByExtension")
         end,
         { desc = "by directory" },
       },
       {
-        "od",
+        "sd",
         function()
           vim.cmd("BufferLineSortByDirectory")
         end,
         { desc = "by directory" },
       },
       {
-        "or",
+        "sr",
         function()
           vim.cmd("BufferLineSortByRelativeDirectory")
         end,

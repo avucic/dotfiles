@@ -89,6 +89,26 @@ function M.setup(Hydra, _, _)
     },
   })
 
+  local task_hydra = Hydra({
+    name = "Tasks",
+    config = {
+      on_key = false,
+    },
+    heads = {
+      {
+        "t",
+        "<cmd>lua require('user.core.utils').toggle_term_cmd('vit', {direction = 'float'})<CR>",
+        { exit = true },
+      },
+      {
+        "o",
+        ":ZkAnnotateTask<cr>",
+        { exit = true },
+      },
+      { "<Esc>", nil, { exit = true, desc = false } },
+    },
+  })
+
   local hint_normal = [[
   _R_: reload index       _n_: new note
   _o_: open notes         _j_: journal
@@ -107,6 +127,10 @@ function M.setup(Hydra, _, _)
 
   local function choose_note()
     note_hydra:activate()
+  end
+
+  local function choose_task()
+    task_hydra:activate()
   end
 
   Hydra({
@@ -128,15 +152,12 @@ function M.setup(Hydra, _, _)
       { ".", "<Cmd>ZkCd<CR>", { exit = true } },
       { "R", "<Cmd>ZkIndex<CR>", { exit = true } },
       { "c", "<cmd>ZkShowCalendar<cr>", { exit = true } },
-      {
-        "t",
-        "<cmd>lua require('user.core.utils').toggle_term_cmd('vit', {direction = 'float'})<CR>",
-        { exit = true },
-      },
       { "n", choose_note, { exit = true } },
       { "j", choose_journal, { exit = true } },
+      { "t", choose_task, { exit = true } },
       -- { "p", "<Cmd>MindOpenProject<CR>", { exit = true } },
-      { "o", "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", { exit = true } },
+      -- { "o", "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", { exit = true } },
+      { "o", "<Cmd>ZkOpenNotes<CR>", { exit = true } },
       -- { "l", "<Cmd>ZkLinks<CR>", { exit = true } },
       -- { "b", "<Cmd>ZkBacklinks<CR>", { exit = true } },
       -- { "st", "<Cmd>ZkTags<CR>", { exit = true } },

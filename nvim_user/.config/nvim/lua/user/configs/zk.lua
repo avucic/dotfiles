@@ -3,6 +3,8 @@ local journal_dir = vim.env.ZK_NOTEBOOK_DIR .. "/journal/daily"
 
 local function create_commands()
   vim.api.nvim_create_user_command("ZkShowCalendar", M.show_calendar, { desc = "Open calendar" })
+  vim.api.nvim_create_user_command("ZkOpenNotes", M.open_notes, { desc = "Open notes" })
+  vim.api.nvim_create_user_command("ZkAnnotateTask", M.annotate_task, { desc = "Open notes" })
   vim.api.nvim_create_user_command("ZkOpenNotebook", M.open_notebook, { desc = "Open notebook" })
   vim.api.nvim_create_user_command("ZkGrep", M.grep_notes, { desc = "Search for notes" })
   vim.api.nvim_create_user_command("ZkFindOrCreateNote", function(opts)
@@ -35,7 +37,7 @@ local function create_commands()
 end
 
 function M.grep_notes()
-  require("user.configs.zk.note").grep_notes({ dir = journal_dir })
+  require("user.configs.zk.note").grep_notes({ dir = vim.env.ZK_NOTEBOOK_DIR })
 end
 
 function M.open_notebook()
@@ -52,6 +54,14 @@ end
 
 function M.find_or_create_project_note()
   require("user.configs.zk.note").find_or_create_project_note()
+end
+
+function M.open_notes()
+  require("user.configs.zk.note").open_notes()
+end
+
+function M.annotate_task()
+  require("user.configs.zk.note").annotate_task()
 end
 
 function M.setup()
@@ -109,7 +119,7 @@ function M.config()
 
       -- automatically attach buffers in a zk notebook that match the given filetypes
       auto_attach = {
-        enabled = true,
+        enabled = false,
         filetypes = { "markdown" },
       },
     },

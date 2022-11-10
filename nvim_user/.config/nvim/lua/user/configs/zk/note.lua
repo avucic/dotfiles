@@ -2,6 +2,49 @@ local M = {}
 
 local actions = require("telescope.actions")
 local state = require("telescope.actions.state")
+local zk = require("zk")
+
+local create_note_entry_maker = function(_)
+  return function(note)
+    local icon
+    local prefix
+    local path = note.absPath
+    local title = note.title
+
+    if path:match("daily_notes") then
+      prefix = "DN"
+      icon = "🗒️"
+    elseif path:match("references") then
+      prefix = "RN"
+      icon = "🔖"
+    elseif path:match("literature_notes") then
+      prefix = "LN"
+      icon = "📚"
+    elseif path:match("slip") then
+      prefix = "SB"
+      icon = "📖"
+    elseif path:match("journal/daily") then
+      prefix = "DN"
+      icon = "📅"
+    elseif path:match("projects") then
+      prefix = "PN"
+      icon = "💼"
+    end
+
+    if icon then
+      title = prefix .. " " .. icon .. " " .. title
+    end
+
+    return {
+      value = note,
+      path = note.absPath,
+      display = title,
+      ordinal = title,
+    }
+  end
+end
+
+require("zk.pickers.telescope").create_note_entry_maker = create_note_entry_maker
 
 local titleize = function(s)
   s = s:gsub("%-", " ")
@@ -12,10 +55,6 @@ end
 local parse_text = function(text)
   local formatted_text = text:gsub("%.md", ""):gsub("%.", " ")
   return formatted_text
-end
-
-local remove_note_prefix = function(s)
-  return s:gsub("^%w%w%s\xF0\x9F..%s", "")
 end
 
 local path_display = function(_, path)
@@ -61,7 +100,7 @@ function M.open_note(path, dir, group)
 
   local title = titleize(parse_text(filename))
 
-  require("zk").new({ title = title, group = group, dir = pathDir or dir })
+  zk.new({ title = title, group = group, dir = pathDir or dir })
 end
 
 function M.grep_notes(opts)
@@ -106,7 +145,7 @@ function M.find_or_create_note(opts)
         local nline
 
         if selection ~= nil then
-          local note_name = remove_note_prefix(selection.value.title)
+          local note_name = selection.value.title
           nline = line:sub(0, cursor[2] + 1) .. note_name .. line:sub(cursor[2] + 2)
           text = parse_text(note_name)
         else
@@ -157,7 +196,7 @@ function M.find_or_create_note(opts)
       return true
     end,
   }, opts or {})
-  require("zk").edit({ path = cwd }, { picker = "telescope", telescope = options })
+  zk.edit({ path = cwd, sort = { "modified" } }, { picker = "telescope", telescope = options })
 end
 
 function M.find_or_create_project_note()
@@ -170,7 +209,7 @@ function M.find_or_create_project_note()
       "d",
       "--strip-cwd-prefix",
     },
-    attach_mappings = function(_, map)
+    attach_mappings = function(_, _)
       actions.select_default:replace(function()
         local selection = state.get_selected_entry()
         local project_dir = vim.env.ZK_NOTEBOOK_DIR .. "/projects/" .. selection.value
@@ -191,6 +230,14 @@ function M.find_or_create_project_note()
   require("telescope.builtin").find_files(options)
 end
 
+function M.open_notes()
+  local path = vim.env.ZK_NOTEBOOK_DIR
+  local options = {
+    sort = { "modified" },
+  }
+  zk.edit({ path = path, sort = { "modified" } }, { picker = "telescope", telescope = options })
+end
+
 function M.find_or_create_note_without_picker(opts)
   assert(opts.title ~= nil, "Missing title")
   assert(opts.dir ~= nil, "Missing dir")
@@ -202,12 +249,47 @@ function M.find_or_create_note_without_picker(opts)
     vim.api.nvim_set_current_win(picked_window_id)
   end
 
-  require("zk").new({
+  zk.new({
     title = opts.title,
     group = opts.group,
     dir = opts.dir,
     date = opts.date,
   })
+end
+
+function M.annotate_task(opts)
+  opts = opts or {}
+  local cwd = opts.cwd or vim.env.ZK_NOTEBOOK_DIR
+  local options = vim.tbl_deep_extend("force", {
+    prompt_title = opts.title or "Notes",
+    attach_mappings = function(_, map)
+      actions.select_default:replace(function()
+        return true
+      end)
+
+      local select_note = function(prompt_bufnr, _)
+        local selection = state.get_selected_entry()
+        -- Created task 4
+        -- local command = "task add " .. selection.value.title .. " && " .. "taskopen " .. selection.value.absPath
+        local handle = io.popen("task add " .. selection.value.title)
+        local result = handle:read("*a")
+        handle:close()
+        local id = result:gsub("\n", ""):match("%d[%d]*")
+
+        handle = io.popen("task " .. id .. " annotate -- " .. selection.value.absPath)
+        result = handle:read("*a")
+        handle:close()
+
+        actions.close(prompt_bufnr)
+      end
+
+      map("i", "<CR>", select_note)
+      map("n", "<CR>", select_note)
+
+      return true
+    end,
+  }, opts or {})
+  require("zk").edit({ path = cwd }, { picker = "telescope", telescope = options })
 end
 
 return M

@@ -45,6 +45,8 @@ endfunction
 
 au BufWinEnter *.md call MarkdownConceal()
 
+set nowrap
+
 " block
 au BufWinEnter *.md call MarkdownBlocks()
 au BufWritePost *.md call MarkdownBlocks()

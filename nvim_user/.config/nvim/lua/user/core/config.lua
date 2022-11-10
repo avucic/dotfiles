@@ -143,7 +143,7 @@ function M.config()
 
     ["which-key"] = {
       -- Add bindings
-      register_mappings = wk["mappings"],
+      register = wk["mappings"],
     },
 
     lsp = lsp,
@@ -186,11 +186,6 @@ function M.config()
       local date_picker = require("user.core.utils").load_module("user.plugins.date_picker")
       if date_picker then
         date_picker.config()
-      end
-
-      local taskopen = require("user.core.utils").load_module("user.plugins.taskopen")
-      if taskopen then
-        taskopen.config()
       end
 
       -- load autocommands

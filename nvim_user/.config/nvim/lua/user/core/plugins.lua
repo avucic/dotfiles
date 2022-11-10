@@ -194,7 +194,7 @@ function M.config()
     {
       "tom-anders/telescope-vim-bookmarks.nvim",
       config = function()
-        require("telescope").load_extension("vim_bookmarks")
+        require("user.configs.vim_bookmarks").config()
       end,
       requires = { "MattesGroeger/vim-bookmarks" },
       after = "telescope.nvim",
@@ -383,6 +383,8 @@ function M.config()
       -- ft = { "markdown" },
       opt = true,
       cmd = {
+        "ZkAnnotateTask",
+        "ZkOpenNotes",
         "ZkOrphans",
         "ZkCd",
         "ZkOpenNotebook",

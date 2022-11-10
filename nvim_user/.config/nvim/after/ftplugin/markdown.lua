@@ -60,6 +60,7 @@ local diagram_hydra = Hydra({
 	hint = diagram_hint,
 	config = {
 		buffer = true,
+		color = "pink",
 		invoke_on_body = true,
 		hint = {
 			border = "rounded",

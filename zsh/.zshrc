@@ -55,7 +55,8 @@ export DISABLE_AUTO_TITLE='true'
 export DISABLE_AUTO_TITLE='true'
 export ZK_NOTEBOOK_DIR='/Users/vucinjo/Dropbox/Notes'
 # nvim and lazygit
-export NVIM_LISTEN_ADDRESS=/tmp/nvim-$(basename $PWD)
+# export NVIM_LISTEN_ADDRESS=/tmp/nvim-$(basename $PWD)
+export NVIM_LISTEN_ADDRESS=/tmp/nvim.pipe
 
 # if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
 #     alias nvim=nvr --servername $NVIM_LISTEN_ADDRESS --nostart -cc split --remote-wait +'set bufhidden=wipe'
