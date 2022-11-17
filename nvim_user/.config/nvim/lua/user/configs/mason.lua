@@ -27,6 +27,7 @@ function M.config()
         "marksman",
       },
     },
+    ["mason-null-ls"] = {},
   }
 end
 

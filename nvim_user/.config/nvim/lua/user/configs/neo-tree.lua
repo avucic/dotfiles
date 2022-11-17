@@ -1,6 +1,11 @@
 local M = {}
 
-local neotree = require("neo-tree")
+function M.config()
+  local neotree = require("user.core.utils").load_module("neo-tree")
+  if not neotree then
+    return
+  end
+
 local renderer = require("neo-tree.ui.renderer")
 
 -- Expand a node and load filesystem info if needed.
@@ -245,12 +250,6 @@ end
 --   end
 -- end,
 -- end
-
-function M.config()
-  local neo_tree = require("user.core.utils").load_module("neo-tree")
-  if not neo_tree then
-    return
-  end
 
   vim.g.nvim_tree_git_hl = 1
   vim.g.nvim_tree_respect_buf_cwd = 1

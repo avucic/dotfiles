@@ -233,6 +233,7 @@ function M.config()
     {
       "nvim-telescope/telescope-file-browser.nvim",
       after = "telescope.nvim",
+      opt = true,
       config = function()
         require("telescope").load_extension("file_browser")
       end,

@@ -1,6 +1,8 @@
 local Hydra = require("hydra")
 
-local table_hint = [[
+Hydra({
+	name = "Table",
+	hint = [[
    _r_: realig         _dr_: delete row     _dc_: delete column
   _mt_: tableize       _ms_: sort table     _ic_: insert column after
   _fa_: add formula    _fe_: eval formula   _iC_: insert column before ^ ^
@@ -10,11 +12,9 @@ local table_hint = [[
   _h_     _l_
   ^   _j_   ^
 
-]]
-
-local table_hydra_normal = Hydra({
-	name = "Table",
-	hint = table_hint,
+]],
+	mode = { "n" },
+	body = "<leader>mt",
 	config = {
 		on_key = false,
 		invoke_on_body = true,
@@ -44,24 +44,43 @@ local table_hydra_normal = Hydra({
 	},
 })
 
-local function choose_table_hydra()
-	table_hydra_normal:activate()
-end
+Hydra({
+	name = "Bullet",
+	hint = [[
+_l_: demote           _h_: promote
+_x_: toggle checkbox  _n_: renumber
+]],
+	config = {
+		buffer = true,
+		invoke_on_body = true,
+		color = "pink",
+		hint = {
+			border = "rounded",
+		},
+	},
+	mode = { "n" },
+	body = "<leader>mb",
+	heads = {
+		{ "l", "<cmd>BulletDemote<cr>", { exit = false } },
+		{ "h", "<cmd>BulletPromote<cr>", { exit = false } },
+		{ "x", "<Plug>(bullets-toggle-checkbox)", { exit = false } },
+		{ "n", "<Plug>(bullets-renumber)", { exit = true } },
+		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },
+	},
+})
 
-local diagram_hint = [[
+Hydra({
+	name = "Draw Diagram",
+	hint = [[
  Arrow^^^^^^   Select region with <C-v>
  ^ ^ _K_ ^ ^   _f_: surround it with box
  _H_ ^ ^ _L_
  ^ ^ _J_ ^ ^
-]]
-
-local diagram_hydra = Hydra({
-	name = "Draw Diagram",
-	hint = diagram_hint,
+]],
 	config = {
 		buffer = true,
-		color = "pink",
 		invoke_on_body = true,
+		color = "pink",
 		hint = {
 			border = "rounded",
 		},
@@ -69,6 +88,8 @@ local diagram_hydra = Hydra({
 			vim.o.virtualedit = "all"
 		end,
 	},
+	mode = { "n" },
+	body = "<leader>md",
 	heads = {
 		{ "H", "<C-v>h:VBox<CR>" },
 		{ "J", "<C-v>j:VBox<CR>" },
@@ -79,67 +100,27 @@ local diagram_hydra = Hydra({
 	},
 })
 
-local function choose_diagram_hydra()
-	diagram_hydra:activate()
-end
-
-local bullet_hint = [[
-_l_: demote           _h_: promote
-_x_: toggle checkbox  _n_: renumber
-]]
-
-local bullet_hydra = Hydra({
-	name = "Draw Diagram",
-	hint = bullet_hint,
-	config = {
-		buffer = true,
-		invoke_on_body = true,
-		hint = {
-			border = "rounded",
-		},
-		on_enter = function()
-			vim.o.virtualedit = "all"
-		end,
-	},
-	heads = {
-		{ "l", "<cmd>BulletDemote<cr>", { exit = false } },
-		{ "h", "<cmd>BulletPromote<cr>", { exit = false } },
-		{ "x", "<Plug>(bullets-toggle-checkbox)", { exit = false } },
-		{ "n", "<Plug>(bullets-renumber)", { exit = true } },
-		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },
-	},
-})
-
-local function choose_bullet_hydra()
-	bullet_hydra:activate()
-end
-
-local hint = [[
+Hydra({
+	name = "Markdown",
+	hint = [[
  _t_: table        _d_: diagram
  _p_: preview      _s_: server
  _b_: bullet       _i_: paste link
-]]
+]],
 
-Hydra({
-	name = "Markdown",
-	hint = hint,
 	config = {
 		buffer = true,
-		color = "pink",
 		invoke_on_body = true,
 		hint = {
 			border = "rounded",
 		},
-		on_enter = function()
-			vim.o.virtualedit = "all"
-		end,
 	},
 	mode = "n",
 	body = "<leader>m",
 	heads = {
-		{ "t", choose_table_hydra },
-		{ "d", choose_diagram_hydra },
-		{ "b", choose_bullet_hydra },
+		{ "t", "<leader>mt", { remap = true, exit = true } },
+		{ "d", "<Leader>md", { remap = true, exit = true, nowait = true } },
+		{ "b", "<leader>mb", { remap = true, exit = true } },
 		{ "i", ":PasteMDLink<cr>", { nowait = true, exit = true, desc = "Insert link" } },
 		{ "p", "<Cmd>MarkdownPreview<CR>", { nowait = true } },
 		{
@@ -147,7 +128,8 @@ Hydra({
 			"<cmd>lua require('user.core.utils').toggle_term_cmd('cd $ZK_NOTEBOOK_DIR && markserv', {direction = 'horizontal'})<CR>",
 			{ desc = false, nowait = true, exit = true },
 		},
-		{ "<Esc>", "<Cmd>MarkdownPreviewStop<CR>", { exit = true, nowait = true, desc = false } },
+		-- { "<Esc>", "<Cmd>MarkdownPreviewStop<CR>", { exit = true, nowait = true, desc = false } },
+		{ "<Esc>", nil, { exit = true, nowait = true } },
 	},
 })
 

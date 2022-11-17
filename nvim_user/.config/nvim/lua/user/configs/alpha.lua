@@ -1,6 +1,11 @@
 local M = {}
 
 function M.config()
+  -- local alpha = require("user.core.utils").load_module("alpha-nvim")
+  -- if not alpha then
+  --   return
+  -- end
+
   local plugins_count = vim.fn.len(vim.fn.globpath(vim.fn.stdpath("data") .. "/site/pack/packer/start", "*", 0, 1))
   local function alpha_button(sc, txt)
     local sc_ = sc:gsub("%s", ""):gsub("LDR", "<leader>")
