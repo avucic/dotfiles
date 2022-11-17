@@ -97,7 +97,7 @@ function M.setup(Hydra, _, _)
     heads = {
       {
         "t",
-        "<cmd>lua require('user.core.utils').toggle_term_cmd('vit', {direction = 'float'})<CR>",
+        "<cmd>lua require('user.core.utils').toggle_term_cmd('vit list due:today or +next', {direction = 'float'})<CR>",
         { exit = true },
       },
       {
