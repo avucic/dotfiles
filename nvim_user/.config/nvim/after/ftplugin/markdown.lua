@@ -4,13 +4,13 @@ Hydra({
 	name = "Table",
 	hint = [[
    _r_: realig         _dr_: delete row     _dc_: delete column
-  _mt_: tableize       _ms_: sort table     _ic_: insert column after
-  _fa_: add formula    _fe_: eval formula   _iC_: insert column before ^ ^
-  _lr_: renumber list  _?_: echo cell map
+  _mt_: tableize       _ms_: sort table     _dC_: delete cell
+  _fa_: add formula    _fe_: eval formula   _ic_: insert column after
+  _lr_: renumber list  _?_: echo cell map   _iC_: insert column before ^ ^
 
-  ^   _k_   ^
-  _h_     _l_
-  ^   _j_   ^
+  ^   _K_   ^
+  _H_     _L_
+  ^   _J_   ^
 
 ]],
 	mode = { "n" },
@@ -27,7 +27,8 @@ Hydra({
 		-- {"t", "<cmd>TableModeEnable<CR>",{exit = true}},
 		{ "r", "<Plug>(table-mode-realign)", { desc = "realign", exit = true } },
 		{ "dr", "<Plug>(table-mode-delete-row)", { desc = "delete row", exit = true } },
-		{ "dc", "<Plug>(table-mode-delete-cell)", { desc = "delete cell", exit = true } },
+		{ "dc", "<Plug>(table-mode-delete-column)", { desc = "delete column", exit = true } },
+		{ "dC", "<Plug>(table-mode-delete-cell)", { desc = "delete cell", exit = true } },
 		{ "mt", "<Plug>(table-mode-tableize)", { desc = "tableize", exit = true } },
 		{ "ms", "<Plug>(table-mode-sort)", { desc = "sort", exit = true } },
 		{ "ic", "<Plug>(table-mode-insert-column-after)", { desc = "insert column after", exit = true } },
@@ -35,10 +36,10 @@ Hydra({
 		{ "fa", "<Plug>(table-mode-add-formula)", { desc = "add formula", exit = true } },
 		{ "fe", "<Plug>(table-mode-eval-formula)", { desc = "eval formula", exit = true } },
 		{ "lr", "<cmd>RenumberList<cr>", { desc = "renumber list", exit = true } },
-		{ "k", "<Plug>(table-mode-motion-up)", { desc = "up" } },
-		{ "j", "<Plug>(table-mode-motion-down)", { desc = "down" } },
-		{ "l", "<Plug>(table-mode-motion-right)", { desc = "right" } },
-		{ "h", "<Plug>(table-mode-motion-left)", { desc = "left" } },
+		{ "K", "<Plug>(table-mode-motion-up)", { desc = "up" } },
+		{ "J", "<Plug>(table-mode-motion-down)", { desc = "down" } },
+		{ "L", "<Plug>(table-mode-motion-right)", { desc = "right" } },
+		{ "H", "<Plug>(table-mode-motion-left)", { desc = "left" } },
 		{ "?", "<Plug>(table-mode-echo-cell-map)", { desc = "Echo cell map", exit = true } },
 		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },
 	},
