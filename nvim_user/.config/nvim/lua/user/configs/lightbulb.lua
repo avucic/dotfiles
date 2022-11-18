@@ -2,14 +2,18 @@ local M = {}
 
 function M.config()
   local lightbulb = require("user.core.utils").load_module("nvim-lightbulb")
+  if not lightbulb then
+    return
+  end
+
   lightbulb.setup({
     -- LSP client names to ignore
     -- Example: {"sumneko_lua", "null-ls"}
-    ignore = {},
+    -- ignore = { "zk" },
     sign = {
-      enabled = true,
+      enabled = false,
       -- Priority of the gutter sign
-      priority = 100,
+      priority = 10,
     },
     float = {
       enabled = false,
@@ -35,31 +39,29 @@ function M.config()
       },
     },
     virtual_text = {
-      enabled = false,
+      enabled = true,
       -- Text to show at virtual text
       text = "💡",
       -- highlight mode to use for virtual text (replace, combine, blend), see :help nvim_buf_set_extmark() for reference
-      hl_mode = "replace",
+      hl_mode = "combine",
     },
     status_text = {
-      enabled = false,
+      enabled = true,
       -- Text to provide when code actions are available
       text = "💡",
       -- Text to provide when no actions are available
       text_unavailable = "",
     },
     autocmd = {
-      enabled = true,
+      enabled = false,
       -- see :help autocmd-pattern
       pattern = { "*" },
+      -- pattern = { "*" },
       -- see :help autocmd-events
       events = { "CursorHold", "CursorHoldI" },
     },
   })
-
-  -- vim.cmd(
-  -- [[autocmd CursorHold,CursorHoldI * require'nvim-lightbulb'.update_lightbulb({sign = {enabled = true, priority = 20 }})]]
-  -- )
+  vim.cmd([[autocmd CursorHold,CursorHoldI *\(.md\|.diffs\)\@<! lua require'nvim-lightbulb'.update_lightbulb()]])
 end
 
 return M
