@@ -192,20 +192,23 @@ function M.config()
     },
     -- Bookmarks
     {
-      "tom-anders/telescope-vim-bookmarks.nvim",
+      "avucic/telescope-vim-bookmarks.nvim",
+      setup = function()
+        require("user.configs.vim_bookmarks").setup()
+      end,
       config = function()
         require("user.configs.vim_bookmarks").config()
       end,
       requires = { "MattesGroeger/vim-bookmarks" },
-      after = "telescope.nvim",
-      opt = true,
-      cmd = {
-        "Telescope",
-        "BookmarkToggle",
-        "BookmarkAnnotate",
-        "BookmarkClear",
-        "BookmarkClearAll",
-      },
+      -- after = "telescope.nvim",
+      -- opt = true,
+      -- cmd = {
+      --   "Telescope",
+      --   "BookmarkToggle",
+      --   "BookmarkAnnotate",
+      --   "BookmarkClear",
+      --   "BookmarkClearAll",
+      -- },
     },
 
     -- Match parenthesis

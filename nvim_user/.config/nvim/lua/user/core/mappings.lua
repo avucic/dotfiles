@@ -104,7 +104,11 @@ function M.config()
 
       -- Bookmarks
       ["mm"] = { ":BookmarkToggle<cr>" },
-      ["ma"] = { ":lua require('telescope').extensions.vim_bookmarks.all()<cr>", desc = "List all Bookmarks" },
+      -- ["ma"] = { ":lua require('telescope').extensions.vim_bookmarks.all()<cr>", desc = "List all Bookmarks" },
+      ["ma"] = {
+        ":lua require('user.configs.vim_bookmarks').open_bookmarks_workaround()<cr>",
+        desc = "List all Bookmarks",
+      },
       ["mf"] = {
         ":lua require('telescope').extensions.vim_bookmarks.current_file()<cr>",
         desc = "List current file Bookmarks",

@@ -20,7 +20,7 @@ function M.config()
   end
 
   local actions = require("telescope.actions")
-  -- local fb_actions = telescope.extensions.file_browser.actions
+  local fb_actions = telescope.extensions.file_browser.actions
 
   telescope.load_extension("fzf")
 
@@ -79,7 +79,7 @@ function M.config()
         i = {
           -- ["<C-j>"] = actions.cycle_history_next,
           -- ["<C-k>"] = actions.cycle_history_prev,
-          -- ["<C-h>"] = fb_actions.goto_home_dir,
+          ["<C-h>"] = fb_actions.goto_home_dir,
           ["<C-n>"] = actions.move_selection_next,
           ["<C-p>"] = actions.move_selection_previous,
 
@@ -175,6 +175,22 @@ function M.config()
         -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
         filetypes = { "png", "webp", "jpg", "jpeg", "gif" },
         find_cmd = "rg", -- find command (defaults to `fd`)
+      },
+      vim_bookmarks = {
+        prompt_title = "foooo",
+        attach_mappings = function(_, map)
+          map("n", "dd", function() end)
+
+          return true
+        end,
+        all = {
+          prompt_title = "foooo",
+          attach_mappings = function(_, map)
+            map("n", "dd", function() end)
+
+            return true
+          end,
+        },
       },
     },
   }

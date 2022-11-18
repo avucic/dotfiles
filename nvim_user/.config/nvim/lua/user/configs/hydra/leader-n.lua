@@ -101,6 +101,11 @@ function M.setup(Hydra, _, _)
         { exit = true },
       },
       {
+        "T",
+        "<cmd>lua require('user.core.utils').toggle_term_cmd('timew week', {direction = 'float'})<CR>",
+        { exit = true },
+      },
+      {
         "o",
         ":ZkAnnotateTask<cr>",
         { exit = true },
@@ -110,10 +115,10 @@ function M.setup(Hydra, _, _)
   })
 
   local hint_normal = [[
-  _R_: reload index       _n_: new note
-  _o_: open notes         _j_: journal
-  _s_: search             _c_: calendar
-  _t_: tasks              _._: cdw
+  _R_: reload index        _n_: new note
+  _o_: open notes          _j_: journal
+  _s_: search              _c_: calendar
+  _t_: tasks               _._: cdw
   _i_: nootbook
 ]]
 
