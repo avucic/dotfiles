@@ -110,6 +110,7 @@ Hydra({
 ]],
 
 	config = {
+		color = "pink",
 		buffer = true,
 		invoke_on_body = true,
 		hint = {
