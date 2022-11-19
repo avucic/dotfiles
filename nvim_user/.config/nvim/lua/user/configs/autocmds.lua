@@ -16,6 +16,12 @@ local aucmd_dict = {
       pattern = "markdown",
       callback = function() end,
     },
+    {
+      pattern = "qf",
+      callback = function()
+        vim.cmd([[nnoremap <buffer> q :cclose<CR>]])
+      end,
+    },
   },
   VimResized = {
     {

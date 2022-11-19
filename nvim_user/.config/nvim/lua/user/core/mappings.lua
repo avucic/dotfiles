@@ -157,6 +157,17 @@ function M.config()
       -- EasyAlign
       -- ["ga"] = { "<Plug>(EasyAlign)" },
       -- Markdown bullets
+      -- ["=q"] = function()
+      --   local qf_winid = vim.fn.getqflist({ winid = 0 }).winid
+      --   local action = qf_winid > 0 and "cclose" or "copen"
+      --   vim.cmd("botright " .. action)
+      -- end,
+      -- ["=l"] = function()
+      --   local win = vim.api.nvim_get_current_win()
+      --   local qf_winid = vim.fn.getloclist(win, { winid = 0 }).winid
+      --   local action = qf_winid > 0 and "lclose" or "lopen"
+      --   vim.cmd(action)
+      -- end,
     },
     i = {
       -- ["i"] = { "i" },
@@ -202,7 +213,6 @@ function M.config()
   --   map.n["<M-Left>"] = { "<cmd>lua require'smart-splits'.resize_left(2)<cr>" }
   --   map.n["<M-Right>"] = { "<cmd>lua require'smart-splits'.resize_right(2)<cr>" }
   -- end
-
   return map
 end
 
