@@ -696,6 +696,10 @@ function M.config()
         "CalendarVR",
       },
     },
+    -- terminal
+    {
+      "samjwill/nvim-unception", -- open files from terminal into existing neovim instace
+    },
   }
 end
 
