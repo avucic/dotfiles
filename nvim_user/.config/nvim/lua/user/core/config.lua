@@ -31,6 +31,7 @@ function M.config()
   local mason = require("user.configs.mason").config()
   local window_picker = require("user.configs.window_picker").config()
   local dressing = require("user.configs.dressing").config()
+  local indent_blankline = require("user.configs.indent_blankline").config()
 
   local config = {
 
@@ -206,6 +207,7 @@ function M.config()
 
       dressing = dressing,
       ["null-ls"] = null_ls,
+      indent_blankline = indent_blankline,
     },
 
     -- LuaSnip Options
