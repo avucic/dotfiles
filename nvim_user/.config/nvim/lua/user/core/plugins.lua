@@ -246,6 +246,13 @@ function M.config()
       after = "telescope.nvim",
       config = function() end,
     },
+    {
+      "LukasPietzschmann/telescope-tabs",
+      after = "telescope.nvim",
+      config = function()
+        require("user.configs.telescope_tabs").config()
+      end,
+    },
 
     -- Syntax
     -- Treesitter

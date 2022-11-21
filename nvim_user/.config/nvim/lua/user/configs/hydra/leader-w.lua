@@ -101,6 +101,15 @@ function M.setup(Hydra, cmd, pcmd)
     },
     heads = {
       {
+        "t",
+        function()
+          require("telescope-tabs").list_tabs()
+        end,
+        {
+          exit = true,
+        },
+      },
+      {
         "n",
         function()
           vim.cmd("tabnew")
