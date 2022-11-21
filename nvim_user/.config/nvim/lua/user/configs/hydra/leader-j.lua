@@ -24,11 +24,7 @@ function M.activate_hydra()
     {
       "s",
       function()
-        if aerial.is_open() then
-          aerial.close()
-        else
-          aerial.open()
-        end
+        vim.cmd([[AerialToggle! right]])
       end,
     },
     {
@@ -66,10 +62,10 @@ function M.activate_hydra()
         border = "rounded",
       },
       on_enter = function()
-        aerial.open()
+        vim.cmd([[AerialOpen!]])
       end,
       on_exit = function()
-        aerial.close()
+        vim.cmd([[AerialClose]])
       end,
     },
     heads = heads,
