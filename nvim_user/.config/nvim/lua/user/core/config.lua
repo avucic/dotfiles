@@ -75,7 +75,6 @@ function M.config()
         number = true, -- sets vim.opt.number
         spell = true, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
-        spell = true,
         wrap = false, -- sets vim.opt.wrap
         spelllang = { "en_us" },
         conceallevel = 2,
