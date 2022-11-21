@@ -1,20 +1,19 @@
 local Hydra = require("hydra")
 
-Hydra({
-	name = "Table",
-	hint = [[
+local table_hint = [[
    _r_: realig         _dr_: delete row     _dc_: delete column
   _mt_: tableize       _ms_: sort table     _dC_: delete cell
   _fa_: add formula    _fe_: eval formula   _ic_: insert column after
-  _lr_: renumber list  _?_: echo cell map   _iC_: insert column before ^ ^
+   _?_: echo cell map   _iC_: insert column before ^ ^
 
   ^   _K_   ^
   _H_     _L_
   ^   _J_   ^
+]]
 
-]],
-	mode = { "n" },
-	body = "<leader>mt",
+local table_hydra_normal = Hydra({
+	name = "Table",
+	hint = table_hint,
 	config = {
 		on_key = false,
 		invoke_on_body = true,
@@ -24,7 +23,6 @@ Hydra({
 		},
 	},
 	heads = {
-		-- {"t", "<cmd>TableModeEnable<CR>",{exit = true}},
 		{ "r", "<Plug>(table-mode-realign)", { desc = "realign", exit = true } },
 		{ "dr", "<Plug>(table-mode-delete-row)", { desc = "delete row", exit = true } },
 		{ "dc", "<Plug>(table-mode-delete-column)", { desc = "delete column", exit = true } },
@@ -35,7 +33,6 @@ Hydra({
 		{ "iC", "<Plug>(table-mode-insert-column-before)", { desc = "insert column before", exit = true } },
 		{ "fa", "<Plug>(table-mode-add-formula)", { desc = "add formula", exit = true } },
 		{ "fe", "<Plug>(table-mode-eval-formula)", { desc = "eval formula", exit = true } },
-		{ "lr", "<cmd>RenumberList<cr>", { desc = "renumber list", exit = true } },
 		{ "K", "<Plug>(table-mode-motion-up)", { desc = "up" } },
 		{ "J", "<Plug>(table-mode-motion-down)", { desc = "down" } },
 		{ "L", "<Plug>(table-mode-motion-right)", { desc = "right" } },
@@ -45,32 +42,11 @@ Hydra({
 	},
 })
 
-Hydra({
-	name = "Bullet",
-	hint = [[
-_l_: demote           _h_: promote
-_x_: toggle checkbox  _n_: renumber
-]],
-	config = {
-		buffer = true,
-		invoke_on_body = true,
-		color = "pink",
-		hint = {
-			border = "rounded",
-		},
-	},
-	mode = { "n" },
-	body = "<leader>mb",
-	heads = {
-		{ "l", "<cmd>BulletDemote<cr>", { exit = false } },
-		{ "h", "<cmd>BulletPromote<cr>", { exit = false } },
-		{ "x", "<Plug>(bullets-toggle-checkbox)", { exit = false } },
-		{ "n", "<Plug>(bullets-renumber)", { exit = true } },
-		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },
-	},
-})
+local function choose_table_hydra()
+	table_hydra_normal:activate()
+end
 
-Hydra({
+local diagram_hydra = Hydra({
 	name = "Draw Diagram",
 	hint = [[
  Arrow^^^^^^   Select region with <C-v>
@@ -80,8 +56,8 @@ Hydra({
 ]],
 	config = {
 		buffer = true,
-		invoke_on_body = true,
 		color = "pink",
+		invoke_on_body = true,
 		hint = {
 			border = "rounded",
 		},
@@ -89,8 +65,6 @@ Hydra({
 			vim.o.virtualedit = "all"
 		end,
 	},
-	mode = { "n" },
-	body = "<leader>md",
 	heads = {
 		{ "H", "<C-v>h:VBox<CR>" },
 		{ "J", "<C-v>j:VBox<CR>" },
@@ -101,28 +75,63 @@ Hydra({
 	},
 })
 
+local function choose_diagram_hydra()
+	diagram_hydra:activate()
+end
+
+-- local bullet_hint = [[
+-- _x_: toggle checkbox  _n_: renumber
+-- ]]
+
+-- local bullet_hydra = Hydra({
+-- 	name = "Draw Diagram",
+-- 	hint = bullet_hint,
+-- 	config = {
+-- 		buffer = true,
+-- 		invoke_on_body = true,
+-- 		hint = {
+-- 			border = "rounded",
+-- 		},
+-- 		on_enter = function()
+-- 			vim.o.virtualedit = "all"
+-- 		end,
+-- 	},
+-- 	heads = {
+-- 		{ "x", "<Plug>(bullets-toggle-checkbox)", { exit = false } },
+-- 		{ "n", "<Plug>(bullets-renumber)", { exit = true } },
+-- 		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },
+-- 	},
+-- })
+--
+-- local function choose_bullet_hydra()
+-- 	bullet_hydra:activate()
+-- end
+
 Hydra({
 	name = "Markdown",
 	hint = [[
  _t_: table        _d_: diagram
  _p_: preview      _s_: server
- _b_: bullet       _i_: paste link
-]],
+ _i_: paste link
 
+ <c-r> toggle list type (insert)
+]],
 	config = {
-		color = "pink",
 		buffer = true,
+		color = "pink",
 		invoke_on_body = true,
 		hint = {
 			border = "rounded",
 		},
+		on_enter = function()
+			vim.o.virtualedit = "all"
+		end,
 	},
 	mode = "n",
 	body = "<leader>m",
 	heads = {
-		{ "t", "<leader>mt", { remap = true, exit = true } },
-		{ "d", "<Leader>md", { remap = true, exit = true, nowait = true } },
-		{ "b", "<leader>mb", { remap = true, exit = true } },
+		{ "t", choose_table_hydra },
+		{ "d", choose_diagram_hydra },
 		{ "i", ":PasteMDLink<cr>", { nowait = true, exit = true, desc = "Insert link" } },
 		{ "p", "<Cmd>MarkdownPreview<CR>", { nowait = true } },
 		{
@@ -130,8 +139,7 @@ Hydra({
 			"<cmd>lua require('user.core.utils').toggle_term_cmd('cd $ZK_NOTEBOOK_DIR && markserv', {direction = 'horizontal'})<CR>",
 			{ desc = false, nowait = true, exit = true },
 		},
-		-- { "<Esc>", "<Cmd>MarkdownPreviewStop<CR>", { exit = true, nowait = true, desc = false } },
-		{ "<Esc>", nil, { exit = true, nowait = true } },
+		{ "<Esc>", "<Cmd>MarkdownPreviewStop<CR>", { exit = true, nowait = true, desc = false } },
 	},
 })
 
@@ -148,11 +156,3 @@ vim.api.nvim_buf_set_keymap(
 
 vim.api.nvim_buf_set_keymap(0, "n", "<bs>", [[:ZkBacklinks<CR>]], { noremap = true, desc = "Back links" })
 vim.api.nvim_buf_set_keymap(0, "n", "<bs>", [[:ZkBacklinks<CR>]], { noremap = true, desc = "Back links" })
-
--- bullets
-vim.api.nvim_buf_set_keymap(0, "i", "<C-CR>", "<Plug>(bullets-newline)", { noremap = true, desc = "New line" })
-vim.api.nvim_buf_set_keymap(0, "i", "<CR>", "<Plug>(bullets-newline)", { noremap = true, desc = "New line" })
-vim.api.nvim_buf_set_keymap(0, "n", "o", "<Plug>(bullets-newline)", { noremap = true, desc = "New line" })
-vim.api.nvim_buf_set_keymap(0, "v", ">", "<cmd>BulletDemote<cr>", { noremap = true, desc = "Bullet demote" })
-vim.api.nvim_buf_set_keymap(0, "v", "<", "<cmd>BulletPromote<cr>", { noremap = true, desc = "Bullet promote" })
-vim.api.nvim_buf_set_keymap(0, "v", "gN", "<Plug>(bullets-renumber)", { noremap = true, desc = "Bullet renumber" })

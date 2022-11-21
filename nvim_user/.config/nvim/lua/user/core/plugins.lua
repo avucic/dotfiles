@@ -440,16 +440,24 @@ function M.config()
       ft = { "markdown" },
       opt = true,
     },
+    -- {
+    --   "dkarter/bullets.vim",
+    --   setup = function()
+    --     require("user.configs.bullets").setup()
+    --   end,
+    --   ft = "markdown",
+    --   opt = true,
+    --   config = function()
+    --     require("user.configs.bullets").config()
+    --   end,
+    -- },
     {
-      "dkarter/bullets.vim",
-      setup = function()
-        require("user.configs.bullets").setup()
-      end,
-      ft = "markdown",
-      opt = true,
+      "gaoDean/autolist.nvim",
+      ft = { "markdown" },
       config = function()
-        require("user.configs.bullets").config()
+        require("autolist").setup({})
       end,
+      opt = true,
     },
 
     -- Neorg
@@ -647,6 +655,12 @@ function M.config()
       end,
       opt = true,
       after = "telescope.nvim",
+    },
+    {
+      "ibhagwan/smartyank.nvim",
+      config = function()
+        require("smartyank").setup({})
+      end,
     },
 
     -- window and buffer management
