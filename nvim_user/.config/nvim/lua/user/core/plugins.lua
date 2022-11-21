@@ -706,6 +706,19 @@ function M.config()
     {
       "samjwill/nvim-unception", -- open files from terminal into existing neovim instace
     },
+
+    -- tools
+    {
+      "narutoxy/silicon.lua",
+      requires = { "nvim-lua/plenary.nvim" },
+      config = function()
+        require("user.configs.silicon").config()
+      end,
+      opt = true,
+      cmd = {
+        "Silicon",
+      },
+    },
   }
 end
 

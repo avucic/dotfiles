@@ -3,7 +3,7 @@ local M = {}
 function M.setup(Hydra, _, _)
   local hint = [[
   _i_: inflect          _dt_: base64 decode token
- _ea_: easyalign
+ _ea_: easyalign         _s_: generate code image
 ]]
 
   Hydra({
@@ -36,6 +36,11 @@ function M.setup(Hydra, _, _)
 
       { "i", "<Plug>(Inflect)", { desc = "Inflect", nowait = true, exit = true } },
       { "ea", "<Plug>(EasyAlign)", { desc = "EasyAlign", nowait = true, exit = true } },
+      {
+        "s",
+        "<cmd>lua require('silicon').visualise_api({})<cr>",
+        { desc = "Generate code image", nowait = true, exit = true },
+      },
       {
         "dt",
         [[<cmd>lua print(io.popen("jwt decode ".. vim.fn.getreg('"') or ""):read("*a"))<cr>]],

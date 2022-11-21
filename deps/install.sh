@@ -8,7 +8,7 @@ for i in stow yarn stylua tmuxp sqlfluff rg direnv \
 	pgformatter protobuf jq zoxide yaml-language-server \
 	fd checkmake jwt-cli nvr direnv zk code-minimap fd  \
 	sqlfluff rust-analyzer viu tree htop taskwarrior taskwarrior-tui taskd timewarrior nim vit \
-	xclip wget
+	xclip wget silicon
 do
 	if ! command -v $i &>/dev/null; then
   brew install $i
