@@ -543,16 +543,15 @@ function M.config()
     },
     -- UI
     {
-      "wfxr/minimap.vim",
+      "gorbit99/codewindow.nvim",
+      config = function()
+        require("user.configs.codewindow").config()
+      end,
       opt = true,
       cmd = {
-        "Minimap",
-        "MinimapToggle",
+        "ToggleMiniMap",
       },
       event = "BufRead",
-      setup = function()
-        require("user.configs.minimap").setup()
-      end,
     },
     {
       "beauwilliams/focus.nvim",

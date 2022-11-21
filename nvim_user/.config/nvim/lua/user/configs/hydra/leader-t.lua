@@ -52,8 +52,7 @@ function M.setup(Hydra, _, _)
     body = "<Leader>t",
     heads = {
       { "m", choose_mode, { desc = "Poet mode" } },
-      { "]", "<cmd>MinimapToggle<cr>", { desc = "Minimap" } },
-
+      { "]", "<cmd>ToggleMiniMap<cr>", { desc = "Minimap" } },
       { "d", astronvim.ui.toggle_diagnostics, { desc = "toggle diagnostics" } },
       { "s", astronvim.ui.toggle_signcolumn, { desc = "toggle signcolumn" } },
       { "c", toggle_conceal, { desc = "toggle conceal" } },
