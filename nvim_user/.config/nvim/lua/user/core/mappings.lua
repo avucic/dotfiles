@@ -87,7 +87,7 @@ function M.config()
       ["<leader>uy"] = false,
       ["<leader>uf"] = false,
 
-      ["<leader>p"] = "<cmd>FocusDisable<cr><cmd>lua require('telescope').extensions.project.project{}<CR>",
+      ["<leader>p"] = "<cmd>lua require('telescope').extensions.project.project{}<CR>",
       -- ["<C-h>"] = false,
       -- ["<C-l>"] = false,
 
@@ -99,7 +99,7 @@ function M.config()
       ["Q"] = { "<cmd>qall!<cr>" },
       ["<S-l>"] = { "$" },
       ["<S-h>"] = { "^" },
-      ["z="] = { "<cmd>FocusDisable<cr><cmd>lua require('telescope.builtin').spell_suggest()<CR>" },
+      ["z="] = { "<cmd>lua require('telescope.builtin').spell_suggest()<CR>" },
       ["<leader>W"] = { "<cmd>:noa w<cr>", desc = "Save without format" },
 
       -- Bookmarks

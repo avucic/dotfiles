@@ -204,7 +204,8 @@ function M.setup(Hydra, cmd, pcmd)
           splits.resize_right(2)
         end,
       },
-      { "=", "<cmd>FocusEqualise<CR><cmd>FocusDisable<CR>", { desc = "equalize" } },
+      -- { "=", "<cmd>FocusEqualise<CR><cmd>FocusDisable<CR>", { desc = "equalize" } },
+      { "=", "<cmd>WindowsEqualize<CR>", { desc = "equalize" } },
 
       { "s", pcmd("split", "E36") },
       { "<C-s>", pcmd("split", "E36"), { desc = false } },
@@ -214,7 +215,8 @@ function M.setup(Hydra, cmd, pcmd)
       { "w", "<C-w>w", { exit = true, desc = false } },
       { "<C-w>", "<C-w>w", { exit = true, desc = false } },
 
-      { "z", "<cmd>FocusEnable<CR>:FocusSplitCycle<CR>", { desc = "maximize" } },
+      -- { "z", "<cmd>FocusEnable<CR>:FocusSplitCycle<CR>", { desc = "maximize" } },
+      { "z", "<cmd>WindowsMaximize<CR>", { desc = "maximize" } },
       { "<C-z>", cmd("MaximizerToggle!"), { exit = true, desc = false } },
 
       { "o", "<C-w>o", { exit = true, desc = "remain only" } },

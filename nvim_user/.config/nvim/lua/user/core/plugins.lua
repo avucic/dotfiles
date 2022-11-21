@@ -569,23 +569,16 @@ function M.config()
       event = "BufRead",
     },
     {
-      "beauwilliams/focus.nvim",
+      "anuvyklack/windows.nvim",
+      requires = {
+        "anuvyklack/middleclass",
+      },
       config = function()
-        require("user.configs.focus").config()
+        require("user.configs.windows").config()
       end,
-      opt = true,
       cmd = {
-        "FocusDisable",
-        "FocusEnable",
-        "FocusToggle",
-        "FocusSplitNicely",
-        "FocusMaximise",
-        "FocusEqualise",
-        "FocusMaxOrEqual",
-        "FocusSplitLeft",
-        "FocusSplitDown",
-        "FocusSplitUp",
-        "FocusSplitRight",
+        "WindowsMaximize",
+        "WindowsEqualize",
       },
     },
     -- text
