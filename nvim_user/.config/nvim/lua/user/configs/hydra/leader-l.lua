@@ -49,7 +49,17 @@ function M.setup(Hydra, _, _)
       { "p", "<cmd>lua vim.diagnostic.goto_prev()<cr>" },
       { "l", "<cmd>lua vim.lsp.codelens.run()<cr>", { exit = true } },
       -- { "q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", { exit = true } },
-      { "R", "<cmd>lua vim.lsp.buf.rename()<cr>", { exit = true } },
+      -- { "R", "<cmd>lua vim.lsp.buf.rename()<cr>", { exit = true } },
+      {
+        "R",
+        function()
+          return ":IncRename " .. vim.fn.expand("<cword>")
+        end,
+        {
+          expr = true,
+          exit = true,
+        },
+      },
       { "r", "<cmd>lua require('telescope.builtin').lsp_references()<CR>", { exit = true } },
       { "<Esc>", nil, { exit = true, nowait = true, desc = false } },
     },

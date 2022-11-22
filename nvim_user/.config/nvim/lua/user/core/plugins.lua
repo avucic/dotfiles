@@ -334,6 +334,12 @@ function M.config()
 
     -- LSP
     {
+      "smjonas/inc-rename.nvim",
+      config = function()
+        require("user.configs.inc_rename").config()
+      end,
+    },
+    {
       "folke/lsp-colors.nvim",
       opt = true,
       after = "nvim-lspconfig",
