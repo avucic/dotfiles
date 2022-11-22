@@ -253,9 +253,6 @@ function M.config()
         require("user.configs.telescope_tabs").config()
       end,
     },
-
-    -- Syntax
-    -- Treesitter
     {
       "nvim-telescope/telescope-project.nvim",
       after = "telescope.nvim",
@@ -263,6 +260,9 @@ function M.config()
         require("user.configs.project").config()
       end,
     },
+
+    -- Syntax
+    -- Treesitter
     {
       "lewis6991/spellsitter.nvim",
       after = "nvim-treesitter",
