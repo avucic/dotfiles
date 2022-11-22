@@ -596,6 +596,14 @@ function M.config()
       "junegunn/vim-easy-align",
       event = "BufRead",
     },
+    {
+      "nguyenvukhang/nvim-toggler",
+      event = "BufRead",
+      opt = true,
+      config = function()
+        require("user.configs.nvim_toggler").config()
+      end,
+    },
 
     -- Browser search
     {

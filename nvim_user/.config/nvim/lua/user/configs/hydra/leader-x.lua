@@ -47,6 +47,15 @@ function M.setup(Hydra, _, _)
         { desc = "Base64 Decode token", exit = true },
         -- eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTc1MjYxMjAsImlhdCI6MTY1NzUyNTU4MCwibmJmIjoxNDQ0NDc4NDAwLCJzY29wZXMiOlsiYXBpOnJlYWQiLCJhcGk6d3JpdGUiXX0.hQQ2vWMmrh_wugiNPc1UzqOgkPFD9FfMFU_tenqA0TI
       },
+      {
+        "t",
+        "<cmd>lua require('nvim-toggler').toggle()<cr>",
+        {
+          desc = "Toggle word",
+          nowait = true,
+          exit = true,
+        },
+      },
       { "<Esc>", nil, { exit = true, nowait = true, desc = false } },
     },
   })
@@ -66,6 +75,15 @@ function M.setup(Hydra, _, _)
     mode = "n",
     heads = {
       { "d", ":PickDate<cr>", { desc = "pick date", nowait = true, exit = true } },
+      {
+        "t",
+        "<cmd>lua require('nvim-toggler').toggle()<cr>",
+        {
+          desc = "Toggle word",
+          nowait = true,
+          exit = true,
+        },
+      },
       { "<Esc>", nil, { exit = true, nowait = true, desc = false } },
     },
   })
