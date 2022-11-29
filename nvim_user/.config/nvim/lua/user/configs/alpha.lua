@@ -71,7 +71,28 @@ function M.config()
         },
         opts = { position = "center", hl = "DashboardHeader" },
       },
-      { type = "padding", val = 5 },
+      { type = "padding", val = 2 },
+      {
+        type = "text",
+        val = lines,
+        opts = {
+          position = "center",
+          hl = "DashboardTasks",
+        },
+      },
+      { type = "padding", val = 2 },
+      -- { type = "padding", val = 5 },
+      -- {
+      --   type = "terminal",
+      --   command = "task next",
+      --   width = 70,
+      --   height = 10,
+      --   opts = {
+      --     redraw = true,
+      --     window_config = {},
+      --   },
+      -- },
+
       {
         type = "group",
         val = {
@@ -97,26 +118,7 @@ function M.config()
           hl = "DashboardFooter",
         },
       },
-
-      { type = "padding", val = 5 },
-      -- {
-      --   type = "terminal",
-      --   command = "task next",
-      --   width = 70,
-      --   height = 10,
-      --   opts = {
-      --     redraw = true,
-      --     window_config = {},
-      --   },
-      -- },
-      {
-        type = "text",
-        val = lines,
-        opts = {
-          position = "center",
-          hl = "DashboardTasks",
-        },
-      },
+      { type = "padding", val = vim.fn.max({ 2, vim.fn.floor(vim.fn.winheight(0) * 0.2) }) },
     },
     opts = {},
   }
