@@ -111,8 +111,8 @@ function M.config()
 
         n = {
           ["q"] = actions.close,
-          ["<C-n>"] = actions.move_selection_next,
-          ["<C-p>"] = actions.move_selection_previous,
+          ["j"] = actions.move_selection_next,
+          ["k"] = actions.move_selection_previous,
           --   ["<CR>"] = actions.select_default,
           ["<C-s>"] = actions.select_horizontal,
           --   ["<C-v>"] = actions.select_vertical,
