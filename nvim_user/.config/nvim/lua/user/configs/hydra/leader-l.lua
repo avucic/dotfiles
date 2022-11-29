@@ -60,7 +60,8 @@ function M.setup(Hydra, _, _)
           exit = true,
         },
       },
-      { "r", "<cmd>lua require('telescope.builtin').lsp_references()<CR>", { exit = true } },
+      -- { "r", "<cmd>lua require('telescope.builtin').lsp_references()<CR>", { exit = true } },
+      { "r", "<cmd>Glance references<CR>", { exit = true } },
       { "<Esc>", nil, { exit = true, nowait = true, desc = false } },
     },
   })

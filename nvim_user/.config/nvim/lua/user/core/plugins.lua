@@ -334,6 +334,14 @@ function M.config()
 
     -- LSP
     {
+      "dnlhc/glance.nvim",
+      config = function()
+        require("user.configs.glance").config()
+      end,
+      opt = true,
+      cmd = { "Glance" },
+    },
+    {
       "smjonas/inc-rename.nvim",
       config = function()
         require("user.configs.inc_rename").config()

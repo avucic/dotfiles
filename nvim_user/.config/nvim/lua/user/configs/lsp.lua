@@ -108,23 +108,23 @@ function M.config()
   --   server:setup(opts)
   -- end
   local formatting = {
-      -- control auto formatting on save
-      format_on_save = {
-        enabled = true, -- enable or disable format on save globally
-        allow_filetypes = { -- enable format on save for specified filetypes only
-          -- "go",
-        },
-        ignore_filetypes = { -- disable format on save for specified filetypes
-          -- "python",
-        },
+    -- control auto formatting on save
+    format_on_save = {
+      enabled = true, -- enable or disable format on save globally
+      allow_filetypes = { -- enable format on save for specified filetypes only
+        -- "go",
       },
-      disabled = { -- disable formatting capabilities for the listed language servers
-        -- "sumneko_lua",
+      ignore_filetypes = { -- disable format on save for specified filetypes
+        -- "python",
       },
-      timeout_ms = 1000, -- default format timeout
-      -- filter = function(client) -- fully override the default formatting function
-      --   return true
-      -- end
+    },
+    disabled = { -- disable formatting capabilities for the listed language servers
+      -- "sumneko_lua",
+    },
+    timeout_ms = 1000, -- default format timeout
+    -- filter = function(client) -- fully override the default formatting function
+    --   return true
+    -- end
   }
 
   -- Add overrides for LSP server settings, the keys are the name of the server
@@ -158,6 +158,7 @@ function M.config()
       ["<leader>lf"] = false,
       ["<leader>lh"] = false,
       ["<leader>lr"] = false,
+      ["gr"] = ":Glance references<cr>",
     },
   }
 
