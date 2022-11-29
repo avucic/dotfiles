@@ -234,6 +234,7 @@ function M.open_notes()
   local path = vim.env.ZK_NOTEBOOK_DIR
   local options = {
     sort = { "modified" },
+    preview_title = "File preview",
   }
   zk.edit({ path = path, sort = { "modified" } }, { picker = "telescope", telescope = options })
 end
