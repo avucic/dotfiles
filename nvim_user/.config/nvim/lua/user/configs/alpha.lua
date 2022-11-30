@@ -71,7 +71,18 @@ function M.config()
         },
         opts = { position = "center", hl = "DashboardHeader" },
       },
-      { type = "padding", val = 2 },
+      { type = "padding", val = 3 },
+      {
+        type = "text",
+        val = {
+          "AstroNvim loaded " .. plugins_count .. " plugins ",
+        },
+        opts = {
+          position = "center",
+          hl = "DashboardFooter",
+        },
+      },
+      { type = "padding", val = 3 },
       {
         type = "text",
         val = lines,
@@ -80,7 +91,7 @@ function M.config()
           hl = "DashboardTasks",
         },
       },
-      { type = "padding", val = 2 },
+      { type = "padding", val = vim.fn.max({ 2, vim.fn.floor(vim.fn.winheight(0) * 0.2) }) },
       -- { type = "padding", val = 5 },
       -- {
       --   type = "terminal",
@@ -93,32 +104,20 @@ function M.config()
       --   },
       -- },
 
-      {
-        type = "group",
-        val = {
-          alpha_button("LDR f p", "  Find Project  "),
-          alpha_button("LDR f o", "  Recents  "),
-          alpha_button("LDR f f", "  Find File  "),
-          alpha_button("LDR f g", "  Find Word  "),
-          alpha_button("LDR f n", "  New File  "),
-          alpha_button("LDR f m", "  Bookmarks  "),
-          alpha_button("LDR S l", "  Last Session  "),
-        },
-
-        opts = { spacing = 1 },
-      },
-      { type = "padding", val = 2 },
-      {
-        type = "text",
-        val = {
-          "AstroNvim loaded " .. plugins_count .. " plugins ",
-        },
-        opts = {
-          position = "center",
-          hl = "DashboardFooter",
-        },
-      },
-      { type = "padding", val = vim.fn.max({ 2, vim.fn.floor(vim.fn.winheight(0) * 0.2) }) },
+      -- {
+      --   type = "group",
+      --   val = {
+      --     alpha_button("LDR f p", "  Find Project  "),
+      --     alpha_button("LDR f o", "  Recents  "),
+      --     alpha_button("LDR f f", "  Find File  "),
+      --     alpha_button("LDR f g", "  Find Word  "),
+      --     alpha_button("LDR f n", "  New File  "),
+      --     alpha_button("LDR f m", "  Bookmarks  "),
+      --     alpha_button("LDR S l", "  Last Session  "),
+      --   },
+      --
+      --   opts = { spacing = 1 },
+      -- },
     },
     opts = {},
   }

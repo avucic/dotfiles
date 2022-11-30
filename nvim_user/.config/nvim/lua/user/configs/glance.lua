@@ -40,7 +40,7 @@ function M.config()
         ["t"] = actions.jump_tab,
         ["<CR>"] = actions.jump,
         ["o"] = actions.jump,
-        ["<leader>l"] = actions.enter_win("preview"), -- Focus preview window
+        ["<space>"] = actions.enter_win("preview"), -- Focus preview window
         ["q"] = actions.close,
         ["Q"] = actions.close,
         ["<Esc>"] = actions.close,
@@ -50,7 +50,7 @@ function M.config()
         ["Q"] = actions.close,
         ["<Tab>"] = actions.next_location,
         ["<S-Tab>"] = actions.previous_location,
-        ["<leader>l"] = actions.enter_win("list"), -- Focus list window
+        ["<space>"] = actions.enter_win("list"), -- Focus list window
       },
     },
     hooks = {},

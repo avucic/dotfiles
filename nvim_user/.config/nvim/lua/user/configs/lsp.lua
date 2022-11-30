@@ -159,6 +159,7 @@ function M.config()
       ["<leader>lh"] = false,
       ["<leader>lr"] = false,
       ["gr"] = ":Glance references<cr>",
+      -- ["gD"] = ":Glance definitions<cr>",
     },
   }
 

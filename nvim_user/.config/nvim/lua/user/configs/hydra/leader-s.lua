@@ -6,7 +6,7 @@ function M.setup(Hydra, cmd, _)
   _k_: keymaps        _c_: execute command
   _O_: options        _b_: buffers
   _w_: search web     _t_: tasks
-  _s_: symbols
+  _s_: doc symbols    _S_: workspace symbols
 
   _r_: resume         _<Enter>_: Telescope
 ]]
@@ -43,7 +43,9 @@ function M.setup(Hydra, cmd, _)
       { "h", "<cmd>lua require('telescope.builtin').help_tags()<CR>", { exit = true } },
       -- { "k", "<cmd>lua require('legendary').find({kind = 'keymaps'})<CR>", { exit = true } },
       { "k", "<cmd>lua require('telescope.builtin').keymaps()<CR>", { exit = true } },
-      { "s", "<cmd>AerialToggle! right<cr>", { exit = true } },
+      -- { "s", "<cmd>AerialToggle! right<cr>", { exit = true } },
+      { "s", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>", { exit = true } },
+      { "S", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>", { exit = true } },
       { "O", "<cmd>lua require('telescope.builtin').vim_options()<CR>", { exit = true } },
       { ";", "<cmd>lua require('telescope.builtin').command_history()<CR>", { exit = true } },
       { "c", "<cmd>lua require('telescope.builtin').commands()<CR>", { exit = true } },

@@ -28,12 +28,6 @@ function M.config()
     },
 
     -- Themes
-    -- {
-    --   "ful1e5/onedark.nvim",
-    --   config = function()
-    --     require("user.configs.colors.onedark").config()
-    --   end,
-    -- },
     {
       "navarasu/onedark.nvim",
       config = function()

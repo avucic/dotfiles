@@ -3,7 +3,7 @@ local M = {}
 function M.setup(Hydra, _, _)
   local lsp_hint = [[
   _a_: code action       _i_: implementation
-  _d_: declaration       _D_: definition
+  _D_: declaration       _d_: definition
   _f_: format            _w_: workspace diagnostics
   _I_: info              _n_: next diagnostic
   _r_: references        _p_: prev diagnostic
@@ -37,8 +37,10 @@ function M.setup(Hydra, _, _)
       },
       { "a", "<cmd>lua vim.lsp.buf.code_action()<cr>", { exit = true } },
       { "e", "<cmd>Telescope diagnostics bufnr=0<cr>", { exit = true } },
-      { "d", "<cmd>lua vim.lsp.buf.declaration()<CR>", { exit = true } },
-      { "D", "<cmd>lua vim.lsp.buf.definition()<CR>", { exit = true } },
+      { "D", "<cmd>lua vim.lsp.buf.declaration()<CR>", { exit = true } },
+      { "d", "<cmd>lua vim.lsp.buf.definition()<CR>", { exit = true } },
+      { "d", "<cmd>Glance definitions<CR>", { exit = true } },
+      -- { "d", "<cmd>lua vim.lsp.buf.definition()<CR>", { exit = true } },
       { "w", "<cmd>Telescope diagnostics<cr>", { exit = true } },
       { "f", "<cmd>lua vim.lsp.buf.format({async = true })<cr>", { exit = true } },
       -- { "f", "<cmd>lua vim.lsp.buf.formatting()<cr>", { exit = true } },

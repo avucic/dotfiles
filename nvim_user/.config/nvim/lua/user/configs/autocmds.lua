@@ -7,6 +7,12 @@ local aucmd_dict = {
       end,
     },
     {
+      pattern = "alpha",
+      callback = function()
+        vim.cmd([[set nospell]])
+      end,
+    },
+    {
       pattern = "gitcommit",
       callback = function()
         vim.api.nvim_win_set_option(0, "wrap", true)
