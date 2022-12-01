@@ -667,13 +667,6 @@ function M.config()
       opt = true,
       after = "telescope.nvim",
     },
-    {
-      "ibhagwan/smartyank.nvim",
-      config = function()
-        require("smartyank").setup({})
-      end,
-    },
-
     -- window and buffer management
     -- works for new nvim version 0.8
     {
