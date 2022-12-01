@@ -102,6 +102,7 @@ hi SpellLocal guifg=NONE guisp=red gui=undercurl term=underline cterm=undercurl
   vim.cmd("hi TelescopePreviewTitle guifg=" .. palette.bg1 .. " " .. "guibg=" .. palette.green)
   vim.cmd("hi TelescopePreviewBorder guifg=" .. palette.bg1 .. " " .. "guibg=" .. palette.bg1)
 
+  vim.cmd("hi FloatBorder guifg=" .. palette.bg1 .. " " .. "guibg=" .. palette.bg1)
   --
   -- red0 = '#e06c75',
   --   red1 = '#e86671',
