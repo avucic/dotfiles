@@ -94,7 +94,7 @@ hi SpellLocal guifg=NONE guisp=red gui=undercurl term=underline cterm=undercurl
 
   vim.cmd("hi TelescopePromptTitle guifg=" .. palette.bg1 .. " " .. "guibg=" .. palette.red)
   vim.cmd("hi TelescopePromptBorder guifg=" .. palette.bg2 .. " " .. "guibg=" .. palette.bg2)
-  vim.cmd("hi TelescopePromptNormal guifg=" .. palette.red .. " " .. "guibg=" .. palette.red)
+  vim.cmd("hi TelescopePromptNormal guifg=" .. palette.fg .. " " .. "guibg=" .. palette.bg2)
 
   vim.cmd("hi TelescopeResultsTitle guifg=" .. palette.bg1 .. " " .. "guibg=" .. palette.yellow)
   vim.cmd("hi TelescopeResultsBorder guifg=" .. palette.bg1 .. " " .. "guibg=" .. palette.bg1)

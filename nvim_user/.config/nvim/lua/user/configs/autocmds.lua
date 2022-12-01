@@ -7,7 +7,7 @@ local aucmd_dict = {
       end,
     },
     {
-      pattern = "alpha",
+      pattern = "Telescope*,toggleterm",
       callback = function()
         vim.cmd([[set nospell]])
       end,

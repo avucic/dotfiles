@@ -6,7 +6,12 @@ function M.config()
     return {}
   end
 
-  windows.setup()
+  windows.setup({
+    ignore = { --        |windows.ignore|
+      buftype = { "quickfix", "filetree" },
+      filetype = { "NvimTree", "neo-tree", "undotree", "gundo", "filetree" },
+    },
+  })
 end
 
 return M

@@ -139,22 +139,21 @@ function M.setup(Hydra, cmd, pcmd)
 
   vim.keymap.set("n", "gb", choose_buffer)
 
-  local window_hint = [[
+  Hydra({
+    name = "Windows",
+    hint = [[
  ^^^^^^^^^^^^     Move      ^^    Size   ^^   ^^     Split     ^^    Select
  ^^^^^^^^^^^^-------------  ^^-----------^^   ^^-------------- ^^---------------
- ^ ^ _k_ ^ ^  ^ ^ _K_ ^ ^   ^   _<C-k>_   ^   _s_: horizontall _p_: pick
+ ^ ^ _k_ ^ ^  ^ ^ _K_ ^ ^   ^   _<C-k>_   ^   _s_: horizontal _p_: pick
  _h_ ^ ^ _l_  _H_ ^ ^ _L_   _<C-h>_ _<C-l>_   _v_: vertically  _o_: remain only
  ^ ^ _j_ ^ ^  ^ ^ _J_ ^ ^   ^   _<C-j>_   ^   ^^               _q_, _c_: close
  focus^^^^^^  window^^^^^^  ^_=_: equalize^
  ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^_z_: maximize
- ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^^ ^          ^
+ ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^_|_: maximize ver^
+ ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^_-_: maximize hor^
  ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^^ ^          ^
  _b_: choose buffer         ^ ^ ^  _t_: choose tabs
-]]
-
-  Hydra({
-    name = "Windows",
-    hint = window_hint,
+]],
     config = {
       invoke_on_body = true,
       color = "pink",
@@ -217,6 +216,12 @@ function M.setup(Hydra, cmd, pcmd)
 
       -- { "z", "<cmd>FocusEnable<CR>:FocusSplitCycle<CR>", { desc = "maximize" } },
       { "z", "<cmd>WindowsMaximize<CR><cmd>WindowsEnableAutowidth<cr>", { desc = "maximize" } },
+      { "|", "<cmd>WindowsMaximizeHorizontally<CR><cmd>WindowsEnableAutowidth<cr>", { desc = "maximize vertically" } },
+      {
+        "-",
+        "<cmd>WindowsMaximizeVertically<CR><cmd>WindowsEnableAutowidth<cr>",
+        { desc = "maximize horizontally" },
+      },
       { "<C-z>", cmd("MaximizerToggle!"), { exit = true, desc = false } },
 
       { "o", "<C-w>o", { exit = true, desc = "remain only" } },

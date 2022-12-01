@@ -587,6 +587,8 @@ function M.config()
       cmd = {
         "WindowsMaximize",
         "WindowsEqualize",
+        "WindowsMaximizeVertically",
+        "WindowsMaximizeHorizontally",
       },
     },
     -- text
