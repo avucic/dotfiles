@@ -258,6 +258,12 @@ function M.config()
     },
 
     -- Syntax
+    {
+      "folke/paint.nvim", -- highlight symbols in code like @something TODO:
+      config = function()
+        require("user.configs.paint").config()
+      end,
+    },
     -- Treesitter
     {
       "lewis6991/spellsitter.nvim",
