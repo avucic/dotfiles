@@ -11,6 +11,7 @@ M.config = function()
     style = theme_style,
     colors = {
       red = "#e06c75",
+      -- bg0 = "#272C34",
     },
   })
   onedark.load()
@@ -73,8 +74,10 @@ hi SpellRare  guifg=NONE guisp=blue   gui=undercurl term=underline cterm=undercu
 hi SpellLocal guifg=NONE guisp=red gui=undercurl term=underline cterm=undercurl
   ]])
 
-  vim.cmd("hi TelescopeNormal guibg=" .. palette.bg1)
-  vim.cmd("hi TelescopeBorder guibg=" .. palette.bg1)
+  local telescope_bg = "#2c323b"
+
+  vim.cmd("hi TelescopeNormal guibg=" .. telescope_bg)
+  vim.cmd("hi TelescopeBorder guibg=" .. telescope_bg)
   -- vim.cmd("hi TelescopeSelection guifg=" .. palette.grey .. " " .. "guibg=" .. palette.bg1)
 
   -- vim.cmd("hi TelescopeBorder guifg=" .. palette.red .. " " .. "guibg=" .. palette.red)
@@ -89,21 +92,17 @@ hi SpellLocal guifg=NONE guisp=red gui=undercurl term=underline cterm=undercurl
   -- vim.cmd("hi TelescopeResultsTitle guifg=" .. palette.bg1 .. " " .. "guibg=" .. palette.yellow)
   -- vim.cmd("hi TelescopeResultsBorder guifg=" .. palette.bg1 .. " " .. "guibg=" .. palette.bg1)
 
-  vim.cmd("hi TelescopeResultsTitle guifg=" .. palette.bg1 .. " " .. "guibg=" .. palette.yellow)
-  vim.cmd("hi TelescopeResultsBorder guifg=" .. palette.bg1 .. " " .. "guibg=" .. palette.bg1)
-
   vim.cmd("hi TelescopePromptTitle guifg=" .. palette.bg1 .. " " .. "guibg=" .. palette.red)
   vim.cmd("hi TelescopePromptBorder guifg=" .. palette.bg2 .. " " .. "guibg=" .. palette.bg2)
   vim.cmd("hi TelescopePromptNormal guifg=" .. palette.fg .. " " .. "guibg=" .. palette.bg2)
 
   vim.cmd("hi TelescopeResultsTitle guifg=" .. palette.bg1 .. " " .. "guibg=" .. palette.yellow)
-  vim.cmd("hi TelescopeResultsBorder guifg=" .. palette.bg1 .. " " .. "guibg=" .. palette.bg1)
+  vim.cmd("hi TelescopeResultsBorder guifg=" .. telescope_bg .. " " .. "guibg=" .. telescope_bg)
 
   vim.cmd("hi TelescopePreviewTitle guifg=" .. palette.bg1 .. " " .. "guibg=" .. palette.green)
-  vim.cmd("hi TelescopePreviewBorder guifg=" .. palette.bg1 .. " " .. "guibg=" .. palette.bg1)
+  vim.cmd("hi TelescopePreviewBorder guifg=" .. telescope_bg .. " " .. "guibg=" .. telescope_bg)
 
   vim.cmd("hi FloatBorder guifg=" .. palette.bg1 .. " " .. "guibg=" .. palette.bg1)
-  --
   -- red0 = '#e06c75',
   --   red1 = '#e86671',
   --   red2 = '#f65866',
