@@ -365,6 +365,12 @@ function M.config()
         require("user.configs.lightbulb").config()
       end,
     },
+    {
+      "joechrisellis/lsp-format-modifications.nvim",
+      setup = function()
+        vim.g.lsp_format_modifications_silence = 1
+      end,
+    },
     -- emmet
     {
       "aca/emmet-ls",

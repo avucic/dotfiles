@@ -88,7 +88,7 @@ function M.config()
         status_diagnostics_enabled = true, -- enable diagnostics in statusline
         icons_enabled = true, -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
         ui_notifications_enabled = true, -- disable notifications when toggling UI elements
-        autoformat_on_save = 1,
+        autoformat_on_save = true,
         ["vim_current_word#highlight_current_word"] = 0,
       },
     },
@@ -285,6 +285,8 @@ function M.config()
 
       vim.g.vim_base64_disable_default_key_mappings = 1
       vim.g.did_load_filetypes = nil
+      vim.g.autoformat_on_save = true
+
 
       if vim.g.colorscheme then
         colorscheme = vim.g.colorscheme

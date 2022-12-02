@@ -15,47 +15,9 @@ function M.config()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
 
   lspconfig.emmet_ls.setup({
-    -- on_attach = on_attach,
     capabilities = capabilities,
     filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby" },
   })
-
-  -- lspconfig.gopls.setup({
-  --   cmd = { "gopls", "serve" },
-  --   filetypes = { "go", "gomod" },
-  --   root_dir = util.root_pattern("go.work", "go.mod", ".git"),
-  --   settings = {
-  --     gopls = {
-  --       analyses = {
-  --         unusedparams = true,
-  --       },
-  --       staticcheck = true,
-  --     },
-  --   },
-  -- })
-
-  -- local map = vim.keymap.set
-  -- local default_lsp_servers = {
-  --   sumneko_lua = {},
-  --   solargraph = {},
-  --   gopls = {},
-  --   tsserver = {},
-  --   html = {},
-  --   cssls = {},
-  --   yamls = {},
-  --   sqlls = {},
-  --   eslint = {},
-  -- }
-  --
-  -- for name, _ in pairs(default_lsp_servers) do
-  --   local server_is_found, server = lsp_installer.get_server(name)
-  --   if server_is_found and not server:is_installed() then
-  --     print("Installing " .. name)
-  --     server:install()
-  --     server.gopls.setup({})
-  --     -- vim.cmd("LspInstallInfo")
-  --   end
-  -- end
 
   local on_attach = function(client, bufnr)
     -- set_default_formatter_for_filetypes("solargraph", { "ruby" })
@@ -73,6 +35,18 @@ function M.config()
     if client.name == "html" then
       client.server_capabilities.document_formatting = false -- 0.7 and earlier
       client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
+    end
+
+    if vim.g.autoformat_on_save ~= 1 then
+      if client.server_capabilities.documentRangeFormattingProvider then
+        local lsp_format_modifications = require("lsp-format-modifications")
+        lsp_format_modifications.attach(client, bufnr, {
+          format_on_save = true,
+          format_callback = function()
+            vim.lsp.buf.format()
+          end,
+        })
+      end
     end
 
     local vim = vim
@@ -110,7 +84,7 @@ function M.config()
   local formatting = {
     -- control auto formatting on save
     format_on_save = {
-      enabled = true, -- enable or disable format on save globally
+      enabled = vim.g.autoformat_on_save == true, -- enable or disable format on save globally
       allow_filetypes = { -- enable format on save for specified filetypes only
         -- "go",
       },
@@ -158,6 +132,7 @@ function M.config()
       ["<leader>lf"] = false,
       ["<leader>lh"] = false,
       ["<leader>lr"] = false,
+      ["<leader>uf"] = false,
       ["gr"] = ":Glance references<cr>",
       -- ["gD"] = ":Glance definitions<cr>",
     },
