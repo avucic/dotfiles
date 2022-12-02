@@ -5,6 +5,8 @@ function M.config()
     -- disable
     -- ["folke/which-key.nvim"] = { disable = true },
     -- ["akinsho/bufferline.nvim"] = { disable = true },
+    ["nvim-neo-tree/neo-tree.nvim"] = { disable = true },
+    ["s1n7ax/nvim-window-picker"] = { disable = true },
     -- ["Shatur/neovim-session-manager"] = { disable = true },
     {
       event = "BufRead",
@@ -707,6 +709,12 @@ function M.config()
     --   end,
     -- },
     -- picker
+    {
+      "https://gitlab.com/yorickpeterse/nvim-window.git",
+      config = function()
+        require("user.configs.window").config()
+      end,
+    },
     {
       "mattn/calendar-vim",
       opt = true,

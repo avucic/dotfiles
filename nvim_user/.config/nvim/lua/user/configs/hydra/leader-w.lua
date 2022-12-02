@@ -226,7 +226,8 @@ function M.setup(Hydra, cmd, pcmd)
 
       { "o", "<C-w>o", { exit = true, desc = "remain only" } },
       { "<C-o>", "<C-w>o", { exit = true, desc = false } },
-      { "p", "<cmd>lua require('user.core.utils').focus_window()<cr>", { exit = true, desc = false } },
+      -- { "p", "<cmd>lua require('user.core.utils').focus_window()<cr>", { exit = true, desc = false } },
+      { "p", "<cmd>lua require('nvim-window').pick()<cr>", { exit = true, desc = false } },
 
       { "b", choose_buffer, { exit = true, desc = "choose buffer" } },
       { "t", choose_tab, { exit = true, desc = "choose tabs" } },

@@ -15,11 +15,6 @@ function M.dump(o)
   end
 end
 
-function M.focus_window()
-  local window = require("window-picker").pick_window()
-  vim.api.nvim_set_current_win(window)
-end
-
 function M.delete_window()
   local window = require("window-picker").pick_window()
   vim.api.nvim_win_close(window, false)
