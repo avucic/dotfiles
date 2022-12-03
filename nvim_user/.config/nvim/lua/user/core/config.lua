@@ -23,6 +23,7 @@ function M.config()
   local bufferline = require("user.configs.bufferline").config()
   local lsp = require("user.configs.lsp").config()
   local null_ls = require("user.configs.null-ls").config()
+  local mason_null_ls = require("user.configs.mason_null").config()
   local alpha = require("user.configs.alpha").config()
   local aerial = require("user.configs.aerial").config()
   local _lazygit = require("user.configs.lazygit").config()
@@ -206,6 +207,7 @@ function M.config()
 
       dressing = dressing,
       ["null-ls"] = null_ls,
+      ["mason-null-ls"] = mason_null_ls,
       indent_blankline = indent_blankline,
     },
 
