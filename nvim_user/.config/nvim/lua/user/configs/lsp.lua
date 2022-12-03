@@ -21,7 +21,6 @@ function M.config()
 
   local on_attach = function(client, bufnr)
     -- set_default_formatter_for_filetypes("solargraph", { "ruby" })
-
     if client.name == "solargraph" then
       client.server_capabilities.document_formatting = false
       client.server_capabilities.document_range_formatting = false
@@ -37,7 +36,7 @@ function M.config()
       client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
     end
 
-    if vim.g.autoformat_on_save ~= 1 then
+    if vim.g.autoformat_enabled ~= true then
       if client.server_capabilities.documentRangeFormattingProvider then
         local lsp_format_modifications = require("lsp-format-modifications")
         lsp_format_modifications.attach(client, bufnr, {
@@ -81,10 +80,11 @@ function M.config()
   -- server_registration = function(server, opts)
   --   server:setup(opts)
   -- end
+
   local formatting = {
     -- control auto formatting on save
     format_on_save = {
-      enabled = vim.g.autoformat_on_save == true, -- enable or disable format on save globally
+      enabled = true, -- enable or disable format on save globally
       allow_filetypes = { -- enable format on save for specified filetypes only
         -- "go",
       },

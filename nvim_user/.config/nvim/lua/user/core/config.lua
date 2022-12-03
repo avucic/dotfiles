@@ -285,8 +285,6 @@ function M.config()
 
       vim.g.vim_base64_disable_default_key_mappings = 1
       vim.g.did_load_filetypes = nil
-      vim.g.autoformat_on_save = true
-
 
       if vim.g.colorscheme then
         colorscheme = vim.g.colorscheme

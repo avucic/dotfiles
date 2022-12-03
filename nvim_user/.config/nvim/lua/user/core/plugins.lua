@@ -23,10 +23,10 @@ function M.config()
     },
     -- load local config
     {
-      "ii14/exrc.vim",
-      setup = function()
-        require("user.configs.exrc").setup()
-      end,
+      "klen/nvim-config-local",
+      config = function()
+        require("user.configs.nvim_local_config").config()
+      end
     },
 
     -- Themes
