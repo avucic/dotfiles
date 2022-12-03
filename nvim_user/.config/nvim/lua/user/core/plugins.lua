@@ -26,7 +26,7 @@ function M.config()
       "klen/nvim-config-local",
       config = function()
         require("user.configs.nvim_local_config").config()
-      end
+      end,
     },
 
     -- Themes
@@ -129,6 +129,15 @@ function M.config()
         require("user.configs.diffview").config()
       end,
       opt = true,
+    },
+    {
+      "Almo7aya/openingh.nvim",
+      requires = "tyru/open-browser.vim",
+      opt = true,
+      cmd = {
+        "OpenInGHRepo",
+        "OpenInGHFile",
+      },
     },
 
     -- Jump to char
@@ -639,15 +648,6 @@ function M.config()
         "OpenGithubProject",
       },
     },
-    {
-      "tyru/open-browser-github.vim",
-      opt = true,
-      cmd = {
-        "OpenGithubFile",
-        "OpenGithubProject",
-      },
-    },
-
     -- rest client
     {
       -- checkout manually commit e5f68db73276c4d4d255f75a77bbe6eff7a476ef

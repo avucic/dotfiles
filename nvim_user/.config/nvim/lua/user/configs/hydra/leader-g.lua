@@ -1,17 +1,16 @@
 local M = {}
 
 function M.setup(Hydra, _, _)
-  local git_hint = [[
-  _b_: blame            _s_: status
-  _j_: next hunk        _k_: prev hunk
-  _p_: preview hunk     _r_: reset hunk
-  _R_: reset buffer     _h_: file history
-  _d_: diff view        _o_: open in Github
-]]
-
   Hydra({
     name = "Git",
-    hint = git_hint,
+    hint = [[
+  _b_: blame                       _s_: status
+  _j_: next hunk                   _k_: prev hunk
+  _p_: preview hunk                _r_: reset hunk
+  _R_: reset buffer                _h_: file history
+  _d_: diff view                   _o_: open in Github project
+  _O_: open current file in GH
+]],
     config = {
       invoke_on_body = true,
       color = "pink",
@@ -50,7 +49,8 @@ function M.setup(Hydra, _, _)
       -- d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },
       { "d", "<cmd>DiffviewOpen<cr>", { exit = true } },
       { "h", "<cmd>DiffviewFileHistory %<cr>", { exit = true } },
-      { "o", "<cmd>OpenGithubFile<cr>", { exit = true } },
+      { "o", "<cmd>OpenInGHFile<cr>", { exit = true } },
+      { "O", "<cmd>OpenInGHRepo<cr>", { exit = true } },
       { "<Esc>", nil, { exit = true, nowait = true, desc = false } },
     },
   })
