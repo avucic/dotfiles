@@ -8,8 +8,8 @@ function M.setup(Hydra, _, _)
   _j_: next hunk                   _k_: prev hunk
   _p_: preview hunk                _r_: reset hunk
   _R_: reset buffer                _h_: file history
-  _d_: diff view                   _o_: open in Github project
-  _O_: open current file in GH
+  _d_: diff view                   _o_: open page with line
+  _O_: open current file
 ]],
     config = {
       invoke_on_body = true,
