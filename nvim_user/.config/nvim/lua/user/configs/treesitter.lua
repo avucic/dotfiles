@@ -198,6 +198,7 @@ function M.config()
       "embedded_template",
       "query",
       "rust",
+      "vim",
     },
   }
 end
