@@ -39,9 +39,9 @@ function M.setup(Hydra, cmd, _)
   _p_: projects          _/_: search in file
   _R_: reload fils       _?_: search history
   _r_: resume            _h_: harpoon
-  _t_: focus on tree     _y_: copy file path
-  _e_: file explorer     _E_: browser
-  _n_: new file          _m_: bookmarks
+  _t_: focus on tree     _y_: copy file path ^
+  _e_: file explorer     _n_: new file
+  _m_: bookmarks
   ^
   _<Enter>_: Telescope
 ]]
