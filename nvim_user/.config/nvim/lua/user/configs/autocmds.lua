@@ -3,7 +3,7 @@ local aucmd_dict = {
     {
       pattern = "*",
       callback = function()
-        vim.cmd([[setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])
+        vim.cmd([[setlocal formatoptions-=c formatoptions-=r formatoptions-=o spell]])
       end,
     },
     {
@@ -38,22 +38,22 @@ local aucmd_dict = {
     },
   },
 
-  BufRead = {
-    {
-      pattern = "*",
-      callback = function()
-        vim.api.nvim_win_set_option(0, "spell", true)
-      end,
-    },
-  },
-  BufNewFile = {
-    {
-      pattern = "*",
-      callback = function()
-        vim.api.nvim_win_set_option(0, "spell", true)
-      end,
-    },
-  },
+  -- BufRead = {
+  --   {
+  --     pattern = "*",
+  --     callback = function()
+  --       vim.api.nvim_win_set_option(0, "spell", true)
+  --     end,
+  --   },
+  -- },
+  -- BufNewFile = {
+  --   {
+  --     pattern = "*",
+  --     callback = function()
+  --       vim.api.nvim_win_set_option(0, "spell", true)
+  --     end,
+  --   },
+  -- },
 
   BufWritePre = {
     -- {
