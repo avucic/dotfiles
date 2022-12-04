@@ -161,6 +161,7 @@ function M.config()
       dressing = dressing,
       ["null-ls"] = null_ls,
       indent_blankline = indent_blankline,
+      ["notify"] = { stages = "static" },
     },
 
     -- LuaSnip Options
