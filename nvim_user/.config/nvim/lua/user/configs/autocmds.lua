@@ -38,23 +38,6 @@ local aucmd_dict = {
     },
   },
 
-  -- BufRead = {
-  --   {
-  --     pattern = "*",
-  --     callback = function()
-  --       vim.api.nvim_win_set_option(0, "spell", true)
-  --     end,
-  --   },
-  -- },
-  -- BufNewFile = {
-  --   {
-  --     pattern = "*",
-  --     callback = function()
-  --       vim.api.nvim_win_set_option(0, "spell", true)
-  --     end,
-  --   },
-  -- },
-
   BufWritePre = {
     -- {
     --   callback = function()

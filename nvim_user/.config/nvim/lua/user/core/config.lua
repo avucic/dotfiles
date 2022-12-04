@@ -18,10 +18,8 @@ function M.config()
   local bufferline = require("user.configs.bufferline").config()
   local lsp = require("user.configs.lsp").config()
   local null_ls = require("user.configs.null-ls").config()
-  local mason_null_ls = require("user.configs.mason_null").config()
   local alpha = require("user.configs.alpha").config()
   local aerial = require("user.configs.aerial").config()
-  local _lazygit = require("user.configs.lazygit").config()
   local session_manager = require("user.configs.session_manager").config()
   local mappings = require("user.core.mappings").config()
   local mason = require("user.configs.mason").config()
@@ -74,6 +72,7 @@ function M.config()
         wrap = false, -- sets vim.opt.wrap
         spelllang = { "en_us" },
         conceallevel = 2,
+        laststatus = 3,
       },
       g = {
         mapleader = " ", -- sets vim.g.mapleader
@@ -161,7 +160,6 @@ function M.config()
 
       dressing = dressing,
       ["null-ls"] = null_ls,
-      ["mason-null-ls"] = mason_null_ls,
       indent_blankline = indent_blankline,
     },
 
