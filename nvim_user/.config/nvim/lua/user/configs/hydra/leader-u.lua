@@ -8,7 +8,8 @@ function M.setup(Hydra, _, _)
   _v_: paste mode                _t_: tabline^^
   _u_: url highlight             _w_: wrap^^
   _l_: statusline                _f_: autoformat
-  _c_: conceallevel
+  _c_: conceallevel              _i_: ide
+  _N_: notifications
 ]]
 
   local mode_hydra = Hydra({
@@ -64,6 +65,7 @@ function M.setup(Hydra, _, _)
       { "w", astronvim.ui.toggle_wrap, { desc = "toggle wrap" } },
       { "l", astronvim.ui.toggle_statusline, { desc = "toggle statusline" } },
       { "f", astronvim.ui.toggle_autoformat, { desc = "toggle autoformat" } },
+      { "N", astronvim.ui.toggle_ui_notifications, { desc = "toggle notifications", exit = true } },
       {
         "i",
         "<cmd>Workspace LeftPanelToggle<cr><cmd>Workspace RightPanelToggle<cr>",
