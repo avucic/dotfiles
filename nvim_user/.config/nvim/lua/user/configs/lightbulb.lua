@@ -11,9 +11,9 @@ function M.config()
     -- Example: {"sumneko_lua", "null-ls"}
     -- ignore = { "zk" },
     sign = {
-      enabled = false,
+      enabled = true,
       -- Priority of the gutter sign
-      priority = 10,
+      priority = 100,
     },
     float = {
       enabled = false,
@@ -39,7 +39,7 @@ function M.config()
       },
     },
     virtual_text = {
-      enabled = true,
+      enabled = false,
       -- Text to show at virtual text
       text = "💡",
       -- highlight mode to use for virtual text (replace, combine, blend), see :help nvim_buf_set_extmark() for reference
