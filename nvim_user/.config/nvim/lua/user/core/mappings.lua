@@ -102,6 +102,8 @@ function M.config()
       ["z="] = { "<cmd>lua require('telescope.builtin').spell_suggest()<CR>" },
       ["<leader>W"] = { "<cmd>:noa w<cr>", desc = "Save without format" },
 
+      ["ww"] = { "<cmd>lua require('nvim-window').pick()<cr>" },
+
       -- Bookmarks
       ["mm"] = { ":BookmarkToggle<cr>" },
       -- ["ma"] = { ":lua require('telescope').extensions.vim_bookmarks.all()<cr>", desc = "List all Bookmarks" },
