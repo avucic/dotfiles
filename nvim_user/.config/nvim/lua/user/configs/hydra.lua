@@ -36,7 +36,7 @@ function M.config()
   -- debug
   require("user.configs.hydra.leader-d").setup(Hydra, cmd, pcmd)
   -- Togggle
-  require("user.configs.hydra.leader-t").setup(Hydra, cmd, pcmd)
+  require("user.configs.hydra.leader-u").setup(Hydra, cmd, pcmd)
   -- Jump
   require("user.configs.hydra.leader-j").setup(Hydra, cmd, pcmd)
 end

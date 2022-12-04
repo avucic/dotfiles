@@ -2,13 +2,13 @@ local M = {}
 
 function M.setup(Hydra, _, _)
   local hint = [[
-  _m_: poet mode                 _]_: toggle minimap^^
-  _d_: toggle diagnostics        _s_: toggle signcolumn^^
-  _n_: change line number        _z_: toggle spell^^
-  _v_: toggle paste mode         _t_: toggle tabline^^
-  _u_: toggle url highlight      _w_: toggle wrap^^
-  _l_: toggle statusline         _f_: toggle autoformat
-  _c_: toggle conceallevel
+  _m_: poet mode                 _]_: minimap^^
+  _d_: diagnostics               _s_: signcolumn^^
+  _n_: change line number        _z_: spell^^
+  _v_: paste mode                _t_: tabline^^
+  _u_: url highlight             _w_: wrap^^
+  _l_: statusline                _f_: autoformat
+  _c_: conceallevel
 ]]
 
   local mode_hydra = Hydra({
@@ -49,7 +49,7 @@ function M.setup(Hydra, _, _)
       },
     },
     mode = "n",
-    body = "<Leader>t",
+    body = "<Leader>u",
     heads = {
       { "m", choose_mode, { desc = "Poet mode" } },
       { "]", "<cmd>ToggleMiniMap<cr>", { desc = "Minimap" } },
@@ -64,6 +64,11 @@ function M.setup(Hydra, _, _)
       { "w", astronvim.ui.toggle_wrap, { desc = "toggle wrap" } },
       { "l", astronvim.ui.toggle_statusline, { desc = "toggle statusline" } },
       { "f", astronvim.ui.toggle_autoformat, { desc = "toggle autoformat" } },
+      {
+        "i",
+        "<cmd>Workspace LeftPanelToggle<cr><cmd>Workspace RightPanelToggle<cr>",
+        { exit = true },
+      },
       { "<Esc>", nil, { exit = true, nowait = true, desc = false } },
     },
   })

@@ -456,7 +456,7 @@ function M.config()
         z = { "+Spelling" },
         y = { "+Yank" },
         d = { "+Debug" },
-        t = { "+Toggle" },
+        u = { "+Toggle" },
         j = { "+Jump" },
         p = { "+Projects" },
       },
