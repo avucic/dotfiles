@@ -7,12 +7,7 @@ local M = {}
 -- where a value with no key simply has an implicit numeric key
 
 function M.config()
-  local colorscheme = "default_theme"
-  local present, _ = pcall(require, "onedark")
-  if present then
-    colorscheme = "onedark"
-  end
-
+  local default_theme = require("user.configs.colors.default_theme").config()
   local plugins = require("user.core.plugins").config()
   local wk = require("user.configs.which_key").config()
   local treesitter = require("user.configs.treesitter").config()
@@ -119,48 +114,7 @@ function M.config()
     },
 
     -- Default theme configuration
-    default_theme = {
-      -- Modify the color palette for the default theme
-      colors = {
-        fg = "#abb2bf",
-        bg = "#1e222a",
-      },
-      highlights = function(hl) -- or a function that returns a new table of colors to set
-        local C = require("default_theme.colors")
-
-        hl.Normal = { fg = C.fg, bg = C.bg }
-
-        -- New approach instead of diagnostic_style
-        hl.DiagnosticError.italic = true
-        hl.DiagnosticHint.italic = true
-        hl.DiagnosticInfo.italic = true
-        hl.DiagnosticWarn.italic = true
-
-        return hl
-      end,
-      -- enable or disable highlighting for extra plugins
-      plugins = {
-        aerial = true,
-        beacon = false,
-        bufferline = true,
-        cmp = true,
-        dashboard = true,
-        highlighturl = true,
-        hop = false,
-        indent_blankline = true,
-        lightspeed = false,
-        ["neo-tree"] = true,
-        notify = true,
-        ["nvim-tree"] = false,
-        ["nvim-web-devicons"] = true,
-        rainbow = true,
-        symbols_outline = false,
-        telescope = true,
-        treesitter = true,
-        vimwiki = false,
-        ["which-key"] = true,
-      },
-    },
+    default_theme = default_theme,
 
     -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
     diagnostics = {

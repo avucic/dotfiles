@@ -2,7 +2,7 @@ theme = [
     ('list-header', '', '', '', '', ''),
     ('list-header-column', 'underline', '', '', 'underline', ''),
     ('list-header-column-separator', '', '', '', '', ''),
-    ('striped-table-row', 'white', 'dark gray', '', 'white', 'g15'),
+    ('striped-table-row', 'white', 'dark gray', '', 'white', '#1a1d24'),
     ('reveal focus', 'white', 'dark blue', 'standout', 'black', 'dark blue'),
     ('message status', '', '', '', '', ''),
     ('message error', 'white', 'dark red', 'standout', 'white', 'dark red'),

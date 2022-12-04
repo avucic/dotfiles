@@ -1,5 +1,4 @@
-; extends
-
+;; extends
 (block_quote) @MarkdownBlockQuote
 (block_quote_marker)@MarkdownBlockQuote
 (block_continuation)@MarkdownBlockQuote
@@ -13,7 +12,7 @@
 (list_marker_dot) @text.title
 (list_marker_minus) @text.title
 (list_marker_star) @text.title
-(pipe_table)@MarkdownTable
+(pipe_table) @MarkdownTable
 (pipe_table_header
   (pipe_table_cell) @MarkdownTableHeaderCell
 )
@@ -24,7 +23,6 @@
 ((atx_h4_marker) @conceal (#set! conceal ""))
 ((atx_h5_marker) @conceal (#set! conceal ""))
 ((atx_h6_marker) @conceal (#set! conceal ""))
-; ((block_quote_marker) @conceal (#set! conceal ""))
 
 ((atx_heading
   (atx_h1_marker) @_h1
@@ -45,7 +43,6 @@
   (atx_h6_marker) @_h6
   (_) @h6))
 
-
 ; markdown meta section
 (section
   (paragraph) @MarkdownMeta (#match? @MarkdownMeta "^Created.*"))
@@ -57,6 +54,7 @@
   (list_marker_dot)
   (list_marker_parenthesis)
 ] @MarkdownListItemMarker )
+
 
 
 ; ((shortcut_link) @conceal (#set! conceal "") (eq? @conceal "[ ]"))

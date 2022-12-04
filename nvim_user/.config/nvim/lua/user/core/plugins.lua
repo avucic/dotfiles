@@ -31,12 +31,6 @@ function M.config()
 
     -- Themes
     {
-      "navarasu/onedark.nvim",
-      config = function()
-        require("user.configs.colors.onedark").config()
-      end,
-    },
-    {
       "rmehri01/onenord.nvim",
       config = function()
         require("onenord").setup({

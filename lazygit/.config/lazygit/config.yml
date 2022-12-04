@@ -18,9 +18,9 @@ gui:
     selectedLineBgColor:
       - reverse
     selectedRangeBgColor:
-      # - reverse
-      - default
-      # - "#2c313a"
+      - reverse
+      # - '#2B323D'
+      # - default
     optionsTextColor:
       - magenta
     cherryPickedCommitBgColor:

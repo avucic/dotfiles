@@ -6,6 +6,12 @@ function! MarkdownBlocks()
 
     " iterate through each line in the buffer
     for l:lnum in range(1, len(getline(1, "$")))
+        " detect horizontal Line
+        if getline(l:lnum) =~ "^---$"
+            " place sign
+            execute "sign place ".l:lnum." line=".l:lnum." name=hrline file=".expand("%")
+        endif
+
         " detect the start fo a code block
         if getline(l:lnum) =~ "^```.*$" || l:continue
             " continue placing signs, until the block stops
@@ -17,7 +23,23 @@ function! MarkdownBlocks()
                 let l:continue = 0
             endif
         endif
+
     endfor
+endfunction
+
+sign define hrline linehl=@MarkdownHorizontalLine
+
+function! HorizontalLine()
+    execute "sign unplace * file=".expand("%")
+
+    " iterate through each line in the buffer
+    " for l:lnum in range(1, len(getline(1, "$")))
+    "     " detect the start fo a code block
+    "     if getline(l:lnum) =~ "^---$"
+    "         " place sign
+    "         execute "sign place ".l:lnum." line=".l:lnum." name=hrline file=".expand("%")
+    "     endif
+    " endfor
 endfunction
 
 function! MarkdownConceal()
@@ -32,6 +54,7 @@ function! MarkdownConceal()
     call matchadd('Conceal',  '\[[oO]\]', 10, -1, {'conceal':'⬕'})
     call matchadd('Conceal',  '\~\~\ze.\+\~\~', 10, -1, {'conceal':''})
     call matchadd('Conceal',  '\~\~.\+\zs\~\~\ze', 10, -1, {'conceal':''})
+    call matchadd('Conceal',  '^---$', 10, -1, {'conceal':''})
 
     call matchadd('@MarkdownTag',  '\v#([a-zA-Z_-]\/?)+')
     call matchadd('MyStrikethrough', '\~\~\zs.\+\ze\~\~')
@@ -52,6 +75,12 @@ set shiftwidth=4 "TODO fix prettier . this is workaround for list indentation
 au BufWinEnter *.md call MarkdownBlocks()
 au BufWritePost *.md call MarkdownBlocks()
 au InsertLeave *.md call MarkdownBlocks()
+
+" hrline
+" au BufWinEnter *.md call HorizontalLine()
+" au BufWritePost *.md call HorizontalLine()
+" au InsertLeave *.md call HorizontalLine()
+
 au BufWinLeave *.md call clearmatches()
 
 " tag
