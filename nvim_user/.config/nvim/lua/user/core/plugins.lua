@@ -7,20 +7,7 @@ function M.config()
     -- ["akinsho/bufferline.nvim"] = { disable = true },
     ["nvim-neo-tree/neo-tree.nvim"] = { disable = true },
     ["s1n7ax/nvim-window-picker"] = { disable = true },
-    ["Shatur/neovim-session-manager"] = { disable = true },
-    -- session
-    {
-      "rmagatti/auto-session",
-      setup = function()
-        vim.g.auto_session_pre_save_cmds = { "ToggleIDE" }
-      end,
-      config = function()
-        require("auto-session").setup({
-          log_level = "error",
-          auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
-        })
-      end,
-    },
+    -- ["Shatur/neovim-session-manager"] = { disable = true },
     {
       event = "BufRead",
       "kevinhwang91/nvim-bqf",
