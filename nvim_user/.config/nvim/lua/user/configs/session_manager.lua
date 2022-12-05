@@ -5,6 +5,10 @@ function M.config()
     autosave_last_session = true,
     autosave_ignore_filetypes = {
       "toggleterm",
+      "filetree",
+    },
+    autosave_ignore_buftypes = {
+      "filetree",
     },
   }
 end
