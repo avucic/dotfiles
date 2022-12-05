@@ -38,6 +38,16 @@ function M.config()
         })
       end,
     },
+    {
+      "marko-cerovac/material.nvim",
+      setup = function()
+        vim.g.material_style = "lighter"
+      end,
+
+      config = function()
+        require("material").setup()
+      end,
+    },
     --  Surround text with anything
     {
       "tpope/vim-surround",

@@ -9,7 +9,7 @@ function M.setup(Hydra, _, _)
   _u_: url highlight             _w_: wrap^^
   _l_: statusline                _f_: autoformat
   _c_: conceallevel              _i_: ide
-  _N_: notifications
+  _N_: notifications             _T_: theme
 ]]
 
   local mode_hydra = Hydra({
@@ -34,6 +34,16 @@ function M.setup(Hydra, _, _)
       vim.cmd([[set conceallevel=2]])
     else
       vim.cmd([[set conceallevel=0]])
+    end
+  end
+
+  local function toggle_theme()
+    if vim.g.current_colorscheme == "light" then
+      vim.g.current_colorscheme = "dark"
+      vim.cmd([[colorscheme default_theme]])
+    else
+      vim.g.current_colorscheme = "light"
+      vim.cmd([[colorscheme material]])
     end
   end
 
@@ -71,6 +81,7 @@ function M.setup(Hydra, _, _)
         "<cmd>Workspace LeftPanelToggle<cr><cmd>Workspace RightPanelToggle<cr>",
         { exit = true },
       },
+      { "T", toggle_theme },
       { "<Esc>", nil, { exit = true, nowait = true, desc = false } },
     },
   })
