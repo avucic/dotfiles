@@ -226,6 +226,12 @@ function M.config()
         date_picker.config()
       end
 
+      local macro_to_visual_selection =
+        require("user.core.utils").load_module("user.plugins.apply_macro_to_visual_selection")
+      if macro_to_visual_selection then
+        macro_to_visual_selection.config()
+      end
+
       -- load autocommands
       local sources = {
         "user.configs.autocmds",
