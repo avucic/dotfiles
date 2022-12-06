@@ -71,15 +71,15 @@ function M.config()
     },
 
     -- Multi cursor
-    {
-      "mg979/vim-visual-multi",
-      branch = "master",
-      event = "BufRead",
-      setup = function()
-        vim.g["VM_leader"] = "\\"
-        vim.g["VM_default_mappings"] = 1
-      end,
-    },
+    -- {
+    --   "mg979/vim-visual-multi",
+    --   branch = "master",
+    --   event = "BufRead",
+    --   setup = function()
+    --     vim.g["VM_leader"] = "\\"
+    --     vim.g["VM_default_mappings"] = 1
+    --   end,
+    -- },
 
     -- Autocompletion
     {
