@@ -1,6 +1,6 @@
 local M = {}
 
-function M.setup(Hydra, cmd, _)
+function M.setup(Hydra, _, _)
   local harpoon_hint = [[
   _h_: list files      _a_: Add file
   _1_: open file 1     _2_: Open file 2 ^^
@@ -18,14 +18,13 @@ function M.setup(Hydra, cmd, _)
       },
     },
     heads = {
-      { "a", "<cmd>lua require('harpoon.kark').add_file()<cr>", { desc = "Add file", exit = true } },
-      -- h = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "Open Menu" },
-      { "h", "<cmd>lua require('telescope').extensions.harpoon.marks()<cr>", { exit = true } },
-      { "1", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", { exit = true, desc = "Open File 1" } },
-      { "2", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", { exit = true, desc = "Open File 2" } },
-      { "3", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", { exit = true, desc = "Open File 3" } },
-      { "4", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", { exit = true, desc = "Open File 4" } },
-      { "<Esc>", nil, { exit = true, desc = false } },
+      { "a", "<cmd>lua require('harpoon.kark').add_file()<cr>" },
+      { "h", "<cmd>lua require('telescope').extensions.harpoon.marks()<cr>" },
+      { "1", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", { desc = "Open File 1" } },
+      { "2", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", { desc = "Open File 2" } },
+      { "3", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", { desc = "Open File 3" } },
+      { "4", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", { desc = "Open File 4" } },
+      { "<Esc>", nil, { desc = false } },
     },
   })
 
@@ -39,9 +38,9 @@ function M.setup(Hydra, cmd, _)
   _p_: projects          _/_: search in file
   _R_: reload fils       _?_: search history
   _r_: resume            _h_: harpoon
-  _t_: focus on tree     _y_: copy file path ^
-  _e_: file explorer     _n_: new file
-  _m_: bookmarks
+  _y_: copy file path    _m_: bookmarks
+  _e_: file explorer     _E_: file explorer project root ^
+  _n_: new file
   ^
   _<Enter>_: Telescope
 ]]
@@ -51,7 +50,7 @@ function M.setup(Hydra, cmd, _)
     hint = telescopehint,
     config = {
       invoke_on_body = true,
-      color = "pink",
+      color = "teal",
       hint = {
         border = "rounded",
         type = "window",
@@ -60,48 +59,49 @@ function M.setup(Hydra, cmd, _)
     mode = "n",
     body = "<Leader>f",
     heads = {
-      { "e", "<cmd>Neotree toggle<cr>", { exit = true } },
-      { "n", "<cmd>enew<cr>", { exit = true } },
-      { "E", "<cmd>Telescope file_browser<cr>", { exit = true } },
-      { "m", "<cmd>lua require('telescope').extensions.vim_bookmarks.all()<cr>", { exit = true } },
-      { "f", "<cmd>lua require('telescope.builtin').find_files()<CR>", { exit = true } },
+      { "n", "<cmd>enew<cr>" },
+      { "E", "<cmd>Telescope file_browser<cr>" },
+      {
+        "e",
+        "<cmd>lua require('telescope').extensions.file_browser.file_browser {path = '%:p:h', files = true}<cr>",
+      },
+      { "m", "<cmd>lua require('telescope').extensions.vim_bookmarks.all()<cr>" },
+      { "f", "<cmd>lua require('telescope.builtin').find_files()<CR>" },
       {
         "F",
         "<cmd>lua require('telescope.builtin').find_files({ hidden = true, no_ignore = true })<CR>",
-        { exit = true },
       },
-      { "g", "<cmd>lua require('telescope.builtin').live_grep()<CR>", { exit = true } },
+      { "g", "<cmd>lua require('telescope.builtin').live_grep()<CR>" },
       {
         "o",
         "<cmd>lua require('telescope.builtin').oldfiles()<CR>",
-        { exit = true, desc = "recently opened files" },
+        { desc = "recently opened files" },
       },
-      { "r", "<cmd>lua require('telescope.builtin').resume()<CR>", { exit = true } },
+      { "r", "<cmd>lua require('telescope.builtin').resume()<CR>" },
       {
         "p",
         "<cmd>lua require('telescope').extensions.project.project{}<CR>",
-        { exit = true, desc = "projects" },
+        { desc = "projects" },
       },
       {
         "/",
         "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>",
-        { exit = true, desc = "search in file" },
+        { desc = "search in file" },
       },
       {
         "?",
         "<cmd>lua require('telescope.builtin').search_history()<CR>",
         { desc = "search history" },
       },
-      { "R", "<cmd>e %<CR>", { exit = true } },
-      { "h", choose_harpoon, { exit = true, desc = "choose harpoon" } },
-      { "t", "<cmd>Neotree focus<CR>", { exit = true } },
-      { "y", ':let @*=expand("%")<cr>', { exit = true, desc = "Copy file path" } },
+      { "R", "<cmd>e %<CR>" },
+      { "h", choose_harpoon, { desc = "choose harpoon" } },
+      { "y", ':let @*=expand("%")<cr>', { desc = "Copy file path" } },
       {
         "<Enter>",
         "<cmd>lua require('telescope.builtin')<CR>:Telescope<CR>",
-        { exit = true, desc = "list all pickers" },
+        { desc = "list all pickers" },
       },
-      { "<Esc>", nil, { exit = true, nowait = true, desc = false } },
+      { "<Esc>", nil, { nowait = true, desc = false } },
     },
   })
 end
