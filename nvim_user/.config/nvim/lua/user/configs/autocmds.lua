@@ -4,6 +4,13 @@ local aucmd_dict = {
       pattern = "*",
       callback = function()
         vim.cmd([[setlocal formatoptions-=c formatoptions-=r formatoptions-=o spell]])
+
+        vim.cmd([[
+hi SpellBad   guifg=NONE guisp=red    gui=undercurl term=underline cterm=undercurl
+hi SpellCap   guifg=NONE guisp=yellow gui=undercurl term=underline cterm=undercurl
+hi SpellRare  guifg=NONE guisp=blue   gui=undercurl term=underline cterm=undercurl
+hi SpellLocal guifg=NONE guisp=red gui=undercurl term=underline cterm=undercurl
+  ]])
       end,
     },
     {
@@ -17,10 +24,6 @@ local aucmd_dict = {
       callback = function()
         vim.api.nvim_win_set_option(0, "wrap", true)
       end,
-    },
-    {
-      pattern = "markdown",
-      callback = function() end,
     },
     {
       pattern = "qf",
