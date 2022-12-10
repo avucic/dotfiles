@@ -255,26 +255,6 @@ function M.config()
       if colorscheme == "onedark" then
         require("user.configs.colors.onedark").config()
       end
-      -- Set autocommands
-      -- vim.api.nvim_create_augroup("packer_conf", {})
-      -- vim.api.nvim_create_autocmd("BufWritePost", {
-      --   desc = "Sync packer after modifying plugins.lua",
-      --   group = "packer_conf",
-      --   pattern = "plugins.lua",
-      --   command = "source <afile> | PackerSync",
-      -- })
-
-      -- hi Folded guifg = #69707D  guibg=NONE
-      -- hi CurrentWordTwins guibg=#3e4452 gui=NONE cterm=NONE
-      -- vim.cmd [[ colorscheme onedark ]]
-
-      -- Set autocommands
-      -- vim.cmd [[
-      --   augroup packer_conf
-      --     autocmd!
-      --     autocmd bufwritepost plugins.lua source <afile> | PackerSync
-      --   augroup end
-      -- ]]
     end,
   }
 
