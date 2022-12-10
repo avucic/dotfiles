@@ -3,7 +3,7 @@ local M = {}
 function M.setup(Hydra, _, _)
   local harpoon_hint = [[
   _h_: list files      _a_: Add file
-  _1_: open file 1     _2_: Open file 2 ^^
+  _1_: open file 1     _2_: Open file 2 ^
   _3_: open file 3     _4_: Open file 4
 ]]
 
@@ -39,9 +39,9 @@ function M.setup(Hydra, _, _)
   _R_: reload fils       _?_: search history
   _r_: resume            _h_: harpoon
   _y_: copy file path    _m_: bookmarks
-  _e_: file explorer     _E_: file explorer project root ^
+  _e_: file explorer     _E_: file explorer project root
   _n_: new file
-  ^
+
   _<Enter>_: Telescope
 ]]
 

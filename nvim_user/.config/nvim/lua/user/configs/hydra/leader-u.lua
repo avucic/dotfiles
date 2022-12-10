@@ -2,8 +2,8 @@ local M = {}
 
 function M.setup(Hydra, _, _)
   local hint = [[
-  _m_: poet mode                 _]_: minimap^^
-  _d_: diagnostics               _s_: signcolumn^^
+  _m_: poet mode                 _]_: minimap
+  _d_: diagnostics               _s_: signcolumn ^
   _n_: change line number        _z_: spell^^
   _v_: paste mode                _t_: tabline^^
   _u_: url highlight             _w_: wrap^^
