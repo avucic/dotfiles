@@ -80,7 +80,8 @@ function M.config()
         i = {
           -- ["<C-j>"] = actions.cycle_history_next,
           -- ["<C-k>"] = actions.cycle_history_prev,
-          ["<C-h>"] = fb_actions.goto_home_dir,
+          ["<c-c>"] = actions.close,
+          ["<C-/>"] = fb_actions.goto_home_dir,
           ["<C-n>"] = actions.move_selection_next,
           ["<C-p>"] = actions.move_selection_previous,
 
@@ -111,6 +112,8 @@ function M.config()
 
         n = {
           ["q"] = actions.close,
+          ["<c-c>"] = actions.close,
+          ["<esc>"] = false,
           ["j"] = actions.move_selection_next,
           ["k"] = actions.move_selection_previous,
           --   ["<CR>"] = actions.select_default,
@@ -191,6 +194,29 @@ function M.config()
 
             return true
           end,
+        },
+      },
+      file_browser = {
+        theme = "ivy",
+        -- disables netrw and use telescope-file-browser in its place
+        -- cwd_to_path = true,
+        files = false,
+        -- hijack_netrw = true,
+        select_buffer = true,
+        -- respect_gitignore = true,
+        hide_parent_dir = true,
+        mappings = {
+          ["i"] = {
+            ["<c-h>"] = fb_actions.toggle_hidden,
+            -- your custom insert mode mappings
+          },
+          ["n"] = {
+            ["a"] = fb_actions.create,
+            ["h"] = fb_actions.goto_parent_dir,
+            ["<c-h>"] = fb_actions.toggle_hidden,
+            ["l"] = actions.select_default,
+            -- your custom normal mode mappings
+          },
         },
       },
     },
