@@ -140,19 +140,20 @@ function M.config()
 
   return {
     servers = {
-      "sumneko_lua",
-      "solargraph",
-      "gopls",
-      "tsserver",
-      "html",
-      "cssls",
-      "yamlls",
-      "sqlls",
-      "eslint",
-      "marksman",
-      "jsonls",
-      "rust_analyzer",
-      "taplo",
+      -- "sumneko_lua",
+      -- "solargraph",
+      -- "gopls",
+      -- "tsserver",
+      -- "html",
+      -- "cssls",
+      -- "yamlls",
+      -- "sqlls",
+      -- "eslint",
+      -- "marksman",
+      -- "zk",
+      -- "jsonls",
+      -- "rust_analyzer",
+      -- "taplo",
     },
     -- server_registration = {
     --   gopls = {
