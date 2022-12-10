@@ -9,7 +9,7 @@ M.config = function() -- or a function that returns a new table of colors to set
     },
     highlights = function(hl)
       local C = require("default_theme.colors")
-      local float_color = "#1a1d24"
+      -- local float_color = "#1a1d24"
 
       hl.Comment.italic = true
       hl.Normal = { fg = C.fg, bg = C.bg }
@@ -73,6 +73,18 @@ M.config = function() -- or a function that returns a new table of colors to set
       hl["@MarkdownTagItem"] = { link = "@constant" }
       hl["@MarkdownHorizontalLine"] = { fg = C.red, bg = C.bg_1 }
 
+      hl["SpellBad"] = { sp = "red", undercurl = true }
+      hl["SpellCap"] = { sp = "yellow", undercurl = true }
+      hl["SpellRare"] = { sp = "blue", undercurl = true }
+      hl["SpellLocal"] = { sp = "red", undercurl = true }
+
+      -- vim.cmd([[
+      --   hi SpellBad   guifg=NONE guisp=red    gui=undercurl term=underline cterm=undercurl
+      --   hi SpellCap   guifg=NONE guisp=yellow gui=undercurl term=underline cterm=undercurl
+      --   hi SpellRare  guifg=NONE guisp=blue   gui=undercurl term=underline cterm=undercurl
+      --   hi SpellLocal guifg=NONE guisp=red gui=undercurl term=underline cterm=undercurl
+      --     ]])
+      --
       return hl
     end,
     -- enable or disable highlighting for extra plugins
