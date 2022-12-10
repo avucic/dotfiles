@@ -1,15 +1,36 @@
+local ingore_spell = {
+  "Telescope*",
+  "toggleterm",
+  "prompt",
+  "alpha",
+  "WhichKey",
+  "cmp_menu",
+  "hydra_hint",
+  "nofile",
+  "filetree",
+  "packer",
+  "bufferlist",
+}
+
 local aucmd_dict = {
   FileType = {
     {
       pattern = "*",
       callback = function()
-        vim.cmd([[setlocal formatoptions-=c formatoptions-=r formatoptions-=o spell]])
-      end,
-    },
-    {
-      pattern = "Telescope*,toggleterm",
-      callback = function()
-        vim.cmd([[set nospell]])
+        vim.cmd([[setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])
+        -- TODO: find a better way to fix spell highlight issue?
+        if vim.g.is_spell_off ~= true then
+          for _, value in pairs(ingore_spell) do
+            if value == vim.o.filetype then
+              vim.cmd([[setlocal nospell]])
+              return
+            end
+          end
+
+          vim.defer_fn(function()
+            vim.cmd([[setlocal spell syntax=off]])
+          end, 1)
+        end
       end,
     },
     {
@@ -33,7 +54,6 @@ local aucmd_dict = {
       end,
     },
   },
-
   BufWritePre = {
     -- {
     --   callback = function()

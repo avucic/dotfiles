@@ -56,6 +56,7 @@ au BufWinEnter *.md call MarkdownConceal()
 
 set nowrap
 set shiftwidth=4 "TODO fix prettier . this is workaround for list indentation
+set syntax=off "TODO fix prettier . this is workaround for list indentation
 
 " block
 au BufWinEnter *.md call MarkdownBlocks()
