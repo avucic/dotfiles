@@ -26,6 +26,7 @@ function M.config()
   local window_picker = require("user.configs.window_picker").config()
   local dressing = require("user.configs.dressing").config()
   local indent_blankline = require("user.configs.indent_blankline").config()
+  local dap = require("user.configs.dap").config()
 
   local config = {
 
@@ -164,6 +165,11 @@ function M.config()
       ["notify"] = { stages = "static" },
     },
 
+    dap = {
+      adapters = dap.adapters,
+      configurations = dap.configurations,
+    },
+    dapui = dap.dapui,
     -- LuaSnip Options
     luasnip = {
       -- Extend filetypes

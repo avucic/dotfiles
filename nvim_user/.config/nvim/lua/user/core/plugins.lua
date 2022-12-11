@@ -185,17 +185,6 @@ function M.config()
 
     -- Debugging
     {
-      "mfussenegger/nvim-dap",
-      -- event = "BufWinEnter",
-      setup = function()
-        require("user.configs.dap").setup()
-      end,
-    },
-    {
-      "rcarriga/nvim-dap-ui",
-      after = "nvim-dap",
-    },
-    {
       "theHamsta/nvim-dap-virtual-text",
       after = "nvim-dap",
     },

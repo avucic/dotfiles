@@ -1,10 +1,6 @@
 local M = {}
 
-local util = require("user.core.utils")
--- local job = util.load_module("plenary.job")
--- local uv = vim.loop
-
-local function adapter(callback, config)
+M.adapter = function(callback, config)
   local stdout = vim.loop.new_pipe(false)
   local handle
   local pid_or_err
@@ -76,10 +72,6 @@ local function adapter(callback, config)
   vim.defer_fn(function()
     callback({ type = "server", host = "127.0.0.1", port = port })
   end, 3000)
-end
-
-function M.setup(dap)
-  dap.adapters.go = adapter
 end
 
 return M

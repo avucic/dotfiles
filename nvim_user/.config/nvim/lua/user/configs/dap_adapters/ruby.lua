@@ -1,6 +1,6 @@
 local M = {}
 
-local function adapter(callback, config)
+M.adapter = function(callback, config)
   local handle
   local stdout = vim.loop.new_pipe(false)
   local pid_or_err
@@ -58,10 +58,6 @@ local function adapter(callback, config)
   vim.defer_fn(function()
     callback({ type = "server", host = host, port = port })
   end, waiting)
-end
-
-function M.setup(dap)
-  dap.adapters.ruby = adapter
 end
 
 return M

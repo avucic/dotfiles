@@ -24,7 +24,11 @@ function M.setup(Hydra, _, _)
     mode = "n",
     body = "<Leader>d",
     heads = {
-      { "o", "<cmd>lua require('vstask').load_dap_tasks()<cr><cmd>lua require('dap').open()<cr>", { desc = "Open" } },
+      {
+        "o",
+        "<cmd>lua require('vstask').load_dap_tasks()<cr><cmd>lua require('dap').continue()<cr>",
+        { desc = "Open" },
+      },
       {
         "d",
         "<cmd>lua require('vstask').load_dap_tasks()<cr><cmd>lua require('dap').continue()<cr>",

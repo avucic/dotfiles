@@ -7,8 +7,8 @@ local M = {}
 --     end
 -- end
 
-function M.setup(dap)
-  dap.adapters.codelldb = {
+function M.config()
+  return {
     type = "server",
     port = "${port}",
     executable = {
@@ -16,7 +16,6 @@ function M.setup(dap)
       args = { "--port", "${port}" },
     },
   }
-  dap.adapters.rust = dap.adapters.codelldb
 
   -- dap.configurations.rust = {
   --   {
