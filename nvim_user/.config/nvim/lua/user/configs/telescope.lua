@@ -207,11 +207,13 @@ function M.config()
         hide_parent_dir = true,
         mappings = {
           ["i"] = {
+            ["A"] = fb_actions.create,
             ["<c-h>"] = fb_actions.toggle_hidden,
             -- your custom insert mode mappings
           },
           ["n"] = {
             ["a"] = fb_actions.create,
+            ["A"] = fb_actions.create,
             ["h"] = fb_actions.goto_parent_dir,
             ["<c-h>"] = fb_actions.toggle_hidden,
             ["l"] = actions.select_default,
