@@ -39,5 +39,7 @@ function M.config()
   require("user.configs.hydra.leader-u").setup(Hydra, cmd, pcmd)
   -- Jump
   require("user.configs.hydra.leader-j").setup(Hydra, cmd, pcmd)
+  -- Treesitter incremental selection
+  require("user.configs.hydra.gV").setup(Hydra, cmd, pcmd)
 end
 return M
