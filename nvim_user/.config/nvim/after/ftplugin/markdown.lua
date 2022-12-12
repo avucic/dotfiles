@@ -1,19 +1,18 @@
 local Hydra = require("hydra")
 
-local table_hint = [[
-   _r_: realig         _dr_: delete row     _dc_: delete column
-  _mt_: tableize       _ms_: sort table     _dC_: delete cell
-  _fa_: add formula    _fe_: eval formula   _ic_: insert column after
+local table_hydra_normal = Hydra({
+	name = "Table",
+	hint = [[
+   _r_: realign         _dr_: delete row     _dc_: delete column
+  _mt_: tabelize        _ms_: sort table     _dC_: delete cell
+  _fa_: add formula     _fe_: eval formula   _ic_: insert column after
    _?_: echo cell map   _iC_: insert column before ^ ^
 
   ^   _K_   ^
   _H_     _L_
   ^   _J_   ^
-]]
+]],
 
-local table_hydra_normal = Hydra({
-	name = "Table",
-	hint = table_hint,
 	config = {
 		on_key = false,
 		invoke_on_body = true,
@@ -79,30 +78,6 @@ local function choose_diagram_hydra()
 	diagram_hydra:activate()
 end
 
--- local bullet_hint = [[
--- _x_: toggle checkbox  _n_: renumber
--- ]]
-
--- local bullet_hydra = Hydra({
--- 	name = "Draw Diagram",
--- 	hint = bullet_hint,
--- 	config = {
--- 		buffer = true,
--- 		invoke_on_body = true,
--- 		hint = {
--- 			border = "rounded",
--- 		},
--- 		on_enter = function()
--- 			vim.o.virtualedit = "all"
--- 		end,
--- 	},
--- 	heads = {
--- 		{ "x", "<Plug>(bullets-toggle-checkbox)", { exit = false } },
--- 		{ "n", "<Plug>(bullets-renumber)", { exit = true } },
--- 		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },
--- 	},
--- })
---
 -- local function choose_bullet_hydra()
 -- 	bullet_hydra:activate()
 -- end
@@ -143,8 +118,58 @@ Hydra({
 	},
 })
 
+local ascii_tree_hydra = Hydra({
+	name = "Ascii Tree",
+	config = {
+		on_key = false,
+		invoke_on_body = true,
+	},
+	heads = {
+		{ "t", "<cmd>AsciiTree<cr>", { exit = false } },
+		-- { "u", "<cmd>AsciiTreeUndo<cr>", { exit = false, mode = "v" } },
+		-- { "<Esc>", "<esc>", { exit = true, nowait = true, desc = false, mode = "v" } },
+	},
+})
+
+local ascii_tree_hydra = Hydra({
+	name = "Draw Diagram",
+	hint = [[
+	_t_: tree
+]],
+	config = {
+		buffer = true,
+		color = "pink",
+		invoke_on_body = true,
+		hint = {
+			border = "rounded",
+		},
+		on_enter = function()
+			vim.o.virtualedit = "all"
+		end,
+	},
+	heads = {
+		{ "t", "<cmd>AsciiTree<cr>", { exit = false } },
+		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },
+	},
+})
+
+Hydra({
+	name = "Markdown",
+	config = {
+		color = "teal",
+		on_key = false,
+		invoke_on_body = true,
+	},
+	mode = { "v" },
+	body = "<leader>m",
+	heads = {
+		{ "t", "<leader>mt", { desc = "ascii tree", remap = true } },
+		{ "u", "<leader>mu", { desc = "ascii tree", remap = true } },
+		{ "<Esc>", "<Cmd>MarkdownPreviewStop<CR>", { exit = true, nowait = true, desc = false } },
+	},
+})
+
 vim.api.nvim_win_set_option(0, "wrap", true)
-vim.api.nvim_win_set_option(0, "conceallevel", 2)
 vim.api.nvim_win_set_option(0, "foldlevel", 99)
 vim.api.nvim_buf_set_keymap(
 	0,
@@ -154,5 +179,6 @@ vim.api.nvim_buf_set_keymap(
 	{ noremap = true, desc = "Go to Declaration" }
 )
 
-vim.api.nvim_buf_set_keymap(0, "n", "<bs>", [[:ZkBacklinks<CR>]], { noremap = true, desc = "Back links" })
+vim.api.nvim_buf_set_keymap(0, "v", "<leader>mt", [[:AsciiTree]], { noremap = true, desc = "AsciiTree" })
+vim.api.nvim_buf_set_keymap(0, "v", "<leader>mu", [[:AsciiTreeUndo]], { noremap = true, desc = "AsciiTreeUndo" })
 vim.api.nvim_buf_set_keymap(0, "n", "<bs>", [[:ZkBacklinks<CR>]], { noremap = true, desc = "Back links" })
