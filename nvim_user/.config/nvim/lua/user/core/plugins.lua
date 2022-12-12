@@ -392,6 +392,11 @@ function M.config()
       cmd = { "MarkdownPreview" },
       ft = "markdown",
     },
+    {
+      "xorid/asciitree.nvim",
+      ft = "markdown",
+      cmd = { "AsciiTree" },
+    },
     -- edit code blocks in markdown
     {
       "AckslD/nvim-FeMaco.lua",
