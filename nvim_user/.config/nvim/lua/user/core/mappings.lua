@@ -170,6 +170,10 @@ function M.config()
       --   local action = qf_winid > 0 and "lclose" or "lopen"
       --   vim.cmd(action)
       -- end,
+
+      -- treesj
+      ["gS"] = { "<cmd>TSJSplit<cr>" },
+      ["gJ"] = { "<cmd>TSJJoin<cr>" },
     },
     i = {
       -- ["i"] = { "i" },

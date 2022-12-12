@@ -215,13 +215,6 @@ function M.config()
       event = "BufRead",
     },
 
-    -- Toggle ruby block, tag etc.
-    {
-      "AndrewRadev/splitjoin.vim",
-      module = "splitjoin",
-      event = "InsertEnter",
-    },
-
     -- Telescope
     {
       "nvim-telescope/telescope-media-files.nvim",
@@ -617,7 +610,7 @@ function M.config()
       event = "BufRead",
     },
     {
-      "nguyenvukhang/nvim-toggler",
+      "nguyenvukhang/nvim-toggler", -- Invert text in vim, purely with lua.
       event = "BufRead",
       opt = true,
       config = function()
@@ -625,6 +618,20 @@ function M.config()
       end,
     },
 
+    -- Toggle ruby block, tag etc.
+    {
+      "Wansmer/treesj",
+      requires = { "nvim-treesitter" },
+      config = function()
+        require("user.configs.treesj").config()
+      end,
+      opt = true,
+      cmd = {
+        "TSJToggle",
+        "TSJSplit",
+        "TSJJoin",
+      },
+    },
     -- Browser search
     {
       "voldikss/vim-browser-search",

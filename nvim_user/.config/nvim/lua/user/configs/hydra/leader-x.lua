@@ -12,7 +12,6 @@ function M.setup(Hydra, _, _)
     config = {
       on_key = false,
       invoke_on_body = true,
-      -- color = "pink",
       hint = {
         border = "rounded",
         type = "window",
@@ -80,6 +79,24 @@ function M.setup(Hydra, _, _)
         "<cmd>lua require('nvim-toggler').toggle()<cr>",
         {
           desc = "Toggle word",
+          nowait = true,
+          exit = true,
+        },
+      },
+      {
+        "s",
+        "<cmd>TSJSplit<cr>",
+        {
+          desc = "Split block",
+          nowait = true,
+          exit = true,
+        },
+      },
+      {
+        "j",
+        "<cmd>TSJJoin<cr>",
+        {
+          desc = "Join block",
           nowait = true,
           exit = true,
         },
