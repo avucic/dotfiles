@@ -37,6 +37,16 @@ function M.setup(Hydra, _, _)
     end
   end
 
+  local function toggle_spell()
+    if vim.g.is_spell_off == true then
+      vim.g.is_spell_off = false
+      vim.cmd([[set spell]])
+    else
+      vim.g.is_spell_off = true
+      vim.cmd([[set nospell]])
+    end
+  end
+
   local function toggle_theme()
     if vim.g.current_colorscheme == "light" then
       vim.g.current_colorscheme = "dark"
@@ -68,7 +78,7 @@ function M.setup(Hydra, _, _)
       { "s", astronvim.ui.toggle_signcolumn, { desc = "toggle signcolumn" } },
       { "c", toggle_conceal, { desc = "toggle conceal" } },
       { "n", astronvim.ui.change_number, { desc = "change line numbering" } },
-      { "z", astronvim.ui.toggle_spell, { desc = "toggle spell" } },
+      { "z", toggle_spell, { desc = "toggle spell" } },
       { "v", astronvim.ui.toggle_paste, { desc = "toggle paste mode" } },
       { "t", astronvim.ui.toggle_tabline, { desc = "toggle tabline" } },
       { "u", astronvim.ui.toggle_url_match, { desc = "toggle URL highlight" } },
