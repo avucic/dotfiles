@@ -86,6 +86,7 @@ function M.config()
       ["<leader>uw"] = false,
       ["<leader>uy"] = false,
       ["<leader>uf"] = false,
+      ["<leader>t"] = false,
 
       ["<leader>p"] = "<cmd>lua require('telescope').extensions.project.project{}<CR>",
       -- ["<C-h>"] = false,
@@ -152,7 +153,7 @@ function M.config()
       -- ["<M-p>"] = { "<Plug>(VM-Add-Cursor-up)" },
 
       -- toggle term
-      ["<c-\\>"] = { "<cmd>ToggleTermToggleAll<cr>" },
+      ["\\\\"] = { "<cmd>ToggleTermToggleAll<cr>" },
 
       -- search google
       -- ["<leader>sw"] = { ":BrowserSearch<cr>" },
@@ -207,8 +208,19 @@ function M.config()
       -- ["ga"] = { "<Plug>(EasyAlign)" },
     },
     t = {
-      ["<c-\\>"] = { "<cmd>ToggleTermToggleAll<cr>" },
+      --ToggleTerm
+      ["\\\\"] = { "<cmd>ToggleTermToggleAll<cr>" },
     },
+
+    -- function M.set_terminal_keymaps()
+    --   local opts = { buffer = 0 }
+    --   vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
+    --   vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)
+    --   vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
+    --   vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
+    --   vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
+    --   vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
+    -- end
   }
 
   -- local smart_splits = require("user.core.utils").load_module("smart-splits")

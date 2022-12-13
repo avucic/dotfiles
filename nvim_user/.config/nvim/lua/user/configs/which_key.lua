@@ -459,6 +459,7 @@ function M.config()
         u = { "+Toggle" },
         j = { "+Jump" },
         p = { "+Projects" },
+        t = { "+Terminal" },
       },
       ["<C-w>"] = { "Window" },
     },

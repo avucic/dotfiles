@@ -1,21 +1,17 @@
 local M = {}
 
-function M.setup(Hydra, cmd, _)
-  local hint = [[
-   _o_: symbols outline          _tf_: float terminal ^
-  _th_: horizontal terminal      _tv_: vertical terminal ^
-  _tt_: tab terminal             _t._: terminal here
-  _do_: open db                  _dt_: toggle db
-   _c_: open calendar
-]]
-
+function M.setup(Hydra, _, _)
   Hydra({
     name = "Open",
-    hint = hint,
+    hint = [[
+   _o_: symbols outline           _c_: open calendar
+  _do_: open db                  _dt_: toggle db
+   _t_: tasks
+]],
     config = {
       on_key = false,
       invoke_on_body = true,
-      -- color = "pink",
+      color = "pink",
       hint = {
         border = "rounded",
         type = "window",
@@ -24,12 +20,8 @@ function M.setup(Hydra, cmd, _)
     mode = "n",
     body = "<Leader>o",
     heads = {
-      { "o", "<cmd>AerialToggle! right<cr>", { desc = "Symbols Outline", exit = true } },
-      { "tf", "<cmd>ToggleTerm direction=float<cr>", { desc = "Float", exit = true } },
-      { "th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", { desc = "Horizontal", exit = true } },
-      { "tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", { desc = "Vertical", exit = true } },
-      { "tt", "<cmd>ToggleTerm  direction=tab<cr>", { desc = "Tab", exit = true } },
-      { "t.", "<cmd>term<cr>", { desc = "Here", exit = true } },
+      { "o", "<cmd>AerialToggle! right<cr>", { desc = "Symbols Outline" } },
+      { "t", "<cmd>lua require('telescope').extensions.vstask.tasks()<cr>" },
       {
         "do",
         "<cmd>lua require('user.configs.dadbod').db_tasks()<cr>",

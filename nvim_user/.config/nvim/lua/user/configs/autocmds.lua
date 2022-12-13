@@ -15,6 +15,12 @@ local ingore_spell = {
 local aucmd_dict = {
   FileType = {
     {
+      pattern = "help",
+      callback = function()
+        vim.cmd([[noremap <buffer> q :q<cr>]])
+      end,
+    },
+    {
       pattern = "*",
       callback = function()
         vim.cmd([[setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])
