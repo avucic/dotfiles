@@ -15,7 +15,8 @@ function M.config()
         "eslint",
         "vimls",
         "marksman",
-        -- "zk@0.11.1",
+        "zk@v0.11.1",
+        "zk",
       },
     },
     -- TODO
@@ -26,7 +27,7 @@ function M.config()
         "stylua",
         "gopls",
         "marksman",
-        -- "zk@0.11.1",
+        "zk@v0.11.1",
       },
     },
     ["mason-null-ls"] = {},
