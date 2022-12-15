@@ -6,7 +6,7 @@ function M.setup(Hydra, _, _)
     hint = [[
    _t_: default                 _N_: new terminal
    _f_: float                   _F_: new float
-   _v_: vertical                _V_: new vertical
+   _v_: vertical                _V_: new vertical  ^
    _T_: tab                     _l_: list
 ]],
     config = {

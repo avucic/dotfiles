@@ -4,7 +4,7 @@ function M.setup(Hydra, _, _)
   Hydra({
     name = "Open",
     hint = [[
-   _o_: symbols outline           _c_: open calendar
+   _o_: symbols outline           _c_: open calendar  ^
   _do_: open db                  _dt_: toggle db
    _t_: tasks
 ]],
