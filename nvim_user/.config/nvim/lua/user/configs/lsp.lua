@@ -48,11 +48,10 @@ function M.config()
       end
     end
 
-    local vim = vim
     local opt = vim.opt
-
     opt.foldmethod = "expr"
     opt.foldexpr = "nvim_treesitter#foldexpr()"
+
     -- client.resolved_capabilities.document_formatting = false
     -- client.resolved_capabilities.document_range_formatting = false
 
@@ -83,6 +82,7 @@ function M.config()
 
   local formatting = {
     -- control auto formatting on save
+    async = true,
     format_on_save = {
       enabled = true, -- enable or disable format on save globally
       allow_filetypes = { -- enable format on save for specified filetypes only
@@ -95,7 +95,7 @@ function M.config()
     disabled = { -- disable formatting capabilities for the listed language servers
       -- "sumneko_lua",
     },
-    timeout_ms = 1000, -- default format timeout
+    timeout_ms = 5000, -- default format timeout
     -- filter = function(client) -- fully override the default formatting function
     --   return true
     -- end
@@ -139,22 +139,6 @@ function M.config()
   }
 
   return {
-    servers = {
-      -- "sumneko_lua",
-      -- "solargraph",
-      -- "gopls",
-      -- "tsserver",
-      -- "html",
-      -- "cssls",
-      -- "yamlls",
-      -- "sqlls",
-      -- "eslint",
-      -- "marksman",
-      -- "zk",
-      -- "jsonls",
-      -- "rust_analyzer",
-      -- "taplo",
-    },
     -- server_registration = {
     --   gopls = {
     --     cmd = { "gopls", "serve" },
