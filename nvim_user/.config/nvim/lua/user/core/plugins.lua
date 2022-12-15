@@ -406,6 +406,16 @@ function M.config()
       cmd = { "FeMaco" },
     },
     {
+      "jubnzv/mdeval.nvim",
+      setup =function ()
+        vim.g.markdown_fenced_languages = {'ruby', 'go', 'javascript'}
+      end,
+      config = 'require("femaco").setup()',
+      ft = { "markdown" },
+      opt = true,
+      cmd = { "FeMaco" },
+    },
+    {
       "mickael-menu/zk-nvim",
       setup = function()
         require("user.configs.zk").setup()

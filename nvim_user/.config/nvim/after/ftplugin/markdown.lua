@@ -41,9 +41,22 @@ local table_hydra_normal = Hydra({
 	},
 })
 
-local function choose_table_hydra()
-	table_hydra_normal:activate()
-end
+local code_hydra = Hydra({
+	name = "Code",
+	config = {
+		on_key = false,
+		invoke_on_body = true,
+		hint = {
+			border = "rounded",
+			type = "window",
+		},
+	},
+	heads = {
+		{ "e", "<cmd>FeMaco<cr>", { desc = "edit", exit = true } },
+		{ "x", "<cmd>lua require 'mdeval'.eval_code_block()<cr>", { desc = "eval", exit = true } },
+		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },
+	},
+})
 
 local diagram_hydra = Hydra({
 	name = "Draw Diagram",
@@ -74,20 +87,12 @@ local diagram_hydra = Hydra({
 	},
 })
 
-local function choose_diagram_hydra()
-	diagram_hydra:activate()
-end
-
--- local function choose_bullet_hydra()
--- 	bullet_hydra:activate()
--- end
-
 Hydra({
 	name = "Markdown",
 	hint = [[
  _t_: table        _d_: diagram
  _p_: preview      _s_: server
- _i_: paste link
+ _i_: paste link   _c_: code ^
 
  <c-r> toggle list type (insert)
 ]],
@@ -105,9 +110,26 @@ Hydra({
 	mode = "n",
 	body = "<leader>m",
 	heads = {
-		{ "t", choose_table_hydra },
-		{ "d", choose_diagram_hydra },
+		{
+			"t",
+			function()
+				table_hydra_normal:activate()
+			end,
+		},
+		{
+			"d",
+			function()
+				diagram_hydra:activate()
+			end,
+		},
 		{ "i", ":PasteMDLink<cr>", { nowait = true, exit = true, desc = "Insert link" } },
+		{
+			"c",
+			function()
+				code_hydra:activate()
+			end,
+			{ nowait = true, exit = true, desc = "Edit code block" },
+		},
 		{ "p", "<Cmd>MarkdownPreview<CR>", { nowait = true } },
 		{
 			"s",
