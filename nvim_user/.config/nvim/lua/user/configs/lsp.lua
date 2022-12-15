@@ -20,22 +20,6 @@ function M.config()
   })
 
   local on_attach = function(client, bufnr)
-    -- set_default_formatter_for_filetypes("solargraph", { "ruby" })
-    if client.name == "solargraph" then
-      client.server_capabilities.document_formatting = false
-      client.server_capabilities.document_range_formatting = false
-    end
-
-    if client.name == "sumneko_lua" then
-      client.server_capabilities.document_formatting = false -- 0.7 and earlier
-      client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
-    end
-
-    if client.name == "html" then
-      client.server_capabilities.document_formatting = false -- 0.7 and earlier
-      client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
-    end
-
     if vim.g.autoformat_enabled ~= true then
       if client.server_capabilities.documentRangeFormattingProvider then
         local lsp_format_modifications = require("lsp-format-modifications")
@@ -51,34 +35,7 @@ function M.config()
     -- local opt = vim.opt
     -- opt.foldmethod = "expr"
     -- opt.foldexpr = "nvim_treesitter#foldexpr()"
-
-    -- client.resolved_capabilities.document_formatting = false
-    -- client.resolved_capabilities.document_range_formatting = false
-
-    -- vim.opt.foldmethod = "expr"
-    -- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-    --
-    -- require("lspconfig").gopls.setup({})
-    -- require("aerial").on_attach(client, bufnr)
-
-    -- require("lsp_signature").on_attach()
-    -- TODO
-    -- vim.cmd [[
-    -- set shiftwidth=2
-    -- set tabstop=2
-    -- set expandtab
-    -- ]]
-
-    -- map("n", "<leader>lf", function()
-    --   vim.lsp.buf.formatting_sync(nil, 2000)
-    -- end, { desc = "Format code", buffer = bufnr })
   end
-
-  -- add to the server on_attach function
-  -- override the lsp installer server-registration function
-  -- server_registration = function(server, opts)
-  --   server:setup(opts)
-  -- end
 
   local formatting = {
     -- control auto formatting on save
@@ -104,6 +61,21 @@ function M.config()
   -- Add overrides for LSP server settings, the keys are the name of the server
   local server_settings = {
     -- example for addings schemas to yamlls
+    solargraph = {
+      init_options = {
+        formatting = false, -- use rubocop
+      },
+    },
+    jsonls = {
+      init_options = {
+        provideFormatter = false, -- use prettier
+      },
+    },
+    html = {
+      init_options = {
+        provideFormatter = false, -- use prettier
+      },
+    },
     yamlls = {
       settings = {
         yaml = {
