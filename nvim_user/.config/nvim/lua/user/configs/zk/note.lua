@@ -135,7 +135,7 @@ function M.find_or_create_note(opts)
         return true
       end)
 
-      local run_expand_command = function()
+      local run_expand_command = function(prompt_bufnr)
         local num_of_line_prefix_or_whatever = 4 -- first n characters in line before actual text.T TODO
 
         local selection = state.get_selected_entry()
@@ -153,12 +153,8 @@ function M.find_or_create_note(opts)
           text = parse_text(input_text)
         end
 
-        nline = line:sub(0, cursor[2] - (line:len() - num_of_line_prefix_or_whatever))
-          .. text
-          .. line:sub(cursor[2] + 2)
-
-        vim.api.nvim_set_current_line(nline)
-        vim.api.nvim_win_set_cursor(0, { cursor[1], cursor[2] + text:len() })
+        local current_picker = state.get_current_picker(prompt_bufnr)
+        current_picker:set_prompt(text)
 
         return true
       end
