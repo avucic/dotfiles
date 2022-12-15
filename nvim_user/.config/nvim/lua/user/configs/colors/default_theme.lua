@@ -44,14 +44,14 @@ M.config = function() -- or a function that returns a new table of colors to set
       hl["@h1"] = { fg = C.orange_1 }
       hl["@MarkdownHeaderMarkerH1"] = { fg = C.orange_1 }
 
-      hl["@h2"] = { fg = C.purple_1 }
-      hl["@MarkdownHeaderMarkerH2"] = { fg = C.purple_1 }
+      hl["@h2"] = { fg = C.purple }
+      hl["@MarkdownHeaderMarkerH2"] = { fg = C.purple }
 
-      hl["@h3"] = { fg = C.cyan }
-      hl["@MarkdownHeaderMarkerH3"] = { fg = C.cyan }
+      hl["@h3"] = { fg = C.purple_1 }
+      hl["@MarkdownHeaderMarkerH3"] = { fg = C.purple_1 }
 
-      hl["@h4"] = { fg = C.purple }
-      hl["@MarkdownHeaderMarkerH4"] = { fg = C.purple }
+      hl["@h4"] = { fg = C.cyan }
+      hl["@MarkdownHeaderMarkerH4"] = { fg = C.cyan }
 
       hl["@h5"] = { fg = C.yellow }
       hl["@MarkdownHeaderMarkerH5"] = { fg = C.yellow }
