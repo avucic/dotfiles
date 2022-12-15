@@ -7,6 +7,7 @@ function M.setup(Hydra, cmd, _)
   _O_: options        _b_: buffers
   _w_: search web     _t_: tasks
   _s_: doc symbols    _S_: workspace symbols
+  _o_: outline
 
   _r_: resume         _<Enter>_: Telescope
 ]]
@@ -46,6 +47,7 @@ function M.setup(Hydra, cmd, _)
       -- { "s", "<cmd>AerialToggle! right<cr>", { exit = true } },
       { "s", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>", { exit = true } },
       { "S", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>", { exit = true } },
+      { "o", "<cmd>Telescope aerial<cr>", { desc = "Symbols Outline in Telescope" } },
       { "O", "<cmd>lua require('telescope.builtin').vim_options()<CR>", { exit = true } },
       { ";", "<cmd>lua require('telescope.builtin').command_history()<CR>", { exit = true } },
       { "c", "<cmd>lua require('telescope.builtin').commands()<CR>", { exit = true } },
