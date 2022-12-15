@@ -48,9 +48,9 @@ function M.config()
       end
     end
 
-    local opt = vim.opt
-    opt.foldmethod = "expr"
-    opt.foldexpr = "nvim_treesitter#foldexpr()"
+    -- local opt = vim.opt
+    -- opt.foldmethod = "expr"
+    -- opt.foldexpr = "nvim_treesitter#foldexpr()"
 
     -- client.resolved_capabilities.document_formatting = false
     -- client.resolved_capabilities.document_range_formatting = false

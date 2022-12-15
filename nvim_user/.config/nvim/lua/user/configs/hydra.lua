@@ -41,6 +41,8 @@ function M.config()
   require("user.configs.hydra.leader-j").setup(Hydra, cmd, pcmd)
   -- terminal
   require("user.configs.hydra.leader-t").setup(Hydra, cmd, pcmd)
+  -- Session
+  require("user.configs.hydra.leader-capital-s").setup(Hydra, cmd, pcmd)
   -- Treesitter incremental selection
   require("user.configs.hydra.gV").setup(Hydra, cmd, pcmd)
 end

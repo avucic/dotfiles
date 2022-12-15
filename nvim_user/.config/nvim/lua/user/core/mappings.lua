@@ -87,6 +87,11 @@ function M.config()
       ["<leader>uy"] = false,
       ["<leader>uf"] = false,
       ["<leader>t"] = false,
+      ["<leader>Sl"] = false,
+      ["<leader>Ss"] = false,
+      ["<leader>Sd"] = false,
+      ["<leader>Sf"] = false,
+      ["<leader>S."] = false,
 
       ["<leader>p"] = "<cmd>lua require('telescope').extensions.project.project{}<CR>",
       -- ["<C-h>"] = false,

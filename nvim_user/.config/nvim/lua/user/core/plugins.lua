@@ -70,17 +70,6 @@ function M.config()
       },
     },
 
-    -- Multi cursor
-    -- {
-    --   "mg979/vim-visual-multi",
-    --   branch = "master",
-    --   event = "BufRead",
-    --   setup = function()
-    --     vim.g["VM_leader"] = "\\"
-    --     vim.g["VM_default_mappings"] = 1
-    --   end,
-    -- },
-
     -- Autocompletion
     {
       "hrsh7th/cmp-cmdline",
@@ -407,8 +396,8 @@ function M.config()
     },
     {
       "jubnzv/mdeval.nvim",
-      setup =function ()
-        vim.g.markdown_fenced_languages = {'ruby', 'go', 'javascript'}
+      setup = function()
+        vim.g.markdown_fenced_languages = { "ruby", "go", "javascript" }
       end,
       config = 'require("femaco").setup()',
       ft = { "markdown" },
@@ -491,52 +480,6 @@ function M.config()
       end,
       opt = true,
     },
-
-    -- Neorg
-    -- {
-    --   "nvim-neorg/neorg-telescope",
-    --   opt = true,
-    --   -- cmd = {
-    --   --   "Neorg",
-    --   --   "NeorgStart",
-    --   -- },
-    --   -- ft = "norg",
-    --   after = "neorg",
-    -- },
-    -- {
-    --   "nvim-neorg/neorg",
-    --   opt = true,
-    --   config = function()
-    --     require("user.configs.neorg").config()
-    --   end,
-    --   cmd = {
-    --     "Neorg",
-    --     "NeorgStart",
-    --   },
-    --   -- ft = "norg",
-    --   after = "nvim-treesitter",
-    -- },
-    -- {
-    --   "esquires/neorg-gtd-project-tags",
-    --   opt = true,
-    --   -- ft = "norg",
-    --   -- cmd = "Neorg",
-    --   after = "neorg",
-    -- },
-    -- {
-    --   "max397574/neorg-kanban",
-    --   opt = true,
-    --   -- ft = "norg",
-    --   -- cmd = "Neorg",
-    --   after = "neorg",
-    -- },
-    -- {
-    --   "max397574/neorg-contexts",
-    --   opt = true,
-    --   -- ft = "norg",
-    --   -- cmd = "Neorg",
-    --   after = "neorg",
-    -- },
 
     -- color utils
     {
@@ -762,7 +705,7 @@ function M.config()
 
     -- tools
     {
-      "narutoxy/silicon.lua",
+      "narutoxy/silicon.lua", -- silicon is a lua plugin for neovim to generate beautiful images of code snippet using silicon
       requires = { "nvim-lua/plenary.nvim" },
       config = function()
         require("user.configs.silicon").config()

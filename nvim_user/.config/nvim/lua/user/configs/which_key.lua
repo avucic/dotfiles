@@ -460,6 +460,7 @@ function M.config()
         j = { "+Jump" },
         p = { "+Projects" },
         t = { "+Terminal" },
+        S = { "+Session" },
       },
       ["<C-w>"] = { "Window" },
     },
