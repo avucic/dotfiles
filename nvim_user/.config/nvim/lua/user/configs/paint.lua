@@ -16,9 +16,19 @@ function M.config()
         hl = "Constant",
       },
       {
-        filter = { filetype = "lua" },
+        filter = function()
+          return true
+        end,
         pattern = "TODO:",
-        hl = "@constant",
+        hl = "@text.note",
+      },
+
+      {
+        filter = function()
+          return true
+        end,
+        pattern = "NOTE:",
+        hl = "@text.note",
       },
     },
   })
