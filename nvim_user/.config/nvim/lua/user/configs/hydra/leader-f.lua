@@ -28,26 +28,20 @@ function M.setup(Hydra, _, _)
     },
   })
 
-  local function choose_harpoon()
-    harpoon_hydra:activate()
-  end
-
-  local telescopehint = [[
+  Hydra({
+    name = "File",
+    hint = [[
   _f_: files             _F_: all files
   _o_: old files         _g_: live grep
   _p_: projects          _/_: search in file
   _R_: reload fils       _?_: search history
   _r_: resume            _h_: harpoon
   _y_: copy file path    _m_: bookmarks
-  _e_: file explorer     _E_: file explorer project root
+  _e_: file explorer     _E_: file explorer project root  ^
   _n_: new file
 
   _<Enter>_: Telescope
-]]
-
-  Hydra({
-    name = "File",
-    hint = telescopehint,
+]]   ,
     config = {
       invoke_on_body = true,
       color = "teal",
@@ -94,7 +88,13 @@ function M.setup(Hydra, _, _)
         { desc = "search history" },
       },
       { "R", "<cmd>e %<CR>" },
-      { "h", choose_harpoon, { desc = "choose harpoon" } },
+      {
+        "h",
+        function()
+          harpoon_hydra:activate()
+        end,
+        { desc = "choose harpoon" },
+      },
       { "y", ':let @*=expand("%")<cr>', { desc = "Copy file path" } },
       {
         "<Enter>",
