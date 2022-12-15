@@ -23,7 +23,7 @@ M.config = function() -- or a function that returns a new table of colors to set
       hl.DiagnosticInfo.italic = true
       hl.DiagnosticWarn.italic = true
       hl.DiagnosticWarn.italic = true
-      hl.TelescopePromptTitle = { fg = C.bg, bg = C.red }
+      hl.TelescopePromptTitle = { fg = C.bg, bg = C.cyan }
       hl.TelescopePromptBorder = { fg = C.bg_1, bg = C.bg_1 }
       hl.TelescopePromptNormal = { fg = C.fg, bg = C.bg_1 }
       hl.TelescopePreviewTitle = { fg = C.bg, bg = C.green }
