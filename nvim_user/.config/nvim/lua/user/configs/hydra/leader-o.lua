@@ -11,7 +11,7 @@ function M.setup(Hydra, _, _)
     config = {
       on_key = false,
       invoke_on_body = true,
-      color = "pink",
+      color = "teal",
       hint = {
         border = "rounded",
         type = "window",
