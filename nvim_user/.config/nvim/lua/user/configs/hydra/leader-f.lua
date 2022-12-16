@@ -41,7 +41,7 @@ function M.setup(Hydra, _, _)
   _n_: new file
 
   _<Enter>_: Telescope
-]]   ,
+]],
     config = {
       invoke_on_body = true,
       color = "teal",
@@ -57,7 +57,7 @@ function M.setup(Hydra, _, _)
       { "E", "<cmd>Telescope file_browser<cr>" },
       {
         "e",
-        "<cmd>lua require('telescope').extensions.file_browser.file_browser {path = '%:p:h', files = true}<cr>",
+        "<cmd>Telescope file_browser path=%:p:h files=true<cr>",
       },
       { "m", "<cmd>lua require('telescope').extensions.vim_bookmarks.all()<cr>" },
       { "f", "<cmd>lua require('telescope.builtin').find_files()<CR>" },

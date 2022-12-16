@@ -49,6 +49,8 @@ function M.config()
     ---@usage path to store the project history for use in telescope
     datapath = vim.fn.stdpath("data"),
   })
+
+  telescope.load_extension("project")
 end
 
 return M

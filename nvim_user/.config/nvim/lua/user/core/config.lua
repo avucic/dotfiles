@@ -220,6 +220,9 @@ function M.config()
       --     ["~/%.config/foo/.*"] = "fooscript",
       --   },
       -- }
+      -- TODO: load after telescope.fix for ivy interface
+      -- local telescope = require("telescope")
+      -- telescope.load_extension("file_browser")
 
       -- load plugins
       local psd = require("user.core.utils").load_module("user.plugins.gen_pass")
@@ -233,7 +236,7 @@ function M.config()
       end
 
       local macro_to_visual_selection =
-      require("user.core.utils").load_module("user.plugins.apply_macro_to_visual_selection")
+        require("user.core.utils").load_module("user.plugins.apply_macro_to_visual_selection")
       if macro_to_visual_selection then
         macro_to_visual_selection.config()
       end
