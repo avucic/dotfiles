@@ -11,13 +11,11 @@ function M.config()
     return {}
   end
 
+  -- for emmet_ls
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-  lspconfig.emmet_ls.setup({
-    capabilities = capabilities,
-    filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby" },
-  })
+  -- TODO: move this into the setgings
 
   local on_attach = function(client, bufnr)
     if vim.g.autoformat_enabled ~= true then
@@ -60,6 +58,16 @@ function M.config()
 
   -- Add overrides for LSP server settings, the keys are the name of the server
   local server_settings = {
+    emmet_ls = {
+      capabilities = capabilities,
+      filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby" },
+    },
+    grammarly = {
+      init_options = {
+        clientId = "client_4mT9RnW7h89wYs8T3rnzoA",
+        filetypes = { "markdown" },
+      },
+    },
     -- example for addings schemas to yamlls
     solargraph = {
       init_options = {

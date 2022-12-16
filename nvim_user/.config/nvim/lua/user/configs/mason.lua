@@ -17,6 +17,7 @@ function M.config()
         "marksman",
         "zk@v0.11.1",
         "zk",
+        "grammarly"
       },
     },
     -- TODO
