@@ -218,7 +218,7 @@ function M.config()
     {
       "gbrlsnchs/telescope-lsp-handlers.nvim",
       after = "telescope.nvim",
-      opt = true
+      opt = true,
     },
     {
       "LukasPietzschmann/telescope-tabs",
@@ -328,14 +328,7 @@ function M.config()
       end,
     },
     {
-      "folke/lsp-colors.nvim",
-      opt = true,
-      after = "nvim-lspconfig",
-    },
-    {
-      "ray-x/lsp_signature.nvim",
-      opt = true,
-      after = "nvim-lspconfig",
+      "ray-x/lsp_signature.nvim", -- lsp arguments
     },
     {
       "kosayoda/nvim-lightbulb",
