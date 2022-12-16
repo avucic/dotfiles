@@ -23,6 +23,9 @@ function M.config()
   local fb_actions = telescope.extensions.file_browser.actions
 
   telescope.load_extension("fzf")
+  telescope.load_extension("file_browser")
+  telescope.load_extension("media_files")
+  telescope.load_extension("project")
 
   return {
     defaults = {
