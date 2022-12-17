@@ -4,8 +4,8 @@ function M.config(fn)
   local hint = [[
 ^ _a_: next params          _A_: previous params
 ^ _m_: next method          _M_: previous method
-^ _l_: next local           _L_: previous import
-^ _c_: next comment         _C_: previous comment
+^ _l_: next local           _L_: previous local
+^ _c_: next comment         _C_: previous comment ^
 ]]
 
   local heads = {

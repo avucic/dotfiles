@@ -216,7 +216,6 @@ function M.config()
     {
       "nvim-telescope/telescope-file-browser.nvim",
       after = "telescope.nvim",
-      event = "BufRead",
       config = function()
         require("telescope").load_extension("file_browser")
       end,
@@ -390,12 +389,13 @@ function M.config()
     {
       "jubnzv/mdeval.nvim",
       setup = function()
-        vim.g.markdown_fenced_languages = { "ruby", "go", "javascript" }
+        require("user.configs.mdeval").setup()
       end,
-      config = 'require("femaco").setup()',
+      config = function()
+        require("user.configs.mdeval").config()
+      end,
       ft = { "markdown" },
       opt = true,
-      cmd = { "FeMaco" },
     },
     {
       "mickael-menu/zk-nvim",

@@ -36,9 +36,12 @@ function M.config()
         border = "rounded",
       },
     }, bufnr)
-    -- local opt = vim.opt
-    -- opt.foldmethod = "expr"
-    -- opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+    if vim.o.filetype ~= "nofile" then
+    local opt = vim.opt
+    opt.foldmethod = "expr"
+    opt.foldexpr = "nvim_treesitter#foldexpr()"
+  end
   end
 
   local formatting = {

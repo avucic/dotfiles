@@ -4,20 +4,21 @@ function M.config(fn)
   local hint = [[
 ^ _a_: next link            _A_: previous link
 ^ _c_: next comment         _C_: previous comment
-^ _l_: next list item       _L_: previous list item
+^ _l_: next list item       _L_: previous list item ^
+^ _p_: next paragraph       _P_: previous paragraph
 ]]
 
   local heads = {
     {
       "a",
       function()
-        fn({ "shortcut_link" }, true)
+        fn({ "inline_link" }, true)
       end,
     },
     {
       "A",
       function()
-        fn({ "shortcut_link" }, false)
+        fn({ "inline_link" }, false)
       end,
     },
     {
@@ -42,6 +43,18 @@ function M.config(fn)
       "C",
       function()
         fn({ "comment" }, false)
+      end,
+    },
+    {
+      "p",
+      function()
+        fn({ "paragraph" }, true)
+      end,
+    },
+    {
+      "P",
+      function()
+        fn({ "paragraph" }, false)
       end,
     },
   }

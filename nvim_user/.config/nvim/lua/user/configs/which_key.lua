@@ -458,6 +458,7 @@ function M.config()
         d = { "+Debug" },
         u = { "+Toggle" },
         j = { "+Jump" },
+        J = { "+Jump targeted" },
         p = { "+Projects" },
         t = { "+Terminal" },
         S = { "+Session" },

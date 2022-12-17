@@ -81,11 +81,11 @@ function M.config()
           -- ["<C-j>"] = actions.cycle_history_next,
           -- ["<C-k>"] = actions.cycle_history_prev,
           ["<c-c>"] = actions.close,
-          ["<C-/>"] = fb_actions.goto_home_dir,
+          -- ["<C-e>"] = fb_actions.goto_home_dir,
           ["<C-n>"] = actions.move_selection_next,
           ["<C-p>"] = actions.move_selection_previous,
 
-          ["<m-d>"] = require("telescope.actions").delete_buffer,
+          -- ["<m-d>"] = require("telescope.actions").delete_buffer,
 
           -- ["<C-c>"] = actions.close,
           --
@@ -129,7 +129,7 @@ function M.config()
           -- ["<C-c>"] = require("telescope.actions").create_note,
           ["n"] = actions.move_selection_next,
           ["p"] = actions.move_selection_previous,
-          ["<m-d>"] = require("telescope.actions").delete_buffer,
+          ["d"] = actions.delete_buffer,
           --   ["H"] = actions.move_to_top,
           --   ["M"] = actions.move_to_middle,
           --   ["L"] = actions.move_to_bottom,
@@ -205,6 +205,7 @@ function M.config()
         select_buffer = true,
         -- respect_gitignore = true,
         hide_parent_dir = true,
+        grouped = true,
         mappings = {
           ["i"] = {
             ["A"] = fb_actions.create,
@@ -215,6 +216,7 @@ function M.config()
             ["a"] = fb_actions.create,
             ["A"] = fb_actions.create,
             ["h"] = fb_actions.goto_parent_dir,
+            ["d"] = fb_actions.remove,
             ["<c-h>"] = fb_actions.toggle_hidden,
             ["l"] = actions.select_default,
             -- your custom normal mode mappings

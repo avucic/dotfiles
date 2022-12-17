@@ -1,5 +1,7 @@
 local M = {}
-function M.activate_hydra()
+function M.activate_hydra(opt)
+  local opt = opt or {}
+  local target = opt.target or false
   local Hydra = require("hydra")
   local aerial = require("aerial")
   local sts = require("syntax-tree-surfer")
@@ -42,7 +44,11 @@ function M.activate_hydra()
   local lang_def = require("user.core.utils").load_module("user.configs.hydra.leader-j-configs." .. vim.bo.filetype)
 
   if lang_def then
-    local config = lang_def.config(sts.filtered_jump)
+    local fn = sts.filtered_jump
+    if target then
+      fn = sts.targeted_jump
+    end
+    local config = lang_def.config(fn)
     hint = hint .. config["hint"]
     local lang_heads = config["heads"]
 
@@ -82,6 +88,18 @@ function M.setup(_, _, _)
         "n",
         "<leader>j",
         ":lua require('user.configs.hydra.leader-j').activate_hydra()<CR>",
+        { noremap = true, silent = true }
+      )
+    end,
+  })
+
+  vim.api.nvim_create_autocmd({ "BufEnter" }, {
+    pattern = "*.*",
+    callback = function()
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>J",
+        ":lua require('user.configs.hydra.leader-j').activate_hydra({target = true })<CR>",
         { noremap = true, silent = true }
       )
     end,
