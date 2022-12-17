@@ -175,6 +175,7 @@ function M.config()
       "query",
       "rust",
       "vim",
+      "help"
     },
   }
 end
