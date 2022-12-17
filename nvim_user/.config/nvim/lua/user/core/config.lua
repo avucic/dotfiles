@@ -220,9 +220,6 @@ function M.config()
       --     ["~/%.config/foo/.*"] = "fooscript",
       --   },
       -- }
-      -- TODO: load after telescope.fix for ivy interface
-      -- local telescope = require("telescope")
-      -- telescope.load_extension("file_browser")
 
       -- load plugins
       local psd = require("user.core.utils").load_module("user.plugins.gen_pass")
@@ -255,15 +252,6 @@ function M.config()
 
       vim.g.vim_base64_disable_default_key_mappings = 1
       vim.g.did_load_filetypes = nil
-
-      if vim.g.colorscheme then
-        colorscheme = vim.g.colorscheme
-        vim.cmd([[colorscheme ]] .. colorscheme)
-      end
-
-      if colorscheme == "onedark" then
-        require("user.configs.colors.onedark").config()
-      end
     end,
   }
 

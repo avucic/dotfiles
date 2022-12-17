@@ -209,14 +209,14 @@ function M.config()
       "nvim-telescope/telescope-media-files.nvim",
       after = "telescope.nvim",
       opt = true,
-      config = function ()
-
-  require("telescope").load_extension("media_files")
-      end
+      config = function()
+        require("telescope").load_extension("media_files")
+      end,
     },
     {
       "nvim-telescope/telescope-file-browser.nvim",
       after = "telescope.nvim",
+      event = "BufRead",
       config = function()
         require("telescope").load_extension("file_browser")
       end,
@@ -225,9 +225,6 @@ function M.config()
       "gbrlsnchs/telescope-lsp-handlers.nvim",
       after = "telescope.nvim",
       opt = true,
-      config = function()
-        require("telescope").load_extension("file_browser")
-      end,
     },
     {
       "LukasPietzschmann/telescope-tabs",
