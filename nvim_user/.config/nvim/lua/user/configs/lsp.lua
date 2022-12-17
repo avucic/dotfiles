@@ -15,8 +15,6 @@ function M.config()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-  -- TODO: move this into the setgings
-
   local on_attach = function(client, bufnr)
     if vim.g.autoformat_enabled ~= true then
       if client.server_capabilities.documentRangeFormattingProvider then
@@ -38,10 +36,10 @@ function M.config()
     }, bufnr)
 
     if vim.o.filetype ~= "nofile" then
-    local opt = vim.opt
-    opt.foldmethod = "expr"
-    opt.foldexpr = "nvim_treesitter#foldexpr()"
-  end
+      local opt = vim.opt
+      opt.foldmethod = "expr"
+      opt.foldexpr = "nvim_treesitter#foldexpr()"
+    end
   end
 
   local formatting = {
