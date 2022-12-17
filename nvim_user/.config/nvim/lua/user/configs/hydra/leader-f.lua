@@ -1,33 +1,6 @@
 local M = {}
 
 function M.setup(Hydra, _, _)
-  local harpoon_hint = [[
-  _h_: list files      _a_: Add file
-  _1_: open file 1     _2_: Open file 2 ^
-  _3_: open file 3     _4_: Open file 4
-]]
-
-  local harpoon_hydra = Hydra({
-    name = "Tabs",
-    hint = harpoon_hint,
-    config = {
-      on_key = false,
-      hint = {
-        border = "rounded",
-        type = "window",
-      },
-    },
-    heads = {
-      { "a", "<cmd>lua require('harpoon.kark').add_file()<cr>" },
-      { "h", "<cmd>lua require('telescope').extensions.harpoon.marks()<cr>" },
-      { "1", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", { desc = "Open File 1" } },
-      { "2", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", { desc = "Open File 2" } },
-      { "3", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", { desc = "Open File 3" } },
-      { "4", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", { desc = "Open File 4" } },
-      { "<Esc>", nil, { desc = false } },
-    },
-  })
-
   Hydra({
     name = "File",
     hint = [[
@@ -35,10 +8,9 @@ function M.setup(Hydra, _, _)
   _o_: old files         _g_: live grep
   _p_: projects          _/_: search in file
   _R_: reload fils       _?_: search history
-  _r_: resume            _h_: harpoon
+  _r_: resume            _n_: new file
   _y_: copy file path    _m_: bookmarks
   _e_: file explorer     _E_: file explorer project root  ^
-  _n_: new file
 
   _<Enter>_: Telescope
 ]],
@@ -88,13 +60,6 @@ function M.setup(Hydra, _, _)
         { desc = "search history" },
       },
       { "R", "<cmd>e %<CR>" },
-      {
-        "h",
-        function()
-          harpoon_hydra:activate()
-        end,
-        { desc = "choose harpoon" },
-      },
       { "y", ':let @*=expand("%")<cr>', { desc = "Copy file path" } },
       {
         "<Enter>",

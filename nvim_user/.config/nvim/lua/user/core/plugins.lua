@@ -487,15 +487,6 @@ function M.config()
       opt = true,
     },
 
-    -- Harpoon
-    {
-      "ThePrimeagen/harpoon",
-      after = "telescope.nvim",
-      config = function()
-        require("user.configs.harpoon").config()
-      end,
-    },
-
     -- Google translate
     {
       "kraftwerk28/gtranslate.nvim",
