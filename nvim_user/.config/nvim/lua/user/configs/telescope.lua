@@ -217,6 +217,7 @@ function M.config()
             ["N"] = fb_actions.create,
             ["h"] = fb_actions.goto_parent_dir,
             ["d"] = fb_actions.remove,
+            ["x"] = fb_actions.open,
             ["<c-h>"] = fb_actions.toggle_hidden,
             ["l"] = actions.select_default,
             -- your custom normal mode mappings
