@@ -125,7 +125,7 @@ function M.config()
     end
     require("alpha").setup(config)
     vim.cmd[[AlphaRedraw]]
-  end, 1000)
+  end, 1)
 
   return config
 end
