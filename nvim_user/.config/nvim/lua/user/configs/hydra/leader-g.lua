@@ -7,10 +7,10 @@ function M.setup(Hydra, _, _)
   _b_: blame                       _s_: status
   _j_: next hunk                   _k_: prev hunk
   _p_: preview hunk                _r_: reset hunk
-  _R_: reset buffer                _h_: file history
-  _d_: diff view                   _o_: open page with line
-  _O_: open current file
-]],
+  _O_: open current file           _o_: open page with line
+
+  _R_: reset buffer
+]]   ,
     config = {
       invoke_on_body = true,
       color = "pink",
@@ -47,8 +47,8 @@ function M.setup(Hydra, _, _)
       -- { "c", "<cmd>Telescope git_commits<cr>", { exit = true } },
       -- { "C", "<cmd>Telescope git_bcommits<cr>", { exit = true } },
       -- d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },
-      { "d", "<cmd>DiffviewOpen<cr>", { exit = true } },
-      { "h", "<cmd>DiffviewFileHistory %<cr>", { exit = true } },
+      -- { "d", "<cmd>DiffviewOpen<cr>", { exit = true } },
+      -- { "h", "<cmd>DiffviewFileHistory %<cr>", { exit = true } },
       { "o", "<cmd>OpenInGHFile<cr>", { exit = true } },
       { "O", "<cmd>OpenInGHRepo<cr>", { exit = true } },
       { "<Esc>", nil, { exit = true, nowait = true, desc = false } },

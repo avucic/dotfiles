@@ -111,19 +111,6 @@ function M.config()
       opt = true,
     },
     {
-      "sindrets/diffview.nvim",
-      requires = "nvim-lua/plenary.nvim",
-      cmd = {
-        "Diffview",
-        "DiffviewOpen",
-        "DiffviewFileHistory",
-      },
-      config = function()
-        require("user.configs.diffview").config()
-      end,
-      opt = true,
-    },
-    {
       "Almo7aya/openingh.nvim",
       requires = "tyru/open-browser.vim",
       opt = true,

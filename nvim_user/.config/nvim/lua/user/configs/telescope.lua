@@ -43,7 +43,7 @@ function M.config()
             end
 
             vim.fn.jobstart(
-            --
+              --
               { "viu", filepath },
               {
                 on_stdout = send_output,
@@ -208,13 +208,13 @@ function M.config()
         grouped = true,
         mappings = {
           ["i"] = {
-            ["A"] = fb_actions.create,
+            ["N"] = fb_actions.create,
             ["<c-h>"] = fb_actions.toggle_hidden,
             -- your custom insert mode mappings
           },
           ["n"] = {
-            ["a"] = fb_actions.create,
-            ["A"] = fb_actions.create,
+            ["n"] = fb_actions.create,
+            ["N"] = fb_actions.create,
             ["h"] = fb_actions.goto_parent_dir,
             ["d"] = fb_actions.remove,
             ["<c-h>"] = fb_actions.toggle_hidden,
