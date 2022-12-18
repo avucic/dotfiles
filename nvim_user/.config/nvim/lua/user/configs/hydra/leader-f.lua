@@ -9,8 +9,9 @@ function M.setup(Hydra, _, _)
   _p_: projects          _/_: search in file
   _R_: reload fils       _?_: search history
   _r_: resume            _n_: new file
-  _y_: copy file path    _m_: bookmarks
+  _y_: copy file path    _Y_: copy full file path
   _e_: file explorer     _E_: file explorer project root  ^
+  _m_: bookmarks
 
   _<Enter>_: Telescope
 ]],
@@ -61,6 +62,7 @@ function M.setup(Hydra, _, _)
       },
       { "R", "<cmd>e %<CR>" },
       { "y", ':let @*=expand("%")<cr>', { desc = "Copy file path" } },
+      { "Y", ':let @*=expand("%:p")<cr>', { desc = "Copy full file path" } },
       {
         "<Enter>",
         "<cmd>lua require('telescope.builtin')<CR>:Telescope<CR>",
