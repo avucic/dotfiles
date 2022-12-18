@@ -308,6 +308,8 @@ function M.config()
     },
     {
       "smjonas/inc-rename.nvim",
+      opt = true,
+      cmd = { "IncRename" },
       config = function()
         require("user.configs.inc_rename").config()
       end,
