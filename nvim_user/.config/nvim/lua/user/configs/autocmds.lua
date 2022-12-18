@@ -13,6 +13,19 @@ local ingore_spell = {
 }
 
 local aucmd_dict = {
+  User = {
+    {
+      pattern = "SessionSavePre", --fix no fold error
+      callback = function()
+        for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
+          local buftype = vim.api.nvim_buf_get_option(buffer, "buftype")
+          if buftype == "nofile" then
+            vim.api.nvim_buf_delete(buffer, { force = true })
+          end
+        end
+      end,
+    },
+  },
   FileType = {
     {
       pattern = "help",

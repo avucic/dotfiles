@@ -35,10 +35,11 @@ function M.config()
       },
     }, bufnr)
 
-    if vim.o.filetype ~= "nofile" then
+    if vim.o.buftype ~= "nofile" then
       local opt = vim.opt
       opt.foldmethod = "expr"
       opt.foldexpr = "nvim_treesitter#foldexpr()"
+      opt.foldlevel = 99
     end
   end
 
