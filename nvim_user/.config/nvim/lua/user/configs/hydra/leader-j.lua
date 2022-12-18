@@ -52,7 +52,7 @@ function M.activate_hydra(opt)
     hint = hint .. config["hint"]
     local lang_heads = config["heads"]
 
-    for k, v in pairs(lang_heads) do
+    for _, v in pairs(lang_heads) do
       table.insert(heads, v)
     end
   end
