@@ -65,6 +65,15 @@ function M.config()
 
   -- Add overrides for LSP server settings, the keys are the name of the server
   local server_settings = {
+    sumneko_lua = {
+      settings = {
+        Lua = {
+          format = {
+            enable = false,
+          },
+        },
+      },
+    },
     emmet_ls = {
       capabilities = capabilities,
       filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby" },
