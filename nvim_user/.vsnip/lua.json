@@ -1,8 +1,11 @@
 {
+  "DelayFN": {
+    "prefix": ["df"],
+    "body": ["vim.defer_fn(function()", " $1", "end, ${2:1000})"]
+  },
+
   "Module": {
-    "prefix": [
-      "md"
-    ],
+    "prefix": ["md"],
     "body": [
       "local M = {}",
       "",
@@ -22,9 +25,7 @@
     ]
   },
   "Dump": {
-    "prefix": [
-      "dmp"
-    ],
+    "prefix": ["dmp"],
     "body": [
       "function dump(o)",
       "\tif type(o) == \"table\" then",
@@ -43,9 +44,7 @@
     ]
   },
   "FileExists": {
-    "prefix": [
-      "fex"
-    ],
+    "prefix": ["fex"],
     "body": [
       "local function file_exists(fname)",
       "  if fname == nil then",
