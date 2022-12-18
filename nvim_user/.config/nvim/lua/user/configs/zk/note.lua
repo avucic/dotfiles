@@ -13,7 +13,7 @@ local create_note_entry_maker = function(_)
 
     if path:match("daily_notes") then
       prefix = "DN"
-      icon = "🗒️"
+      icon = "📔"
     elseif path:match("references") then
       prefix = "RN"
       icon = "🔖"
