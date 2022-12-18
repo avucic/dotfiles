@@ -32,10 +32,11 @@ function M.config()
     -- Themes
     {
       "marko-cerovac/material.nvim",
+      opt = true,
+      event = "BufRead",
       setup = function()
         vim.g.material_style = "lighter"
       end,
-
       config = function()
         require("material").setup()
       end,
