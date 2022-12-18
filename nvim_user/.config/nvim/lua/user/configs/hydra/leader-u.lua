@@ -12,6 +12,8 @@ function M.setup(Hydra, _, _)
   _N_: notifications             _T_: theme
 ]]
 
+  local cmd = vim.cmd
+
   local mode_hydra = Hydra({
     name = "Poet mode",
     config = {
@@ -31,29 +33,29 @@ function M.setup(Hydra, _, _)
 
   local function toggle_conceal()
     if vim.opt.conceallevel._value == 0 then
-      vim.cmd([[set conceallevel=2]])
+      cmd([[set conceallevel=2]])
     else
-      vim.cmd([[set conceallevel=0]])
+      cmd([[set conceallevel=0]])
     end
   end
 
   local function toggle_spell()
     if vim.g.is_spell_off == true then
       vim.g.is_spell_off = false
-      vim.cmd([[set spell]])
+      cmd([[set spell]])
     else
       vim.g.is_spell_off = true
-      vim.cmd([[set nospell]])
+      cmd([[set nospell]])
     end
   end
 
   local function toggle_theme()
     if vim.g.current_colorscheme == "light" then
       vim.g.current_colorscheme = "dark"
-      vim.cmd([[colorscheme default_theme]])
+      cmd([[colorscheme default_theme]])
     else
       vim.g.current_colorscheme = "light"
-      vim.cmd([[colorscheme material]])
+      cmd([[colorscheme material]])
     end
   end
 
