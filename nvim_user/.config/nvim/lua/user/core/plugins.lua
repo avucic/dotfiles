@@ -31,14 +31,6 @@ function M.config()
 
     -- Themes
     {
-      "rmehri01/onenord.nvim",
-      config = function()
-        require("onenord").setup({
-          theme = vim.g.colortheme or "dark",
-        })
-      end,
-    },
-    {
       "marko-cerovac/material.nvim",
       setup = function()
         vim.g.material_style = "lighter"
