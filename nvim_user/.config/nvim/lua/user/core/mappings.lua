@@ -121,6 +121,11 @@ function M.config()
         ":lua require('telescope').extensions.vim_bookmarks.current_file()<cr>",
         desc = "List current file Bookmarks",
       },
+
+      -- portal
+      ["<c-o>"] = [[<cmd>lua require("portal").jump_backward()<cr>]],
+      ["<c-i>"] = [[<cmd>lua require("portal").jump_forward()<cr>]],
+
       -- Lighspeed
       -- ["s"] = { "<Plug>Lightspeed_s" },
       -- ["S"] = { "<Plug>Lightspeed_S" },

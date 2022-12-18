@@ -63,12 +63,16 @@ function M.config()
       },
     },
 
+    {
+      "cbochs/portal.nvim",
+      event = "BufRead",
+      opt = true,
+    },
     -- Autocompletion
     {
       "hrsh7th/cmp-cmdline",
       after = "nvim-cmp",
     },
-
     {
       "dmitmel/cmp-cmdline-history",
       after = "nvim-cmp",
