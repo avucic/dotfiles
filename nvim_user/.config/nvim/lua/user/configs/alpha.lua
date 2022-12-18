@@ -1,5 +1,30 @@
 local M = {}
 
+local function alpha_button(sc, txt)
+  local sc_ = sc:gsub("%s", ""):gsub("LDR", "<leader>")
+  if vim.g.mapleader then
+    sc = sc:gsub("LDR", vim.g.mapleader == " " and "SPC" or vim.g.mapleader)
+  end
+  return {
+    type = "button",
+    val = txt,
+    on_press = function()
+      local key = vim.api.nvim_replace_termcodes(sc_, true, false, true)
+      vim.api.nvim_feedkeys(key, "normal", false)
+    end,
+    opts = {
+      position = "center",
+      text = txt,
+      shortcut = sc,
+      cursor = 5,
+      width = 36,
+      align_shortcut = "right",
+      hl = "DashboardCenter",
+      hl_shortcut = "DashboardShortcut",
+    },
+  }
+end
+
 function M.config()
   -- local alpha = require("user.core.utils").load_module("alpha-nvim")
   -- if not alpha then
@@ -7,41 +32,9 @@ function M.config()
   -- end
 
   local plugins_count = vim.fn.len(vim.fn.globpath(vim.fn.stdpath("data") .. "/site/pack/packer/start", "*", 0, 1))
-  local function alpha_button(sc, txt)
-    local sc_ = sc:gsub("%s", ""):gsub("LDR", "<leader>")
-    if vim.g.mapleader then
-      sc = sc:gsub("LDR", vim.g.mapleader == " " and "SPC" or vim.g.mapleader)
-    end
-    return {
-      type = "button",
-      val = txt,
-      on_press = function()
-        local key = vim.api.nvim_replace_termcodes(sc_, true, false, true)
-        vim.api.nvim_feedkeys(key, "normal", false)
-      end,
-      opts = {
-        position = "center",
-        text = txt,
-        shortcut = sc,
-        cursor = 5,
-        width = 36,
-        align_shortcut = "right",
-        hl = "DashboardCenter",
-        hl_shortcut = "DashboardShortcut",
-      },
-    }
-  end
-
-  local handle = io.popen("task next")
-  local result = handle:read("*a")
-  handle:close()
-
   local lines = {}
-  for s in result:gmatch("[^\r\n]+") do
-    table.insert(lines, s)
-  end
 
-  return {
+  local config = {
     layout = {
       { type = "padding", val = vim.fn.max({ 2, vim.fn.floor(vim.fn.winheight(0) * 0.2) }) },
       {
@@ -121,6 +114,20 @@ function M.config()
     },
     opts = {},
   }
+
+  vim.defer_fn(function()
+    local handle = io.popen("task next")
+    local result = handle:read("*a")
+    handle:close()
+
+    for s in result:gmatch("[^\r\n]+") do
+      table.insert(lines, s)
+    end
+    require("alpha").setup(config)
+    vim.cmd[[AlphaRedraw]]
+  end, 1000)
+
+  return config
 end
 
 return M
