@@ -4,7 +4,22 @@ function M.setup(Hydra, _, _)
   local hint = [[
   _i_: inflect          _dt_: base64 decode token
  _ea_: easyalign         _s_: generate code image
+  _t_: translate
 ]]
+
+  local translate_hydra = Hydra({
+    name = "Translate",
+    config = {
+      on_key = false,
+      invoke_on_body = true,
+    },
+    mode = "v",
+    heads = {
+      { "e", ":'<,'>Translate English<CR>", { desc = "english", exit = true } },
+      { "s", ":'<,'>Translate Serbian<CR>", { desc = "serbian", exit = true } },
+      { "<Esc>", nil, { exit = true, nowait = true, desc = false } },
+    },
+  })
 
   Hydra({
     name = "Text utils",
@@ -52,6 +67,16 @@ function M.setup(Hydra, _, _)
         {
           desc = "Toggle word",
           nowait = true,
+          exit = true,
+        },
+      },
+      {
+        "g",
+        function()
+          translate_hydra:activate()
+        end,
+        {
+          desc = "Translate",
           exit = true,
         },
       },
