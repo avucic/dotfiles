@@ -121,6 +121,7 @@ function M.config()
         ":lua require('telescope').extensions.vim_bookmarks.current_file()<cr>",
         desc = "List current file Bookmarks",
       },
+      ["mD"] = "<cmd>normal mx<cr>",
 
       -- portal
       ["<c-o>"] = [[<cmd>lua require("portal").jump_backward()<cr>]],
