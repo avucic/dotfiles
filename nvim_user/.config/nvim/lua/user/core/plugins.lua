@@ -125,6 +125,9 @@ function M.config()
       config = function()
         require("user.configs.leap").config()
       end,
+      requires = {
+        "ggandor/flit.nvim"
+      }
     },
 
     -- Highlight current word
@@ -298,7 +301,11 @@ function M.config()
         "TZMinimalist",
         "TZFocus",
         "TZAtaraxis",
+        "TZNarrow",
       },
+      config = function()
+        require("user.configs.true_zen").config()
+      end,
     },
 
     -- LSP
