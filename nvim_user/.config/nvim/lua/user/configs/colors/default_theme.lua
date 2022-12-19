@@ -59,6 +59,8 @@ M.config = function() -- or a function that returns a new table of colors to set
       hl["@MarkdownHeaderMarkerH6"] = { fg = C.orange }
 
       hl["@text.reference"] = { fg = C.blue }
+      hl["@text.emphasis"].fg = C.white
+      hl["@text.strong"].fg = C.white
       hl["@punctuation.delimiter"] = { fg = C.yellow }
 
       hl["@MarkdownBlockQuote"] = { fg = C.blue_3, italic = true }
@@ -78,7 +80,7 @@ M.config = function() -- or a function that returns a new table of colors to set
       hl["SpellLocal"] = { sp = "red", undercurl = true }
       hl["@text.note"] = { link = "@constant" }
 
-      hl["STS_highlight"] = {fg = "#00F1F5"}
+      hl["STS_highlight"] = { fg = "#00F1F5" }
 
       -- vim.cmd([[
       --   hi SpellBad   guifg=NONE guisp=red    gui=undercurl term=underline cterm=undercurl
