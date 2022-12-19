@@ -75,3 +75,4 @@ Gemlocal.lock
 .nvimrc.lua
 .zk/*
 .mind/*
+.vim-bookmarks
