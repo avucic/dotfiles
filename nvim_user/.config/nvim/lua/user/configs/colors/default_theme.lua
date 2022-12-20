@@ -81,6 +81,7 @@ M.config = function() -- or a function that returns a new table of colors to set
       hl["@text.note"] = { link = "@constant" }
 
       hl["STS_highlight"] = { fg = "#00F1F5" }
+      hl.DiagnosticInfo.fg = "white"
 
       -- vim.cmd([[
       --   hi SpellBad   guifg=NONE guisp=red    gui=undercurl term=underline cterm=undercurl
