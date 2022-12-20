@@ -140,41 +140,6 @@ Hydra({
 	},
 })
 
-local ascii_tree_hydra = Hydra({
-	name = "Ascii Tree",
-	config = {
-		on_key = false,
-		invoke_on_body = true,
-	},
-	heads = {
-		{ "t", "<cmd>AsciiTree<cr>", { exit = false } },
-		-- { "u", "<cmd>AsciiTreeUndo<cr>", { exit = false, mode = "v" } },
-		-- { "<Esc>", "<esc>", { exit = true, nowait = true, desc = false, mode = "v" } },
-	},
-})
-
-local ascii_tree_hydra = Hydra({
-	name = "Draw Diagram",
-	hint = [[
-	_t_: tree
-]],
-	config = {
-		buffer = true,
-		color = "pink",
-		invoke_on_body = true,
-		hint = {
-			border = "rounded",
-		},
-		on_enter = function()
-			vim.o.virtualedit = "all"
-		end,
-	},
-	heads = {
-		{ "t", "<cmd>AsciiTree<cr>", { exit = false } },
-		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },
-	},
-})
-
 Hydra({
 	name = "Markdown",
 	config = {
@@ -185,6 +150,10 @@ Hydra({
 	mode = { "v" },
 	body = "<leader>m",
 	heads = {
+		{ "b", "di**<esc>pa**<esc>", { nowait = true, exit = true, desc = "bold" } },
+		{ "i", "di_<esc>pa_<esc>", { nowait = true, exit = true, desc = "italic" } },
+		{ "c", "di`<esc>pa`<esc>", { nowait = true, exit = true, desc = "code" } },
+		{ "s", "di~~<esc>pa~~<esc>", { nowait = true, exit = true, desc = "strikethrough" } },
 		{ "t", "<leader>mt", { desc = "ascii tree", remap = true } },
 		{ "u", "<leader>mu", { desc = "ascii tree", remap = true } },
 		{ "<Esc>", "<Cmd>MarkdownPreviewStop<CR>", { exit = true, nowait = true, desc = false } },
