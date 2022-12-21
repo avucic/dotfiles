@@ -1,13 +1,12 @@
 local M = {}
 
 function M.setup(Hydra, _, _)
-  local hint_visual = [[
-  _w_: search notes    _n_: new note from title
-]]
 
   Hydra({
     name = "Notes",
-    hint = hint_visual,
+    hint = [[
+  _w_: search notes    _n_: new note from title
+]],
     color = "pink",
     config = {
       -- on_key = false,
@@ -114,33 +113,15 @@ function M.setup(Hydra, _, _)
     },
   })
 
-  local hint_normal = [[
-  _R_: reload index        _n_: new note ^
-  _o_: open notes          _j_: journal
-  _s_: search              _c_: calendar
-  _t_: tasks               _._: cdw
-  _i_: nootbook
-]]
-
-  local function choose_journal()
-    journal_hydra:activate()
-  end
-
-  local function choose_search()
-    search_hydra:activate()
-  end
-
-  local function choose_note()
-    note_hydra:activate()
-  end
-
-  local function choose_task()
-    task_hydra:activate()
-  end
-
   Hydra({
     name = "Notes",
-    hint = hint_normal,
+    hint = [[
+  _R_: reload index        _n_: new note ^
+  _o_: open notes          _j_: journal
+  _f_: find                _c_: calendar
+  _t_: tasks               _._: cdw
+  _i_: nootbook
+]],
     config = {
       on_key = false,
       invoke_on_body = true,
@@ -157,9 +138,27 @@ function M.setup(Hydra, _, _)
       { ".", "<Cmd>ZkCd<CR>", { exit = true } },
       { "R", "<Cmd>ZkIndex<CR>", { exit = true } },
       { "c", "<cmd>ZkShowCalendar<cr>", { exit = true } },
-      { "n", choose_note, { exit = true } },
-      { "j", choose_journal, { exit = true } },
-      { "t", choose_task, { exit = true } },
+      {
+        "n",
+        function()
+          note_hydra:activate()
+        end,
+        { exit = true },
+      },
+      {
+        "j",
+        function()
+          journal_hydra:activate()
+        end,
+        { exit = true },
+      },
+      {
+        "t",
+        function()
+          task_hydra:activate()
+        end,
+        { exit = true },
+      },
       -- { "p", "<Cmd>MindOpenProject<CR>", { exit = true } },
       -- { "o", "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", { exit = true } },
       { "o", "<Cmd>ZkOpenNotes<CR>", { exit = true } },
@@ -167,7 +166,13 @@ function M.setup(Hydra, _, _)
       -- { "b", "<Cmd>ZkBacklinks<CR>", { exit = true } },
       -- { "st", "<Cmd>ZkTags<CR>", { exit = true } },
       -- { "s", "<cmd>:ZkNew{group='scratch', dir='scratch'}<cr>", { desc = "new scratch", exit = true } },
-      { "s", choose_search, { exit = true } },
+      {
+        "f",
+        function()
+          search_hydra:activate()
+        end,
+        { exit = true },
+      },
       { "<Esc>", nil, { exit = true, desc = false } },
     },
   })
