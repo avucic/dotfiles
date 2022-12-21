@@ -16,6 +16,20 @@ function M.config()
         require("user.configs.bqf").config()
       end,
     },
+    -- Neovim
+    {
+      "smjonas/live-command.nvim",
+      -- live-command supports semantic versioning via tags
+      -- tag = "1.*",
+      config = function()
+        require("live-command").setup({
+          commands = {
+            Norm = { cmd = "norm" },
+            Global = { cmd = "global" },
+          },
+        })
+      end,
+    },
 
     -- editorconfig
     {
