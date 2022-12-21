@@ -142,10 +142,19 @@ Hydra({
 
 Hydra({
 	name = "Markdown",
+	hint = [[
+ _b_: bold            _i_: italic
+ _c_: code            _s_: strikethrough
+ _t_: to ascii tree   _u_: from ascii tree ^
+
+]],
 	config = {
 		buffer = true,
 		invoke_on_body = true,
-		color = "pink",
+		color = "teal",
+		hint = {
+			border = "rounded",
+		},
 	},
 	mode = { "v" },
 	body = "<leader>m",
@@ -154,8 +163,8 @@ Hydra({
 		{ "i", "di_<esc>pa_<esc>", { nowait = true, exit = true, desc = "italic" } },
 		{ "c", "di`<esc>pa`<esc>", { nowait = true, exit = true, desc = "code" } },
 		{ "s", "di~~<esc>pa~~<esc>", { nowait = true, exit = true, desc = "strikethrough" } },
-		{ "t", "<leader>mt", { desc = "ascii tree", remap = true } },
-		{ "u", "<leader>mu", { desc = "ascii tree", remap = true } },
+		{ "t", ":AsciiTree<cr>", { desc = "ascii tree", exit = true } },
+		{ "u", ":AsciiTreeUndo<cr>", { desc = "ascii tree", exit = true } },
 		{ "<Esc>", "<Cmd>MarkdownPreviewStop<CR>", { exit = true, nowait = true, desc = false } },
 	},
 })
@@ -168,6 +177,4 @@ vim.api.nvim_buf_set_keymap(
 	{ noremap = true, desc = "Go to Declaration" }
 )
 
-vim.api.nvim_buf_set_keymap(0, "v", "<leader>mt", [[:AsciiTree]], { noremap = true, desc = "AsciiTree" })
-vim.api.nvim_buf_set_keymap(0, "v", "<leader>mu", [[:AsciiTreeUndo]], { noremap = true, desc = "AsciiTreeUndo" })
 vim.api.nvim_buf_set_keymap(0, "n", "<bs>", [[:ZkBacklinks<CR>]], { noremap = true, desc = "Back links" })
