@@ -4,7 +4,7 @@ function M.setup(Hydra, _, _)
   local hint = [[
   _i_: inflect          _dt_: base64 decode token
  _ea_: easyalign         _s_: generate code image
-  _t_: translate
+  _t_: toggle word       _g_: translate
 ]]
 
   local translate_hydra = Hydra({
