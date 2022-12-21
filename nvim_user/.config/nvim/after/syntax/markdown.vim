@@ -58,6 +58,7 @@ set wrap
 set linebreak
 set shiftwidth=4 "TODO fix prettier . this is workaround for list indentation
 set syntax=off "TODO fix prettier . this is workaround for list indentation
+set foldlevel=99
 
 " block
 au BufWinEnter *.md call MarkdownBlocks()
