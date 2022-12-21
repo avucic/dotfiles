@@ -10,5 +10,9 @@
   "Bash Code block": {
       "prefix": ["bscodeclock"],
     "body": ["```bash", "${1}", "```"]
+  },
+  "SQL Code block": {
+      "prefix": ["sqlcodeclock"],
+    "body": ["```sql", "${1}", "```"]
   }
 }
