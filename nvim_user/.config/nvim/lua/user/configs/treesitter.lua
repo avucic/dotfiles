@@ -176,7 +176,8 @@ function M.config()
       "rust",
       "vim",
       "help",
-      "toml"
+      "toml",
+      "sql"
     },
   }
 end
