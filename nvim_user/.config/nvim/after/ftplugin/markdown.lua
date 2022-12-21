@@ -143,9 +143,9 @@ Hydra({
 Hydra({
 	name = "Markdown",
 	config = {
-		color = "teal",
-		on_key = false,
+		buffer = true,
 		invoke_on_body = true,
+		color = "pink",
 	},
 	mode = { "v" },
 	body = "<leader>m",
