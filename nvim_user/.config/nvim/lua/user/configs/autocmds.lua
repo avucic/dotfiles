@@ -21,6 +21,12 @@ local aucmd_dict = {
       end,
     },
     {
+      pattern = "zsh",
+      callback = function()
+        vim.cmd([[set filetype=bash]])
+      end,
+    },
+    {
       pattern = "*",
       callback = function()
         vim.cmd([[setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])
