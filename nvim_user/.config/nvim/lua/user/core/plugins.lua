@@ -29,11 +29,11 @@ function M.config()
           },
         })
       end,
-      opt =true,
+      opt = true,
       cmd = {
         "Norm",
-        "Global"
-      }
+        "Global",
+      },
     },
 
     -- editorconfig
@@ -555,6 +555,23 @@ function M.config()
       },
     },
     -- text
+    {
+      "jackMort/ChatGPT.nvim",
+      config = function()
+        require("chatgpt").setup({
+          -- optional configuration
+        })
+      end,
+      requires = {
+        "MunifTanjim/nui.nvim",
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim",
+      },
+      cmd = {
+        "ChatGPT",
+        "ChatGPTActAs",
+      },
+    },
     {
       "farfanoide/inflector.vim",
       event = "InsertEnter",

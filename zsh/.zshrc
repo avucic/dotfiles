@@ -1,6 +1,9 @@
 export ANTIGEN=$HOME
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
+
+source ~/.env
+
 # If there is cache available
 if [[ -f ${ADOTDIR:-$HOME/.antigen}/.cache/.zcache-payload ]]; then
   # Load bundles statically
