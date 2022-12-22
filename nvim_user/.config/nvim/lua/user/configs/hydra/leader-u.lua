@@ -14,15 +14,18 @@ function M.setup(Hydra, _, _)
 
   local cmd = vim.cmd
 
+
   local mode_hydra = Hydra({
     name = "Poet mode",
     config = {
       on_key = false,
     },
+    mode = { "n", "v", "x" },
     heads = {
       { "p", "<cmd>TZAtaraxis<cr>", { desc = "poet mode" } },
       { "f", "<cmd>TZFocus<cr>", { desc = "focus mode" } },
       { "m", "<cmd>TZMinimalist<cr>", { desc = "minimalist mode" } },
+      { "n", ":'<,'>TZNarrow<cr>", { desc = "narrow", exit = true, mode = "v" } },
       { "<Esc>", nil, { exit = true, nowait = true, desc = false } },
     },
   })
@@ -71,7 +74,7 @@ function M.setup(Hydra, _, _)
         type = "window",
       },
     },
-    mode = "n",
+    mode = { "n", "v" },
     body = "<Leader>u",
     heads = {
       { "m", choose_mode, { desc = "Poet mode" } },
