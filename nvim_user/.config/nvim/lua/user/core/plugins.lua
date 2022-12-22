@@ -140,8 +140,8 @@ function M.config()
         require("user.configs.leap").config()
       end,
       requires = {
-        "ggandor/flit.nvim"
-      }
+        "ggandor/flit.nvim", -- f,F,t,T commands
+      },
     },
 
     -- Highlight current word
