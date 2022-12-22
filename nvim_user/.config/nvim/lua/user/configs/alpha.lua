@@ -115,17 +115,18 @@ function M.config()
     opts = {},
   }
 
-  vim.defer_fn(function()
-    local handle = io.popen("task next")
-    local result = handle:read("*a")
-    handle:close()
+    vim.defer_fn(function()
+  if vim.o.filetype == "alpha" then
+      local handle = io.popen("task next")
+      local result = handle:read("*a")
+      handle:close()
 
-    for s in result:gmatch("[^\r\n]+") do
-      table.insert(lines, s)
-    end
-    require("alpha").setup(config)
-    vim.cmd[[AlphaRedraw]]
-  end, 1)
+      for s in result:gmatch("[^\r\n]+") do
+        table.insert(lines, s)
+      end
+      vim.cmd([[AlphaRedraw]])
+  end
+    end, 1)
 
   return config
 end
