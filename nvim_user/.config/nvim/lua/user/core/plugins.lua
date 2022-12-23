@@ -87,6 +87,17 @@ function M.config()
       event = "BufRead",
       opt = true,
     },
+    -- Multi cursor
+    {
+      "mg979/vim-visual-multi",
+      branch = "master",
+      event = "BufRead",
+      setup = function()
+        vim.g["VM_leader"] = "\\"
+        vim.g["VM_default_mappings"] = 1
+      end,
+    },
+
     -- Autocompletion
     {
       "hrsh7th/cmp-cmdline",

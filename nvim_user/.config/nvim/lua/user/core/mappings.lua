@@ -159,10 +159,10 @@ function M.config()
       -- ["<C-p>"] = { "<CMD>:cp<CR>" },
 
       -- multiple Cursor
-      -- ["<C-n>"] = "<Nop>",
-      -- ["<C-p>"] = "<Nop>",
-      -- ["<M-n>"] = { "<Plug>(VM-Add-Cursor-Down)" },
-      -- ["<M-p>"] = { "<Plug>(VM-Add-Cursor-up)" },
+      ["<C-n>"] = "<Nop>",
+      ["<C-p>"] = "<Nop>",
+      ["<M-n>"] = { "<Plug>(VM-Add-Cursor-Down)" },
+      ["<M-p>"] = { "<Plug>(VM-Add-Cursor-up)" },
 
       -- toggle term
       ["\\\\"] = { "<cmd>ToggleTermToggleAll<cr>" },
