@@ -87,12 +87,25 @@ local diagram_hydra = Hydra({
 	},
 })
 
+local text_hydra = Hydra({
+	name = "Markdown",
+	config = {
+		buffer = true,
+		invoke_on_body = true,
+	},
+	heads = {
+		{ "l", "I- <esc>", { desc = "make list", exit = true } },
+		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },
+	},
+})
+
 Hydra({
 	name = "Markdown",
 	hint = [[
  _t_: table        _d_: diagram
  _p_: preview      _s_: server
  _i_: paste link   _c_: code ^
+ _x_: text
 
  <c-r> toggle list type (insert)
 ]],
@@ -136,6 +149,13 @@ Hydra({
 			"<cmd>lua require('user.core.utils').toggle_term_cmd('cd $ZK_NOTEBOOK_DIR && markserv', {direction = 'horizontal'})<CR>",
 			{ desc = false, nowait = true, exit = true },
 		},
+		{
+			"x",
+			function()
+				text_hydra:activate()
+			end,
+			{ exit = true },
+		},
 		{ "<Esc>", "<Cmd>MarkdownPreviewStop<CR>", { exit = true, nowait = true, desc = false } },
 	},
 })
@@ -146,6 +166,7 @@ Hydra({
  _b_: bold            _i_: italic
  _c_: code            _s_: strikethrough
  _t_: to ascii tree   _u_: from ascii tree ^
+ _l_: make list
 
 ]],
 	config = {
@@ -165,6 +186,7 @@ Hydra({
 		{ "s", "di~~<esc>pa~~<esc>", { nowait = true, exit = true, desc = "strikethrough" } },
 		{ "t", ":AsciiTree<cr>", { desc = "ascii tree", exit = true } },
 		{ "u", ":AsciiTreeUndo<cr>", { desc = "ascii tree", exit = true } },
+		{ "l", "I- <esc>", { desc = "make list", exit = true } },
 		{ "<Esc>", "<Cmd>MarkdownPreviewStop<CR>", { exit = true, nowait = true, desc = false } },
 	},
 })
