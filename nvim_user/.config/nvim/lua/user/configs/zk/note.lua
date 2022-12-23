@@ -136,17 +136,11 @@ function M.find_or_create_note(opts)
       end)
 
       local run_expand_command = function(prompt_bufnr)
-        local num_of_line_prefix_or_whatever = 4 -- first n characters in line before actual text.T TODO
-
         local selection = state.get_selected_entry()
-        local cursor = vim.api.nvim_win_get_cursor(0)
-        local line = vim.api.nvim_get_current_line()
         local text
-        local nline
 
         if selection ~= nil then
           local note_name = selection.value.title
-          nline = line:sub(0, cursor[2] + 1) .. note_name .. line:sub(cursor[2] + 2)
           text = parse_text(note_name)
         else
           local input_text = state.get_current_line()

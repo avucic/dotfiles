@@ -477,17 +477,6 @@ function M.config()
       ft = { "markdown" },
       opt = true,
     },
-    -- {
-    --   "dkarter/bullets.vim",
-    --   setup = function()
-    --     require("user.configs.bullets").setup()
-    --   end,
-    --   ft = "markdown",
-    --   opt = true,
-    --   config = function()
-    --     require("user.configs.bullets").config()
-    --   end,
-    -- },
     {
       "gaoDean/autolist.nvim",
       ft = { "markdown" },
