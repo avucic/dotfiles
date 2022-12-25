@@ -29,11 +29,6 @@ function M.config()
           },
         })
       end,
-      opt = true,
-      cmd = {
-        "Norm",
-        "Global",
-      },
     },
 
     -- editorconfig
