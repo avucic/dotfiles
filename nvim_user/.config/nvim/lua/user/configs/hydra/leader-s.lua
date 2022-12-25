@@ -53,7 +53,7 @@ function M.setup(Hydra, cmd, _)
       { "c", "<cmd>lua require('telescope.builtin').commands()<CR>", { exit = true } },
       { "r", "<cmd>lua require('telescope.builtin').resume()<CR>", { exit = true } },
       { "b", "<cmd>lua require('telescope.builtin').buffers()<CR>", { exit = true } },
-      { "w", "<cdm>BrowserSearch<cr>" },
+      { "w", "<cmd>BrowserSearch<cr>" },
       { "t", "<cmd>lua require('telescope').extensions.vstask.tasks()<cr>", { desc = "Tasks", exit = true } },
       { "<Enter>", cmd("Telescope"), { exit = true, desc = "list all pickers" } },
       { "<Esc>", nil, { exit = true, nowait = true, desc = false } },
