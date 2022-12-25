@@ -137,7 +137,7 @@ function M.config()
       ["S"] = { "<Plug>(leap-backward-to)" },
       ["SS"] = { "<Plug>(leap-backward-till)" },
       ["gs"] = "<Plug>(leap-cross-window)",
-      -- ["sp"] = { "<cmd>lua require('user.configs.leap').paranormal()<cr>" },
+      ["sp"] = { "<cmd>lua require('user.configs.leap').paranormal()<cr>" },
 
       -- Navigate buffers
       -- ["<leader><tab>"] = { "<cmd>bNext<cr>" },
