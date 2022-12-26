@@ -22,6 +22,7 @@ function M.setup(Hydra, _, _)
     heads = {
       { "o", "<cmd>AerialToggle! right<cr>", { desc = "Symbols Outline" } },
       { "t", "<cmd>lua require('telescope').extensions.vstask.tasks()<cr>" },
+      { "g", "<cmd>ChatGPT<cr>" },
       {
         "do",
         "<cmd>lua require('user.configs.dadbod').db_tasks()<cr>",
