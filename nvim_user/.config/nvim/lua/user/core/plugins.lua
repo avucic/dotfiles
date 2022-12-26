@@ -31,6 +31,33 @@ function M.config()
       end,
     },
 
+    -- OpenAI
+    {
+      "dense-analysis/neural",
+      config = function()
+       require("user.configs.neural").config()
+      end,
+      requires = {
+        "MunifTanjim/nui.nvim",
+        "ElPiloto/significant.nvim",
+      },
+    },
+{
+      "jackMort/ChatGPT.nvim",
+      requires = {
+        "MunifTanjim/nui.nvim",
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim",
+      },
+      config = function()
+        require("user.configs.chatgpt").config()
+      end,
+      cmd = {
+        "ChatGPT",
+        "ChatGPTActAs",
+      },
+    },
+
     -- editorconfig
     {
       "gpanders/editorconfig.nvim",
@@ -550,21 +577,6 @@ function M.config()
       },
     },
     -- text
-    {
-      "jackMort/ChatGPT.nvim",
-      requires = {
-        "MunifTanjim/nui.nvim",
-        "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope.nvim",
-      },
-      config = function()
-        require("user.configs.chatgpt").config()
-      end,
-      cmd = {
-        "ChatGPT",
-        "ChatGPTActAs",
-      },
-    },
     {
       "farfanoide/inflector.vim",
       event = "InsertEnter",
