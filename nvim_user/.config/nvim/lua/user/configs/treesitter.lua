@@ -177,7 +177,9 @@ function M.config()
       "vim",
       "help",
       "toml",
-      "sql"
+      "sql",
+      "svelte",
+      "dockerfile"
     },
   }
 end

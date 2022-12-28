@@ -13,13 +13,16 @@ local ingore_spell = {
 }
 
 local aucmd_dict = {
-  FileType = {
-    {
-      pattern = "help",
+ BufEnter = {
+{
+      pattern = "*Docker*",
       callback = function()
-        vim.cmd([[noremap <buffer> q :q<cr>]])
+        vim.cmd([[set filetype=dockerfile]])
       end,
-    },
+    }
+ },
+  FileType = {
+
     {
       pattern = "zsh",
       callback = function()

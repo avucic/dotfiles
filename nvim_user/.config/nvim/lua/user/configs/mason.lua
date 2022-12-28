@@ -17,6 +17,7 @@ function M.config()
         "marksman",
         "zk@v0.11.1",
         "zk",
+        "svelte"
         -- "grammarly"
       },
     },
@@ -29,6 +30,7 @@ function M.config()
         "gopls",
         "marksman",
         "zk@v0.11.1",
+        "eslint",
       },
     },
     ["mason-null-ls"] = {},
