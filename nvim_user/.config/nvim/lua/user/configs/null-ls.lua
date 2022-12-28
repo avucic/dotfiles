@@ -117,7 +117,7 @@ function M.config()
       -- formatting.sqlfluff,
       -- diagnostics.sqlfluff,
 
-      diagnostics.checkmake,
+      -- diagnostics.checkmake,
       code_actions.eslint_d,
       formatting.gofmt,
     }

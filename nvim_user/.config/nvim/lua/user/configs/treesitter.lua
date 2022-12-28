@@ -179,7 +179,8 @@ function M.config()
       "toml",
       "sql",
       "svelte",
-      "dockerfile"
+      "dockerfile",
+      "make"
     },
   }
 end

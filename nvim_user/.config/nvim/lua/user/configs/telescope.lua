@@ -203,7 +203,7 @@ function M.config()
         files = false,
         -- hijack_netrw = true,
         select_buffer = true,
-        -- respect_gitignore = true,
+        respect_gitignore = false,
         hide_parent_dir = true,
         grouped = true,
         mappings = {

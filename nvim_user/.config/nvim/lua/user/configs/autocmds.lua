@@ -13,14 +13,6 @@ local ingore_spell = {
 }
 
 local aucmd_dict = {
- BufEnter = {
-{
-      pattern = "*Docker*",
-      callback = function()
-        vim.cmd([[set filetype=dockerfile]])
-      end,
-    }
- },
   FileType = {
 
     {
@@ -43,7 +35,11 @@ local aucmd_dict = {
           end
 
           vim.defer_fn(function()
-            vim.cmd([[setlocal spell syntax=off]])
+            if vim.o.filetype == "make" then
+              vim.cmd([[setlocal spell]])
+            else
+              vim.cmd([[setlocal spell syntax=off]])
+            end
           end, 1)
         end
 
