@@ -6,7 +6,7 @@ function M.setup(Hydra, _, _)
     hint = [[
    _o_: symbols outline           _c_: open calendar  ^
   _do_: open db                  _dt_: toggle db
-   _t_: tasks
+   _t_: tasks                     _g_: ChatGPT
 ]],
     config = {
       on_key = false,
