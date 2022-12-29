@@ -1,5 +1,7 @@
 local ingore_spell = {
-  "Telescope*",
+  "TelescopePrompt",
+  "TelescopeResults",
+  "TelescopePreview",
   "toggleterm",
   "prompt",
   "alpha",
@@ -31,6 +33,8 @@ local aucmd_dict = {
             if value == vim.o.filetype then
               vim.cmd([[setlocal nospell]])
               return
+            else
+              vim.cmd([[setlocal spell]])
             end
           end
 
@@ -53,6 +57,14 @@ local aucmd_dict = {
             opt.foldexpr = "nvim_treesitter#foldexpr()"
           end, 100)
         end
+      end,
+    },
+    {
+      pattern = "markdown",
+      callback = function()
+        vim.defer_fn(function()
+          vim.cmd([[call MarkdownConceal() ]]) -- TODO: fix conceal.
+        end, 1)
       end,
     },
     {

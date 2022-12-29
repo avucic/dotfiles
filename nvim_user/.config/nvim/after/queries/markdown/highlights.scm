@@ -91,8 +91,10 @@
 ;       [(list_marker_dot)
 ;        (list_marker_minus)
 ;        (list_marker_plus)
-;        (list_marker_star)] @conceal (#set! conceal "◉")))
-
+;        (list_marker_star)]
+;          @conceal (#set! conceal "◉")
+;          (#offset! @conceal 0 1 0 -1)))
+;
 
 ; (list
 ;     (list_item

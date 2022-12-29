@@ -54,7 +54,7 @@ endfunction
 
 au BufWinEnter *.md call MarkdownConceal()
 
-set wrap
+" set wrap
 set linebreak
 set shiftwidth=4 "TODO fix prettier . this is workaround for list indentation
 set syntax=off "TODO fix prettier . this is workaround for list indentation
