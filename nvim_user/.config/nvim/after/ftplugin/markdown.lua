@@ -87,6 +87,26 @@ local diagram_hydra = Hydra({
 	},
 })
 
+local header_hydra = Hydra({
+	name = "Header",
+	hint = [[
+ _>_: denote            _<_: promote
+]],
+	config = {
+		buffer = true,
+		invoke_on_body = true,
+		color = "teal",
+		hint = {
+			border = "rounded",
+		},
+	},
+	heads = {
+		{ ">", "<ESC>^a#<esc>", { exit = false, desc = "header" } },
+		{ "<", "<ESC>^x", { exit= false, desc = "header" } },
+		{ "<Esc>", "<Cmd>MarkdownPreviewStop<CR>", { exit = true, nowait = true, desc = false } },
+	},
+})
+
 local text_hydra = Hydra({
 	name = "Markdown",
 	config = {
@@ -95,6 +115,13 @@ local text_hydra = Hydra({
 	},
 	heads = {
 		{ "l", "I- <esc>", { desc = "make list", exit = true } },
+		{
+			"h",
+			function()
+				header_hydra:activate()
+			end,
+			{ nowait = true, exit = true, desc = "header" },
+		},
 		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },
 	},
 })
