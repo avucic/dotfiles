@@ -42,7 +42,7 @@ function M.setup(Hydra, _, _)
       {
         "q",
         "<cmd>lua require('dap').close()<cr><cmd>lua require('dap').disconnect()<cr><cmd>lua require('dapui').close()<cr><cmd>lua require('dap').repl.close()<cr>",
-        { desc = "Close" },
+        { exit = true, desc = "Close" },
       },
 
       { "b", "<cmd>lua require('dap').toggle_breakpoint()<cr>", { desc = "Toggle breakpoint" } },

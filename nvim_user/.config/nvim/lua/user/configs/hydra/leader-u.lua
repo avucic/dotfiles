@@ -10,10 +10,10 @@ function M.setup(Hydra, _, _)
   _l_: statusline                _f_: autoformat
   _c_: conceallevel              _i_: ide
   _N_: notifications             _T_: theme
+  _x_: lsp virtual text
 ]]
 
   local cmd = vim.cmd
-
 
   local mode_hydra = Hydra({
     name = "Poet mode",
@@ -50,6 +50,15 @@ function M.setup(Hydra, _, _)
       vim.g.is_spell_off = true
       cmd([[set nospell]])
     end
+  end
+
+  local function toggle_lsp_virtual_text()
+    if vim.g.is_lsp_virtual_text_off == true then
+      vim.g.is_lsp_virtual_text_off = false
+    else
+      vim.g.is_lsp_virtual_text_off = true
+    end
+    vim.cmd [[LspRestart]]
   end
 
   local function toggle_theme()
@@ -91,6 +100,7 @@ function M.setup(Hydra, _, _)
       { "l", astronvim.ui.toggle_statusline, { desc = "toggle statusline" } },
       { "f", astronvim.ui.toggle_autoformat, { desc = "toggle autoformat" } },
       { "N", astronvim.ui.toggle_ui_notifications, { desc = "toggle notifications", exit = true } },
+      { "x", toggle_lsp_virtual_text, { desc = "toggle lsp virtual text", exit = true } },
       {
         "i",
         "<cmd>Workspace LeftPanelToggle<cr><cmd>Workspace RightPanelToggle<cr>",

@@ -74,6 +74,7 @@ function M.config()
         spelllang = { "en_us" },
         conceallevel = 2,
         laststatus = 3,
+        updatetime = 2000,
       },
       g = {
         mapleader = " ", -- sets vim.g.mapleader

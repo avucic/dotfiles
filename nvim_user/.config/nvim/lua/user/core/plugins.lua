@@ -108,6 +108,9 @@ function M.config()
       "cbochs/portal.nvim",
       event = "BufRead",
       opt = true,
+      config = function ()
+       require("user.configs.portal").config()
+      end
     },
     -- Multi cursor
     {
@@ -115,7 +118,7 @@ function M.config()
       branch = "master",
       event = "BufRead",
       setup = function()
-        vim.g["VM_leader"] = "\\"
+        vim.g["VM_leader"] = "<m-\\>"
         vim.g["VM_default_mappings"] = 1
       end,
     },

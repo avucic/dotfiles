@@ -34,6 +34,12 @@ function M.config()
         border = "rounded",
       },
     }, bufnr)
+
+      vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = vim.g.is_lsp_virtual_text_off ~= true,
+        underline = true,
+        signs = true,
+      })
   end
 
   local formatting = {

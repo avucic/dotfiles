@@ -165,6 +165,7 @@ function M.config()
       ["<M-p>"] = { "<Plug>(VM-Add-Cursor-up)" },
 
       -- toggle term
+      ["\\"] = "<Nop>",
       ["\\\\"] = { "<cmd>ToggleTermToggleAll<cr>" },
 
       -- search google
