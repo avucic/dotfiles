@@ -8,6 +8,7 @@ function M.setup(Hydra, _, _)
    _f_: float                   _F_: new float
    _v_: vertical                _V_: new vertical  ^
    _T_: tab                     _l_: list
+   _r_: rename
 ]],
     config = {
       color = "teal",
@@ -27,6 +28,11 @@ function M.setup(Hydra, _, _)
           require("user.configs.toggleterm").open_terminal("horizontal", 1)
         end,
         { desc = "default", nowait = true, silent = true },
+      },
+      {
+        "r",
+        [[<Cmd>ToggleTermSetName<CR>]],
+        { desc = "rename", nowait = true, silent = true },
       },
       {
         "f",

@@ -4,9 +4,10 @@ function M.setup(Hydra, _, _)
   local hint = [[
   _o_: open                  _d_: start debug
   _c_: continue              _q_: close
-  _b_: toggl ebreakpoint     _:_: repl
+  _b_: toggle breakpoint     _C_: clear breakpoints ^
   _n_: step over             _i_: step into
   _p_: step out              _u_: toggle ui
+  _:_: repl
 ]]
 
   Hydra({
@@ -26,17 +27,17 @@ function M.setup(Hydra, _, _)
     heads = {
       {
         "o",
-        "<cmd>lua require('vstask').load_dap_tasks()<cr><cmd>lua require('dap').continue()<cr>",
+        "<cmd>lua require('dap').continue()<cr>",
         { desc = "Open" },
       },
       {
         "d",
-        "<cmd>lua require('vstask').load_dap_tasks()<cr><cmd>lua require('dap').continue()<cr>",
+        "<cmd>lua require('dap').continue()<cr>",
         { desc = "Start Debug", nowait = true },
       },
       {
         "c",
-        "<cmd>lua require('vstask').load_dap_tasks()<cr><cmd>lua require('dap').continue()<cr><cmd>lua require('dap').continue()<cr>",
+        "<cmd>lua require('dap').continue()<cr><cmd>lua require('dap').continue()<cr>",
         { desc = "Start Debug" },
       },
       {
@@ -46,6 +47,7 @@ function M.setup(Hydra, _, _)
       },
 
       { "b", "<cmd>lua require('dap').toggle_breakpoint()<cr>", { desc = "Toggle breakpoint" } },
+      { "C", "<cmd>lua require'dap'.clear_breakpoints()<cr>", { desc = "clear breakpoints" } },
       { ":", "<cmd>lua require('dap').repl.toggle()<cr>", { desc = "Repl" } },
       { "n", "<cmd>lua require('dap').step_over()<cr>", { desc = "Step over" } },
       { "i", "<cmd>lua require('dap').step_into()<cr>", { desc = "Step knto" } },

@@ -208,7 +208,7 @@ function M.config()
       -- Leap
       ["s"] = { "<Plug>(leap-forward-to)" },
       ["ss"] = { "<Plug>(leap-forward-till)" },
-      ["S"] = { "<Plug>(leap-backward-to)" },
+      -- ["S"] = { "<Plug>(leap-backward-to)" },
       ["SS"] = { "<Plug>(leap-backward-till)" },
     },
     x = {

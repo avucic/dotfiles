@@ -1,6 +1,22 @@
 local M = {}
 
+
 function M.setup(Hydra, _, _)
+  local tasks_hydra = Hydra({
+    name = "Tasks",
+    config = {
+      on_key = false,
+      invoke_on_body = true,
+      color = "teal",
+    },
+    heads = {
+      { "t", "<cmd>Telescope toggletasks spawn<cr>", {desc ="new" }},
+      { "l", "<cmd>Telescope toggletasks select<cr>", {desc  = "select" }},
+        { "e", "<cmd>Telescope toggletasks edit<cr>", {desc = "edit" }},
+      { "<Esc>", nil, { exit = true, nowait = true, desc = false } },
+    },
+  })
+
   Hydra({
     name = "Open",
     hint = [[
@@ -21,8 +37,10 @@ function M.setup(Hydra, _, _)
     body = "<Leader>o",
     heads = {
       { "o", "<cmd>AerialToggle! right<cr>", { desc = "Symbols Outline" } },
-      { "t", "<cmd>lua require('telescope').extensions.vstask.tasks()<cr>" },
       { "g", "<cmd>ChatGPT<cr>" },
+      { "t", function ()
+        tasks_hydra:activate()
+      end},
       {
         "do",
         "<cmd>lua require('user.configs.dadbod').db_tasks()<cr>",

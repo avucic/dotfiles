@@ -73,7 +73,7 @@ function M.open()
         end
 
         local mappings = {
-          ["<c-c>"] = exit_terminal,
+          ["dd"] = exit_terminal,
         }
         for keybind, action in pairs(mappings) do
           map("n", keybind, function()

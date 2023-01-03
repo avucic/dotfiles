@@ -26,14 +26,14 @@ function M.config()
     yank_dry_run = true,
   })
 
-  vim.cmd([[
-  augroup _keybinding
-    au!
-    autocmd FileType http nnoremap <buffer> <CR> <plug>RestNvim<CR>
-    autocmd FileType http nnoremap <buffer> <S-CR> <plug>RestNvimLast<CR>
-    autocmd FileType http nnoremap <buffer> P <plug>RestNvimPreview<CR>
-  augroup end
-]])
+--   vim.cmd([[
+--   augroup _keybinding
+--     au!
+--     autocmd FileType http nnoremap <buffer> <CR> <plug>RestNvim<CR>
+--     autocmd FileType http nnoremap <buffer> <S-CR> <plug>RestNvimLast<CR>
+--     autocmd FileType http nnoremap <buffer> P <plug>RestNvimPreview<CR>
+--   augroup end
+-- ]])
 end
 
 return M

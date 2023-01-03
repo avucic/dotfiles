@@ -74,7 +74,7 @@ function M.config()
       -- },
     },
     winbar = {
-      enabled = true,
+      enabled = false,
     },
   }
 

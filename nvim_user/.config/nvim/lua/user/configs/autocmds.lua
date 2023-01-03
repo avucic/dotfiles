@@ -14,26 +14,26 @@ local ingore_spell = {
   "bufferlist",
 }
 
---   if vim.g.is_lsp_virtual_text_off == true then
---     vim.api.nvim_command([[
---   augroup Foo
--- autocmd CursorHold <buffer> lua vim.diagnostic.open_float({scope='line'})
--- augroup END
---     ]])
---   end
 local aucmd_dict = {
   CursorHold = {
     {
       pattern = "*",
       callback = function()
         if vim.g.is_lsp_virtual_text_off == true then
-           vim.diagnostic.open_float({scope='line'})
+          vim.diagnostic.open_float({ scope = "line" })
         end
       end,
     },
   },
   FileType = {
-
+    {
+      pattern = "http",
+      callback = function()
+        vim.api.nvim_buf_set_keymap(0, "n", "<cr>", [[<plug>RestNvim]], { noremap = true, desc = "goto link" })
+        vim.api.nvim_buf_set_keymap(0, "n", "P", [[<plug>RestNvimPreview]], { noremap = true, desc = "preview" })
+        vim.api.nvim_buf_set_keymap(0, "n", "L", [[<plug>RestNvimLast]], { noremap = true, desc = "preview" })
+      end,
+    },
     {
       pattern = "zsh",
       callback = function()

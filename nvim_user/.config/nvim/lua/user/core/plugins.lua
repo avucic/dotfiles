@@ -35,14 +35,14 @@ function M.config()
     {
       "dense-analysis/neural",
       config = function()
-       require("user.configs.neural").config()
+        require("user.configs.neural").config()
       end,
       requires = {
         "MunifTanjim/nui.nvim",
         "ElPiloto/significant.nvim",
       },
     },
-{
+    {
       "jackMort/ChatGPT.nvim",
       requires = {
         "MunifTanjim/nui.nvim",
@@ -108,9 +108,9 @@ function M.config()
       "cbochs/portal.nvim",
       event = "BufRead",
       opt = true,
-      config = function ()
-       require("user.configs.portal").config()
-      end
+      config = function()
+        require("user.configs.portal").config()
+      end,
     },
     -- Multi cursor
     {
@@ -247,6 +247,15 @@ function M.config()
     },
 
     -- Telescope
+    -- Tasks
+    {
+      "jedrzejboczar/toggletasks.nvim",
+      after = "telescope.nvim",
+      opt = true,
+      config = function()
+        require("user.configs.toggletasks").config()
+      end,
+    },
     {
       "nvim-telescope/telescope-media-files.nvim",
       after = "telescope.nvim",
@@ -333,15 +342,6 @@ function M.config()
       end,
     },
 
-    -- Tasks
-    {
-      "~/Work/Neovim/vs-tasks.nvim",
-      config = function()
-        require("user.configs.vstask").config()
-      end,
-      after = "telescope.nvim",
-      opt = true,
-    },
     {
       "xarthurx/taskwarrior.vim",
       opt = true,
@@ -629,20 +629,33 @@ function M.config()
     },
     -- rest client
     {
-      -- checkout manually commit e5f68db73276c4d4d255f75a77bbe6eff7a476ef
-      -- https://github.com/NTBBloodbath/rest.nvim/issues/114
-      "NTBBloodbath/rest.nvim",
+      "rest-nvim/rest.nvim",
+      requires = { "nvim-lua/plenary.nvim" },
       config = function()
         require("user.configs.rest").config()
       end,
       ft = "http",
-      opt = true,
       cmd = {
         "RestNvim",
         "RestNvimPreview",
         "RestNvimLast",
       },
     },
+    -- {
+    --   -- checkout manually commit e5f68db73276c4d4d255f75a77bbe6eff7a476ef
+    --   -- https://github.com/NTBBloodbath/rest.nvim/issues/114
+    --   "NTBBloodbath/rest.nvim",
+    --   config = function()
+    --     require("user.configs.rest").config()
+    --   end,
+    --   ft = "http",
+    --   opt = true,
+    --   cmd = {
+    --     "RestNvim",
+    --     "RestNvimPreview",
+    --     "RestNvimLast",
+    --   },
+    -- },
 
     -- base64
     {
