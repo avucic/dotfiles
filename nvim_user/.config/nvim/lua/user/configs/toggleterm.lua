@@ -19,7 +19,7 @@ function M.open_terminal(dir, id)
   local terminals = require("toggleterm.terminal").get_all()
 
   if not vim.g._terminal_counter or next(terminals) == nil or vim.g._terminal_counter < 1 then
-    vim.g._terminal_counter = 1
+    vim.g._terminal_counter = 100
   end
 
   if not id then
