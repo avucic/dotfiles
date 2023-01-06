@@ -22,23 +22,40 @@ M.configurations = function()
   return {
     {
       type = "go",
-      name = "Debug",
+      name = "Debug test (go.mod)",
       request = "launch",
-      program = "${file}",
+      mode = "test",
+      program = "./${relativeFileDirname}",
     },
-    {
-      type = "go",
-      name = "Debug (Arguments)",
-      request = "launch",
-      program = "${file}",
-      args = get_arguments,
-    },
-    {
-      type = "go",
-      name = "Debug Package",
-      request = "launch",
-      program = "${fileDirname}",
-    },
+    -- {
+    --   type = "go",
+    --   name = "Debug",
+    --   request = "launch",
+    --   mode = "test",
+    --   program = "${file}",
+    -- },
+    -- {
+    --   type = "go",
+    --   name = "Debug (Arguments)",
+    --   request = "launch",
+    --   mode = "test",
+    --   program = "./${relativeFileDirname}",
+    --   -- args = get_arguments,
+    --   args = {
+    --     "--",
+    --     -- "-test.v",
+    --     "-test.run",
+    --     "assigns all attributes",
+    --   },
+    --   showLog = true,
+    -- },
+    -- {
+    --   type = "go",
+    --   name = "Debug Package",
+    --   request = "launch",
+    --   mode = "test",
+    --   program = "${fileDirname}",
+    -- },
     {
       type = "go",
       name = "Attach",
@@ -46,20 +63,13 @@ M.configurations = function()
       request = "attach",
       processId = require("dap.utils").pick_process,
     },
-    {
-      type = "go",
-      name = "Debug test",
-      request = "launch",
-      mode = "test",
-      program = "${file}",
-    },
-    {
-      type = "go",
-      name = "Debug test (go.mod)",
-      request = "launch",
-      mode = "test",
-      program = "./${relativeFileDirname}",
-    },
+    -- {
+    --   type = "go",
+    --   name = "Debug test",
+    --   request = "launch",
+    --   mode = "test",
+    --   program = "${file}",
+    -- },
   }
 end
 

@@ -1,5 +1,4 @@
 local M = {}
-local load_language_tasks = { "ruby", "go" }
 
 local function file_exists(file)
   local f = io.open(file, "rb")
@@ -67,22 +66,11 @@ function M.config()
           cmd = "echo 'Enter port'; read port;kill -9 $(lsof -i tcp:$port -t)",
         },
       }
-      -- if ft == "ruby" then
-      --   for _, v in ipairs(ruby_tasks) do
-      --     table.insert(tasks, v)
-      --   end
-      -- end
-      -- if ft == "go" then
-      --   for _, v in ipairs(go_tasks) do
-      --     table.insert(tasks, v)
-      --   end
-      -- end
-      for _, lang in pairs(load_language_tasks) do
-        if ft == lang then
-          local lng_tasks = require("user.configs.toggletasks." .. lang).config()
-          for _, v in ipairs(lng_tasks) do
-            table.insert(tasks, v)
-          end
+
+      local lng_tasks = require("user.core.utils").load_module("user.configs.toggletasks." .. ft)
+      if lng_tasks then
+        for _, v in ipairs(lng_tasks.config()) do
+          table.insert(tasks, v)
         end
       end
 

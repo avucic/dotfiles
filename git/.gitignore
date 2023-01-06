@@ -76,3 +76,4 @@ Gemlocal.lock
 .zk/*
 .mind/*
 .vim-bookmarks
+target/*

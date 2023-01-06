@@ -8,7 +8,7 @@ function M.setup(Hydra, _, _)
    _f_: float                   _F_: new float
    _v_: vertical                _V_: new vertical  ^
    _T_: tab                     _l_: list
-   _r_: rename
+   _r_: rename                  _q_: close
 ]],
     config = {
       color = "teal",
@@ -18,7 +18,7 @@ function M.setup(Hydra, _, _)
         type = "window",
       },
     },
-    mode = {"n", "t"},
+    mode = { "n", "t" },
     body = "<Leader>t",
     heads = {
       {
@@ -85,6 +85,7 @@ function M.setup(Hydra, _, _)
         end,
         { desc = "tab", nowait = true },
       },
+      { "q", "<cmd>bd!<cr>", { nowait = true } },
       { "<Esc>", nil, { nowait = true, desc = false } },
     },
   })

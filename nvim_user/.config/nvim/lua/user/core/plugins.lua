@@ -696,8 +696,18 @@ function M.config()
     },
     -- rust
     {
-      "simrat39/rust-tools.nvim",
+      "saecki/crates.nvim",
+      tag = "v0.3.0",
       opt = true,
+      after = { "mason-lspconfig.nvim" },
+      config = function()
+        require("crates").setup()
+      end,
+    },
+    {
+      -- "simrat39/rust-tools.nvim",
+      "kdarkhan/rust-tools.nvim", -- TODO: remove fork unitl inley hints are fixed
+      after = { "mason-lspconfig.nvim" },
       ft = "rust",
       config = function()
         require("user.configs.rust_tools").config()

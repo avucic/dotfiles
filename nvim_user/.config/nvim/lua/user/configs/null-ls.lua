@@ -73,22 +73,22 @@ function M.config()
   -- Check supported formatters
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
   local formatting = null_ls.builtins.formatting
-  local diagnostics = null_ls.builtins.diagnostics
+  -- local diagnostics = null_ls.builtins.diagnostics
   local code_actions = null_ls.builtins.code_actions.eslint
   -- local completion = null_ls.builtins.completion
 
   -- Check supported linters
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
   -- local diagnostics = null_ls.builtins.diagnostics
-  local sqlfluff_format = null_ls.builtins.formatting.sqlfluff.with({
-    -- args = { "fix", "--dialect", "postgres", "--disable_progress_bar", "-f", "-n", "-" },
-    extra_args = { "--dialect", "postgres", "--config", "/Users/vucinjo/.sqlfluff" },
-  })
-
-  local sqlfluff_diagnostic = null_ls.builtins.diagnostics.sqlfluff.with({
-    -- args = { "lint", "--dialect", "postgres", "-f", "github-annotation", "-n", "--disable_progress_bar", "-" },
-    extra_args = { "--dialect", "postgres", "--config", "/Users/vucinjo/.sqlfluff" },
-  })
+  -- local sqlfluff_format = null_ls.builtins.formatting.sqlfluff.with({
+  --   -- args = { "fix", "--dialect", "postgres", "--disable_progress_bar", "-f", "-n", "-" },
+  --   extra_args = { "--dialect", "postgres", "--config", "/Users/vucinjo/.sqlfluff" },
+  -- })
+  --
+  -- local sqlfluff_diagnostic = null_ls.builtins.diagnostics.sqlfluff.with({
+  --   -- args = { "lint", "--dialect", "postgres", "-f", "github-annotation", "-n", "--disable_progress_bar", "-" },
+  --   extra_args = { "--dialect", "postgres", "--config", "/Users/vucinjo/.sqlfluff" },
+  -- })
 
   return function(config) -- overrides `require("null-ls").setup(config)`
     -- config variable is the default configuration table for the setup functino call
@@ -120,6 +120,9 @@ function M.config()
       -- diagnostics.checkmake,
       code_actions.eslint_d,
       formatting.gofmt,
+      formatting.rustfmt.with({
+        extra_args = { "--edition=2021" },
+      }),
     }
     -- set up null-ls's on_attach function
     -- NOTE: You can uncomment this on attach function to enable format on save

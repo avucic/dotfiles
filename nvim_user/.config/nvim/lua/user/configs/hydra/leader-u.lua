@@ -53,12 +53,12 @@ function M.setup(Hydra, _, _)
   end
 
   local function toggle_lsp_virtual_text()
-    if vim.g.is_lsp_virtual_text_off == true then
-      vim.g.is_lsp_virtual_text_off = false
+    if vim.g.lsp_virtual_text_style == nil then
+      vim.g.lsp_virtual_text_style = "inline"
     else
-      vim.g.is_lsp_virtual_text_off = true
+      vim.g.lsp_virtual_text_style = "popup"
     end
-    vim.cmd [[LspRestart]]
+    vim.cmd([[LspRestart]])
   end
 
   local function toggle_theme()

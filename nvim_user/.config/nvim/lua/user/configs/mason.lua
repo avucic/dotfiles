@@ -31,6 +31,8 @@ function M.config()
         "marksman",
         "zk@v0.11.1",
         "eslint",
+        "rustfmt",
+        "codelldb",
       },
     },
     ["mason-null-ls"] = {},

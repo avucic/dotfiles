@@ -33,6 +33,7 @@ function M.config()
       { name = "vsnip" },
       { name = "neorg" },
       { name = "spell" },
+      { name = "crates" },
     },
 
     -- mapping = {

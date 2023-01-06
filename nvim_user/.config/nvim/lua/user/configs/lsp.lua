@@ -1,4 +1,17 @@
 local M = {}
+
+local open_diagnostic = function()
+  local opts = {
+    focusable = false,
+    close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+    border = "rounded",
+    source = "always",
+    prefix = " ",
+    scope = "cursor",
+  }
+  vim.diagnostic.open_float(nil, opts)
+end
+
 function M.config()
   local lspconfig = require("user.core.utils").load_module("lspconfig")
   local util = require("user.core.utils").load_module("lspconfig/util")
@@ -35,13 +48,27 @@ function M.config()
       },
     }, bufnr)
 
+    if vim.g.lsp_virtual_text_style == "popup" then
       vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = vim.g.is_lsp_virtual_text_off ~= true,
+        virtual_text = false,
         underline = true,
         signs = true,
       })
+      --
+      --   local diag_float_grp = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
+      --   vim.api.nvim_create_autocmd("CursorHold", {
+      --     callback = function()
+      --       vim.diagnostic.open_float(nil, { focusable = false })
+      --     end,
+      --     group = diag_float_grp,
+      --   })
+      vim.api.nvim_create_autocmd("CursorHold", {
+        buffer = bufnr,
+        callback = open_diagnostic,
+      })
+    end
   end
-
+  --
   local formatting = {
     -- control auto formatting on save
     async = true,
@@ -65,6 +92,12 @@ function M.config()
 
   -- Add overrides for LSP server settings, the keys are the name of the server
   local server_settings = {
+    ["rust-analyzer"] = {
+      settings = {
+        -- HACK: https://github.com/simrat39/rust-tools.nvim/issues/300
+        inlayHints = { locationLinks = false },
+      },
+    },
     sumneko_lua = {
       settings = {
         Lua = {
@@ -130,6 +163,8 @@ function M.config()
       ["<leader>lr"] = false,
       ["<leader>uf"] = false,
       ["gr"] = ":Glance references<cr>",
+      ["K"] = false,
+      ["<c-space>"] = { open_diagnostic },
       -- ["gD"] = ":Glance definitions<cr>",
     },
   }

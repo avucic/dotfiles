@@ -12,19 +12,10 @@ local ingore_spell = {
   "filetree",
   "packer",
   "bufferlist",
+  "aerial",
 }
 
 local aucmd_dict = {
-  CursorHold = {
-    {
-      pattern = "*",
-      callback = function()
-        if vim.g.is_lsp_virtual_text_off == true then
-          vim.diagnostic.open_float({ scope = "line" })
-        end
-      end,
-    },
-  },
   FileType = {
     {
       pattern = "http",
@@ -81,8 +72,9 @@ local aucmd_dict = {
       callback = function()
         vim.defer_fn(function()
           vim.cmd([[call MarkdownConceal() ]]) -- TODO: fix conceal.
-        end, 1)
+        end, 100)
       end,
+      -- once = true,
     },
     {
       pattern = "gitcommit",
@@ -106,17 +98,19 @@ local aucmd_dict = {
     },
   },
   BufWritePre = {
-    -- {
-    --   callback = function()
-    --     if vim.g.autoformat_on_save == 1 then
-    --       vim.lsp.buf.format()
-    --     end
-    --   end,
-    -- },
     -- new line
     {
       callback = function()
         vim.cmd([[%s/\s\+$//e]])
+      end,
+    },
+  },
+  BufRead = {
+    {
+      group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
+      pattern = "Cargo.toml",
+      callback = function()
+        require("cmp").setup.buffer({ sources = { { name = "crates" } } })
       end,
     },
   },

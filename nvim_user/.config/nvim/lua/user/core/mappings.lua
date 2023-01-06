@@ -188,6 +188,7 @@ function M.config()
       -- treesj
       ["gS"] = { "<cmd>TSJSplit<cr>" },
       ["gJ"] = { "<cmd>TSJJoin<cr>" },
+      ["K"] = { "<leader>lK", remap = true }, -- shortcut
     },
     i = {
       -- ["i"] = { "i" },
@@ -210,6 +211,7 @@ function M.config()
       ["ss"] = { "<Plug>(leap-forward-till)" },
       -- ["S"] = { "<Plug>(leap-backward-to)" },
       ["SS"] = { "<Plug>(leap-backward-till)" },
+      ["<c-f>"] = { "y<ESC>:lua require('telescope.builtin').live_grep({default_text= vim.fn.getreg('*')})<CR>" },
     },
     x = {
       -- Move text up and down
