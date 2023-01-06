@@ -7,7 +7,7 @@ function M.setup(Hydra, _, _)
   _b_: toggle breakpoint     _C_: clear breakpoints ^
   _n_: step over             _i_: step into
   _p_: step out              _u_: toggle ui
-  _:_: repl
+  _:_: repl                  _l_: run last
 ]]
 
   Hydra({
@@ -53,6 +53,7 @@ function M.setup(Hydra, _, _)
       { "i", "<cmd>lua require('dap').step_into()<cr>", { desc = "Step knto" } },
       { "p", "<cmd>lua require('dap').step_out()<cr>", { desc = "Step out" } },
       { "u", "<cmd>lua require('dapui').toggle()<cr>", { desc = "Toggle UI" } },
+      { "l", "<cmd>lua require('dap').repl.run_last()<cr>", { desc = "Last" } },
       -- h = { "<cmd>lua require('dap.ui.variables').hover()<cr>", "Variable Hover" },
       -- v = { "<cmd>lua require('dap.ui.variables').hover()<cr>", "Variable Hover Visual" },
       { "<Esc>", nil, { exit = true, nowait = true, desc = false } },

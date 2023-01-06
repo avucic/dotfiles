@@ -114,7 +114,7 @@ function M.setup(Hydra, cmd, pcmd)
         function()
           vim.cmd("tabnew")
         end,
-        { on_key = false },
+        { on_key = false, exit = true },
       },
       {
         "q",

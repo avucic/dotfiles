@@ -2,13 +2,14 @@ local M = {}
 
 function M.setup(Hydra, _, _)
   local lsp_hint = [[
-  _a_: code action       _i_: implementation
-  _D_: declaration       _d_: definition
-  _f_: format            _w_: workspace diagnostics
-  _I_: info              _n_: next diagnostic
-  _r_: references        _p_: prev diagnostic
-  _l_: code lens         _e_: diagnostics
-  _R_: rename            _K_: symbol details
+   _a_: code action              _i_: implementation
+   _D_: declaration              _d_: definition
+   _E_: workspace diagnostics    _e_: diagnostics
+   _f_: format                   _l_: code lens
+   _I_: info                     _n_: next diagnostic
+   _r_: references               _p_: prev diagnostic
+   _R_: rename                   _K_: symbol details
+  _wa_: add workspace           _wr_: remove workspace ^
 ]]
 
   Hydra({
@@ -31,17 +32,23 @@ function M.setup(Hydra, _, _)
       {
         "K",
         function()
-          vim.lsp.buf.hover()
+          if vim.o.filetype == "rust" then
+            require("rust-tools").hover_actions.hover_actions()
+          else
+            vim.lsp.buf.hover()
+          end
         end,
         { desc = "Hover symbol details", exit = true },
       },
       { "a", "<cmd>lua vim.lsp.buf.code_action()<cr>", { exit = true } },
       { "e", "<cmd>Telescope diagnostics bufnr=0<cr>", { exit = true } },
+      { "E", "<cmd>Telescope diagnostics<cr>", { exit = true } },
       { "D", "<cmd>lua vim.lsp.buf.declaration()<CR>", { exit = true } },
-      { "d", "<cmd>lua vim.lsp.buf.definition()<CR>", { exit = true } },
-      { "d", "<cmd>Glance definitions<CR>", { exit = true } },
       -- { "d", "<cmd>lua vim.lsp.buf.definition()<CR>", { exit = true } },
-      { "w", "<cmd>Telescope diagnostics<cr>", { exit = true } },
+      { "d", "<cmd>Glance definitions<CR>", { exit = true } },
+      { "wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", { exit = true } },
+      { "wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", { exit = true } },
+
       { "f", "<cmd>lua vim.lsp.buf.format({async = true })<cr>", { exit = true } },
       -- { "f", "<cmd>lua vim.lsp.buf.formatting()<cr>", { exit = true } },
       { "i", "<cmd>lua vim.lsp.buf.implementation()<CR>", { exit = true } },
@@ -51,7 +58,6 @@ function M.setup(Hydra, _, _)
       { "p", "<cmd>lua vim.diagnostic.goto_prev()<cr>" },
       { "l", "<cmd>lua vim.lsp.codelens.run()<cr>", { exit = true } },
       -- { "q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", { exit = true } },
-      -- { "R", "<cmd>lua vim.lsp.buf.rename()<cr>", { exit = true } },
       {
         "R",
         function()
