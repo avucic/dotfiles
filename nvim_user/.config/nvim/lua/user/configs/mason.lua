@@ -16,8 +16,9 @@ function M.config()
         "vimls",
         "marksman",
         "zk@v0.11.1",
-        "zk",
         "svelte",
+        "zls",
+        "taplo"
         -- "grammarly"
       },
     },

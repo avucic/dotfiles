@@ -3,10 +3,10 @@ local M = {}
 function M.config(fn)
   local hint = [[
 ^ _m_: next method          _M_: previous method
-^ _i_: next use             _I_: previous use
 ^ _c_: next comment         _C_: previous comment
 ^ _t_: next type            _T_: previous type
 ^ _l_: next let             _L_: previous let
+^ _i_: next use
 ]]
 
   local heads = {
@@ -37,15 +37,15 @@ function M.config(fn)
     {
       "i",
       function()
-        fn({ "use" }, true)
-      end,
-    },
-    {
-      "I",
-      function()
         fn({ "use" }, false)
       end,
     },
+    -- {
+    --   "I",
+    --   function()
+    --     fn({ "use" }, false)
+    --   end,
+    -- },
     {
       "c",
       function()

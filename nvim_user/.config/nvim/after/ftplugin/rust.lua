@@ -42,7 +42,7 @@ Hydra({
 			end,
 			{ nowait = true, exit = true, desc = "Edit code block" },
 		},
-		{ "c", "<cmd>RustOpenCargo<cr>" },
+		{ "c", "<cmd>RustOpenCargo<cr>", exit =true },
 		{ "e", "<cmd>lua require'rust-tools'.expand_macro.expand_macro()<cr>" },
 
 		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },

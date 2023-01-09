@@ -1,5 +1,23 @@
 local M = {}
 
+local function change_tab(motion)
+  local last_buffer_id = vim.fn.bufnr()
+  local last_buffer_name = vim.fn.expand("%")
+
+  if motion == "next" then
+    vim.cmd([[BufferLineCycleWindowlessNext]])
+  elseif motion == "prev" then
+    vim.cmd([[BufferLineCycleWindowlessPrev]])
+  else
+    error("Invalid motion: " .. motion)
+    return
+  end
+
+  if last_buffer_name == "" then
+    vim.cmd("bd " .. last_buffer_id)
+  end
+end
+
 function M.setup(Hydra, _, _)
   local hint = [[
    _h_: previous                   _l_: next
@@ -8,6 +26,7 @@ function M.setup(Hydra, _, _)
    _p_: pick                       _o_: close others
   _se_: sort by extension         _sd_: sort by directory ^ ^
   _sr_: sort by relative dir       _q_: quit
+   _;_: toggle cycling
 ]]
 
   Hydra({
@@ -33,28 +52,36 @@ function M.setup(Hydra, _, _)
       {
         "h",
         function()
-          vim.cmd("BufferLineCyclePrev")
+          -- vim.cmd("BufferLineCyclePrev")
+          change_tab("prev")
         end,
         { on_key = false },
       },
       {
         "l",
         function()
-          vim.cmd("BufferLineCycleNext")
+          -- vim.cmd("BufferLineCycleNext")
+          change_tab("next")
         end,
         { desc = "choose", on_key = false },
       },
-
+      {
+        ";",
+        function()
+          vim.cmd("BufferLineCycleWindowlessToggle")
+        end,
+        { desc = "toggle cycling" },
+      },
       {
         "H",
         function()
-          vim.cmd("BufferLineMovePrev")
+          vim.cmd("BufferLineCycleWindowlessPrev")
         end,
       },
       {
         "L",
         function()
-          vim.cmd("BufferLineMoveNext")
+          vim.cmd("BufferLineCycleWindowlessNext")
         end,
         { desc = "move" },
       },

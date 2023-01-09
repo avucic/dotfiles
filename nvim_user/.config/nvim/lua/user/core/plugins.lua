@@ -249,6 +249,9 @@ function M.config()
     -- Telescope
     -- Tasks
     {
+      "nvim-telescope/telescope-live-grep-args.nvim", -- live grap with args
+    },
+    {
       "jedrzejboczar/toggletasks.nvim",
       after = "telescope.nvim",
       opt = true,
@@ -554,6 +557,20 @@ function M.config()
     },
     -- UI
     {
+      "roobert/bufferline-cycle-windowless.nvim",
+      config = function()
+        require("bufferline-cycle-windowless").setup({
+          -- whether to start in enabled or disabled mode
+          default_enabled = true,
+        })
+        cmd = {
+          "BufferLineCycleWindowlessNext",
+          "BufferLineCycleWindowlessPrev",
+          "BufferLineCycleWindowlessToggle",
+        }
+      end,
+    },
+    {
       "gorbit99/codewindow.nvim",
       config = function()
         require("user.configs.codewindow").config()
@@ -569,6 +586,9 @@ function M.config()
       requires = {
         "anuvyklack/middleclass",
       },
+      setup = function()
+        require("user.configs.windows").setup()
+      end,
       config = function()
         require("user.configs.windows").config()
       end,
@@ -705,12 +725,21 @@ function M.config()
       end,
     },
     {
-      -- "simrat39/rust-tools.nvim",
-      "kdarkhan/rust-tools.nvim", -- TODO: remove fork unitl inley hints are fixed
+      "simrat39/rust-tools.nvim",
       after = { "mason-lspconfig.nvim" },
       ft = "rust",
       config = function()
         require("user.configs.rust_tools").config()
+      end,
+    },
+    -- zig
+    {
+      "NTBBloodbath/zig-tools.nvim",
+      -- Load zig-tools.nvim only in Zig buffers
+      ft = "zig",
+      config = function()
+        -- Initialize with default config
+        require("zig-tools").setup()
       end,
     },
     -- image preview

@@ -180,7 +180,8 @@ function M.config()
       "sql",
       "svelte",
       "dockerfile",
-      "make"
+      "make",
+      "zig",
     },
   }
 end

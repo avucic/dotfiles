@@ -239,8 +239,7 @@ function M.config()
         macro_to_visual_selection.config()
       end
 
-      local open_in_finder =
-        require("user.core.utils").load_module("user.plugins.open_in_finder")
+      local open_in_finder = require("user.core.utils").load_module("user.plugins.open_in_finder")
       if open_in_finder then
         open_in_finder.config()
       end

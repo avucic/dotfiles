@@ -1,7 +1,31 @@
 local M = {}
 
 function M.setup(Hydra, _, _)
-  local lsp_hint = [[
+  Hydra({
+    name = "Lsp",
+    hint = [[
+   _a_: code action              _f_: format   ^
+]],
+    config = {
+      on_key = false,
+      invoke_on_body = true,
+      hint = {
+        border = "rounded",
+        type = "window",
+      },
+    },
+    mode = "v",
+    body = "<Leader>l",
+    heads = {
+      { "a", "<cmd>lua vim.lsp.buf.code_action()<cr>", { exit = true } },
+      { "f", "<cmd>lua vim.lsp.buf.format({async = true })<cr>", { exit = true } },
+      { "<Esc>", nil, { exit = true, nowait = true, desc = false } },
+    },
+  })
+
+  Hydra({
+    name = "Lsp",
+    hint = [[
    _a_: code action              _i_: implementation
    _D_: declaration              _d_: definition
    _E_: workspace diagnostics    _e_: diagnostics
@@ -10,11 +34,7 @@ function M.setup(Hydra, _, _)
    _r_: references               _p_: prev diagnostic
    _R_: rename                   _K_: symbol details
   _wa_: add workspace           _wr_: remove workspace ^
-]]
-
-  Hydra({
-    name = "Lsp",
-    hint = lsp_hint,
+]],
     config = {
       on_key = false,
       invoke_on_body = true,

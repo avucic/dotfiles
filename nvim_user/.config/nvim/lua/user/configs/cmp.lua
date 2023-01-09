@@ -28,11 +28,11 @@ function M.config()
       -- { name = "luasnip" },
       -- { name = "buffer" },
       -- { name = "path" },
-      -- { name = "cmp_tabnine" },
+      { name = "cmp_tabnine" },
       { name = "emoji" },
-      { name = "vsnip" },
       { name = "neorg" },
       { name = "spell" },
+      { name = "vsnip" },
       { name = "crates" },
     },
 

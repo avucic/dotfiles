@@ -100,7 +100,7 @@ function M.config()
       -- ["<leader>e"] = { "<cmd>lua require'mind'.close()<cr><cmd>Neotree toggle<cr>" },
 
       ["<c-q>"] = { "<cmd>silent! cclose<cr><cmd>nohlsearch<cr><cmd>ToggleTermToggleAll<cr>" },
-      ["<esc>"] = { "<cmd>nohlsearch<cr>" },
+      ["<esc>"] = { "<cmd>nohlsearch<cr><cmd>lua require('notify').dismiss()<cr>" },
       ["<esc><esc>"] = { "<cmd>nohlsearch<cr>" },
       ["Q"] = { "<cmd>qall!<cr>" },
       ["<S-l>"] = { "$" },
@@ -108,7 +108,7 @@ function M.config()
       ["z="] = { "<cmd>lua require('telescope.builtin').spell_suggest()<CR>" },
       ["<leader>W"] = { "<cmd>:noa w<cr>", desc = "Save without format" },
 
-      ["ww"] = { "<cmd>lua require('nvim-window').pick()<cr>" },
+      ["ww"] = { "<cmd>lua require('user.plugins.window_picker').pick()<cr>" },
 
       -- Bookmarks
       ["mm"] = { ":BookmarkToggle<cr>" },

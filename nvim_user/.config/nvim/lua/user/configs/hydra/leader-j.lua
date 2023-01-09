@@ -67,12 +67,12 @@ function M.activate_hydra(opt)
         position = "bottom",
         border = "rounded",
       },
-      on_enter = function()
-        vim.cmd([[AerialOpen!]])
-      end,
-      on_exit = function()
-        vim.cmd([[AerialClose]])
-      end,
+      -- on_enter = function()
+      --   vim.cmd([[AerialOpen!]])
+      -- end,
+      -- on_exit = function()
+      --   vim.cmd([[AerialClose]])
+      -- end,
     },
     heads = heads,
   })

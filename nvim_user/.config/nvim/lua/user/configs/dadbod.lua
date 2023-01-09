@@ -1,5 +1,17 @@
 local M = {}
 
+-- vim.g.dbs = {
+-- 	{
+-- 		name = "Dev Postgres DB",
+-- 		url = "postgresql://postgres:postgres@localhost:5432/dog_development?sslmode=disable",
+-- 	},
+--
+-- 	{
+-- 		name = "Test Postgres DB",
+-- 		url = "postgresql://postgres@localhost/dog_test?sslmode=disable",
+-- 	},
+-- }
+
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
 local dropdown = require("telescope.themes").get_dropdown()

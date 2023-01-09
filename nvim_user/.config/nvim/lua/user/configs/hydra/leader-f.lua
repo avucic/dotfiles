@@ -40,6 +40,7 @@ function M.setup(Hydra, _, _)
         "<cmd>lua require('telescope.builtin').find_files({ hidden = true, no_ignore = true })<CR>",
       },
       { "g", "<cmd>lua require('telescope.builtin').live_grep()<CR>" },
+      { "g", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>" },
       {
         "o",
         "<cmd>lua require('telescope.builtin').oldfiles()<CR>",
@@ -64,8 +65,8 @@ function M.setup(Hydra, _, _)
       { "R", "<cmd>e %<CR>" },
       { "y", ':let @*=expand("%")<cr>', { desc = "Copy file path" } },
       { "Y", ':let @*=expand("%:p")<cr>', { desc = "Copy full file path" } },
-      { "x", ':OpenFileInFinder<cr>', { desc = "Open file in finder" } },
-      { "X", ':OpenFolderInFinder<cr>', { desc = "Open folder in finder" } },
+      { "x", ":OpenFileInFinder<cr>", { desc = "Open file in finder" } },
+      { "X", ":OpenFolderInFinder<cr>", { desc = "Open folder in finder" } },
       {
         "<Enter>",
         "<cmd>lua require('telescope.builtin')<CR>:Telescope<CR>",

@@ -144,10 +144,10 @@ function M.setup(Hydra, cmd, pcmd)
     hint = [[
  ^^^^^^^^^^^^     Move      ^^    Size   ^^   ^^     Split     ^^    Select
  ^^^^^^^^^^^^-------------  ^^-----------^^   ^^-------------- ^^---------------
- ^ ^ _k_ ^ ^  ^ ^ _K_ ^ ^   ^   _<C-k>_   ^   _s_: horizontal _p_: pick
+ ^ ^ _k_ ^ ^  ^ ^ _K_ ^ ^   ^   _<C-k>_   ^   _s_: horizontal  _p_: pick
  _h_ ^ ^ _l_  _H_ ^ ^ _L_   _<C-h>_ _<C-l>_   _v_: vertically  _o_: remain only
- ^ ^ _j_ ^ ^  ^ ^ _J_ ^ ^   ^   _<C-j>_   ^   ^^               _q_, _c_: close
- focus^^^^^^  window^^^^^^  ^_=_: equalize^
+ ^ ^ _j_ ^ ^  ^ ^ _J_ ^ ^   ^   _<C-j>_   ^   ^^               _d_: pick to delete
+ focus^^^^^^  window^^^^^^  ^_=_: equalize^   ^^               _q_, _c_: close
  ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^_z_: maximize
  ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^_|_: maximize ver^
  ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^_-_: maximize hor^
@@ -206,20 +206,22 @@ function M.setup(Hydra, cmd, pcmd)
       -- { "=", "<cmd>FocusEqualise<CR><cmd>FocusDisable<CR>", { desc = "equalize" } },
       { "=", "<cmd>WindowsEqualize<CR><cmd>WindowsDisableAutowidth<cr>", { desc = "equalize" } },
 
-      { "s", pcmd("split", "E36") },
+      -- { "s", pcmd("split", "E36") },
+      -- { "v", pcmd("vsplit", "E36") },
+      { "s", "<CMD>split +enew<CR>" },
+      { "v", "<CMD>vsplit +enew<CR>" },
       { "<C-s>", pcmd("split", "E36"), { desc = false } },
-      { "v", pcmd("vsplit", "E36") },
       { "<C-v>", pcmd("vsplit", "E36"), { desc = false } },
 
       { "w", "<C-w>w", { exit = true, desc = false } },
       { "<C-w>", "<C-w>w", { exit = true, desc = false } },
 
       -- { "z", "<cmd>FocusEnable<CR>:FocusSplitCycle<CR>", { desc = "maximize" } },
-      { "z", "<cmd>WindowsMaximize<CR><cmd>WindowsEnableAutowidth<cr>", { desc = "maximize" } },
-      { "|", "<cmd>WindowsMaximizeHorizontally<CR><cmd>WindowsEnableAutowidth<cr>", { desc = "maximize vertically" } },
+      { "z", "<cmd>WindowsMaximize<CR>", { desc = "maximize" } },
+      { "|", "<cmd>WindowsMaximizeHorizontally<CR>", { desc = "maximize vertically" } },
       {
         "-",
-        "<cmd>WindowsMaximizeVertically<CR><cmd>WindowsEnableAutowidth<cr>",
+        "<cmd>WindowsMaximizeVertically<CR>",
         { desc = "maximize horizontally" },
       },
       { "<C-z>", cmd("MaximizerToggle!"), { exit = true, desc = false } },
@@ -227,7 +229,8 @@ function M.setup(Hydra, cmd, pcmd)
       { "o", "<C-w>o", { exit = true, desc = "remain only" } },
       { "<C-o>", "<C-w>o", { exit = true, desc = false } },
       -- { "p", "<cmd>lua require('user.core.utils').focus_window()<cr>", { exit = true, desc = false } },
-      { "p", "<cmd>lua require('nvim-window').pick()<cr>", { exit = true, desc = false } },
+      { "p", "<cmd>lua require('user.plugins.window_picker').pick()<cr>", { exit = true, desc = false } },
+      { "d", "<cmd>lua require('user.plugins.window_picker').pick({delete = true })<cr>", { desc = false } },
 
       { "b", choose_buffer, { exit = true, desc = "choose buffer" } },
       { "t", choose_tab, { exit = true, desc = "choose tabs" } },
