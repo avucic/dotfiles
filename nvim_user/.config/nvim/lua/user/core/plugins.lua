@@ -723,12 +723,12 @@ function M.config()
     --   end,
     -- },
     -- picker
-    {
-      "https://gitlab.com/yorickpeterse/nvim-window.git",
-      config = function()
-        require("user.configs.window").config()
-      end,
-    },
+    -- {
+    --   "https://gitlab.com/yorickpeterse/nvim-window.git",
+    --   config = function()
+    --     require("user.configs.window").config()
+    --   end,
+    -- },
     {
       "mattn/calendar-vim",
       opt = true,
