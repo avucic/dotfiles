@@ -1,0 +1,58 @@
+#!/bin/bash
+#
+# For easily switching between .envrc files.
+#
+# This allows you to have and use multiple .envrc files in the same
+# directory, like .envrc.test, .envrc.local and .envrc.prod.
+#
+# Usage:
+#
+# denv [extension]
+# Replaces the current .envrc file by .envrc.[extension]
+#
+# Examples:
+#
+# denv test
+# Replaces the contents of .envrc by those of .envrc.test, then allows it.
+#
+# denv +
+# Runs direnv allow
+#
+# denv .
+# Runs direnv allow
+#
+# denv -
+# Runs direnv deny
+#
+# denv
+# Runs direnv deny
+
+suffix=$1
+
+if [[ -z "${suffix}" ]]; then
+        echo "suffix not given, running deny"
+        direnv deny
+        exit 0
+elif [[ "${suffix}" == '-' ]]; then
+        echo "suffix is '-', running deny"
+        direnv deny
+        exit 0
+elif [[ "${suffix}" == '+' ]]; then
+        echo "suffix is '+', running allow"
+        direnv allow
+        exit 0
+elif [[ "${suffix}" == '.' ]]; then
+        echo "suffix is '.', running allow"
+        direnv allow
+        exit 0
+fi
+
+envrc_filename=".envrc.$suffix"
+
+if [[ -f "${envrc_filename}" ]]; then
+        cp "${envrc_filename}" .envrc
+        echo "running direnv allow with file ${envrc_filename}"
+        direnv allow
+else
+        echo ".envrc file with suffix $suffix does not exist"
+fi
