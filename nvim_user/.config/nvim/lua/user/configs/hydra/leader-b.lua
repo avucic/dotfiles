@@ -1,6 +1,6 @@
 local M = {}
 
-local function change_tab(motion)
+M.change_tab = function(motion)
   local last_buffer_id = vim.fn.bufnr()
   local last_buffer_name = vim.fn.expand("%")
 
@@ -53,7 +53,7 @@ function M.setup(Hydra, _, _)
         "h",
         function()
           -- vim.cmd("BufferLineCyclePrev")
-          change_tab("prev")
+          M.change_tab("prev")
         end,
         { on_key = false },
       },
@@ -61,7 +61,7 @@ function M.setup(Hydra, _, _)
         "l",
         function()
           -- vim.cmd("BufferLineCycleNext")
-          change_tab("next")
+          M.change_tab("next")
         end,
         { desc = "choose", on_key = false },
       },
@@ -75,13 +75,13 @@ function M.setup(Hydra, _, _)
       {
         "H",
         function()
-          vim.cmd("BufferLineCycleWindowlessPrev")
+          vim.cmd("BufferLineMovePrev")
         end,
       },
       {
         "L",
         function()
-          vim.cmd("BufferLineCycleWindowlessNext")
+          vim.cmd("BufferLineMoveNext")
         end,
         { desc = "move" },
       },

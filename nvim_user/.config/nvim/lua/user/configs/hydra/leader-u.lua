@@ -14,6 +14,15 @@ function M.setup(Hydra, _, _)
 ]]
 
   local cmd = vim.cmd
+  local toggle_notifications = function()
+    if vim.g.turn_of_notify ~= true then
+      vim.notify = function() end
+      vim.g.turn_of_notify = true
+    else
+      vim.notify = require("notify")
+      vim.g.turn_of_notify = false
+    end
+  end
 
   local mode_hydra = Hydra({
     name = "Poet mode",
@@ -99,7 +108,7 @@ function M.setup(Hydra, _, _)
       { "w", astronvim.ui.toggle_wrap, { desc = "toggle wrap" } },
       { "l", astronvim.ui.toggle_statusline, { desc = "toggle statusline" } },
       { "f", astronvim.ui.toggle_autoformat, { desc = "toggle autoformat" } },
-      { "N", astronvim.ui.toggle_ui_notifications, { desc = "toggle notifications", exit = true } },
+      { "N", toggle_notifications, { desc = "toggle notifications", exit = true } },
       { "x", toggle_lsp_virtual_text, { desc = "toggle lsp virtual text", exit = true } },
       {
         "i",

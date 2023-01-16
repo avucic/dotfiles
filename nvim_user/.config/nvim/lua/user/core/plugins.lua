@@ -407,6 +407,11 @@ function M.config()
 
     -- Notes and Markdown
     {
+      "dkarter/bullets.vim",
+      opt = true,
+      ft = "markdown",
+    },
+    {
       "avucic/paste-markdown-url",
       run = "pip3 install requests beautifulsoup4 lxml",
       config = function()
@@ -563,12 +568,12 @@ function M.config()
           -- whether to start in enabled or disabled mode
           default_enabled = true,
         })
-        cmd = {
-          "BufferLineCycleWindowlessNext",
-          "BufferLineCycleWindowlessPrev",
-          "BufferLineCycleWindowlessToggle",
-        }
       end,
+      cmd = {
+        "BufferLineCycleWindowlessNext",
+        "BufferLineCycleWindowlessPrev",
+        "BufferLineCycleWindowlessToggle",
+      },
     },
     {
       "gorbit99/codewindow.nvim",

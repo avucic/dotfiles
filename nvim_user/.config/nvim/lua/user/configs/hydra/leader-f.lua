@@ -28,7 +28,7 @@ function M.setup(Hydra, _, _)
     body = "<Leader>f",
     heads = {
       { "n", "<cmd>enew<cr>" },
-      { "E", "<cmd>Telescope file_browser<cr>" },
+      { "E", "<cmd>Telescope file_browser files=true<cr>" },
       {
         "e",
         "<cmd>Telescope file_browser path=%:p:h files=true<cr>",

@@ -137,6 +137,7 @@ local function open_floats(mapping)
         style = "minimal",
         border = config.border,
         noautocmd = true,
+        zindex = 999,
       })
 
       api.nvim_win_set_option(float_window, "winhl", "Normal:" .. config.normal_hl)
@@ -224,6 +225,8 @@ function M.pick(opts)
       api.nvim_set_current_win(window)
     end
   end
+
+  return window
 end
 
 return M

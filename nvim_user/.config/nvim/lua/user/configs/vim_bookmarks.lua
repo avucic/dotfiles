@@ -1,8 +1,8 @@
 local M = {}
 
 function M.setup()
-  vim.g.bookmark_save_per_working_dir = true
-  vim.g.bookmark_auto_save_file = vim.fn.getcwd() .. "/.vim-bookmarks"
+  vim.g.bookmark_save_per_working_dir = false
+  -- vim.g.bookmark_auto_save_file = vim.fn.getcwd() .. "/.vim-bookmarks"
   vim.g.bookmark_auto_save = true
 end
 

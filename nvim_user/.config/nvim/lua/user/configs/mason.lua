@@ -15,10 +15,10 @@ function M.config()
         "eslint",
         "vimls",
         "marksman",
-        "zk@v0.11.1",
+        "zk",
         "svelte",
         "zls",
-        "taplo"
+        "taplo",
         -- "grammarly"
       },
     },
@@ -29,8 +29,8 @@ function M.config()
         "prettier",
         "stylua",
         "gopls",
-        "marksman",
-        "zk@v0.11.1",
+        -- "marksman",
+        "zk",
         "eslint",
         "rustfmt",
         "codelldb",

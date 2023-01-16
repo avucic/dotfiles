@@ -19,9 +19,28 @@ local toggle_hydra = Hydra({
 
 Hydra({
 	name = "Rust",
+	config = {
+		buffer = true,
+		invoke_on_body = true,
+		color = "teal",
+		hint = {
+			border = "rounded",
+		},
+	},
+	mode = "v",
+	body = "<leader>m",
+	heads = {
+		{ "o", "diOption<<esc>pa><esc>", { nowait = true, exit = true, desc = "add option" } },
+		{ "O", "bdf<e<right>x", { desc = "remove option", exit = true } },
+		{ "s", "diSome(<esc>pa)<esc>", { nowait = true, exit = true, desc = "add some" } },
+		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },
+	},
+})
+
+Hydra({
+	name = "Rust",
 	hint = [[
- _c_: cargo               _u_: toggle
- _e_: expand
+ _u_: toggle                _e_: expand
 ]],
 	config = {
 		on_key = false,
@@ -42,7 +61,7 @@ Hydra({
 			end,
 			{ nowait = true, exit = true, desc = "Edit code block" },
 		},
-		{ "c", "<cmd>RustOpenCargo<cr>", exit =true },
+		-- { "c", "<cmd>cargo check<cr>", exit = true },
 		{ "e", "<cmd>lua require'rust-tools'.expand_macro.expand_macro()<cr>" },
 
 		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },

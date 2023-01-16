@@ -32,6 +32,7 @@ M.config = function() -- or a function that returns a new table of colors to set
       hl.DashboardHeader = { fg = C.bg_1 }
       hl.DashboardTasks = { fg = C.purple }
       hl.DashboardFooter = { fg = C.bg_1 }
+      -- hl.BufferLineBufferVisible = { fg = C.bg }
 
       hl.FloatBorder = { fg = C.grey_2 }
       -- hl.HydraBorder = { fg = float_color, bg = float_color }

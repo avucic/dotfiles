@@ -1,4 +1,4 @@
-vim.cmd [[
+vim.cmd([[
 sign define codeblock linehl=@MarkdownCodeBlockBG
 sign define hrline linehl=@MarkdownHorizontalLine
 
@@ -64,8 +64,9 @@ au BufWritePost *.md call MarkdownBlocks()
 au InsertLeave *.md call MarkdownBlocks()
 au BufWinLeave *.md call clearmatches()
 
-]]
+au BufWinEnter *.md call MarkdownConceal()
 
+]])
 
 local Hydra = require("hydra")
 
@@ -171,7 +172,7 @@ local header_hydra = Hydra({
 	},
 	heads = {
 		{ ">", "<ESC>^a#<esc>", { exit = false, desc = "header" } },
-		{ "<", "<ESC>^x", { exit= false, desc = "header" } },
+		{ "<", "<ESC>^x", { exit = false, desc = "header" } },
 		{ "<Esc>", "<Cmd>MarkdownPreviewStop<CR>", { exit = true, nowait = true, desc = false } },
 	},
 })

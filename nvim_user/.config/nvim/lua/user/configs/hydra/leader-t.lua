@@ -18,7 +18,7 @@ function M.setup(Hydra, _, _)
         type = "window",
       },
     },
-    mode = { "n", "t" },
+    mode = { "n" },
     body = "<Leader>t",
     heads = {
       {

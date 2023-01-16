@@ -22,8 +22,24 @@ function M.config()
   local actions = require("telescope.actions")
   local fb_actions = telescope.extensions.file_browser.actions
   local lga_actions = require("telescope-live-grep-args.actions")
+  local state = require("telescope.actions.state")
 
   telescope.load_extension("fzf")
+
+  local yank_select_buf_clip = function()
+    local buf_select = state.get_selected_entry()
+    -- vim.cmd.redir('@+ | echo "' .. buf_select[1] .. '" | redir END')
+    vim.fn.setreg("+", buf_select[1])
+  end
+
+  local pick_window = function()
+    local picked_window_id = require("user.plugins.window_picker").pick()
+    if picked_window_id then
+      vim.api.nvim_set_current_win(picked_window_id)
+      local buf_select = state.get_selected_entry()
+      vim.cmd("edit " .. vim.fn.fnameescape(buf_select[1]))
+    end
+  end
 
   return {
     defaults = {
@@ -131,6 +147,7 @@ function M.config()
           ["n"] = actions.move_selection_next,
           ["p"] = actions.move_selection_previous,
           ["d"] = actions.delete_buffer,
+          ["y"] = yank_select_buf_clip,
           --   ["H"] = actions.move_to_top,
           --   ["M"] = actions.move_to_middle,
           --   ["L"] = actions.move_to_bottom,
@@ -202,7 +219,7 @@ function M.config()
         -- define mappings, e.g.
         mappings = { -- extend mappings
           i = {
-            ["<C-k>"] = lga_actions.quote_prompt(),
+            ["<C-a>"] = lga_actions.quote_prompt(),
             ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
           },
         },
@@ -228,6 +245,7 @@ function M.config()
             -- your custom insert mode mappings
           },
           ["n"] = {
+            ["w"] = pick_window,
             ["n"] = fb_actions.create,
             ["."] = fb_actions.change_cwd,
             ["N"] = fb_actions.create,

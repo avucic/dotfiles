@@ -113,6 +113,15 @@ local aucmd_dict = {
         require("cmp").setup.buffer({ sources = { { name = "crates" } } })
       end,
     },
+    {
+      pattern = "markdown",
+      callback = function()
+        vim.defer_fn(function()
+          vim.cmd([[call MarkdownConceal() ]]) -- TODO: fix conceal.
+        end, 100)
+      end,
+      -- once = true,
+    },
   },
 }
 

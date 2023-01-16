@@ -230,7 +230,11 @@ function M.setup(Hydra, cmd, pcmd)
       { "<C-o>", "<C-w>o", { exit = true, desc = false } },
       -- { "p", "<cmd>lua require('user.core.utils').focus_window()<cr>", { exit = true, desc = false } },
       { "p", "<cmd>lua require('user.plugins.window_picker').pick()<cr>", { exit = true, desc = false } },
-      { "d", "<cmd>lua require('user.plugins.window_picker').pick({delete = true })<cr>", { desc = false } },
+      {
+        "d",
+        "<cmd>lua require('user.plugins.window_picker').pick({delete = true })<cr>",
+        { desc = false },
+      },
 
       { "b", choose_buffer, { exit = true, desc = "choose buffer" } },
       { "t", choose_tab, { exit = true, desc = "choose tabs" } },
