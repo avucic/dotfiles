@@ -4,42 +4,97 @@ local actions = require("telescope.actions")
 local state = require("telescope.actions.state")
 local zk = require("zk")
 
-local create_note_entry_maker = function(_)
-  return function(note)
-    local icon
-    local prefix
-    local path = note.absPath
-    local title = note.title
+local entry_display = require("telescope.pickers.entry_display")
+local icon_and_prefix = function(path)
+  local icon
+  local prefix
+  local color
+  if path:match("daily_notes") then
+    prefix = "DN"
+    icon = ""
+    color = "DailyNote"
+  elseif path:match("references") then
+    prefix = "RN"
+    icon = ""
+    color = "ReferenceNote"
+  elseif path:match("literature_notes") then
+    prefix = "LN"
+    icon = ""
+    color = "Number"
+  elseif path:match("slip") then
+    prefix = "SB"
+    icon = ""
+    color = "SlipNote"
+  elseif path:match("journal/daily") then
+    prefix = "DN"
+    icon = ""
+    color = "JournalNote"
+  elseif path:match("projects") then
+    prefix = "PN"
+    icon = ""
+    color = "ProjectNote"
+  end
+  return { icon = icon, prefix = prefix, color = color }
+end
 
-    if path:match("daily_notes") then
-      prefix = "DN"
-      icon = "📔"
-    elseif path:match("references") then
-      prefix = "RN"
-      icon = "🔖"
-    elseif path:match("literature_notes") then
-      prefix = "LN"
-      icon = "📚"
-    elseif path:match("slip") then
-      prefix = "SB"
-      icon = "📖"
-    elseif path:match("journal/daily") then
-      prefix = "DN"
-      icon = "📅"
-    elseif path:match("projects") then
-      prefix = "PN"
-      icon = "💼"
+-- https://github.com/nvim-telescope/telescope.nvim/issues/313
+local function create_note_entry_maker(opts)
+  local displayer = entry_display.create({
+    separator = "▏",
+    items = {
+      -- slighltly increased width
+      { width = 3 },
+      { width = 3 },
+      -- { width = 48 },
+      { remaining = true },
+    },
+  })
+
+  local make_display = function(entry)
+    local icnprx = icon_and_prefix(entry.path)
+    local title = entry.ordinal
+
+    local icon_info = {
+      table.concat({ icnprx.icon }),
+      icnprx.color,
+    }
+
+    local prefix_info = {
+      table.concat({ icnprx.prefix }),
+      icnprx.color,
+    }
+
+    return displayer({
+      icon_info,
+      prefix_info,
+      title,
+    })
+  end
+
+  return function(entry)
+    local title = entry.title
+    local icnprx = icon_and_prefix(entry.path)
+    if icnprx.prefix then
+      title = icnprx.prefix .. " " .. entry.title
+    else
+      title = entry.title
     end
-
-    if icon then
-      title = prefix .. " " .. icon .. " " .. title
-    end
-
     return {
-      value = note,
-      path = note.absPath,
-      display = title,
+      path = entry.absPath,
+      display = make_display,
       ordinal = title,
+      value = entry,
+
+      -- ordinal = entry.title,
+      -- display = make_display,
+      --
+      -- filename = filename,
+      -- type = entry.type,
+      -- lnum = entry.lnum,
+      -- col = entry.col,
+      -- text = entry.title,
+      -- start = entry.start,
+      -- finish = entry.finish,
     }
   end
 end
@@ -55,30 +110,6 @@ end
 local parse_text = function(text)
   local formatted_text = text:gsub("%.md", ""):gsub("%.", " ")
   return formatted_text
-end
-
-local path_display = function(_, path)
-  local icon = " "
-
-  if path:match("daily_notes") then
-    icon = "🗒️"
-  elseif path:match("references") then
-    icon = "🔖"
-  elseif path:match("literature_notes") then
-    icon = "📚"
-  elseif path:match("slip") then
-    icon = "📖"
-  elseif path:match("journal/daily") then
-    icon = "📅"
-  elseif path:match("projects") then
-    icon = "💼"
-  end
-
-  if icon then
-    return icon .. " " .. path:match("(.+)%..+")
-  else
-    return path:match("(.+)%..+")
-  end
 end
 
 function M.open_notebook()
@@ -129,7 +160,6 @@ function M.find_or_create_note(opts)
   local cwd = opts.cwd or vim.env.ZK_NOTEBOOK_DIR
   local options = vim.tbl_deep_extend("force", {
     prompt_title = opts.title or titleize(dir),
-    path_display = path_display,
     attach_mappings = function(_, map)
       actions.select_default:replace(function()
         return true

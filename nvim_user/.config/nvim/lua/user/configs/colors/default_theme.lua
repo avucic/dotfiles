@@ -38,6 +38,12 @@ M.config = function() -- or a function that returns a new table of colors to set
       -- hl.HydraBorder = { fg = float_color, bg = float_color }
       -- hl.NormalFloat = { bg = float_color }
 
+      hl.DailyNote = { fg = C.yellow_2 }
+      hl.ReferenceNote = { fg = C.blue }
+      hl.SlipNote = { fg = C.green }
+      hl.JournalNote = { fg = C.purple_1 }
+      hl.ProjectNote = { fg = C.cyan }
+
       hl["@text.strong"] = { fg = C.fg, bold = true }
       hl["@text.emphasis"] = { fg = C.fg, italic = true }
 
