@@ -250,6 +250,8 @@ function M.config()
     -- Tasks
     {
       "nvim-telescope/telescope-live-grep-args.nvim", -- live grap with args
+      -- after = "telescope.nvim",
+      -- opt = true,
     },
     {
       "jedrzejboczar/toggletasks.nvim",

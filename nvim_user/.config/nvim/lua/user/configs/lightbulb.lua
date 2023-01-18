@@ -11,14 +11,15 @@ function M.config()
     -- Example: {"sumneko_lua", "null-ls"}
     -- ignore = { "zk" },
     sign = {
-      enabled = true,
+      enabled = false,
       -- Priority of the gutter sign
-      priority = 100,
+      priority = 10,
     },
     float = {
       enabled = false,
       -- Text to show in the popup float
       text = "💡",
+
       -- Available keys for window options:
       -- - height     of floating window
       -- - width      of floating window
@@ -34,16 +35,16 @@ function M.config()
       -- - anchor     corner of float to place at the cursor (NW, NE, SW, SE)
       -- - winblend   transparency of the window (0-100)
       win_opts = {
-        height = 10,
-        with = 20,
+        height = 4,
+        with = 4,
       },
     },
     virtual_text = {
-      enabled = false,
+      enabled = true,
       -- Text to show at virtual text
       text = "💡",
       -- highlight mode to use for virtual text (replace, combine, blend), see :help nvim_buf_set_extmark() for reference
-      hl_mode = "combine",
+      hl_mode = "blend",
     },
     status_text = {
       enabled = true,
@@ -61,7 +62,9 @@ function M.config()
       events = { "CursorHold", "CursorHoldI" },
     },
   })
-  vim.cmd([[autocmd CursorHold,CursorHoldI *\(.md\|.diffs\)\@<! lua require'nvim-lightbulb'.update_lightbulb()]])
+  vim.cmd(
+    [[autocmd CursorHold,CursorHoldI *\(.md\|.diffs\)\@<! lua require'nvim-lightbulb'.update_lightbulb({priority = 10})]]
+  )
 end
 
 return M

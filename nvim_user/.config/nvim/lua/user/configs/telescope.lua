@@ -147,7 +147,7 @@ function M.config()
           ["n"] = actions.move_selection_next,
           ["p"] = actions.move_selection_previous,
           ["d"] = actions.delete_buffer,
-          ["y"] = yank_select_buf_clip,
+          ["<c-y>"] = yank_select_buf_clip,
           --   ["H"] = actions.move_to_top,
           --   ["M"] = actions.move_to_middle,
           --   ["L"] = actions.move_to_bottom,
@@ -252,6 +252,7 @@ function M.config()
             ["h"] = fb_actions.goto_parent_dir,
             ["d"] = fb_actions.remove,
             ["x"] = fb_actions.open,
+            ["y"] = fb_actions.copy,
             ["<c-h>"] = fb_actions.toggle_hidden,
             ["l"] = actions.select_default,
             -- your custom normal mode mappings

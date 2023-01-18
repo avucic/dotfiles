@@ -4,7 +4,13 @@ function M.config()
   return {
     {
       name = "Test workspace",
-      cmd = "cargo test",
+      cmd = "cargo test --workspace",
+      close_on_exit = false,
+      -- tags = { "ruby" },
+    },
+    {
+      name = "Test integration's",
+      cmd = "cargo test --workspace --test '*'",
       close_on_exit = false,
       -- tags = { "ruby" },
     },

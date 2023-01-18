@@ -37,7 +37,6 @@ function M.setup(Hydra, _, _)
       -- color = "pink",
       hint = {
         border = "rounded",
-        offset = -1,
         show_name = true,
       },
     },

@@ -146,7 +146,7 @@ function M.setup(Hydra, cmd, pcmd)
  ^^^^^^^^^^^^-------------  ^^-----------^^   ^^-------------- ^^---------------
  ^ ^ _k_ ^ ^  ^ ^ _K_ ^ ^   ^   _<C-k>_   ^   _s_: horizontal  _p_: pick
  _h_ ^ ^ _l_  _H_ ^ ^ _L_   _<C-h>_ _<C-l>_   _v_: vertically  _o_: remain only
- ^ ^ _j_ ^ ^  ^ ^ _J_ ^ ^   ^   _<C-j>_   ^   ^^               _d_: pick to delete
+ ^ ^ _j_ ^ ^  ^ ^ _J_ ^ ^   ^   _<C-j>_   ^   ^^               _d_: pick to delete ^
  focus^^^^^^  window^^^^^^  ^_=_: equalize^   ^^               _q_, _c_: close
  ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^_z_: maximize
  ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^_|_: maximize ver^
@@ -159,7 +159,6 @@ function M.setup(Hydra, cmd, pcmd)
       color = "pink",
       hint = {
         border = "rounded",
-        offset = -1,
       },
     },
     mode = "n",
