@@ -20,7 +20,7 @@ function M.config()
   local null_ls = require("user.configs.null-ls").config()
   local alpha = require("user.configs.alpha").config()
   local aerial = require("user.configs.aerial").config()
-  local session_manager = require("user.configs.session_manager").config()
+  -- local session_manager = require("user.configs.session_manager").config()
   local mappings = require("user.core.mappings").config()
   local mason = require("user.configs.mason").config()
   local window_picker = require("user.configs.window_picker").config()
@@ -153,7 +153,7 @@ function M.config()
       ["which-key"] = wk["settings"],
       alpha = alpha,
       aerial = aerial,
-      session_manager = session_manager,
+      -- session_manager = session_manager,
       -- use mason-lspconfig to configure LSP installations
       ["mason-lspconfig"] = mason["mason-lspconfig"],
       -- use mason-tool-installer to configure DAP/Formatters/Linter installation

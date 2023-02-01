@@ -43,7 +43,8 @@ function M.setup(Hydra, _, _)
       { "g", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>" },
       {
         "o",
-        "<cmd>lua require('telescope.builtin').oldfiles()<CR>",
+        -- "<cmd>lua require('telescope.builtin').oldfiles()<CR>",
+        "<Cmd>lua require('telescope').extensions.smart_open.smart_open()<CR>",
         { desc = "recently opened files" },
       },
       { "r", "<cmd>lua require('telescope.builtin').resume()<CR>" },

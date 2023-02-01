@@ -125,6 +125,18 @@ function M.config()
 
     -- Autocompletion
     {
+      "jcdickinson/codeium.nvim",
+      after = "nvim-cmp",
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "MunifTanjim/nui.nvim",
+        "hrsh7th/nvim-cmp",
+      },
+      config = function()
+        require("codeium").setup({})
+      end,
+    },
+    {
       "hrsh7th/cmp-cmdline",
       after = "nvim-cmp",
     },
@@ -135,12 +147,6 @@ function M.config()
     {
       "hrsh7th/vim-vsnip",
       after = "nvim-cmp",
-    },
-    {
-      "tzachar/cmp-tabnine",
-      after = "nvim-cmp",
-      run = "./install.sh",
-      requires = "hrsh7th/nvim-cmp",
     },
     {
       "hrsh7th/cmp-emoji",
@@ -252,6 +258,14 @@ function M.config()
       "nvim-telescope/telescope-live-grep-args.nvim", -- live grap with args
       -- after = "telescope.nvim",
       -- opt = true,
+    },
+    {
+      "danielfalk/smart-open.nvim",
+      -- after = "telescope.nvim",
+      config = function()
+        require("telescope").load_extension("smart_open")
+      end,
+      requires = { "kkharji/sqlite.lua" },
     },
     {
       "jedrzejboczar/toggletasks.nvim",
@@ -589,6 +603,14 @@ function M.config()
       event = "BufRead",
     },
     {
+      "nyngwang/NeoZoom.lua",
+      config = function()
+        require("user.configs.neozoom").config()
+      end,
+      opt = true,
+      cmd = { "NeoZoomToggle" },
+    },
+    {
       "anuvyklack/windows.nvim",
       requires = {
         "anuvyklack/middleclass",
@@ -782,7 +804,6 @@ function M.config()
     {
       "samjwill/nvim-unception", -- open files from terminal into existing neovim instace
     },
-
     -- tools
     {
       "narutoxy/silicon.lua", -- silicon is a lua plugin for neovim to generate beautiful images of code snippet using silicon

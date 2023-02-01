@@ -149,6 +149,7 @@ function M.setup(Hydra, cmd, pcmd)
  ^ ^ _j_ ^ ^  ^ ^ _J_ ^ ^   ^   _<C-j>_   ^   ^^               _d_: pick to delete ^
  focus^^^^^^  window^^^^^^  ^_=_: equalize^   ^^               _q_, _c_: close
  ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^_z_: maximize
+ ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^_Z_: zoom
  ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^_|_: maximize ver^
  ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^_-_: maximize hor^
  ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^^ ^          ^
@@ -217,6 +218,7 @@ function M.setup(Hydra, cmd, pcmd)
 
       -- { "z", "<cmd>FocusEnable<CR>:FocusSplitCycle<CR>", { desc = "maximize" } },
       { "z", "<cmd>WindowsMaximize<CR>", { desc = "maximize" } },
+      { "Z", "<cmd>NeoZoomToggle<CR>", { desc = "zoom" } },
       { "|", "<cmd>WindowsMaximizeHorizontally<CR>", { desc = "maximize vertically" } },
       {
         "-",
