@@ -1,17 +1,4 @@
 local M = {}
-function os.capture(cmd, raw)
-  local f = assert(io.popen(cmd, "r"))
-  local s = assert(f:read("*a"))
-  f:close()
-  if raw then
-    return s
-  end
-  s = string.gsub(s, "^%s+", "")
-  s = string.gsub(s, "%s+$", "")
-  s = string.gsub(s, "[\n\r]+", " ")
-  return s
-end
-
 function M.config()
   local telescope = require("user.core.utils").load_module("telescope")
 
@@ -19,9 +6,13 @@ function M.config()
     return {}
   end
 
+  local function load_fb_extension()
+    return telescope.extensions.file_browser.actions
+  end
+
   local actions = require("telescope.actions")
-  local fb_actions = telescope.extensions.file_browser.actions
-  local lga_actions = require("telescope-live-grep-args.actions")
+  local fb_actions_loaded, fb_actions = pcall(load_fb_extension)
+  local lga_actions = require("user.core.utils").load_module("telescope-live-grep-args.actions")
   local state = require("telescope.actions.state")
 
   telescope.load_extension("fzf")
@@ -39,6 +30,94 @@ function M.config()
       local buf_select = state.get_selected_entry()
       vim.cmd("edit " .. vim.fn.fnameescape(buf_select[1]))
     end
+  end
+
+  local extensions = {
+    fzf = {
+      fuzzy = true, -- false will only do exact matching
+      override_generic_sorter = true, -- override the generic sorter
+      override_file_sorter = true, -- override the file sorter
+      case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+      -- the default case_mode is "smart_case"
+    },
+    lsp_handlers = {
+      code_action = {
+        telescope = require("telescope.themes").get_dropdown({}),
+      },
+    },
+    media_files = {
+      -- filetypes whitelist
+      -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+      filetypes = { "png", "webp", "jpg", "jpeg", "gif" },
+      find_cmd = "rg", -- find command (defaults to `fd`)
+    },
+    vim_bookmarks = {
+      prompt_title = "foooo",
+      attach_mappings = function(_, map)
+        map("n", "dd", function() end)
+
+        return true
+      end,
+      all = {
+        prompt_title = "foooo",
+        attach_mappings = function(_, map)
+          map("n", "dd", function() end)
+
+          return true
+        end,
+      },
+    },
+  }
+
+  if lga_actions then
+    extensions["live_grep_args"] = {
+      auto_quoting = true, -- enable/disable auto-quoting
+      -- define mappings, e.g.
+      mappings = { -- extend mappings
+        i = {
+          ["<C-a>"] = lga_actions.quote_prompt(),
+          ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+        },
+      },
+      -- ... also accepts theme settings, for example:
+      -- theme = "dropdown", -- use dropdown theme
+      -- theme = { }, -- use own theme spec
+      -- layout_config = { mirror=true }, -- mirror preview pane
+    }
+  end
+
+  if fb_actions_loaded then
+    extensions["file_browser"] = {
+      theme = "ivy",
+      -- disables netrw and use telescope-file-browser in its place
+      -- cwd_to_path = true,
+      files = false,
+      -- hijack_netrw = true,
+      select_buffer = true,
+      respect_gitignore = false,
+      hide_parent_dir = true,
+      grouped = true,
+      mappings = {
+        ["i"] = {
+          ["N"] = fb_actions.create,
+          ["<c-h>"] = fb_actions.toggle_hidden,
+          -- your custom insert mode mappings
+        },
+        ["n"] = {
+          ["w"] = pick_window,
+          ["n"] = fb_actions.create,
+          ["."] = fb_actions.change_cwd,
+          ["N"] = fb_actions.create,
+          ["h"] = fb_actions.goto_parent_dir,
+          ["d"] = fb_actions.remove,
+          ["x"] = fb_actions.open,
+          ["y"] = fb_actions.copy,
+          ["<c-h>"] = fb_actions.toggle_hidden,
+          ["l"] = actions.select_default,
+          -- your custom normal mode mappings
+        },
+      },
+    }
   end
 
   return {
@@ -60,7 +139,7 @@ function M.config()
             end
 
             vim.fn.jobstart(
-              --
+            --
               { "viu", filepath },
               {
                 on_stdout = send_output,
@@ -179,87 +258,7 @@ function M.config()
     --     },
     --   },
     -- },
-    extensions = {
-      fzf = {
-        fuzzy = true, -- false will only do exact matching
-        override_generic_sorter = true, -- override the generic sorter
-        override_file_sorter = true, -- override the file sorter
-        case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-        -- the default case_mode is "smart_case"
-      },
-      lsp_handlers = {
-        code_action = {
-          telescope = require("telescope.themes").get_dropdown({}),
-        },
-      },
-      media_files = {
-        -- filetypes whitelist
-        -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
-        filetypes = { "png", "webp", "jpg", "jpeg", "gif" },
-        find_cmd = "rg", -- find command (defaults to `fd`)
-      },
-      vim_bookmarks = {
-        prompt_title = "foooo",
-        attach_mappings = function(_, map)
-          map("n", "dd", function() end)
-
-          return true
-        end,
-        all = {
-          prompt_title = "foooo",
-          attach_mappings = function(_, map)
-            map("n", "dd", function() end)
-
-            return true
-          end,
-        },
-      },
-      live_grep_args = {
-        auto_quoting = true, -- enable/disable auto-quoting
-        -- define mappings, e.g.
-        mappings = { -- extend mappings
-          i = {
-            ["<C-a>"] = lga_actions.quote_prompt(),
-            ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
-          },
-        },
-        -- ... also accepts theme settings, for example:
-        -- theme = "dropdown", -- use dropdown theme
-        -- theme = { }, -- use own theme spec
-        -- layout_config = { mirror=true }, -- mirror preview pane
-      },
-      file_browser = {
-        theme = "ivy",
-        -- disables netrw and use telescope-file-browser in its place
-        -- cwd_to_path = true,
-        files = false,
-        -- hijack_netrw = true,
-        select_buffer = true,
-        respect_gitignore = false,
-        hide_parent_dir = true,
-        grouped = true,
-        mappings = {
-          ["i"] = {
-            ["N"] = fb_actions.create,
-            ["<c-h>"] = fb_actions.toggle_hidden,
-            -- your custom insert mode mappings
-          },
-          ["n"] = {
-            ["w"] = pick_window,
-            ["n"] = fb_actions.create,
-            ["."] = fb_actions.change_cwd,
-            ["N"] = fb_actions.create,
-            ["h"] = fb_actions.goto_parent_dir,
-            ["d"] = fb_actions.remove,
-            ["x"] = fb_actions.open,
-            ["y"] = fb_actions.copy,
-            ["<c-h>"] = fb_actions.toggle_hidden,
-            ["l"] = actions.select_default,
-            -- your custom normal mode mappings
-          },
-        },
-      },
-    },
+    extensions = extensions,
   }
 end
 

@@ -41,12 +41,15 @@ function M.config()
       end
     end
 
-    require("lsp_signature").on_attach({
-      bind = true, -- This is mandatory, otherwise border config won't get registered.
-      handler_opts = {
-        border = "rounded",
-      },
-    }, bufnr)
+    local lsp_signature = require("user.core.utils").load_module("lsp_signature")
+    if lsp_signature then
+      lsp_signature.on_attach({
+        bind = true, -- This is mandatory, otherwise border config won't get registered.
+        handler_opts = {
+          border = "rounded",
+        },
+      }, bufnr)
+    end
 
     if vim.g.lsp_virtual_text_style == "popup" then
       vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
