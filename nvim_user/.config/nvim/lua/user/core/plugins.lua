@@ -7,7 +7,7 @@ function M.config()
     -- ["akinsho/bufferline.nvim"] = { disable = true },
     ["nvim-neo-tree/neo-tree.nvim"] = { disable = true },
     ["s1n7ax/nvim-window-picker"] = { disable = true },
-    -- ["Shatur/neovim-session-manager"] = { disable = true },
+    ["Shatur/neovim-session-manager"] = { disable = true },
     {
       event = "BufRead",
       "kevinhwang91/nvim-bqf",
@@ -28,6 +28,16 @@ function M.config()
             Global = { cmd = "global" },
           },
         })
+      end,
+    },
+    -- Session
+    {
+      "gennaro-tedesco/nvim-possession",
+      requires = {
+        "ibhagwan/fzf-lua",
+      },
+      config = function()
+        require("user.configs.possesion").config()
       end,
     },
 
