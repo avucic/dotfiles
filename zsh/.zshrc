@@ -1,37 +1,38 @@
-export ANTIGEN=$HOME
-export LC_CTYPE=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-
 source ~/.env
+source "${HOME}/.zgen/zgen.zsh"
 
-# If there is cache available
-if [[ -f ${ADOTDIR:-$HOME/.antigen}/.cache/.zcache-payload ]]; then
-  # Load bundles statically
-  source ${ADOTDIR:-$HOME/.antigen}/.cache/.zcache-payload
+# if the init script doesn't exist
+if ! zgen saved; then
 
-  You will need to call compinit
-  autoload -Uz compinit
-  compinit -d ${HOME}/.zcompdump
-else
-  # If there is no cache available do load and execute antigen
-  source $ANTIGEN/antigen.zsh
+  # specify plugins here
+  zgen oh-my-zsh
 
-  # I'm using antigen-init here but your usual antigen-bundle,
-  # antigen-theme, antigen-apply will work as well
-  antigen init $HOME/.antigenrc
+  zgen oh-my-zsh plugins/git
+  zgen oh-my-zsh plugins/sudo
+  zgen oh-my-zsh plugins/command-not-found
+  zgen oh-my-zsh plugins/docker
+  # zgen oh-my-zsh plugins/rails
+  zgen oh-my-zsh plugins/brew
+  zgen oh-my-zsh plugins/asdf
+  zgen oh-my-zsh plugins/ruby
+  zgen oh-my-zsh plugins/autojump
+  zgen oh-my-zsh plugins/direnv
+  zgen oh-my-zsh plugins/rust
+
+  zgen load zsh-users/zsh-syntax-highlighting
+  zgen load zsh-users/zsh-completions
+  zgen load zsh-users/zsh-autosuggestions
+  zgen load svenXY/timewarrior
+  zgen load spaceship-prompt/spaceship-prompt
+  zgen load olets/zsh-abbr
+  zgen load MichaelAquilina/zsh-you-should-use
+
+  # workadround
+  zgen load ~/.zgen/olets/zsh-abbr-main/zsh-abbr.plugin.zsh
+
+  # generate the init script from plugins above
+  zgen save
 fi
-
-plugins=(
-    git
-    brew
-    yarn
-    golang
-    rust
-    ruby
-    rails
-    rake
-    asdf
-)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -48,6 +49,7 @@ export ERL_AFLAGS="-kernel shell_history enabled" # enable history in iex
 export PATH="$HOME/dotfiles/bin:$PATH"
 # export EDITOR="nvim"
 export TERM=xterm-256color
+# export TERM=screen-256color
 export COLORTERM='24bit'
 # export TERM=wezterm
 # export TERM=xterm-kitty

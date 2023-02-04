@@ -61,6 +61,43 @@ function M.env_merge(env)
   return final_env
 end
 
+function M.define_sts_jump_keymap(char, otps, desc, both)
+  local map = vim.keymap.set
+  both = both or true
+  map("n", "<leader>j" .. char, function()
+    require("syntax-tree-surfer").filtered_jump(otps, true)
+    vim.cmd([[WhichKey <leader>j]])
+  end, { desc = "Next " .. desc, buffer = true })
+  if both then
+    map("n", "<leader>j" .. string.upper(char), function()
+      require("syntax-tree-surfer").filtered_jump(otps, false)
+      vim.cmd([[WhichKey <leader>j]])
+    end, { desc = "Previous " .. desc, buffer = true })
+  end
+  map("n", "<leader>J" .. char, function()
+    require("syntax-tree-surfer").targeted_jump(otps)
+  end, { desc = "Next (target) " .. desc, buffer = true })
+end
+
+function M.toggle_theme()
+  if vim.g.current_colorscheme == "light" then
+    vim.g.current_colorscheme = "dark"
+    vim.cmd([[colorscheme astrodark]])
+  else
+    vim.g.current_colorscheme = "light"
+    require("newpaper").setup({ style = "light" })
+  end
+end
+
+function M.toggle_lsp_virtual_text_popup()
+  if vim.g.lsp_virtual_text_style ~= "inline" then
+    vim.g.lsp_virtual_text_style = "inline"
+  else
+    vim.g.lsp_virtual_text_style = "popup"
+  end
+  vim.cmd([[LspRestart]])
+end
+
 function M.fileExists(file)
   local ok, err, code = os.rename(file, file)
   if not ok then
@@ -70,6 +107,19 @@ function M.fileExists(file)
     end
   end
   return ok, err
+end
+
+function M.get_visual_selection()
+  vim.cmd('noau normal! "vy"')
+  local text = vim.fn.getreg("v")
+  vim.fn.setreg("v", {})
+
+  text = string.gsub(text, "\n", "")
+  if #text > 0 then
+    return text
+  else
+    return ""
+  end
 end
 
 return M

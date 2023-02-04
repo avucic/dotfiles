@@ -1,252 +1,298 @@
-local M = {}
+vim.cmd([[vnoremap <C-r> "hy:%s/<C-r>h//gI<left><left><left>]])
+-- vim.cmd([[nnoremap <leader-r> :%s/\<<C-r><C-w>\>/]])
 
-function M.config()
-  vim.cmd([[vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>]])
+-- command line
+vim.cmd([[
+  cnoremap <C-A> <Home>
+	cnoremap <C-F> <Right>
+	cnoremap <C-B> <Left>
+  ]])
 
-  -- command line
-  vim.cmd([[
-    cnoremap <C-A> <Home>
-	  cnoremap <C-F> <Right>
-	  cnoremap <C-B> <Left>
-    ]])
+local maps = { i = {}, n = {}, v = {}, t = {}, x = {} }
 
-  local map = {
-    n = {
-      -- remove from Astrovim. TODO: better way?
-      ["<A-j>"] = { "<Nop>" },
-      ["<A-k>"] = { "<Nop>" },
-      ["<leader>d"] = false,
-      ["<leader>/"] = false,
-      ["<leader>o"] = false,
-      ["<leader>x"] = false,
-      ["<c-w>"] = false,
-      -- ["n"] = "<nop>",
+-- N ------------------------------------------------------------------------------------
+maps.n["<leader>c"] = false
+maps.n["<leader>C"] = false
+maps.n["<leader>n"] = false
+maps.n["<leader>p"] = false
+maps.n["gd"] = false
+maps.n["gD"] = false
 
-      -- ["<leader>p"] = false,
-      -- ["<leader>p"] = "<Nop>",
-      ["<leader>gs"] = false,
-      ["<leader>gg"] = false,
-      ["<leader>tn"] = false,
-      ["<leader>tu"] = false,
-      ["<leader>tt"] = false,
-      ["<leader>tp"] = false,
-      ["<leader>tl"] = false,
-      ["<leader>tf"] = false,
-      ["<leader>th"] = false,
-      ["<leader>tv"] = false,
-      ["<leader>gj"] = false,
-      ["<leader>gk"] = false,
-      ["<leader>gl"] = false,
-      ["<leader>gp"] = false,
-      ["<leader>gh"] = false,
-      ["<leader>gr"] = false,
-      ["<leader>gu"] = false,
-      ["<leader>gd"] = false,
-      ["<leader>fw"] = false,
-      ["<leader>fW"] = false,
-      ["<leader>gt"] = false,
-      ["<leader>gb"] = false,
-      ["<leader>gc"] = false,
-      ["<leader>ff"] = false,
-      ["<leader>f"] = false,
-      ["<leader>fF"] = false,
-      ["<leader>fb"] = false,
-      ["<leader>fh"] = false,
-      ["<leader>fm"] = false,
-      ["<leader>fn"] = false,
-      ["<leader>fo"] = false,
-      ["<leader>fc"] = false,
-      ["<leader>sb"] = false,
-      ["<leader>sh"] = false,
-      ["<leader>sm"] = false,
-      ["<leader>sn"] = false,
-      ["<leader>sr"] = false,
-      ["<leader>sk"] = false,
-      ["<leader>sc"] = false,
-      ["<leader>ls"] = false,
-      ["<leader>lG"] = false,
-      ["<leader>lD"] = false,
-      ["<leader>lr"] = false,
-      ["<leader>lR"] = false,
-      ["<leader>e"] = false,
+maps.n["<c-q>"] = { "<cmd>silent! cclose<cr><cmd>nohlsearch<cr><cmd>ToggleTermToggleAll<cr>" }
+maps.n["<esc>"] = { "<cmd>nohlsearch<cr><cmd>lua require('notify').dismiss()<cr>" }
+maps.n["<esc><esc>"] = { "<cmd>nohlsearch<cr><cmd>lua require('notify').dismiss()<cr>" }
+maps.n["Q"] = { "<cmd>qall!<cr>" }
+maps.n["<S-l>"] = { "$" }
+maps.n["<S-h>"] = { "^" }
+maps.n["z="] = { "<cmd>lua require('telescope.builtin').spell_suggest()<CR>" }
+maps.n["<leader>W"] = { "<cmd>:noa w<cr>", desc = "Save without format" }
+maps.n["ww"] = { "<cmd>lua require('user.core.plugins.window_picker').pick()<cr>" }
+maps.n["gVa"] = { "<cmd>lua require'nvim-treesitter.incremental_selection'.node_incremental()<cr><cmd>WhichKey gV<cr>", desc = "Increment", }
+maps.n["gVd"] = { "<cmd>lua require'nvim-treesitter.incremental_selection'.node_decremental()<cr><cmd>WhichKey gV<cr>", desc = "Decremental", }
 
-      ["<leader>ua"] = false,
-      ["<leader>ub"] = false,
-      ["<leader>uc"] = false,
-      ["<leader>uC"] = false,
-      ["<leader>ud"] = false,
-      ["<leader>ug"] = false,
-      ["<leader>ui"] = false,
-      ["<leader>ul"] = false,
-      ["<leader>un"] = false,
-      ["<leader>us"] = false,
-      ["<leader>up"] = false,
-      ["<leader>ut"] = false,
-      ["<leader>uu"] = false,
-      ["<leader>uw"] = false,
-      ["<leader>uy"] = false,
-      ["<leader>uf"] = false,
-      ["<leader>t"] = false,
-      ["<leader>Sl"] = false,
-      ["<leader>Ss"] = false,
-      ["<leader>Sd"] = false,
-      ["<leader>Sf"] = false,
-      ["<leader>S."] = false,
+-- remove from Astrovim. TODO: better way?
+maps.n["<A-j>"] = { "<Nop>" }
+maps.n["<A-k>"] = { "<Nop>" }
 
-      ["<leader>p"] = "<cmd>lua require('telescope').extensions.project.project{}<CR>",
-      -- ["<C-h>"] = false,
-      -- ["<C-l>"] = false,
+-- c-w  +Windows
+maps.n["<c-w>q"] = { "<cmd>:q<cr>", desc = "Close" }
+maps.n["<c-w>d"] = { "<cmd>lua require('user.core.plugins.window_picker').pick({delete = true })<cr>", desc = "Pick to delete" }
+maps.n["<c-w>D"] = { "<cmd>only<cr>", desc = "Close others" }
+maps.n["<c-w>T"] = { "<c-w>t", desc = "Move to new tab" }
+maps.n["<c-w>="] = { "<cmd>WindowsEqualize<CR><cmd>WindowsDisableAutowidth<cr>", desc = "Equalize" }
+maps.n["<c-w>s"] = { "<cmd>split<cr>", desc = "Split horizontaly" }
+maps.n["<c-w>v"] = { "<cmd>vsplit<cr>", desc = "Split verticaly" }
+maps.n["<c-w>z"] = { "<cmd>WindowsMaximize<CR>", desc = "Maximize" }
+maps.n["<c-w>f"] = { "<cmd>NeoZoomToggle<CR>", desc = "Float" }
+maps.n["<c-w>o"] = { "<C-w>o", desc = "Remain only" }
+maps.n["<c-w>p"] = { "<cmd>lua require('user.core.plugins.window_picker').pick()<cr>", desc = "Pick window" }
+maps.n["<c-w>m"] = { "<cmd>WinShift<cr>", desc = "Move window" }
+maps.n["<C-w>K"] = { "<cmd>lua require('smart-splits').resize_up()<cr><cmd>WhichKey <c-w><cr>", desc = "Resize split up" }
+maps.n["<C-w>J"] = { "<cmd>lua require('smart-splits').resize_down()<cr><cmd>WhichKey <c-w><cr>", desc = "Resize split down" }
+maps.n["<C-w>H"] = { "<cmd>lua require('smart-splits').resize_left()<cr><cmd>WhichKey <c-w><cr>", desc = "Resize split left" }
+maps.n["<C-w>L"] = { "<cmd>lua require('smart-splits').resize_right()<cr><cmd>WhichKey <c-w><cr>", desc = "Resize split right" }
+maps.n["<C-w>up"] = { "<cmd>TZAtaraxis<cr>", desc = "Poet mode" }
+maps.n["<C-w>uf"] = { "<cmd>TZFocus<cr>", desc = "Focus mode" }
+maps.n["<C-w>um"] = { "<cmd>TZMinimalist<cr>", desc = "Minimalist mode" }
+maps.v["<C-w>un"] = { "<cmd>'<,'>TZNarrow<cr>", desc = "Narrow" }
 
-      -- ["<leader>e"] = { "<cmd>lua require'mind'.close()<cr><cmd>Neotree toggle<cr>" },
+-- tabs
+maps.n["<c-w>tt"] = { "<cmd>lua require('telescope-tabs').list_tabs()<cr>", desc = "List tabs" }
+maps.n["<c-w>tn"] = { "<cmd>tabnew<cr>", desc = "new tab" }
+maps.n["<c-w>tq"] = { "<cmd>tabclose<cr>", desc = "Close tab" }
 
-      ["<c-q>"] = { "<cmd>silent! cclose<cr><cmd>nohlsearch<cr><cmd>ToggleTermToggleAll<cr>" },
-      ["<esc>"] = { "<cmd>nohlsearch<cr><cmd>lua require('notify').dismiss()<cr>" },
-      ["<esc><esc>"] = { "<cmd>nohlsearch<cr>" },
-      ["Q"] = { "<cmd>qall!<cr>" },
-      ["<S-l>"] = { "$" },
-      ["<S-h>"] = { "^" },
-      ["z="] = { "<cmd>lua require('telescope.builtin').spell_suggest()<CR>" },
-      ["<leader>W"] = { "<cmd>:noa w<cr>", desc = "Save without format" },
+-- +Files
+maps.n["<leader>fn"] = { "<cmd>enew<cr>", desc = "New file" }
+maps.n["<leader>fE"] = { "<cmd>Telescope file_browser files=true<cr>", desc = "Explorer from root" }
+maps.n["<leader>fe"] = { "<cmd>Telescope file_browser path=%:p:h files=true<cr>", desc = "Explorer" }
+maps.n["<leader>fg"] = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", desc = "Live grep" }
+maps.v["<leader>fg"] = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args({default_text = require('user.core.utils').get_visual_selection()})<CR>", desc = "Live grep" }
+maps.n["<leader>fo"] = { "<Cmd>lua require('telescope').extensions.smart_open.smart_open()<CR>", desc = "Recent files" }
+maps.n["<leader>fp"] = { "<cmd>lua require('telescope').extensions.project.project{}<CR>", desc = "Projects" }
+maps.n["<leader>f/"] = { "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>", desc = "Fuzzy find" }
+maps.n["<leader>f?"] = { "<cmd>lua require('telescope.builtin').search_history()<CR>", desc = "History" }
+maps.n["<leader>fR"] = { "<cmd>e %<CR>", desc = "Reload" }
+maps.n["<leader>fy"] = { "<cmd>let @*=expand('%')<cr>", desc = "Yank file path" }
+maps.n["<leader>fY"] = { "<cmd>let @*=expand('%:p')<cr>", desc = "Yank full file path" }
+maps.n["<leader>fx"] = { "<cmd>OpenFileInFinder<cr>", desc = "Open file in folder" }
+maps.n["<leader>fX"] = { "<cmd>OpenFolderInFinder<cr>", desc = "Open folder" }
+maps.n["<leader>fT"] = { "<cmd>lua require('telescope.builtin')<CR>:Telescope<CR>", desc = "Open telescope" }
+-- maps.v["<leader>fn"] = { "<cmd>lua vim.fn.input('File: ', '', "file")<CR>", desc = "Open telescope" }
 
-      ["ww"] = { "<cmd>lua require('user.plugins.window_picker').pick()<cr>" },
+-- '<,'>w %:h/svelte.lua
 
-      -- Bookmarks
-      ["mm"] = { ":BookmarkToggle<cr>" },
-      -- ["ma"] = { ":lua require('telescope').extensions.vim_bookmarks.all()<cr>", desc = "List all Bookmarks" },
-      ["ma"] = {
-        ":lua require('user.configs.vim_bookmarks').open_bookmarks_workaround()<cr>",
-        desc = "List all Bookmarks",
-      },
-      ["mf"] = {
-        ":lua require('telescope').extensions.vim_bookmarks.current_file()<cr>",
-        desc = "List current file Bookmarks",
-      },
-      ["mD"] = "<cmd>normal mx<cr>",
+-- +Buffers
+maps.n["<leader>bb"] = { "<cmd>lua require('telescope.builtin').buffers()<CR>", desc = "History" }
+maps.n["<leader>bo"] = { "<cmd>w | %bd | e#<CR>", desc = "Close others" }
+maps.n["<leader>bl"] = { "<cmd>lua require('core.utils.buffer').nav((vim.v.count > 0 and vim.v.count or 1))<cr><cmd>WhichKey <LT>leader>b<CR>", desc = "Next buffer" }
+maps.n["<leader>bh"] = { "<cmd>lua require('core.utils.buffer').nav(-(vim.v.count > 0 and vim.v.count or 1))<cr><cmd>WhichKey <LT>leader>b<CR>", desc = "Previous buffer" }
+maps.n["<leader>bp"] = { "<cmd>lua require('core.utils.status').heirline.buffer_picker(function(bufnr) vim.api.nvim_win_set_buf(0, bufnr) end)<CR>", desc = "Pick" }
+-- maps.n["<leader>bq"] = { "<cmd>bp<bar>bd #<CR><cmd>WhichKey <LT>leader>b<CR>", desc = "Delete" }
+maps.n["<leader>bq"] = { "<cmd>lua require('core.utils.buffer').close(0)<CR>", desc = "Close" }
+maps.n["<leader>bQ"] = { "<cmd>lua require('core.utils.buffer').close(0, true)<CR>", desc = "Force close" }
+maps.n["<leader>b-"] = { "<cmd>lua require('core.utils.status').heirline.buffer_picker(function(bufnr) vim.cmd.split() vim.api.nvim_win_set_buf(0, bufnr) end)<CR>", desc = "Split horizontally" }
+maps.n["<leader>b\\"] = false
 
-      -- portal
-      ["<c-o>"] = [[<cmd>lua require("portal").jump_backward()<cr>]],
-      ["<c-i>"] = [[<cmd>lua require("portal").jump_forward()<cr>]],
+-- +Git
+maps.n["<leader>gr"] = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", desc = "Reset hunk" }
+maps.n["<leader>gR"] = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = "Reset buffer" }
+maps.n["<leader>gl"] = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc = "Blame" }
+maps.n["<leader>gO"] = { "<cmd>OpenInGHFile<cr>", desc = "Open current file in Github" }
+maps.n["<leader>go"] = { "<cmd>OpenInGHRepo<cr>", desc = "Open page with line in Github" }
+maps.n["<leader>gs"] = { "<cmd>lua require('user.core.utils').toggle_term_cmd('lazygit --use-config-file ~/.config/lazygit/config.yml', {direction = 'float'})<CR>", desc = "Git status", }
+maps.n["<leader>gu"] = false
+maps.n["<leader>gt"] = false
+maps.n["<leader>gb"] = false
+maps.n["<leader>gc"] = false
 
-      -- Lighspeed
-      -- ["s"] = { "<Plug>Lightspeed_s" },
-      -- ["S"] = { "<Plug>Lightspeed_S" },
+-- +Terminal
+maps.n["<leader>tt"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('horizontal', 1)<cr>", desc = "Defaul" }
+maps.n["<leader>tr"] = { "<Cmd>ToggleTermSetName<CR>", desc = "Rename" }
+maps.n["<leader>tf"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('float', 1)<cr>", desc = "Float" }
+maps.n["<leader>tF"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('float')<cr>", desc = "New float" }
+maps.n["<leader>tN"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('horizontal', nil)<cr>", desc = "New" }
+maps.n["<leader>tv"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('vertical', 1)<cr>", desc = "Vertical" }
+maps.n["<leader>tV"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('vertical')<cr>", desc = "New vertical" }
+maps.n["<leader>tT"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('tab', 1)<cr>", desc = "List terminals" }
+maps.n["<leader>tl"] = { "<cmd>lua require('user.core.plugins.toggleterm_telescope').open()<cr>", desc = "List terminals" }
+maps.n["<leader>tL"] = false
+maps.n["<leader>tn"] = false
+maps.n["<leader>tp"] = false
+maps.n["<leader>th"] = false
 
-      -- Leap
-      ["s"] = { "<Plug>(leap-forward-to)" },
-      ["ss"] = { "<Plug>(leap-forward-till)" },
-      ["S"] = { "<Plug>(leap-backward-to)" },
-      ["SS"] = { "<Plug>(leap-backward-till)" },
-      ["gs"] = "<Plug>(leap-cross-window)",
-      ["sp"] = { "<cmd>lua require('user.configs.leap').paranormal()<cr>" },
+-- +Jump
+maps.n["<leader>jn"] = { "<cmd>lua require('aerial').next()<cr><cmd>WhichKey <LT>leader>j<CR>", desc = "Aerial next" }
+maps.n["<leader>jN"] = { "<cmd>lua require('aerial').next(-1)<cr><cmd>WhichKey <LT>leader>j<CR>", desc = "Aerial previous" }
+maps.n["<leader>jr"] = { "<cmd>lua require('telescope.builtin').lsp_references()<CR>", desc = "LSP references" }
 
-      -- Navigate buffers
-      -- ["<leader><tab>"] = { "<cmd>bNext<cr>" },
-      -- ["<leader><S-tab>"] = { "<cmd>bprevious<cr>" },
+-- +LSP
+maps.n["<leader>lK"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "Hover symbol details" }
+maps.n["<leader>la"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code action" }
+maps.n["<leader>le"] = { "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Diagnostic buffer" }
+maps.n["<leader>lD"] = { "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "Declaration" }
+maps.n["<leader>ld"] = { "<cmd>Glance definitions<CR>", desc = "Definition" }
+maps.n["<leader>lwe"] = { "<cmd>Telescope diagnostics<cr>", desc = "Diagnostic workspace" }
+maps.n["<leader>lwa"] = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", desc = "Add" }
+maps.n["<leader>lwr"] = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", desc = "Remove" }
+maps.n["<leader>lws"] = { "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", desc = "Symbols" }
+maps.n["<leader>lf"] = { "<cmd>lua vim.lsp.buf.format({async = true })<cr>", desc = "Format" }
+maps.n["<leader>li"] = { "<cmd>Glance implementations<cr>", desc = "Implementation" }
+maps.n["<leader>lI"] = { "<cmd>Mason<cr>", desc = "Info" }
+maps.n["<leader>ln"] = { "<cmd>lua vim.diagnostic.goto_next()<CR>", desc = "Next diagnostic" }
+maps.n["<leader>lp"] = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "Previous diagnostic" }
+maps.n["<leader>ll"] = { "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "Codelens" }
+maps.n["<leader>lr"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", desc = "Rename current symbol" }
+maps.n["<leader>lG"] = false
 
-      -- Jump by paragraph
-      -- ["<C-k>"] = { "<S-{>" },
-      -- ["<C-j>"] = { "<S-}>" },
+-- +Notes
+maps.n["<leader>no"] = { "<Cmd>ZkOpenNotes<CR>", desc = "Open notes" }
+maps.n["<leader>ni"] = { "<cmd>ZkOpenNotebook<CR>", desc = "Open notebook" }
+maps.n["<leader>n."] = { "<Cmd>ZkCd<CR>", desc = "cdw" }
+maps.n["<leader>nR"] = { "<Cmd>ZkIndex<CR>", desc = "Reindex" }
+maps.n["<leader>nc"] = { "<cmd>ZkShowCalendar<cr>", desc = "Calendar" }
+maps.n["<leader>nnr"] = { "<cmd>:ZkFindOrCreateNote { group='reference_notes', dir='references'}<cr>", desc = "Reference note" }
+maps.n["<leader>nns"] = { "<cmd>:ZkFindOrCreateNote { group='permanent_notes', dir='references'}<cr>", desc = "Slip note" }
+maps.n["<leader>nnd"] = { "<cmd>:ZkFindOrCreateNote { group='fleeting_notes', dir='references'}<cr>", desc = "Daily note" }
+maps.n["<leader>nnl"] = { "<cmd>:ZkFindOrCreateNote { group='literature_notes', dir='references'}<cr>", desc = "Literature note" }
+maps.n["<leader>nnp"] = { "<cmd>:ZkFindOrCreateProjectNote<cr>", desc = "Project note" }
 
-      -- Navigator
-      ["<C-h>"] = { "<CMD>NavigatorLeft<CR>" },
-      ["<C-l>"] = { "<CMD>NavigatorRight<CR>" },
-      ["<C-k>"] = { "<CMD>NavigatorUp<CR>" },
-      ["<C-j>"] = { "<CMD>NavigatorDown<CR>" },
-      -- ["<C-p>"] = { "<CMD>NavigatorPrevious<CR>" },
+maps.n["<leader>ntt"] = { "<cmd>lua require('user.core.utils').toggle_term_cmd('vit list due:today or +next', {direction = 'float'})<CR>", desc = "Tasks today", }
+maps.n["<leader>ntT"] = { "<cmd>lua require('user.core.utils').toggle_term_cmd('timew week', {direction = 'float'})<CR>", desc = "Tasks week", }
+maps.n["<leader>nto"] = { "<cmd>ZkAnnotateTask<cr>", desc = "Tasks week" }
 
-      -- quickfix
-      -- ["<C-n>"] = { "<CMD>:cn<CR>" },
-      -- ["<C-p>"] = { "<CMD>:cp<CR>" },
+maps.n["<leader>nfg"] = { "<Cmd>ZkGrep<CR>", desc = "Grep" }
+maps.n["<leader>nft"] = { "<Cmd>ZkTags<CR>", desc = "By tags" }
+maps.n["<leader>nfl"] = { "<Cmd>ZkTags<CR>", desc = "Links" }
+maps.n["<leader>nfb"] = { "<Cmd>ZkTags<CR>", desc = "Backlinks" }
+maps.n["<leader>nfo"] = { "<Cmd>ZkTags<CR>", desc = "Orphans" }
 
-      -- multiple Cursor
-      ["<C-n>"] = "<Nop>",
-      ["<C-p>"] = "<Nop>",
-      ["<M-n>"] = { "<Plug>(VM-Add-Cursor-Down)" },
-      ["<M-p>"] = { "<Plug>(VM-Add-Cursor-up)" },
+maps.n["<leader>njd"] = { "<cmd>:ZkFindOrCreateJournalDailyNote<cr>", desc = "New dalily journal" }
+maps.n["<leader>njf"] = { "<cmd>:ZkNew{group='fer', dir='journal/fer'}<cr>", desc = "New fer session" }
 
-      -- toggle term
-      ["\\"] = "<Nop>",
-      ["\\\\"] = { "<cmd>ToggleTermToggleAll<cr>" },
+-- +Open
+maps.n["<leader>ott"] = { "<cmd>lua require('telescope').extensions.toggletasks.spawn()<cr>", desc = "New" }
+maps.n["<leader>otl"] = { "<cmd>lua require('telescope').extensions.toggletasks.select()<cr>", desc = "List" }
+maps.n["<leader>ote"] = { "<cmd>lua require('telescope').extensions.toggletasks.edit()<cr>", desc = "Edit" }
+maps.n["<leader>oo"] = { "<cmd>AerialToggle! right<cr>", desc = "Symbols outline" }
+maps.n["<leader>og"] = { "<cmd>ChatGPT<cr>", desc = "ChatGPT" }
+maps.n["<leader>odo"] = { "<cmd>lua require('user.plugins.configs.dadbod').db_tasks()<cr>", desc = "Open DB Connection" }
+maps.n["<leader>odt"] = { "<cmd>DBUIToggle<cr>", desc = "Toggle DB Connection" }
 
-      -- search google
-      -- ["<leader>sw"] = { ":BrowserSearch<cr>" },
-      -- EasyAlign
-      -- ["ga"] = { "<Plug>(EasyAlign)" },
-      -- Markdown bullets
-      -- ["=q"] = function()
-      --   local qf_winid = vim.fn.getqflist({ winid = 0 }).winid
-      --   local action = qf_winid > 0 and "cclose" or "copen"
-      --   vim.cmd("botright " .. action)
-      -- end,
-      -- ["=l"] = function()
-      --   local win = vim.api.nvim_get_current_win()
-      --   local qf_winid = vim.fn.getloclist(win, { winid = 0 }).winid
-      --   local action = qf_winid > 0 and "lclose" or "lopen"
-      --   vim.cmd(action)
-      -- end,
+-- +Search
+maps.n["<leader>sh"] = { "<cmd>lua require('telescope.builtin').help_tags()<CR>", desc = "Help" }
+maps.n["<leader>sk"] = { "<cmd>lua require('telescope.builtin').keymaps()<CR>", desc = "Keymaps" }
+maps.n["<leader>ss"] = { "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>", desc = "Symbols" }
+maps.n["<leader>sS"] = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>", desc = "Workspace symbols" }
+maps.n["<leader>so"] = { "<cmd>Telescope aerial<cr>", desc = "Outline" }
+maps.n["<leader>sO"] = { "<cmd>lua require('telescope.builtin').vim_options()<CR>", desc = "Options" }
+maps.n["<leader>s;"] = { "<cmd>lua require('telescope.builtin').command_history()<CR>", desc = "History" }
+maps.n["<leader>sc"] = { "<cmd>lua require('telescope.builtin').commands()<CR>", desc = "Commands" }
+maps.n["<leader>s<cr>"] = { "<cmd>lua require('telescope.builtin').resume()<CR>", desc = "Resume" }
+maps.n["<leader>sb"] = { "<cmd>lua require('telescope.builtin').buffers()<CR>", desc = "Buffers" }
+maps.n["<leader>sw"] = { "<cmd>BrowserSearch<cr>", desc = "Web" }
+maps.n["<leat>st"] = { "<cmd>lua require('telescope').extensions.vstask.tasks()<cr>", desc = "Tasks" }
 
-      -- treesj
-      ["gS"] = { "<cmd>TSJSplit<cr>" },
-      ["gJ"] = { "<cmd>TSJJoin<cr>" },
-      ["K"] = { "<leader>lK", remap = true }, -- shortcut
-    },
-    i = {
-      -- ["i"] = { "i" },
-      -- ["f"] = { "f" },
-    },
-    v = {
-      ["<S-l>"] = { "$", desc = "Jump to end of line" },
-      ["<S-h>"] = { "^", desc = "Jump to the begging of line" },
-      -- Stay in indent mode
-      ["<"] = { "<gv", desc = "Move left" },
-      [">"] = { "gv>", desc = "Move right" },
-      ["p"] = { '"_dP' },
-      -- inflect
-      -- ["gI"] = { "<Plug>(Inflect)" },
-      -- search google
-      -- ["<leader>sg"] = { ":BrowserSearch<cr>" },
+-- +Toggle
+maps.n["<leader>ub"] = { "<cmd>lua require('user.core.utils').toggle_theme()<cr>", desc = "Toggle theme" }
+maps.n["<leader>ux"] = { "<cmd>lua require('user.core.utils').toggle_lsp_virtual_text_popup()<cr>", desc = "Toggle Lsp virtual text popup" }
 
-      -- Leap
-      ["s"] = { "<Plug>(leap-forward-to)" },
-      ["ss"] = { "<Plug>(leap-forward-till)" },
-      -- ["S"] = { "<Plug>(leap-backward-to)" },
-      ["SS"] = { "<Plug>(leap-backward-till)" },
-      ["<c-f>"] = { "y<ESC>:lua require('telescope.builtin').live_grep({default_text= vim.fn.getreg('*')})<CR>" },
-    },
-    x = {
-      -- Move text up and down
-      ["J"] = { ":move '>+1<CR>gv-gv" },
-      ["K"] = { ":move '<-2<CR>gv-gv" },
-      -- ["A-j"] = { ":move '>+1<CR>gv-gv" },
-      -- ["A-k"] = { ":move '<-2<CR>gv-gv" },
-      -- EasyAlign
-      -- ["ga"] = { "<Plug>(EasyAlign)" },
-    },
-    t = {
-      --ToggleTerm
-      ["\\\\"] = { "<cmd>ToggleTermToggleAll<cr>" },
-    },
+-- +Text
+maps.v["<leader>xi"] = { "<Plug>(Inflect)", desc = "Inflect" }
+maps.v["<leader>xac"] = { "<cmd>lua require'align'.align_to_char(1, true)<cr>", desc = "1 character" }
+maps.v["<leader>xas"] = { "<cmd>lua require'align'.align_to_char(2, true)<cr>", desc = "2 characters" }
+maps.v["<leader>xaw"] = { "<cmd>lua require'align'.align_to_char(2, true)<cr>", desc = "String" }
+maps.v["<leader>xar"] = { "<cmd>lua require'align'.align_to_char(2, true)<cr>", desc = "Pattern" }
+maps.v["<leader>xs"] = { "<cmd>lua require('silicon').visualise_api({})<cr>", desc = "Generate code image" }
+maps.v["<leader>xdt"] = { [[<cmd>lua print(io.popen("jwt decode ".. vim.fn.getreg('"') or ""):read("*a"))<cr>]], desc = "Base64 Decode token", }
+maps.n["<leader>xt"] = { "<cmd>lua require('nvim-toggler').toggle()<cr>", desc = "Toggle word" }
+maps.v["<leader>xge"] = { ":'<,'>Translate English<CR>", desc = "english" }
+maps.v["<leader>xgs"] = { ":'<,'>Translate Serbian<CR>", desc = "serbian" }
+maps.n["<leader>xi."] = { "<cmd>TextCaseOpenTelescope<CR>", desc = "Current word" }
+maps.v["<leader>xi"] = { "<cmd>TextCaseOpenTelescope<CR>", desc = "Text Case" }
+maps.n["<leader>xiq"] = { "<cmd>TextCaseOpenTelescopeQuickChange<CR>", desc = "Telescope Quick Change" }
+maps.n["<leader>xil"] = { "<cmd>TextCaseOpenTelescopeLSPChange<CR>", desc = "Telescope LSP Change" }
+maps.n["<leader>xr"] = { [[:%s/\<<C-r><C-w>\>/]], desc = "Replace" }
 
-    -- function M.set_terminal_keymaps()
-    --   local opts = { buffer = 0 }
-    --   vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
-    --   vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)
-    --   vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
-    --   vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
-    --   vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
-    --   vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
-    -- end
-  }
+-- +Yank
+maps.n["<leader>yy"] = { "<cmd>lua require('telescope').extensions.neoclip.default()<cr>", desc = "History" }
+maps.n["<leader>ym"] = { "<cmd>lua require('telescope').extensions.macroscope.default()<cr>", desc = "Macro history" }
+maps.n["<leader>yD"] = { "<cmd>lua require('neoclip').clear_history()<cr>", desc = "Clear history" }
 
-  -- local smart_splits = require("user.core.utils").load_module("smart-splits")
-  --
-  -- if smart_splits then
-  --   map.n["<M-Up>"] = { "<cmd>lua require'smart-splits'.resize_up(2)<cr>" }
-  --   map.n["<M-Down>"] = { "<cmd>lua require'smart-splits'.resize_down(2)<cr>" }
-  --   map.n["<M-Left>"] = { "<cmd>lua require'smart-splits'.resize_left(2)<cr>" }
-  --   map.n["<M-Right>"] = { "<cmd>lua require'smart-splits'.resize_right(2)<cr>" }
-  -- end
-  return map
-end
+-- Bookmarks
+maps.n["mm"] = { ":BookmarkToggle<cr>", desc = "Toggle bookmarks" }
+maps.n["ma"] = { ":lua require('user.plugins.configs.vim_bookmarks').open_bookmarks_workaround()<cr>", desc = "List all Bookmarks" }
+maps.n["mf"] = { ":lua require('telescope').extensions.vim_bookmarks.current_file()<cr>", desc = "List current file Bookmarks" }
+maps.n["mD"] = { "<cmd>normal mx<cr>", desc = "Delete bookmarks" }
 
-return M
+-- -- portal
+-- maps.n["<c-o>"] = { "<cmd>lua require('portal').jump_backward()<cr>", desc = "Backward" }
+-- maps.n["<c-i>"] = { "<cmd>lua require('portal').jump_forward()<cr>", desc = "Forward" }
+
+-- Leap
+maps.n["s"] = { "<cmd>lua require('leap')<cr><Plug>(leap-forward-to)" }
+maps.n["ss"] = { "<cmd>lua require('leap')<cr><Plug>(leap-forward-till)" }
+maps.n["S"] = { "<cmd>lua require('leap')<cr><Plug>(leap-backward-to)" }
+maps.n["SS"] = { "<cmd>lua require('leap')<cr><Plug>(leap-backward-till)" }
+maps.n["gs"] = "<cmd>lua require('leap')<cr><Plug>(leap-from-window)"
+maps.n["sp"] = { "<cmd>lua require('user.plugins.configs.leap').paranormal()<cr>" }
+
+-- multiple Cursor
+maps.n["<C-n>"] = "<Nop>"
+maps.n["<C-p>"] = "<Nop>"
+maps.n["<M-n>"] = { "<Plug>(VM-Add-Cursor-Down)" }
+maps.n["<M-p>"] = { "<Plug>(VM-Add-Cursor-up)" }
+
+-- toggle term
+maps.n["\\"] = "<Nop>"
+maps.n["\\\\"] = { "<cmd>ToggleTermToggleAll<cr>" }
+
+-- search google
+-- maps.n["<leader>sw"] = { ":BrowserSearch<cr>" }
+-- EasyAlign
+-- maps.n["ga"] = { "<Plug>(EasyAlign)" }
+-- Markdown bullets
+-- maps.n["=q"] = function()
+--   local qf_winid = vim.fn.getqflist({ winid = 0 }).winid
+--   local action = qf_winid > 0 and "cclose" or "copen"
+--   vim.cmd("botright " .. action)
+-- end
+-- maps.n["=l"] = function()
+--   local win = vim.api.nvim_get_current_win()
+--   local qf_winid = vim.fn.getloclist(win, { winid = 0 }).winid
+--   local action = qf_winid > 0 and "lclose" or "lopen"
+--   vim.cmd(action)
+-- end
+
+-- treesj
+maps.n["gS"] = { "<cmd>TSJSplit<cr>" }
+maps.n["gJ"] = { "<cmd>TSJJoin<cr>" }
+maps.n["K"] = { "<leader>lK", remap = true } -- shortcut
+
+-- V ------------------------------------------------------------------------------------
+
+maps.v["gVa"] = maps.n["gVa"]
+maps.v["gVd"] = maps.n["gVd"]
+maps.v["<S-l>"] = { "$", desc = "Jump to end of line" }
+maps.v["<S-h>"] = { "^", desc = "Jump to the begging of line" }
+-- Stay in indent mode
+maps.v["<"] = { "<gv", desc = "Move left" }
+maps.v[">"] = { "gv>", desc = "Move right" }
+maps.v["p"] = { '"_dP' }
+-- inflect
+-- maps.v["gI"] = { "<Plug>(Inflect)" }
+-- search google
+-- maps.v["<leader>sg"] = { ":BrowserSearch<cr>" }
+
+-- Leap
+maps.v["s"] = maps.n["s"]
+maps.v["ss"] = maps.n["ss"]
+maps.v["SS"] = maps.n["SS"]
+maps.v["<c-f>"] = { "y<ESC>:lua require('telescope.builtin').live_grep({default_text= vim.fn.getreg('*')})<CR>" }
+
+-- X ------------------------------------------------------------------------------------
+maps.x["J"] = { ":move '>+1<CR>gv-gv" }
+maps.x["K"] = { ":move '<-2<CR>gv-gv" }
+-- T ------------------------------------------------------------------------------------
+maps.t["\\\\"] = { "<cmd>ToggleTermToggleAll<cr>" }
+
+return maps

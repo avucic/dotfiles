@@ -2,8 +2,10 @@
 
 set -e
 
-echo "▶️  Antigen setup"
+echo "▶️  Zgen setup"
 curl -L git.io/antigen >$HOME/antigen.zsh
+git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
+
 
 if ! [ -e $HOME/.fzf ]; then
     echo "▶️  Fzf setup"
