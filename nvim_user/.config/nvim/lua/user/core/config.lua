@@ -1,3 +1,11 @@
+--              AstroNvim Configuration Table
+-- All configuration changes should go inside of the table below
+
+-- A split up user configuration example can be found at: https://github.com/AstroNvim/split_user_example
+
+-- You can think of a Lua "table" as a dictionary like data structure the
+-- normal format is "key = value". These also handle array like data structures
+-- where a value with no key simply has an implicit numeric key
 local M = {}
 --              AstroNvim Configuration Table
 -- All configuration changes should go inside of the table below
@@ -7,40 +15,20 @@ local M = {}
 -- where a value with no key simply has an implicit numeric key
 
 function M.config()
-  local default_theme = require("user.configs.colors.default_theme").config()
-  local plugins = require("user.core.plugins").config()
-  local wk = require("user.configs.which_key").config()
-  local treesitter = require("user.configs.treesitter").config()
-  local telescope = require("user.configs.telescope").config()
-  local neotree = require("user.configs.neo-tree").config()
-  local toogleterm = require("user.configs.toggleterm").config()
-  local cmp = require("user.configs.cmp").config()
-  local bufferline = require("user.configs.bufferline").config()
-  local lsp = require("user.configs.lsp").config()
-  local null_ls = require("user.configs.null-ls").config()
-  local alpha = require("user.configs.alpha").config()
-  local aerial = require("user.configs.aerial").config()
-  -- local session_manager = require("user.configs.session_manager").config()
   local mappings = require("user.core.mappings").config()
-  local mason = require("user.configs.mason").config()
-  local window_picker = require("user.configs.window_picker").config()
-  local dressing = require("user.configs.dressing").config()
-  local indent_blankline = require("user.configs.indent_blankline").config()
-  local dap = require("user.configs.dap").config()
 
-  local config = {
+  return {
 
     -- Configure AstroNvim updates
     updater = {
       remote = "origin", -- remote to use
-      channel = "nightly", -- "stable" or "nightly"
+      channel = "stable", -- "stable" or "nightly"
       version = "latest", -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
       branch = "main", -- branch name (NIGHTLY ONLY)
       commit = nil, -- commit hash (NIGHTLY ONLY)
       pin_plugins = nil, -- nil, true, false (nil will pin plugins on stable only)
       skip_prompts = false, -- skip prompts about breaking changes
       show_changelog = true, -- show the changelog after performing an update
-      auto_reload = false, -- automatically reload and sync packer after a successful update
       auto_quit = false, -- automatically quit the current session after a successful update
       -- remotes = { -- easily add new remotes to track
       --   ["remote_name"] = "https://remote_url.come/repo.git", -- full remote url
@@ -50,7 +38,7 @@ function M.config()
     },
 
     -- Set colorscheme to use
-    colorscheme = "default_theme",
+    colorscheme = "astrodark",
 
     -- Add highlight groups in any theme
     highlights = {
@@ -71,10 +59,7 @@ function M.config()
         spell = false, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
         wrap = false, -- sets vim.opt.wrap
-        spelllang = { "en_us" },
         conceallevel = 2,
-        laststatus = 3,
-        updatetime = 700,
       },
       g = {
         mapleader = " ", -- sets vim.g.mapleader
@@ -85,9 +70,6 @@ function M.config()
         status_diagnostics_enabled = true, -- enable diagnostics in statusline
         icons_enabled = true, -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
         ui_notifications_enabled = true, -- disable notifications when toggling UI elements
-        autoformat_on_save = true,
-        ["vim_current_word#highlight_current_word"] = 0,
-        heirline_bufferline = false,
       },
     },
     -- If you need more control, you can use the function()...end notation
@@ -100,24 +82,6 @@ function M.config()
     --   return local_vim
     -- end,
 
-    -- Set dashboard header
-    header = {
-      " █████  ███████ ████████ ██████   ██████",
-      "██   ██ ██         ██    ██   ██ ██    ██",
-      "███████ ███████    ██    ██████  ██    ██",
-      "██   ██      ██    ██    ██   ██ ██    ██",
-      "██   ██ ███████    ██    ██   ██  ██████",
-      " ",
-      "    ███    ██ ██    ██ ██ ███    ███",
-      "    ████   ██ ██    ██ ██ ████  ████",
-      "    ██ ██  ██ ██    ██ ██ ██ ████ ██",
-      "    ██  ██ ██  ██  ██  ██ ██  ██  ██",
-      "    ██   ████   ████   ██ ██      ██",
-    },
-
-    -- Default theme configuration
-    default_theme = default_theme,
-
     -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
     diagnostics = {
       virtual_text = true,
@@ -125,7 +89,68 @@ function M.config()
     },
 
     -- Extend LSP configuration
-    lsp = lsp,
+    lsp = {
+      -- enable servers that you already have installed without mason
+      servers = {
+        -- "pyright"
+        -- "sumneko_lua"
+      },
+      formatting = {
+        -- control auto formatting on save
+        format_on_save = {
+          enabled = true, -- enable or disable format on save globally
+          allow_filetypes = { -- enable format on save for specified filetypes only
+            -- "go",
+          },
+          ignore_filetypes = { -- disable format on save for specified filetypes
+            -- "python",
+          },
+        },
+        disabled = { -- disable formatting capabilities for the listed language servers
+          -- "sumneko_lua",
+        },
+        timeout_ms = 1000, -- default format timeout
+        -- filter = function(client) -- fully override the default formatting function
+        --   return true
+        -- end
+      },
+      -- easily add or disable built in mappings added during LSP attaching
+      mappings = {
+        n = {
+          -- ["<leader>lf"] = false -- disable formatting keymap
+        },
+      },
+      -- add to the global LSP on_attach function
+      -- on_attach = function(client, bufnr)
+      -- end,
+
+      -- override the LSP setup handler function based on server name
+      -- setup_handlers = {
+      --   -- first function changes the default setup handler
+      --   function(server, opts) require("lspconfig")[server].setup(opts) end,
+      --   -- keys for a specific server name will be used for that LSP
+      --   sumneko_lua = function(server, opts)
+      --     -- custom sumneko_lua setup handler
+      --     require("lspconfig")["sumneko_lua"].setup(opts)
+      --   end,
+      -- },
+
+      -- Add overrides for LSP server settings, the keys are the name of the server
+      config = {
+        -- example for addings schemas to yamlls
+        -- yamlls = { -- override table for require("lspconfig").yamlls.setup({...})
+        --   settings = {
+        --     yaml = {
+        --       schemas = {
+        --         ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*.{yml,yaml}",
+        --         ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
+        --         ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
+        --       },
+        --     },
+        --   },
+        -- },
+      },
+    },
 
     -- Mapping data with "desc" stored directly by vim.keymap.set().
     --
@@ -134,75 +159,143 @@ function M.config()
     -- automatically pick-up stored data by this setting.)
     mappings = mappings,
 
+    -- Configure require("lazy").setup() options
+    lazy = {
+      defaults = { lazy = true },
+      performance = {
+        rtp = {
+          -- customize default disabled vim plugins
+          disabled_plugins = { "tohtml", "gzip", "matchit", "zipPlugin", "netrwPlugin", "tarPlugin", "matchparen" },
+        },
+      },
+    },
+
     -- Configure plugins
     plugins = {
-      -- Add plugins, the packer syntax without the "use"
-      init = plugins,
-      -- All other entries override the setup() call for default plugins
-      packer = {
-        max_jobs = 5,
-        -- compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
+      -- You can disable default plugins as follows:
+      -- { "max397574/better-escape.nvim", enabled = false },
+      --
+      -- You can also easily customize additional setup of plugins that is outside of the plugin's setup call
+      -- {
+      --   "L3MON4D3/LuaSnip",
+      --   config = function(plugin, opts)
+      --     require "plugins.configs.luasnip"(plugin, opts) -- include the default astronvim config that calls the setup call
+      --     -- add more custom luasnip configuration such as filetype extend or custom snippets
+      --     local luasnip = require "luasnip"
+      --     luasnip.filetype_extend("javascript", { "javascriptreact" })
+      --   end,
+      -- },
+      -- {
+      --   "windwp/nvim-autopairs",
+      --   config = function(plugin, opts)
+      --     require "plugins.configs.nvim-autopairs"(plugin, opts) -- include the default astronvim config that calls the setup call
+      --     -- add more custom autopairs configuration such as custom rules
+      --     local npairs = require "nvim-autopairs"
+      --     local Rule = require "nvim-autopairs.rule"
+      --     local cond = require "nvim-autopairs.conds"
+      --     npairs.add_rules(
+      --       {
+      --         Rule("$", "$", { "tex", "latex" })
+      --           -- don't add a pair if the next character is %
+      --           :with_pair(cond.not_after_regex "%%")
+      --           -- don't add a pair if  the previous character is xxx
+      --           :with_pair(
+      --             cond.not_before_regex("xxx", 3)
+      --           )
+      --           -- don't move right when repeat character
+      --           :with_move(cond.none())
+      --           -- don't delete if the next character is xx
+      --           :with_del(cond.not_after_regex "xx")
+      --           -- disable adding a newline when you press <cr>
+      --           :with_cr(cond.none()),
+      --       },
+      --       -- disable for .vim files, but it work for another filetypes
+      --       Rule("a", "a", "-vim")
+      --     )
+      --   end,
+      -- },
+      -- By adding to the which-key config and using our helper function you can add more which-key registered bindings
+      -- {
+      --   "folke/which-key.nvim",
+      --   config = function(plugin, opts)
+      --     require "plugins.configs.which-key"(plugin, opts)
+      --     -- Add bindings which show up as group name
+      --     local wk = require "which-key"
+      --     wk.register({
+      --       b = { name = "Buffer" },
+      --     }, { mode = "n", prefix = "<leader>" })
+      --   end,
+      -- },
+
+      -- You can also add new plugins here as well:
+      -- Add plugins, the lazy syntax
+      -- "andweeb/presence.nvim",
+      -- {
+      --   "ray-x/lsp_signature.nvim",
+      --   event = "BufRead",
+      --   config = function()
+      --     require("lsp_signature").setup()
+      --   end,
+      -- },
+      {
+        "AstroNvim/astrotheme",
+        opts = {},
       },
 
-      treesitter = treesitter,
-      telescope = telescope,
-      ["neo-tree"] = neotree,
-      toggleterm = toogleterm,
-      cmp = cmp,
-      bufferline = bufferline,
-      ["which-key"] = wk["settings"],
-      alpha = alpha,
-      aerial = aerial,
-      -- session_manager = session_manager,
+      -- Plugin entries can also be used to override the default options for plugins as well
+      {
+        "goolord/alpha-nvim",
+        opts = {},
+      },
+      {
+        "jose-elias-alvarez/null-ls.nvim",
+        opts = function(_, config)
+          -- config variable is the default configuration table for the setup function call
+          -- local null_ls = require "null-ls"
+
+          -- Check supported formatters and linters
+          -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
+          -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
+          config.sources = {
+            -- Set a formatter
+            -- null_ls.builtins.formatting.stylua,
+            -- null_ls.builtins.formatting.prettier,
+          }
+          return config -- return final config table
+        end,
+      },
+      {
+        "nvim-treesitter/nvim-treesitter",
+        opts = {
+          -- ensure_installed = { "lua" },
+        },
+      },
       -- use mason-lspconfig to configure LSP installations
-      ["mason-lspconfig"] = mason["mason-lspconfig"],
-      -- use mason-tool-installer to configure DAP/Formatters/Linter installation
-      ["mason-tool-installer"] = mason["mason-tool-installer"],
-      ["mason-null-ls"] = mason["mason-null-ls"],
-      ["window-picker"] = window_picker,
-
-      dressing = dressing,
-      ["null-ls"] = null_ls,
-      indent_blankline = indent_blankline,
-      ["notify"] = { stages = "static" },
-    },
-
-    dap = {
-      adapters = dap.adapters,
-      configurations = dap.configurations,
-    },
-    dapui = dap.dapui,
-    -- LuaSnip Options
-    luasnip = {
-      -- Extend filetypes
-      filetype_extend = {
-        -- javascript = { "javascriptreact" },
+      {
+        "williamboman/mason-lspconfig.nvim",
+        -- overrides `require("mason-lspconfig").setup(...)`
+        opts = {},
       },
-      -- Configure luasnip loaders (vscode, lua, and/or snipmate)
-      vscode = {
-        -- Add paths for including more VS Code style snippets in luasnip
-        paths = {},
+      -- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
+      {
+        "jay-babu/mason-null-ls.nvim",
+        -- overrides `require("mason-null-ls").setup(...)`
+        opts = {},
+      },
+      {
+        "jay-babu/mason-nvim-dap.nvim",
+        -- overrides `require("mason-nvim-dap").setup(...)`
+        opts = {
+          -- ensure_installed = { "python" },
+        },
       },
     },
 
-    -- CMP Source Priorities
-    -- modify here the priorities of default cmp sources
-    -- higher value == higher priority
-    -- The value can also be set to a boolean for disabling default sources:
-    -- false == disabled
-    -- true == 1000
-    cmp = {
-      source_priority = {
-        nvim_lsp = 1000,
-        luasnip = 750,
-        buffer = 500,
-        path = 250,
-      },
-    },
-
+    -- Customize Heirline options
     heirline = {
       -- -- Customize different separators between sections
       -- separators = {
+      --   breadcrumbs = " > ",
       --   tab = { "", "" },
       -- },
       -- -- Customize colors for each element each element has a `_fg` and a `_bg`
@@ -221,19 +314,17 @@ function M.config()
       --   file_icon = {
       --     winbar = false, -- Filetype icon in the winbar inactive windows
       --     statusline = true, -- Filetype icon in the statusline
+      --     tabline = true, -- Filetype icon in the tabline
       --   },
       -- },
-    },
-    -- Modify which-key registration (Use this with mappings table in the above.)
-    ["which-key"] = {
-      -- Add bindings
-      register = wk["mappings"],
     },
 
     -- This function is run last and is a good place to configuring
     -- augroups/autocommands and custom filetypes also this just pure lua so
     -- anything that doesn't fit in the normal config locations above can go here
     polish = function()
+      require("user.core.autocmds")
+
       -- Set up custom filetypes
       -- vim.filetype.add {
       --   extension = {
@@ -246,47 +337,8 @@ function M.config()
       --     ["~/%.config/foo/.*"] = "fooscript",
       --   },
       -- }
-
-      -- load plugins
-      local psd = require("user.core.utils").load_module("user.plugins.gen_pass")
-      if psd then
-        psd.config()
-      end
-
-      local date_picker = require("user.core.utils").load_module("user.plugins.date_picker")
-      if date_picker then
-        date_picker.config()
-      end
-
-      local macro_to_visual_selection =
-        require("user.core.utils").load_module("user.plugins.apply_macro_to_visual_selection")
-      if macro_to_visual_selection then
-        macro_to_visual_selection.config()
-      end
-
-      local open_in_finder = require("user.core.utils").load_module("user.plugins.open_in_finder")
-      if open_in_finder then
-        open_in_finder.config()
-      end
-
-      -- load autocommands
-      local sources = {
-        "user.configs.autocmds",
-      }
-
-      for _, source in ipairs(sources) do
-        local status_ok, fault = pcall(require, source)
-        if not status_ok then
-          error("Failed to load " .. source .. "\n\n" .. fault)
-        end
-      end
-
-      vim.g.vim_base64_disable_default_key_mappings = 1
-      vim.g.did_load_filetypes = nil
     end,
   }
-
-  return config
 end
 
 return M

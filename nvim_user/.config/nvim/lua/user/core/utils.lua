@@ -61,6 +61,16 @@ function M.env_merge(env)
   return final_env
 end
 
+function M.define_sts_jump_keymap(char, otps, desc, both)
+  local map = vim.keymap.set
+  both = both or true
+  map("n", "<leader>j" .. char, function() require("syntax-tree-surfer").filtered_jump(otps, true) vim.cmd([[WhichKey <leader>j]]) end, { desc = "Next " .. desc, buffer = true })
+  if both then
+    map("n", "<leader>j" .. string.upper(char), function() require("syntax-tree-surfer").filtered_jump(otps, false) vim.cmd([[WhichKey <leader>j]]) end, { desc = "Previous " .. desc, buffer = true })
+  end
+  map("n", "<leader>J" .. char, function() require("syntax-tree-surfer").targeted_jump(otps) end, { desc = "Next (target) " .. desc, buffer = true })
+end
+
 function M.fileExists(file)
   local ok, err, code = os.rename(file, file)
   if not ok then

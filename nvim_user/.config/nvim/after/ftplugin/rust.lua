@@ -1,4 +1,3 @@
-local Hydra = require("hydra")
 local toggle_inley_hints = function()
 	if vim.g._rust_inlay_hint_enabled == true then
 		vim.g._rust_inlay_hint_enabled = false
@@ -9,71 +8,32 @@ local toggle_inley_hints = function()
 	end
 end
 
-local toggle_hydra = Hydra({
-	name = "Toggle",
-	heads = {
-		{ "h", toggle_inley_hints, { desc = "inley hints", exit = true } },
-		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },
-	},
-})
+local map = require("user.core.utils").define_sts_jump_keymap
+map("m", { "fn" }, "Fumc")
+map("i", { "use", "mod" }, "Use or mod")
+map("c", { "comment" }, "Comment")
 
-Hydra({
-	name = "Rust",
-	config = {
-		buffer = true,
-		invoke_on_body = true,
-		color = "teal",
-		hint = {
-			border = "rounded",
+local wk = require("which-key")
+
+wk.register({
+	["<bs>"] = { "<cmd>RustParentModule<CR>", "Parent module" },
+	["gK"] = { "<cmd>lua require('rust-tools.external_docs').open_external_docs()<cr>", "External docs" },
+	K = { "<cmd>lua require('rust-tools').hover_actions.hover_actions()<cr>", "External docs" },
+	["<leader>m"] = {
+		name = "+Rust",
+		u = {
+			name = "+UI",
+			h = { toggle_inley_hints, "Toggle hint" },
 		},
+		e = { "<cmd>lua require'rust-tools'.expand_macro.expand_macro()<cr>", "Expand macrot" },
 	},
-	mode = "v",
-	body = "<leader>m",
-	heads = {
-		{ "o", "diOption<<esc>pa><esc>", { nowait = true, exit = true, desc = "add option" } },
-		{ "O", "bdf<e<right>x", { desc = "remove option", exit = true } },
-		{ "s", "diSome(<esc>pa)<esc>", { nowait = true, exit = true, desc = "add some" } },
-		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },
+}, { buffer = 0, mode = "n" })
+
+wk.register({
+	["<leader>m"] = {
+		name = "+Rust",
+		o = { "diOption<<esc>pa><esc>", "Add option" },
+		O = { "diOption<<esc>pa><esc>", "Remove option" },
+		s = { "diSome(<esc>pa)<esc>", "Add some" },
 	},
-})
-
-Hydra({
-	name = "Rust",
-	hint = [[
- _u_: toggle                _e_: expand
-]],
-	config = {
-		on_key = false,
-		buffer = true,
-		invoke_on_body = true,
-		-- color = "pink",
-		hint = {
-			border = "rounded",
-		},
-	},
-	mode = "n",
-	body = "<leader>m",
-	heads = {
-		{
-			"u",
-			function()
-				toggle_hydra:activate()
-			end,
-			{ nowait = true, exit = true, desc = "Edit code block" },
-		},
-		-- { "c", "<cmd>cargo check<cr>", exit = true },
-		{ "e", "<cmd>lua require'rust-tools'.expand_macro.expand_macro()<cr>" },
-
-		{ "<Esc>", nil, { exit = true, nowait = true, desc = false } },
-	},
-})
-
-vim.api.nvim_buf_set_keymap(
-	0,
-	"n",
-	"gK",
-	"<cmd>lua require('rust-tools.external_docs').open_external_docs()<cr>",
-	{ noremap = true, desc = "Back links" }
-)
-
-vim.api.nvim_buf_set_keymap(0, "n", "<bs>", [[:RustParentModule<CR>]], { noremap = true, desc = "Back links" })
+}, { buffer = 0, mode = "v" })

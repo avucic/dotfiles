@@ -6,8 +6,8 @@ if vim.env.SKIP_USER_CONFIG ~= "true" then
   end
 
   -- return config
-  local config = require("user.core.utils").load_module("user.core.config")
-  if config then
+  local ok, config = pcall(require, "user.core.config")
+  if ok then
     return config.config()
   end
 else
