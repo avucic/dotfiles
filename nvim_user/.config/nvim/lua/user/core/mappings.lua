@@ -84,13 +84,13 @@ maps.n["<leader>fT"] = { "<cmd>lua require('telescope.builtin')<CR>:Telescope<CR
 -- +Buffers
 maps.n["<leader>bb"] = { "<cmd>lua require('telescope.builtin').buffers()<CR>", desc = "History" }
 maps.n["<leader>bo"] = { "<cmd>w | %bd | e#<CR>", desc = "Close others" }
-maps.n["<leader>bl"] = { "<cmd>lua require('core.utils.buffer').nav((vim.v.count > 0 and vim.v.count or 1))<cr><cmd>WhichKey <LT>leader>b<CR>", desc = "Next buffer" }
-maps.n["<leader>bh"] = { "<cmd>lua require('core.utils.buffer').nav(-(vim.v.count > 0 and vim.v.count or 1))<cr><cmd>WhichKey <LT>leader>b<CR>", desc = "Previous buffer" }
-maps.n["<leader>bp"] = { "<cmd>lua require('core.utils.status').heirline.buffer_picker(function(bufnr) vim.api.nvim_win_set_buf(0, bufnr) end)<CR>", desc = "Pick" }
+maps.n["<leader>bl"] = { "<cmd>lua require('astronvim.utils.buffer').nav((vim.v.count > 0 and vim.v.count or 1))<cr><cmd>WhichKey <LT>leader>b<CR>", desc = "Next buffer" }
+maps.n["<leader>bh"] = { "<cmd>lua require('astronvim.utils.buffer').nav(-(vim.v.count > 0 and vim.v.count or 1))<cr><cmd>WhichKey <LT>leader>b<CR>", desc = "Previous buffer" }
+maps.n["<leader>bp"] = { "<cmd>lua require('astronvim.utils.status').heirline.buffer_picker(function(bufnr) vim.api.nvim_win_set_buf(0, bufnr) end)<CR>", desc = "Pick" }
 -- maps.n["<leader>bq"] = { "<cmd>bp<bar>bd #<CR><cmd>WhichKey <LT>leader>b<CR>", desc = "Delete" }
-maps.n["<leader>bq"] = { "<cmd>lua require('core.utils.buffer').close(0)<CR>", desc = "Close" }
-maps.n["<leader>bQ"] = { "<cmd>lua require('core.utils.buffer').close(0, true)<CR>", desc = "Force close" }
-maps.n["<leader>b-"] = { "<cmd>lua require('core.utils.status').heirline.buffer_picker(function(bufnr) vim.cmd.split() vim.api.nvim_win_set_buf(0, bufnr) end)<CR>", desc = "Split horizontally" }
+maps.n["<leader>bq"] = { "<cmd>lua require('astronvim.utils.buffer').close(0)<CR>", desc = "Close" }
+maps.n["<leader>bQ"] = { "<cmd>lua require('astronvim.utils.buffer').close(0, true)<CR>", desc = "Force close" }
+maps.n["<leader>b-"] = { "<cmd>lua require('astronvim.utils.status').heirline.buffer_picker(function(bufnr) vim.cmd.split() vim.api.nvim_win_set_buf(0, bufnr) end)<CR>", desc = "Split horizontally" }
 maps.n["<leader>b\\"] = false
 
 -- +Git
