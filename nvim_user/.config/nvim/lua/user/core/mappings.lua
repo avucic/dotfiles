@@ -216,7 +216,8 @@ maps.n["<leader>xil"] = { "<cmd>TextCaseOpenTelescopeLSPChange<CR>", desc = "Tel
 maps.n["<leader>xr"] = { [[:%s/\<<C-r><C-w>\>/]], desc = "Replace" }
 
 -- +Yank
-maps.n["<leader>yy"] = { "<cmd>lua require('telescope').extensions.neoclip.default()<cr>", desc = "History" }
+-- maps.n["<leader>yy"] = { "<cmd>lua require('telescope').extensions.neoclip.default()<cr>", desc = "History" }
+maps.n["<leader>yy"] = { "<cmd>Telescope neoclip unnamed<cr>", desc = "History" }
 maps.n["<leader>ym"] = { "<cmd>lua require('telescope').extensions.macroscope.default()<cr>", desc = "Macro history" }
 maps.n["<leader>yD"] = { "<cmd>lua require('neoclip').clear_history()<cr>", desc = "Clear history" }
 
