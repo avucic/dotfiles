@@ -128,10 +128,12 @@ maps.n["<leader>jr"] = { "<cmd>lua require('telescope.builtin').lsp_references()
 -- +LSP
 maps.n["<leader>lK"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "Hover symbol details" }
 maps.n["<leader>la"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code action" }
-maps.n["<leader>le"] = { "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Diagnostic buffer" }
+-- maps.n["<leader>le"] = { "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Diagnostic buffer" }
+maps.n["<leader>le"] = { "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Diagnostic buffer" }
 maps.n["<leader>lD"] = { "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "Declaration" }
 maps.n["<leader>ld"] = { "<cmd>Glance definitions<CR>", desc = "Definition" }
-maps.n["<leader>lwe"] = { "<cmd>Telescope diagnostics<cr>", desc = "Diagnostic workspace" }
+-- maps.n["<leader>lwe"] = { "<cmd>Telescope diagnostics<cr>", desc = "Diagnostic workspace" }
+maps.n["<leader>lwe"] = { "<cmd>lua vim.diagnostic.setqflist()<cr>", desc = "Diagnostic workspace" }
 maps.n["<leader>lwa"] = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", desc = "Add" }
 maps.n["<leader>lwr"] = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", desc = "Remove" }
 maps.n["<leader>lws"] = { "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", desc = "Symbols" }
