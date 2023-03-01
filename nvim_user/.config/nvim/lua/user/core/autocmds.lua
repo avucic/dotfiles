@@ -85,7 +85,7 @@ local aucmd_dict = {
     {
       pattern = "qf",
       callback = function()
-        vim.cmd([[nnoremap <buffer> q :cclose<CR>]])
+        vim.cmd([[nnoremap <buffer> q :q<CR>]])
       end,
     },
   },
