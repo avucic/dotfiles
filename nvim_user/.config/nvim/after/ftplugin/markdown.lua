@@ -2,32 +2,32 @@ vim.cmd([[
 sign define codeblock linehl=@MarkdownCodeBlockBG
 sign define hrline linehl=@MarkdownHorizontalLine
 
-function! MarkdownBlocks()
-    let l:continue = 0
-    execute "sign unplace * file=".expand("%")
-
-    " iterate through each line in the buffer
-    for l:lnum in range(1, len(getline(1, "$")))
-        " detect horizontal Line
-        if getline(l:lnum) =~ "^---$"
-            " place sign
-            execute "sign place ".l:lnum." line=".l:lnum." name=hrline file=".expand("%")
-        endif
-
-        " detect the start fo a code block
-        if getline(l:lnum) =~ "^```.*$" || l:continue
-            " continue placing signs, until the block stops
-            let l:continue = 1
-            " place sign
-            execute "sign place ".l:lnum." line=".l:lnum." name=codeblock file=".expand("%")
-            " stop placing signs
-            if getline(l:lnum) =~ "^```$"
-                let l:continue = 0
-            endif
-        endif
-
-    endfor
-endfunction
+" function! MarkdownBlocks()
+"     let l:continue = 0
+"     execute "sign unplace * file=".expand("%")
+"
+"     " iterate through each line in the buffer
+"     for l:lnum in range(1, len(getline(1, "$")))
+"         " detect horizontal Line
+"         if getline(l:lnum) =~ "^---$"
+"             " place sign
+"             execute "sign place ".l:lnum." line=".l:lnum." name=hrline file=".expand("%")
+"         endif
+"
+"         " detect the start fo a code block
+"         if getline(l:lnum) =~ "^```.*$" || l:continue
+"             " continue placing signs, until the block stops
+"             let l:continue = 1
+"             " place sign
+"             execute "sign place ".l:lnum." line=".l:lnum." name=codeblock file=".expand("%")
+"             " stop placing signs
+"             if getline(l:lnum) =~ "^```$"
+"                 let l:continue = 0
+"             endif
+"         endif
+"
+"     endfor
+" endfunction
 
 function! MarkdownConceal()
     hi MyStrikethrough gui=strikethrough
@@ -59,10 +59,10 @@ set syntax=off "TODO fix prettier . this is workaround for list indentation
 set foldlevel=99
 
 " block
-au BufWinEnter *.md call MarkdownBlocks()
-au BufWritePost *.md call MarkdownBlocks()
-au InsertLeave *.md call MarkdownBlocks()
-au BufWinLeave *.md call clearmatches()
+" au BufWinEnter *.md call MarkdownBlocks()
+" au BufWritePost *.md call MarkdownBlocks()
+" au InsertLeave *.md call MarkdownBlocks()
+" au BufWinLeave *.md call clearmatches()
 
 au BufWinEnter *.md call MarkdownConceal()
 

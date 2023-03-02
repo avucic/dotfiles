@@ -16,7 +16,7 @@ map("c", { "comment" }, "Comment")
 local wk = require("which-key")
 
 wk.register({
-	["<bs>"] = { "<cmd>RustParentModule<CR>", "Parent module" },
+	-- ["<bs>"] = { "<cmd>RustParentModule<CR>", "Parent module" },
 	["gK"] = { "<cmd>lua require('rust-tools.external_docs').open_external_docs()<cr>", "External docs" },
 	K = { "<cmd>lua require('rust-tools').hover_actions.hover_actions()<cr>", "External docs" },
 	["<leader>m"] = {
@@ -45,6 +45,8 @@ wk.register({
 		name = "+Rust",
 		o = { "diOption<<esc>pa><esc>", "Add option" },
 		O = { "diOption<<esc>pa><esc>", "Remove option" },
+		r = { "diResult<<esc>pa><esc>", "Add result" },
+		R = { "diResult<<esc>pa><esc>", "Remove result" },
 		s = { "diSome(<esc>pa)<esc>", "Add some" },
 	},
 }, { buffer = 0, mode = "v" })

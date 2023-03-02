@@ -67,15 +67,15 @@ local aucmd_dict = {
         -- end
       end,
     },
-    {
-      pattern = "markdown",
-      callback = function()
-        vim.defer_fn(function()
-          vim.cmd([[call MarkdownConceal() ]]) -- TODO: fix conceal.
-        end, 100)
-      end,
-      -- once = true,
-    },
+    -- {
+    --   pattern = "markdown",
+    --   callback = function()
+    --     vim.defer_fn(function()
+    --       vim.cmd([[call MarkdownConceal() ]]) -- TODO: fix conceal.
+    --     end, 100)
+    --   end,
+    --   -- once = true,
+    -- },
     {
       pattern = "gitcommit",
       callback = function()
