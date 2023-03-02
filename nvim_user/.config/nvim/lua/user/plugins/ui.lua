@@ -15,6 +15,14 @@ return {
       },
     },
   },
+  {
+    "echasnovski/mini.nvim",
+    config = function(_opts)
+      require("mini.jump").setup()
+      require("mini.move").setup()
+    end,
+    event = "BufEnter",
+  },
 
   {
     "Pocco81/TrueZen.nvim",

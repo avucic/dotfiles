@@ -277,6 +277,7 @@ maps.v["gVa"] = maps.n["gVa"]
 maps.v["gVd"] = maps.n["gVd"]
 maps.v["<S-l>"] = { "$", desc = "Jump to end of line" }
 maps.v["<S-h>"] = { "^", desc = "Jump to the begging of line" }
+
 -- Stay in indent mode
 maps.v["<"] = { "<gv", desc = "Move left" }
 maps.v[">"] = { "gv>", desc = "Move right" }
@@ -292,9 +293,6 @@ maps.v["ss"] = maps.n["ss"]
 maps.v["SS"] = maps.n["SS"]
 maps.v["<c-f>"] = { "y<ESC>:lua require('telescope.builtin').live_grep({default_text= vim.fn.getreg('*')})<CR>" }
 
--- X ------------------------------------------------------------------------------------
-maps.x["J"] = { ":move '>+1<CR>gv-gv" }
-maps.x["K"] = { ":move '<-2<CR>gv-gv" }
 -- T ------------------------------------------------------------------------------------
 maps.t["\\\\"] = { "<cmd>ToggleTermToggleAll<cr>" }
 
