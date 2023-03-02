@@ -37,6 +37,12 @@ wk.register({
 			d = { "<cmd>RustDebuggables<cr>", "Start" },
 			l = { "<cmd>RustLastDebug<cr>", "Last" },
 		},
+
+		x = {
+			name = "+Text",
+			j = { "<cmd>RustMoveItemDown<cr>", "Move item down" },
+			k = { "<cmd>RustMoveItemUp<cr>", "Move item up" },
+		},
 	},
 }, { buffer = 0, mode = "n" })
 
