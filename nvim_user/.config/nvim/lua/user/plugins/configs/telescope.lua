@@ -3,7 +3,6 @@ return function(_, _)
 
   local actions = require("telescope.actions")
   local fb_actions = telescope.extensions.file_browser.actions
-  local lga_actions = require("telescope-live-grep-args.actions")
   local state = require("telescope.actions.state")
 
   local yank_select_buf_clip = function()
@@ -40,7 +39,7 @@ return function(_, _)
             end
 
             vim.fn.jobstart(
-              --
+            --
               { "viu", filepath },
               {
                 on_stdout = send_output,
@@ -105,8 +104,8 @@ return function(_, _)
           -- ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
           -- ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
           -- ["<C-l>"] = actions.complete_tag,
-          ["<C-a>"] = lga_actions.quote_prompt(),
-          ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+          -- ["<C-a>"] = lga_actions.quote_prompt(),
+          -- ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
         },
 
         n = {
@@ -183,13 +182,15 @@ return function(_, _)
       },
       vim_bookmarks = {
         attach_mappings = function(_, map)
-          map("n", "dd", function() end)
+          map("n", "dd", function()
+          end)
 
           return true
         end,
         all = {
           attach_mappings = function(_, map)
-            map("n", "dd", function() end)
+            map("n", "dd", function()
+            end)
 
             return true
           end,

@@ -21,6 +21,17 @@ return {
     "nvim-telescope/telescope-live-grep-args.nvim", -- live grap with args
   },
   {
+    "princejoogie/dir-telescope.nvim",
+    -- telescope.nvim is a required dependency
+    requires = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      require("dir-telescope").setup({
+        hidden = false,
+        respect_gitignore = true,
+      })
+    end,
+  },
+  {
     "avucic/telescope-vim-bookmarks.nvim",
     init = require("user.plugins.configs.vim_bookmarks").init,
     dependencies = { "MattesGroeger/vim-bookmarks" },

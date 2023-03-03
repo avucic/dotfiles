@@ -67,6 +67,9 @@ maps.n["<leader>fE"] = { "<cmd>Telescope file_browser files=true<cr>", desc = "E
 maps.n["<leader>fe"] = { "<cmd>Telescope file_browser path=%:p:h files=true<cr>", desc = "Explorer" }
 maps.n["<leader>fg"] = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", desc = "Live grep" }
 maps.v["<leader>fg"] = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args({default_text = require('user.core.utils').get_visual_selection()})<CR>", desc = "Live grep" }
+maps.n["<leader>fd"] = { "<cmd>lua require('telescope').extensions.dir.live_grep()<CR>", desc = "Live grep dir" }
+maps.v["<leader>fg"] = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args({default_text = require('user.core.utils').get_visual_selection()})<CR>", desc = "Live grep" }
+
 maps.n["<leader>fo"] = { "<Cmd>lua require('telescope').extensions.smart_open.smart_open()<CR>", desc = "Recent files" }
 maps.n["<leader>fp"] = { "<cmd>lua require('telescope').extensions.project.project{}<CR>", desc = "Projects" }
 maps.n["<leader>f/"] = { "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>", desc = "Fuzzy find" }
