@@ -195,7 +195,7 @@ maps.n["<leader>sc"] = { "<cmd>lua require('telescope.builtin').commands()<CR>",
 maps.n["<leader>s<cr>"] = { "<cmd>lua require('telescope.builtin').resume()<CR>", desc = "Resume" }
 maps.n["<leader>sb"] = { "<cmd>lua require('telescope.builtin').buffers()<CR>", desc = "Buffers" }
 maps.n["<leader>sw"] = { "<cmd>BrowserSearch<cr>", desc = "Web" }
-maps.n["<leat>st"] = { "<cmd>lua require('telescope').extensions.vstask.tasks()<cr>", desc = "Tasks" }
+maps.n["<leader>st"] = { "<cmd>TodoQuickFix<cr>", desc = "Todo list" }
 
 -- +Toggle
 maps.n["<leader>ub"] = { "<cmd>lua require('user.core.utils').toggle_theme()<cr>", desc = "Toggle theme" }

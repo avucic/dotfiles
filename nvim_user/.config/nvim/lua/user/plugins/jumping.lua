@@ -2,9 +2,9 @@ return {
   {
     "ggandor/leap.nvim",
     -- event = "BufReadPre",
-    dependencies = {
-      "ggandor/flit.nvim", -- f,F,t,T commands
-    },
+    -- dependencies = {
+    --   "ggandor/flit.nvim", -- f,F,t,T commands
+    -- },
     config = require("user.plugins.configs.leap").config,
   },
   {
