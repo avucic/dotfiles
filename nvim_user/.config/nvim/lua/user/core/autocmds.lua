@@ -114,6 +114,12 @@ local aucmd_dict = {
       end,
     },
     {
+      pattern = "*.mjml",
+      callback = function()
+        vim.cmd([[set filetype=html]])
+      end,
+    },
+    {
       pattern = "markdown",
       callback = function()
         vim.defer_fn(function()
