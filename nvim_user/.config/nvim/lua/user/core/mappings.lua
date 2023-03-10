@@ -10,7 +10,12 @@ vim.cmd([[
 
 local maps = { i = {}, n = {}, v = {}, t = {}, x = {} }
 
+
 -- N ------------------------------------------------------------------------------------
+-- portal jump
+maps.n["<c-o>"] = {"<cmd>Portal jumplist backward<cr>", desc = "jumplist backward"}
+maps.n["<c-i>"] = {"<cmd>Portal jumplist forward<cr>", desc = "jumplist backward"}
+
 maps.n["<leader>c"] = false
 maps.n["<leader>C"] = false
 maps.n["<leader>n"] = false
@@ -97,16 +102,22 @@ maps.n["<leader>b-"] = { "<cmd>lua require('astronvim.utils.status').heirline.bu
 maps.n["<leader>b\\"] = false
 
 -- +Git
-maps.n["<leader>gr"] = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", desc = "Reset hunk" }
-maps.n["<leader>gR"] = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = "Reset buffer" }
-maps.n["<leader>gl"] = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc = "Blame" }
-maps.n["<leader>gO"] = { "<cmd>OpenInGHFile<cr>", desc = "Open current file in Github" }
-maps.n["<leader>go"] = { "<cmd>OpenInGHRepo<cr>", desc = "Open page with line in Github" }
-maps.n["<leader>gs"] = { "<cmd>lua require('user.core.utils').toggle_term_cmd('lazygit --use-config-file ~/.config/lazygit/config.yml', {direction = 'float'})<CR>", desc = "Git status", }
-maps.n["<leader>gu"] = false
-maps.n["<leader>gt"] = false
-maps.n["<leader>gb"] = false
-maps.n["<leader>gc"] = false
+maps.n["<leader>gr"]  = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", desc = "Reset hunk" }
+maps.n["<leader>gR"]  = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = "Reset buffer" }
+maps.n["<leader>gl"]  = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc = "Blame" }
+maps.n["<leader>gO"]  = { "<cmd>OpenInGHFile<cr>", desc = "Open current file in Github" }
+maps.n["<leader>go"]  = { "<cmd>OpenInGHRepo<cr>", desc = "Open page with line in Github" }
+maps.n["<leader>gs"]  = { "<cmd>lua require('user.core.utils').toggle_term_cmd('lazygit --use-config-file ~/.config/lazygit/config.yml', {direction = 'float'})<CR>", desc = "Git status", }
+maps.n["<leader>gdd"] = { "<cmd>lua require('gitsigns').diffthis()<cr>", desc = "Diff" } 
+maps.n["<leader>gdl"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.diff_commit_line()<cr>", desc  = "Search line"}
+maps.n["<leader>gdb"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.diff_branch_file()<cr>", desc  = "Diff branch file"}
+maps.n["<leader>gdb"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.diff_commit_file()<cr>", desc  = "Search file"}
+maps.n["<leader>gdb"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.search_log_content()<cr>", desc  = "Search log"}
+maps.n["<leader>gd"]  = false
+maps.n["<leader>gu"]  = false
+maps.n["<leader>gt"]  = false
+maps.n["<leader>gb"]  = false
+maps.n["<leader>gc"]  = false
 
 -- +Terminal
 maps.n["<leader>tt"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('horizontal', 1)<cr>", desc = "Defaul" }

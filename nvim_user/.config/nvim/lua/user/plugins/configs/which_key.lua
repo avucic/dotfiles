@@ -49,6 +49,11 @@ return function(plugin, opts)
         d = { name = "+DB" },
         t = { name = "+Tasks" },
       },
+      g = {
+        d = {
+          name = "+Diff",
+        },
+      },
     },
     g = {
       V = {

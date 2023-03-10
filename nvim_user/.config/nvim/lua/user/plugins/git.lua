@@ -12,4 +12,7 @@ return {
       "OpenInGHFile",
     },
   },
+  {
+    "aaronhallaert/advanced-git-search.nvim",
+  },
 }
