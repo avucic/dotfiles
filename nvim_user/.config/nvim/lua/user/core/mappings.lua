@@ -12,10 +12,6 @@ local maps = { i = {}, n = {}, v = {}, t = {}, x = {} }
 
 
 -- N ------------------------------------------------------------------------------------
--- portal jump
-maps.n["<c-o>"] = {"<cmd>Portal jumplist backward<cr>", desc = "jumplist backward"}
-maps.n["<c-i>"] = {"<cmd>Portal jumplist forward<cr>", desc = "jumplist backward"}
-
 maps.n["<leader>c"] = false
 maps.n["<leader>C"] = false
 maps.n["<leader>n"] = false
@@ -96,8 +92,8 @@ maps.n["<leader>bl"] = { "<cmd>lua require('astronvim.utils.buffer').nav((vim.v.
 maps.n["<leader>bh"] = { "<cmd>lua require('astronvim.utils.buffer').nav(-(vim.v.count > 0 and vim.v.count or 1))<cr><cmd>WhichKey <LT>leader>b<CR>", desc = "Previous buffer" }
 maps.n["<leader>bp"] = { "<cmd>lua require('astronvim.utils.status').heirline.buffer_picker(function(bufnr) vim.api.nvim_win_set_buf(0, bufnr) end)<CR>", desc = "Pick" }
 -- maps.n["<leader>bq"] = { "<cmd>bp<bar>bd #<CR><cmd>WhichKey <LT>leader>b<CR>", desc = "Delete" }
-maps.n["<leader>bq"] = { "<cmd>lua require('astronvim.utils.buffer').close(0)<CR>", desc = "Close" }
-maps.n["<leader>bQ"] = { "<cmd>lua require('astronvim.utils.buffer').close(0, true)<CR>", desc = "Force close" }
+maps.n["<leader>bq"] = { "<cmd>lua require('astronvim.utils.buffer').close(0)<CR><cmd>WhichKey <LT>leader>b<CR>", desc = "Close" }
+maps.n["<leader>bQ"] = { "<cmd>lua require('astronvim.utils.buffer').close(0, true)<CR><cmd>WhichKey <LT>leader>b<CR>", desc = "Force close" }
 maps.n["<leader>b-"] = { "<cmd>lua require('astronvim.utils.status').heirline.buffer_picker(function(bufnr) vim.cmd.split() vim.api.nvim_win_set_buf(0, bufnr) end)<CR>", desc = "Split horizontally" }
 maps.n["<leader>b\\"] = false
 
@@ -108,7 +104,7 @@ maps.n["<leader>gl"]  = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc =
 maps.n["<leader>gO"]  = { "<cmd>OpenInGHFile<cr>", desc = "Open current file in Github" }
 maps.n["<leader>go"]  = { "<cmd>OpenInGHRepo<cr>", desc = "Open page with line in Github" }
 maps.n["<leader>gs"]  = { "<cmd>lua require('user.core.utils').toggle_term_cmd('lazygit --use-config-file ~/.config/lazygit/config.yml', {direction = 'float'})<CR>", desc = "Git status", }
-maps.n["<leader>gdd"] = { "<cmd>lua require('gitsigns').diffthis()<cr>", desc = "Diff" } 
+maps.n["<leader>gdd"] = { "<cmd>lua require('gitsigns').diffthis()<cr>", desc = "Diff" }
 maps.n["<leader>gdl"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.diff_commit_line()<cr>", desc  = "Search line"}
 maps.n["<leader>gdb"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.diff_branch_file()<cr>", desc  = "Diff branch file"}
 maps.n["<leader>gdb"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.diff_commit_file()<cr>", desc  = "Search file"}
@@ -189,7 +185,6 @@ maps.n["<leader>njf"] = { "<cmd>:ZkNew{group='fer', dir='journal/fer'}<cr>", des
 maps.n["<leader>ott"] = { "<cmd>lua require('telescope').extensions.toggletasks.spawn()<cr>", desc = "New" }
 maps.n["<leader>otl"] = { "<cmd>lua require('telescope').extensions.toggletasks.select()<cr>", desc = "List" }
 maps.n["<leader>ote"] = { "<cmd>lua require('telescope').extensions.toggletasks.edit()<cr>", desc = "Edit" }
-maps.n["<leader>oo"] = { "<cmd>AerialToggle! right<cr>", desc = "Symbols outline" }
 maps.n["<leader>og"] = { "<cmd>ChatGPT<cr>", desc = "ChatGPT" }
 maps.n["<leader>odo"] = { "<cmd>lua require('user.plugins.configs.dadbod').db_tasks()<cr>", desc = "Open DB Connection" }
 maps.n["<leader>odt"] = { "<cmd>DBUIToggle<cr>", desc = "Toggle DB Connection" }
@@ -199,7 +194,7 @@ maps.n["<leader>sh"] = { "<cmd>lua require('telescope.builtin').help_tags()<CR>"
 maps.n["<leader>sk"] = { "<cmd>lua require('telescope.builtin').keymaps()<CR>", desc = "Keymaps" }
 maps.n["<leader>ss"] = { "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>", desc = "Symbols" }
 maps.n["<leader>sS"] = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>", desc = "Workspace symbols" }
-maps.n["<leader>so"] = { "<cmd>Telescope aerial<cr>", desc = "Outline" }
+-- maps.n["<leader>so"] = { "<cmd>lua require('aerial').toggle()<cr>", desc = "Outline" }
 maps.n["<leader>sO"] = { "<cmd>lua require('telescope.builtin').vim_options()<CR>", desc = "Options" }
 maps.n["<leader>s;"] = { "<cmd>lua require('telescope.builtin').command_history()<CR>", desc = "History" }
 maps.n["<leader>sc"] = { "<cmd>lua require('telescope.builtin').commands()<CR>", desc = "Commands" }
@@ -211,6 +206,7 @@ maps.n["<leader>st"] = { "<cmd>TodoQuickFix<cr>", desc = "Todo list" }
 -- +Toggle
 maps.n["<leader>ub"] = { "<cmd>lua require('user.core.utils').toggle_theme()<cr>", desc = "Toggle theme" }
 maps.n["<leader>ux"] = { "<cmd>lua require('user.core.utils').toggle_lsp_virtual_text_popup()<cr>", desc = "Toggle Lsp virtual text popup" }
+maps.n["<leader>uo"] = { "<cmd>lua require('aerial').toggle()<cr>", desc = "Outline" }
 
 -- +Text
 maps.v["<leader>xi"] = { "<Plug>(Inflect)", desc = "Inflect" }

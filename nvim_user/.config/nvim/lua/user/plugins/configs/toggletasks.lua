@@ -37,15 +37,15 @@ return function()
     },
     scan = {
       global_cwd = true, -- vim.fn.getcwd(-1, -1)
-      tab_cwd = false, -- vim.fn.getcwd(-1, tab)
-      win_cwd = true, -- vim.fn.getcwd(win)
-      lsp_root = true, -- root_dir for first LSP available for the buffer
+      tab_cwd = false,   -- vim.fn.getcwd(-1, tab)
+      win_cwd = true,    -- vim.fn.getcwd(win)
+      lsp_root = true,   -- root_dir for first LSP available for the buffer
       -- dirs = function(win)
       --   return {
       --     vim.fn.getcwd(win) .. "/.toggletasks",
       --   }
       -- end,
-      rtp = false, -- scan directories in &runtimepath
+      rtp = false,          -- scan directories in &runtimepath
       rtp_ftplugin = false, -- scan in &rtp by filetype, e.g. ftplugin/c/toggletasks.json
     },
     toggleterm = {
@@ -69,23 +69,24 @@ return function()
       end
 
       for _, v in ipairs(make_tasks) do
-        table.insert(tasks, v)
+        if not string.find(v.name, ".PHONY") then
+          table.insert(tasks, v)
+        end
       end
 
       return tasks
     end,
-
     telescope = {
       spawn = {
-        open_single = true, -- auto-open terminal window when spawning a single task
+        open_single = true,  -- auto-open terminal window when spawning a single task
         show_running = true, -- include already running tasks in picker candidates
         -- Replaces default select_* actions to spawn task (and change toggleterm
         -- direction for select horiz/vert/tab)
         mappings = {
           select_float = "<C-f>",
           spawn_smart = "<C-a>", -- all if no entries selected, else use multi-select
-          spawn_all = "<M-a>", -- all visible entries
-          spawn_selected = nil, -- entries selected via multi-select (default <tab>)
+          spawn_all = "<M-a>",   -- all visible entries
+          spawn_selected = nil,  -- entries selected via multi-select (default <tab>)
         },
       },
       -- Replaces default select_* actions to open task terminal (and change toggleterm

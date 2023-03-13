@@ -8,10 +8,6 @@ return {
     config = require("user.plugins.configs.leap").config,
   },
   {
-    "cbochs/portal.nvim",
-    cmd = { "Portal" },
-  },
-  {
     "ggandor/leap-spooky.nvim",
     opt = {
       affixes = {
