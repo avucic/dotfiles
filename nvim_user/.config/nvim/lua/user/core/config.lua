@@ -15,20 +15,18 @@ local M = {}
 -- where a value with no key simply has an implicit numeric key
 
 function M.config()
-  local mappings = require("user.core.mappings")
-
   return {
     -- Configure AstroNvim updates
     updater = {
-      remote = "origin",     -- remote to use
-      channel = "stable",    -- "stable" or "nightly"
-      version = "latest",    -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
-      branch = "main",       -- branch name (NIGHTLY ONLY)
-      commit = nil,          -- commit hash (NIGHTLY ONLY)
-      pin_plugins = nil,     -- nil, true, false (nil will pin plugins on stable only)
-      skip_prompts = false,  -- skip prompts about breaking changes
+      remote = "origin", -- remote to use
+      channel = "stable", -- "stable" or "nightly"
+      version = "latest", -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
+      branch = "main", -- branch name (NIGHTLY ONLY)
+      commit = nil, -- commit hash (NIGHTLY ONLY)
+      pin_plugins = nil, -- nil, true, false (nil will pin plugins on stable only)
+      skip_prompts = false, -- skip prompts about breaking changes
       show_changelog = true, -- show the changelog after performing an update
-      auto_quit = false,     -- automatically quit the current session after a successful update
+      auto_quit = false, -- automatically quit the current session after a successful update
       -- remotes = { -- easily add new remotes to track
       --   ["remote_name"] = "https://remote_url.come/repo.git", -- full remote url
       --   ["remote2"] = "github_user/repo", -- GitHub user/repo shortcut,
@@ -47,30 +45,7 @@ function M.config()
       -- },
     },
     -- set vim options here (vim.<first_key>.<second_key> = value)
-    options = {
-      opt = {
-        -- set to true or false etc.
-        relativenumber = false, -- sets vim.opt.relativenumber
-        number = true,          -- sets vim.opt.number
-        spell = false,          -- sets vim.opt.spell
-        signcolumn = "auto",    -- sets vim.opt.signcolumn to auto
-        wrap = false,           -- sets vim.opt.wrap
-        conceallevel = 2,
-      },
-      g = {
-        mapleader = " ",                   -- sets vim.g.mapleader
-        autoformat_enabled = true,         -- enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled)
-        cmp_enabled = true,                -- enable completion at start
-        autopairs_enabled = true,          -- enable autopairs at start
-        diagnostics_enabled = true,        -- enable diagnostics at start
-        status_diagnostics_enabled = true, -- enable diagnostics in statusline
-        icons_enabled = true,              -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
-        ui_notifications_enabled = true,   -- disable notifications when toggling UI elements
-        lsp_virtual_text_style = nil,
-        -- cusotm
-        autoformat_range_only_enabled = false,
-      },
-    },
+    options = {},
     -- If you need more control, you can use the function()...end notation
     -- options = function(local_vim)
     --   local_vim.opt.relativenumber = true
@@ -96,7 +71,7 @@ function M.config()
       formatting = {
         -- control auto formatting on save
         format_on_save = {
-          enabled = true,     -- enable or disable format on save globally
+          enabled = true, -- enable or disable format on save globally
           allow_filetypes = { -- enable format on save for specified filetypes only
             -- "go",
           },
@@ -154,7 +129,7 @@ function M.config()
     -- Please use this mappings table to set keyboard mapping since this is the
     -- lower level configuration and more robust one. (which-key will
     -- automatically pick-up stored data by this setting.)
-    mappings = mappings,
+    -- mappings = mappings,
     -- Configure require("lazy").setup() options
     lazy = {
       defaults = { lazy = true },
