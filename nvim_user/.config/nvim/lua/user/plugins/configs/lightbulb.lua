@@ -4,7 +4,7 @@ return function(_, opts)
      augroup LightBulb
               autocmd!
               autocmd CursorHold,CursorHoldI  *\(.md\|.diffs\)\@<! lua require'nvim-lightbulb'.update_lightbulb({priority = 10})
-              autocmd BufLeave  *\(.md\|.diffs\)\@<! lua vim.fn.sign_unplace("nvim-lightbulb")
+              autocmd BufLeave,WinLeave  *\(.md\|.diffs\)\@<! lua vim.fn.sign_unplace("nvim-lightbulb")
       augroup end
     ]])
 end

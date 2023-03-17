@@ -93,7 +93,7 @@ return {
         -- Text to show at virtual text
         text = "💡",
         -- highlight mode to use for virtual text (replace, combine, blend), see :help nvim_buf_set_extmark() for reference
-        hl_mode = "blend",
+        hl_mode = "combine",
       },
       status_text = {
         enabled = true,
@@ -111,7 +111,7 @@ return {
         events = { "CursorHold", "CursorHoldI" },
       },
     },
-    event = { "CursorHold", "CursorHoldI" },
+    -- event = { "CursorHold", "CursorHoldI" },
     config = require("user.plugins.configs.lightbulb"),
   },
   {

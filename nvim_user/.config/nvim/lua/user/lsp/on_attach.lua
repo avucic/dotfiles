@@ -4,13 +4,16 @@ local open_diagnostic = function()
     close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
     border = "rounded",
     source = "always",
-    -- prefix = " ",
+    prefix = " ",
     scope = "cursor",
   }
   vim.diagnostic.open_float(nil, opts)
 end
 
 return function(client, bufnr)
+  require("lsp_signature").on_attach()
+  require("nvim-lightbulb")
+
   if vim.g.autoformat_range_only_enabled == true and vim.g.autoformat_enabled == true then
     vim.notify("Both options are enabled: autoformat_range_only_enabled  and  autoformat_enabled", vim.log.levels.ERROR)
   end
