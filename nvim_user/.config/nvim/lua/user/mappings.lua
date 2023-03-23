@@ -81,6 +81,7 @@ maps.n["<leader>fY"] = { "<cmd>let @*=expand('%:p')<cr>", desc = "Yank full file
 maps.n["<leader>fx"] = { "<cmd>OpenFileInFinder<cr>", desc = "Open file in folder" }
 maps.n["<leader>fX"] = { "<cmd>OpenFolderInFinder<cr>", desc = "Open folder" }
 maps.n["<leader>fT"] = { "<cmd>lua require('telescope.builtin')<CR>:Telescope<CR>", desc = "Open telescope" }
+maps.n["<leader>f-"] = { "<cmd>lua require('oil').open()<CR>", desc = "Open dir for editing" }
 -- maps.v["<leader>fn"] = { "<cmd>lua vim.fn.input('File: ', '', "file")<CR>", desc = "Open telescope" }
 
 -- '<,'>w %:h/svelte.lua
