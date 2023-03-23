@@ -194,7 +194,7 @@ maps.n["<leader>odt"] = { "<cmd>DBUIToggle<cr>", desc = "Toggle DB Connection" }
 -- +Search
 maps.n["<leader>sh"] = { "<cmd>lua require('telescope.builtin').help_tags()<CR>", desc = "Help" }
 maps.n["<leader>sk"] = { "<cmd>lua require('telescope.builtin').keymaps()<CR>", desc = "Keymaps" }
-maps.n["<leader>ss"] = { "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>", desc = "Symbols" }
+maps.n["<leader>ss"] = { "<cmd>lua require('telescope.builtin').lsp_document_symbols({symbol_width = 0.5})<CR>", desc = "Symbols" }
 maps.n["<leader>sS"] = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>", desc = "Workspace symbols" }
 -- maps.n["<leader>so"] = { "<cmd>lua require('aerial').toggle()<cr>", desc = "Outline" }
 maps.n["<leader>sO"] = { "<cmd>lua require('telescope.builtin').vim_options()<CR>", desc = "Options" }
