@@ -55,9 +55,10 @@ local aucmd_dict = {
           -- end, 1)
         end
 
-        local opt = vim.o
-        opt.foldexpr = "nvim_treesitter#foldexpr()"
-        opt.foldlevel = 99
+        -- local opt = vim.o
+        -- opt.foldexpr = "nvim_treesitter#foldexpr()"
+        -- opt.foldlevel = 99
+        -- opt.foldlevelstart = 99
 
         --
         -- if vim.o.buftype ~= "nofile" then
