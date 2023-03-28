@@ -85,7 +85,7 @@ function M.toggle_theme()
     vim.cmd([[colorscheme astrodark]])
   else
     vim.g.current_colorscheme = "light"
-    require("newpaper").setup({ style = "light" })
+    vim.cmd([[colorscheme astrolight]])
   end
 end
 

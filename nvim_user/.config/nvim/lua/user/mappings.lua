@@ -108,8 +108,8 @@ maps.n["<leader>gs"]  = { "<cmd>lua require('user.core.utils').toggle_term_cmd('
 maps.n["<leader>gdd"] = { "<cmd>lua require('gitsigns').diffthis()<cr>", desc = "Diff" }
 maps.n["<leader>gdl"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.diff_commit_line()<cr>", desc  = "Search line"}
 maps.n["<leader>gdb"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.diff_branch_file()<cr>", desc  = "Diff branch file"}
-maps.n["<leader>gdb"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.diff_commit_file()<cr>", desc  = "Search file"}
-maps.n["<leader>gdb"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.search_log_content()<cr>", desc  = "Search log"}
+maps.n["<leader>gdf"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.diff_commit_file()<cr>", desc  = "Search file"}
+maps.n["<leader>gds"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.search_log_content()<cr>", desc  = "Search log"}
 maps.n["<leader>gd"]  = false
 maps.n["<leader>gu"]  = false
 maps.n["<leader>gt"]  = false

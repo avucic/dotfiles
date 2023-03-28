@@ -1,5 +1,6 @@
 ;; extends
 (block_quote) @MarkdownBlockQuote
+(thematic_break) @MarkdownHorizontalLine
 (block_quote_marker)@MarkdownBlockQuote
 (block_continuation)@MarkdownBlockQuote
 (fenced_code_block_delimiter) @comment
@@ -54,7 +55,6 @@
   (list_marker_dot)
   (list_marker_parenthesis)
 ] @MarkdownListItemMarker )
-
 
 
 ; ((shortcut_link) @conceal (#set! conceal "") (eq? @conceal "[ ]"))

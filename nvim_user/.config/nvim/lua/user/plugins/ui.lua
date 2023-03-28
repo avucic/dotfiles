@@ -16,6 +16,18 @@ return {
     },
   },
   {
+    "anuvyklack/pretty-fold.nvim",
+    config = function(opts)
+      require("pretty-fold").setup(opts)
+    end,
+    -- event = {
+    --   -- "VeryLazy",
+    --   "BufReadPost",
+    --   "BufWinEnter",
+    --   "SessionLoadPre",
+    -- },
+  },
+  {
     "echasnovski/mini.nvim",
     config = function(_opts)
       require("mini.jump").setup()
