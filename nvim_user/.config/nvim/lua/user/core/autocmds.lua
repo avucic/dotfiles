@@ -60,9 +60,6 @@ local aucmd_dict = {
         -- opt.foldlevel = 99
         -- opt.foldlevelstart = 99
 
-        vim.defer_fn(function()
-          require("pretty-fold").setup()
-        end, 100)
         --
         -- if vim.o.buftype ~= "nofile" then
         --   vim.defer_fn(function()
