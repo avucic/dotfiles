@@ -59,8 +59,8 @@
 
 return function(_, opts)
   return {
-    termguicolors = true, -- Bool value, toggles if termguicolors are set by AstroTheme.
-    terminal_color = true, -- Bool value, toggles if terminal_colors are set by AstroTheme.
+    termguicolors = true,    -- Bool value, toggles if termguicolors are set by AstroTheme.
+    terminal_color = true,   -- Bool value, toggles if terminal_colors are set by AstroTheme.
     plugin_default = "auto", -- Sets how all plugins will be loaded
     -- "auto": Uses lazy / packer enabled plugins to load highlights.
     -- true: Enables all plugins highlights.
@@ -121,15 +121,15 @@ return function(_, opts)
           hl.TelescopeResultsDiffChange = { bg = C.NONE, fg = C.yellow }
           hl.TelescopeResultsDiffDelete = { bg = C.NONE, fg = C.red }
           hl.TelescopeResultsDiffAdd = { bg = C.NONE, fg = C.green }
-          hl.TelescopeResultsDiffUntracked = { bg = C.NONE, fg = C.grey }
+          hl.TelescopeResultsDiffUntracked = { bg = C.NONE, fg = C.subtext1 }
 
           -- -- hl.BufferLineBufferVisible = { fg = C.bg }
           --
-          hl.FloatBorder = { fg = C.grey_2 }
-          hl.NormalFloat = { bg = C.float_color, fg = C.grey_2 }
-          hl.FloatTitle = { fg = C.grey_2 }
+          hl.FloatBorder = { fg = C.subtext0 }
+          hl.NormalFloat = { bg = C.float_color, fg = C.subtext0 }
+          hl.FloatTitle = { fg = C.subtext0 }
           --
-          hl.DailyNote = { fg = C.yellow_2 }
+          hl.DailyNote = { fg = C.yellow }
           hl.ReferenceNote = { fg = C.blue }
           hl.SlipNote = { fg = C.green }
           hl.JournalNote = { fg = C.light_purple }
