@@ -164,9 +164,9 @@ maps.n["<leader>n."] = { "<Cmd>ZkCd<CR>", desc = "cdw" }
 maps.n["<leader>nR"] = { "<Cmd>ZkIndex<CR>", desc = "Reindex" }
 maps.n["<leader>nc"] = { "<cmd>ZkShowCalendar<cr>", desc = "Calendar" }
 maps.n["<leader>nnr"] = { "<cmd>:ZkFindOrCreateNote { group='reference_notes', dir='references'}<cr>", desc = "Reference note" }
-maps.n["<leader>nns"] = { "<cmd>:ZkFindOrCreateNote { group='permanent_notes', dir='references'}<cr>", desc = "Slip note" }
-maps.n["<leader>nnd"] = { "<cmd>:ZkFindOrCreateNote { group='fleeting_notes', dir='references'}<cr>", desc = "Daily note" }
-maps.n["<leader>nnl"] = { "<cmd>:ZkFindOrCreateNote { group='literature_notes', dir='references'}<cr>", desc = "Literature note" }
+maps.n["<leader>nns"] = { "<cmd>:ZkFindOrCreateNote { group='permanent_notes', dir='slip-box'}<cr>", desc = "Slip note" }
+maps.n["<leader>nnd"] = { "<cmd>:ZkFindOrCreateNote { group='fleeting_notes', dir='dalily_notes'}<cr>", desc = "Daily note" }
+maps.n["<leader>nnl"] = { "<cmd>:ZkFindOrCreateNote { group='literature_notes', dir='literature_notes'}<cr>", desc = "Literature note" }
 maps.n["<leader>nnp"] = { "<cmd>:ZkFindOrCreateProjectNote<cr>", desc = "Project note" }
 
 maps.n["<leader>ntt"] = { "<cmd>lua require('user.core.utils').toggle_term_cmd('vit list due:today or +next', {direction = 'float'})<CR>", desc = "Tasks today", }
