@@ -1,52 +1,5 @@
 return {
   {
-    "williamboman/mason-lspconfig.nvim",
-    opts = {
-      ensure_installed = {
-        "lua_ls",
-        "solargraph",
-        "gopls",
-        "tsserver",
-        "html",
-        "cssls",
-        "yamlls",
-        "jsonls",
-        "sqlls",
-        "eslint",
-        "vimls",
-        "marksman",
-        "zk",
-        "svelte",
-        "zls",
-        "taplo",
-        -- "grammarly"
-      },
-    },
-  },
-  -- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    opts = require("user.plugins.configs.null_ls"),
-  },
-
-  {
-    "jay-babu/mason-null-ls.nvim",
-    -- overrides `require("mason-null-ls").setup(...)`
-    opts = {
-      ensure_installed = {
-        "prettier",
-        "stylua",
-        "gopls",
-        "marksman",
-        "zk",
-        "eslint",
-        "rustfmt",
-        "codelldb",
-      },
-    },
-    config = require("user.plugins.configs.mason_null_ls"),
-  },
-  {
     "dnlhc/glance.nvim",
     config = require("user.plugins.configs.glance"),
     cmd = { "Glance" },

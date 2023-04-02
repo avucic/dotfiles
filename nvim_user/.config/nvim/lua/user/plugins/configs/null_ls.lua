@@ -1,6 +1,36 @@
 return function(_, opts)
   local null_ls = require("null-ls")
   local formatting = null_ls.builtins.formatting
+  local h = require("null-ls.helpers")
+  local methods = require("null-ls.methods")
+
+  local FORMATTING = methods.internal.FORMATTING
+
+  local rubocop_daemon = h.make_builtin({
+    name = "rubocopd",
+    meta = {
+      url = "https://github.com/rubocop/rubocop",
+      description = "Ruby static code analyzer and formatter, based on the community Ruby style guide.",
+    },
+    method = FORMATTING,
+    filetypes = { "ruby" },
+    generator_opts = {
+      command = "rubocop-daemon",
+      args = {
+        -- NOTE: For backwards compatibility,
+        -- we are still using "-a" shorthand' for both "--auto-correct" (pre-1.3.0) and "--autocorrect" (1.3.0+).
+        "exec",
+        "--",
+        "--auto-correct",
+        -- "--stderr",
+        -- "--stdin",
+        "$FILENAME",
+      },
+      to_stdin = true,
+    },
+    factory = h.formatter_factory,
+  })
+
   -- local diagnostics = null_ls.builtins.diagnostics
   local code_actions = null_ls.builtins.code_actions.eslint
 
@@ -16,7 +46,8 @@ return function(_, opts)
     -- null_ls.builtins.formatting.stylua,
     -- null_ls.builtins.formatting.prettier,
 
-    formatting.rubocop,
+    -- formatting.rubocop,
+    rubocop_daemon,
     -- Set a linter
     -- diagnostics.rubocop,
     -- Set formatter
