@@ -1,10 +1,20 @@
 return {
   {
+    "williamboman/mason.nvim",
+    opts = {
+      PATH = "append",
+      ui = {
+        check_outdated_packages_on_open = false,
+      },
+    },
+  },
+  {
     "williamboman/mason-lspconfig.nvim",
     opts = {
       ensure_installed = {
         "lua_ls",
         "solargraph",
+        -- "standardrb",
         "gopls",
         "tsserver",
         "html",

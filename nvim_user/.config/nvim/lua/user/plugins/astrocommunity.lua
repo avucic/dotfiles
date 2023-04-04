@@ -6,6 +6,17 @@ return {
 
   { import = "astrocommunity.code-runner.overseer-nvim" },
   { import = "astrocommunity.syntax.hlargs-nvim" },
-  -- { import = "astrocommunity.test.neotest" },
+  { import = "astrocommunity.test.neotest" },
+  {
+    "nvim-neotest/neotest",
+    config = require("user.plugins.configs.neotest"),
+    ft = { "go", "rust", "ruby" },
+    dependencies = {
+      -- "nvim-neotest/neotest-go",
+      "antoinemadec/FixCursorHold.nvim",
+      "olimorris/neotest-rspec",
+      "rouge8/neotest-rust",
+    },
+  },
   -- { import = "astrocommunity.completion.copilot-lua-cmp" },
 }

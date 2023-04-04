@@ -18,3 +18,5 @@ export EDITOR=~/.asdf/shims/nvim
 export PATH=/Users/vucinjo/bin:$PATH
 # pip dir
 export PATH=$PATH:/usr/local/bin
+export PATH="/Users/vucinjo/bin/:$PATH"
+

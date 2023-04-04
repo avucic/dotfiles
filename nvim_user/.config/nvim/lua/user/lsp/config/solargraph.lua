@@ -1,5 +1,5 @@
 return {
-    init_options = {
-        formatting = false, -- use rubocop
-    },
+  init_options = {
+    formatting = true,
+  },
 }
