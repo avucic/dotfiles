@@ -1,5 +1,6 @@
 --   none = "NONE",
 --   red = "#e06c75",
+
 --   blue = "#61afef",
 --   green = "#98c379",
 --   yellow = "#e5c06b",
@@ -161,7 +162,7 @@ return function(_, opts)
           hl["@text.strong"].fg = C.white
           hl["@punctuation.delimiter"] = { fg = C.yellow }
 
-          hl["@MarkdownBlockQuote"] = { fg = C.blue_3, italic = true }
+          hl["@MarkdownBlockQuote"] = { fg = C.surface2, italic = true }
           hl["@MarkdownMeta"] = { link = "Comment" }
           hl["@MarkdownInlineBlockCode"] = { fg = C.green, bg = C.black }
           hl["@MarkdownCodeBlockBG"] = { bg = C.black }
