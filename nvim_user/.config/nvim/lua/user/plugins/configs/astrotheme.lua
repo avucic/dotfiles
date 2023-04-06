@@ -127,7 +127,9 @@ return function(_, opts)
           -- -- hl.BufferLineBufferVisible = { fg = C.bg }
           --
           hl.FloatBorder = { fg = C.subtext0 }
-          hl.NormalFloat = { bg = C.float_color, fg = C.subtext0 }
+          hl.NormalFloat = {
+            bg = C.float_color, --[[ , fg = C.subtext0 ]]
+          }
           hl.FloatTitle = { fg = C.subtext0 }
           --
           hl.DailyNote = { fg = C.yellow }
