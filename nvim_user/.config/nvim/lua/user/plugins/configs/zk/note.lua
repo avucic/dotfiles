@@ -84,7 +84,6 @@ local function create_note_entry_maker(opts)
       display = make_display,
       ordinal = title,
       value = entry,
-
       -- ordinal = entry.title,
       -- display = make_display,
       --
@@ -222,7 +221,7 @@ end
 function M.find_or_create_project_note()
   local options = {
     prompt_title = "Projects",
-    cwd = "projects",
+    cwd = vim.env.ZK_NOTEBOOK_DIR .. "/projects",
     find_command = {
       "fd",
       "--type",
@@ -248,6 +247,23 @@ function M.find_or_create_project_note()
   }
 
   require("telescope.builtin").find_files(options)
+  --    finder = Finder:new{
+  --   entry_maker     = function(line) end,
+  --   fn_command      = function() { command = "", args  = { "ls-files" } } end,
+  --   static          = false,
+  --   maximum_results = false
+  -- }
+  --   pickers
+  --       .new(opts, {
+  --         prompt_title = "~~ dotfiles ~~",
+  --         finder = finders.new_oneshot_job(
+  --         -- Your external process here
+  --           { "git", "--git-dir=" .. os.getenv("HOME") .. "/.dotfiles.git", "ls-tree", "-r", "HEAD", "--name-only" }
+  --         ),
+  --         -- previewer = previewers.vim_buffer_cat.new(opts),
+  --         -- sorter = conf.file_sorter(opts),
+  --       })
+  --       :find()
 end
 
 function M.open_notes()
