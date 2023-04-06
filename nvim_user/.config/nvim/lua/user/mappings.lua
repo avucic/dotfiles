@@ -28,8 +28,9 @@ maps.n["<S-h>"] = { "^" }
 maps.n["z="] = { "<cmd>lua require('telescope.builtin').spell_suggest()<CR>" }
 maps.n["<leader>W"] = { "<cmd>:noa w<cr>", desc = "Save without format" }
 maps.n["ww"] = { "<cmd>lua require('user.core.plugins.window_picker').pick()<cr>" }
-maps.n["gVa"] = { "<cmd>lua require'nvim-treesitter.incremental_selection'.node_incremental()<cr><cmd>WhichKey gV<cr>", desc = "Increment", }
-maps.n["gVd"] = { "<cmd>lua require'nvim-treesitter.incremental_selection'.node_decremental()<cr><cmd>WhichKey gV<cr>", desc = "Decremental", }
+maps.n["gV"] = { "<cmd>lua require('nvim-navbuddy').open()<CR>", desc = "LSP explorer" }
+-- maps.n["gVa"] = { "<cmd>lua require'nvim-treesitter.incremental_selection'.node_incremental()<cr><cmd>WhichKey gV<cr>", desc = "Increment", }
+-- maps.n["gVd"] = { "<cmd>lua require'nvim-treesitter.incremental_selection'.node_decremental()<cr><cmd>WhichKey gV<cr>", desc = "Decremental", }
 
 -- remove from Astrovim. TODO: better way?
 maps.n["<A-j>"] = { "<Nop>" }
@@ -135,7 +136,6 @@ maps.n["<leader>th"] = false
 maps.n["<leader>jn"] = { "<cmd>lua require('aerial').next()<cr><cmd>WhichKey <LT>leader>j<CR>", desc = "Aerial next" }
 maps.n["<leader>jN"] = { "<cmd>lua require('aerial').next(-1)<cr><cmd>WhichKey <LT>leader>j<CR>", desc = "Aerial previous" }
 maps.n["<leader>jr"] = { "<cmd>lua require('telescope.builtin').lsp_references()<CR>", desc = "LSP references" }
-maps.n["<leader>jj"] = { "<cmd>lua require('nvim-navbuddy').open()<CR>", desc = "LSP explorer" }
 
 -- +LSP
 maps.n["<leader>lK"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "Hover symbol details" }

@@ -6,6 +6,7 @@ return {
   },
   {
     "ray-x/lsp_signature.nvim", -- lsp arguments
+    event = "LspAttach",
   },
   {
     "kosayoda/nvim-lightbulb",
@@ -65,6 +66,7 @@ return {
       },
     },
     -- event = { "CursorHold", "CursorHoldI" },
+    event = "LspAttach",
     config = require("user.plugins.configs.lightbulb"),
   },
   {
@@ -80,5 +82,16 @@ return {
       "SmiteshP/nvim-navic",
       "MunifTanjim/nui.nvim",
     },
+    opts = {
+      lsp = {
+        preference = { "rust_analyzer" },
+        auto_attach = true,
+      },
+    },
+    config = function(_, opts)
+      print(vim.inspect(opts))
+      require("nvim-navbuddy").setup(opts)
+    end,
+    event = "LspAttach",
   },
 }

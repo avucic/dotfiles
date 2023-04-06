@@ -109,7 +109,6 @@ return function(_, opts)
   -- Check supported formatters and linters
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
-  opts.debug = true
   opts.sources = {
 
     -- Set a formatter

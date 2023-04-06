@@ -10,19 +10,9 @@ local open_diagnostic = function()
   vim.diagnostic.open_float(nil, opts)
 end
 
-local navbuddy = require("nvim-navbuddy")
-local lsp_signature = require("lsp_signature")
-
 return function(client, bufnr)
-  lsp_signature.on_attach(client, bufnr)
-  if client.server_capabilities.documentSymbolProvider then
-    navbuddy.attach(client, bufnr)
-  end
-  require("nvim-lightbulb")
-
-  if vim.g.autoformat_range_only_enabled == true and vim.g.autoformat_enabled == true then
-    vim.notify("Both options are enabled: autoformat_range_only_enabled  and  autoformat_enabled", vim.log.levels.ERROR)
-  end
+  -- TODO: LSPAttach event
+  require("lsp_signature").on_attach(client, bufnr)
 
   if vim.g.autoformat_range_only_enabled == true then
     vim.g.autoformat_enabled = false
