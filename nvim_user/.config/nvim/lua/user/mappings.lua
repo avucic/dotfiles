@@ -135,6 +135,7 @@ maps.n["<leader>th"] = false
 maps.n["<leader>jn"] = { "<cmd>lua require('aerial').next()<cr><cmd>WhichKey <LT>leader>j<CR>", desc = "Aerial next" }
 maps.n["<leader>jN"] = { "<cmd>lua require('aerial').next(-1)<cr><cmd>WhichKey <LT>leader>j<CR>", desc = "Aerial previous" }
 maps.n["<leader>jr"] = { "<cmd>lua require('telescope.builtin').lsp_references()<CR>", desc = "LSP references" }
+maps.n["<leader>jj"] = { "<cmd>lua require('nvim-navbuddy').open()<CR>", desc = "LSP explorer" }
 
 -- +LSP
 maps.n["<leader>lK"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "Hover symbol details" }

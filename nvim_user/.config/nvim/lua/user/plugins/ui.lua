@@ -38,7 +38,7 @@ return {
         -- configurations per mode
         ataraxis = {
           shade = "dark", -- if `dark` then dim the padding windows, otherwise if it's `light` it'll brighten said windows
-          backdrop = 0, -- percentage by which padding windows should be dimmed/brightened. Must be a number between 0 and 1. Set to 0 to keep the same background color
+          backdrop = 0,   -- percentage by which padding windows should be dimmed/brightened. Must be a number between 0 and 1. Set to 0 to keep the same background color
           minimum_writing_area = {
             -- minimum size of main window
             width = 70,
@@ -123,7 +123,7 @@ return {
           font = "+3",
         },
         twilight = false, -- enable twilight (ataraxis)
-        lualine = false, -- hide nvim-lualine (ataraxis)
+        lualine = false,  -- hide nvim-lualine (ataraxis)
       },
     },
     config = require("user.plugins.configs.true_zen"),
@@ -211,5 +211,10 @@ return {
   {
     "junegunn/fzf",
     ft = "qf",
+  },
+  {
+    "chrisgrieser/nvim-early-retirement",
+    config = true,
+    event = "VeryLazy",
   },
 }
