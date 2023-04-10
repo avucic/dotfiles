@@ -1,12 +1,9 @@
 return {
   {
     "williamboman/mason.nvim",
-    opts = {
-      PATH = "append",
-      ui = {
-        check_outdated_packages_on_open = false,
-      },
-    },
+    -- opts = {
+    --   PATH = "append",
+    -- },
   },
   {
     "williamboman/mason-lspconfig.nvim",
@@ -14,7 +11,7 @@ return {
       ensure_installed = {
         "lua_ls",
         "solargraph",
-        -- "standardrb",
+        "emmet_ls",
         "gopls",
         "tsserver",
         "html",
@@ -28,6 +25,7 @@ return {
         "zk",
         "svelte",
         "zls",
+        "tailwindcss",
         "taplo",
         -- "grammarly"
       },
@@ -39,6 +37,9 @@ return {
     opts = {
       ensure_installed = {
         "prettier",
+        -- "solargraph",
+        -- "solargraph-standardrb",
+        -- "solargraph-rails",
         "stylua",
         "gopls",
         "marksman",

@@ -1,5 +1,7 @@
 plugins:
-  - solargraph-standardrb
   - solargraph-rails
+  - solargraph-standardrb
+  - solargraph-reek
 reporters:
   - standardrb
+  - reek

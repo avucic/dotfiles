@@ -39,7 +39,7 @@ return function(_, _)
             end
 
             vim.fn.jobstart(
-            --
+              --
               { "viu", filepath },
               {
                 on_stdout = send_output,
@@ -80,7 +80,6 @@ return function(_, _)
           -- ["<C-e>"] = fb_actions.goto_home_dir,
           ["<C-n>"] = actions.move_selection_next,
           ["<C-p>"] = actions.move_selection_previous,
-
           -- ["<m-d>"] = require("telescope.actions").delete_buffer,
 
           -- ["<C-c>"] = actions.close,
@@ -107,7 +106,6 @@ return function(_, _)
           -- ["<C-a>"] = lga_actions.quote_prompt(),
           -- ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
         },
-
         n = {
           ["q"] = actions.close,
           ["<c-c>"] = actions.close,
@@ -161,7 +159,6 @@ return function(_, _)
     --   },
     -- },
     extensions = {
-
       fzf = {
         fuzzy = true, -- false will only do exact matching
         override_generic_sorter = true, -- override the generic sorter
@@ -182,15 +179,13 @@ return function(_, _)
       },
       vim_bookmarks = {
         attach_mappings = function(_, map)
-          map("n", "dd", function()
-          end)
+          map("n", "dd", function() end)
 
           return true
         end,
         all = {
           attach_mappings = function(_, map)
-            map("n", "dd", function()
-            end)
+            map("n", "dd", function() end)
 
             return true
           end,
@@ -207,7 +202,6 @@ return function(_, _)
         -- theme = { }, -- use own theme spec
         -- layout_config = { mirror=true }, -- mirror preview pane
       },
-
       file_browser = {
         theme = "ivy",
         -- disables netrw and use telescope-file-browser in its place
@@ -218,6 +212,7 @@ return function(_, _)
         respect_gitignore = false,
         hide_parent_dir = true,
         grouped = true,
+        initial_mode = "normal",
         mappings = {
           ["i"] = {
             ["N"] = fb_actions.create,

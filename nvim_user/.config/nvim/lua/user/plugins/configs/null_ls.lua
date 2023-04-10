@@ -34,81 +34,18 @@
 return function(_, opts)
   local null_ls = require("null-ls")
   local formatting = null_ls.builtins.formatting
-  local diagnostics = null_ls.builtins.diagnostics
+  -- local diagnostics = null_ls.builtins.diagnostics
   local code_actions = null_ls.builtins.code_actions.eslint
+  local bundle_gemfile = os.getenv("BUNDLE_GEMFILE") or "~/.config/nvim/Gemfile"
+  print(bundle_gemfile)
 
-  -- local h = require("null-ls.helpers")
-  -- local methods = require("null-ls.methods")
-  --
-  -- local FORMATTING = methods.internal.D
-
-  -- local rubocop_with_server = h.make_builtin({
-  --   name = "rubocop",
-  --   meta = {
-  --     url = "https://github.com/rubocop/rubocop",
-  --     description = "Ruby static code analyzer and formatter, based on the community Ruby style guide.",
-  --   },
-  --   method = FORMATTING,
-  --   filetypes = { "ruby" },
-  --   generator_opts = {
-  --     command = "rubocop",
-  --     args = {
-  --       "--server",
-  --       "-a",
-  --       "-f",
-  --       "quiet",
-  --       "--stderr",
-  --       "--stdin",
-  --       "$FILENAME",
-  --     },
-  --     to_stdin = true,
-  --   },
-  --   factory = h.formatter_factory,
-  -- })
-
-  -- local rubocop_daemon = h.make_builtin({
-  --   name = "rubocop-daemon",
-  --   meta = {
-  --     url = "https://github.com/rubocop/rubocop",
-  --     description = "Ruby static code analyzer and formatter, based on the community Ruby style guide.",
-  --   },
-  --   method = FORMATTING,
-  --   filetypes = { "ruby" },
-  --   generator_opts = {
-  --     -- command = "rubocopd",
-  --     -- args = {
-  --     --   "-a",
-  --     --   "--parallel",
-  --     --   "-f",
-  --     --   "quiet",
-  --     --   "--stderr",
-  --     --   "--stdin",
-  --     --   "$FILENAME",
-  --     -- },
-  --     -- to_stdin = true,
-  --     command = "rubocopd",
-  --     args = {
-  --       "-a",
-  --       -- "--server",
-  --       "-f",
-  --       "quiet",
-  --       "--stderr",
-  --       "--stdin",
-  --       "$FILENAME",
-  --     },
-  --     to_stdin = true,
-  --     ignore_stderr = true,
-  --     from_stderr = true,
-  --   },
-  --   factory = h.formatter_factory,
-  -- })
-  --
   -- config variable is the default configuration table for the setup functino call
   -- local null_ls = require "null-ls"
 
   -- Check supported formatters and linters
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
+  opts.debug = true
   opts.sources = {
 
     -- Set a formatter
@@ -123,9 +60,31 @@ return function(_, opts)
     -- Set formatter
 
     formatting.stylua,
-    -- diagnostics.standardrb,
+    formatting.erb_format.with({
+      command = "bundle",
+      args = {
+        "exec",
+        "erb-format",
+        "--stdin",
+      },
+      env = {
+        BUNDLE_GEMFILE = bundle_gemfile,
+      },
+    }),
+    formatting.erb_lint.with({
+      command = "bundle",
+      args = {
+        "exec",
+        "erblint",
+        "--autocorrect",
+        "--stdin",
+        "$FILENAME",
+      },
+      env = {
+        BUNDLE_GEMFILE = bundle_gemfile,
+      },
+    }),
     formatting.prettierd.with({ extra_filetypes = { "html", "template", "json", "yaml" } }),
-
     formatting.pg_format,
 
     -- sqlfluff_format,

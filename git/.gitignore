@@ -77,3 +77,7 @@ Gemlocal.lock
 .mind/*
 .vim-bookmarks
 target/*
+.yardoc/*
+solargraph/*
+.solargraph
+.erb-lint.yml
