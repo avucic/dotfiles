@@ -32,6 +32,12 @@ local aucmd_dict = {
       end,
     },
     {
+      pattern = "svg",
+      callback = function()
+        vim.cmd([[set filetype=xml]])
+      end,
+    },
+    {
       pattern = "*",
       callback = function()
         vim.cmd([[setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])

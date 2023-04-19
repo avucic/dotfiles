@@ -54,5 +54,6 @@ return {
   {
     "jose-elias-alvarez/null-ls.nvim",
     opts = require("user.plugins.configs.null_ls"),
+    event = "User AstroFile",
   },
 }

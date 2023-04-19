@@ -1,6 +1,6 @@
 return function(_, opts)
   local null_ls = require("null-ls")
-  require("mason-null-ls").setup_handlers({
+  require("mason-null-ls").setup({
     function(source_name, methods)
       -- all sources with no handler get passed here
 
