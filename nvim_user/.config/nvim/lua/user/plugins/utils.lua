@@ -46,7 +46,6 @@ return {
   {
     "rest-nvim/rest.nvim",
     opts = {
-
       -- Open request results in a horizontal split
       result_split_horizontal = false,
       -- Keep the http file buffer above|left when split horizontal|vertical
@@ -93,7 +92,7 @@ return {
   },
 
   {
-    "narutoxy/silicon.lua", -- silicon is a lua plugin for neovim to generate beautiful images of code snippet using silicon
+    "krivahtoo/silicon.nvim", -- silicon is a lua plugin for neovim to generate beautiful images of code snippet using silicon
     requires = { "nvim-lua/plenary.nvim" },
     config = require("user.plugins.configs.silicon"),
   },
@@ -101,12 +100,12 @@ return {
     "klen/nvim-config-local",
     opts = {
       -- Default configuration (optional)
-      config_files = { ".vimrc.lua", ".vimrc" }, -- Config file patterns to load (lua supported)
+      config_files = { ".vimrc.lua", ".vimrc" },            -- Config file patterns to load (lua supported)
       hashfile = vim.fn.stdpath("data") .. "/config-local", -- Where the plugin keeps files data
-      autocommands_create = true, -- Create autocommands (VimEnter, DirectoryChanged)
-      commands_create = true, -- Create commands (ConfigSource, ConfigEdit, ConfigTrust, ConfigIgnore)
-      silent = true, -- Disable plugin messages (Config loaded/ignored)
-      lookup_parents = false, -- Lookup config files in parent directories
+      autocommands_create = true,                           -- Create autocommands (VimEnter, DirectoryChanged)
+      commands_create = true,                               -- Create commands (ConfigSource, ConfigEdit, ConfigTrust, ConfigIgnore)
+      silent = true,                                        -- Disable plugin messages (Config loaded/ignored)
+      lookup_parents = false,                               -- Lookup config files in parent directories
     },
     config = require("user.plugins.configs.nvim_local_config"),
   },

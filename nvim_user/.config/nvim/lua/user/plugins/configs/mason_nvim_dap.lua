@@ -1,46 +1,47 @@
 return function(_, opts)
   -- TODO: once mason introduce ruby debugger remove this
   local dap = require("dap")
+  local port = os.getenv("RUBY_DEBUG_PORT") or "1234"
   dap.adapters.ruby = function(callback, config)
-    if config.request == "attach" then
-      callback({
-        type = "server",
-        port = "12345",
-      })
+    local script
+    if config.current_line then
+      script = config.script .. ":" .. vim.fn.line(".")
     else
-      local script
-      if config.current_line then
-        script = config.script .. ":" .. vim.fn.line(".")
-      else
-        script = config.script
-      end
-      callback({
-        type = "server",
-        port = "${port}",
-        executable = {
-          command = "bundle",
-          args = {
-            "exec",
-            "rdbg",
-            "--stop-at-load",
-            "--open",
-            "--host",
-            "127.0.0.1",
-            "--port",
-            "${port}",
-            "--command",
-            "--",
-            "bundle",
-            "exec",
-            config.command,
-            script,
-          },
-        },
-      })
+      script = config.script
     end
+    callback({
+      type = "server",
+      host = "127.0.0.1",
+      port = port,
+      executable = {
+        command = "bundle",
+        args = {
+          "exec",
+          "rdbg",
+          "-n",
+          "--open",
+          "--port",
+          port,
+          "-c",
+          "--",
+          "bundle",
+          "exec",
+          config.command,
+          script,
+        },
+      },
+    })
   end
 
   dap.configurations.ruby = {
+    {
+      type = "ruby",
+      name = "debug current file",
+      request = "attach",
+      localfs = true,
+      command = "ruby",
+      script = "${file}",
+    },
     {
       type = "ruby",
       name = "Attach with rdbg",
@@ -49,24 +50,8 @@ return function(_, opts)
     },
     {
       type = "ruby",
-      name = "Debug current file",
-      request = "launch",
-      localfs = true,
-      command = "ruby",
-      script = "${file}",
-    },
-    {
-      type = "ruby",
-      name = "Run spec current file",
-      request = "launch",
-      localfs = true,
-      command = "rspec",
-      script = "${file}",
-    },
-    {
-      type = "ruby",
       name = "Run current spec",
-      request = "launch",
+      request = "attach",
       localfs = true,
       command = "rspec",
       script = "${file}",

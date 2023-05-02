@@ -18,5 +18,12 @@ return {
       "rouge8/neotest-rust",
     },
   },
+  {
+    "stevearc/overseer.nvim",
+    opts = {
+      strategy = "toggleterm",
+    },
+  },
+
   -- { import = "astrocommunity.completion.copilot-lua-cmp" },
 }

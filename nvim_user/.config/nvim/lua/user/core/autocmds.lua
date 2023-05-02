@@ -37,6 +37,13 @@ local aucmd_dict = {
         vim.cmd([[set filetype=xml]])
       end,
     },
+
+    {
+      pattern = "*.turbo_stream.erb",
+      callback = function()
+        vim.cmd([[set filetype=eruby]])
+      end,
+    },
     {
       pattern = "*",
       callback = function()

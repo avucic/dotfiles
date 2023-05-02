@@ -37,6 +37,7 @@ return {
     opts = {
       ensure_installed = {
         "prettier",
+        "erb_lint",
         -- "solargraph",
         -- "solargraph-standardrb",
         -- "solargraph-rails",

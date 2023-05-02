@@ -17,6 +17,7 @@ maps.n["<leader>C"] = false
 maps.n["<leader>n"] = false
 maps.n["<leader>p"] = false
 maps.n["gd"] = false
+maps.n["|"] = false
 maps.n["gD"] = false
 
 maps.n["<c-q>"] = { "<cmd>silent! cclose<cr><cmd>nohlsearch<cr><cmd>ToggleTermToggleAll<cr>" }
@@ -184,7 +185,7 @@ maps.n["<leader>njd"] = { "<cmd>:ZkFindOrCreateJournalDailyNote<cr>", desc = "Ne
 maps.n["<leader>njf"] = { "<cmd>:ZkNew{group='fer', dir='journal/fer'}<cr>", desc = "New fer session" }
 
 -- +Open
-maps.n["<leader>ott"] = { "<cmd>OverseerToggle<cr>", desc = "New" }
+maps.n["<leader>otr"] = { "<cmd>OverseerRun<cr>", desc = "Run" }
 -- maps.n["<leader>ott"] = { "<cmd>lua require('telescope').extensions.toggletasks.spawn()<cr>", desc = "New" }
 -- maps.n["<leader>otl"] = { "<cmd>lua require('telescope').extensions.toggletasks.select()<cr>", desc = "List" }
 -- maps.n["<leader>ote"] = { "<cmd>lua require('telescope').extensions.toggletasks.edit()<cr>", desc = "Edit" }
@@ -291,9 +292,6 @@ maps.v["gVd"] = maps.n["gVd"]
 maps.v["<S-l>"] = { "$", desc = "Jump to end of line" }
 maps.v["<S-h>"] = { "^", desc = "Jump to the begging of line" }
 
--- Stay in indent mode
-maps.v["<"] = { "<gv", desc = "Move left" }
-maps.v[">"] = { "gv>", desc = "Move right" }
 maps.v["p"] = { '"_dP' }
 -- inflect
 -- maps.v["gI"] = { "<Plug>(Inflect)" }

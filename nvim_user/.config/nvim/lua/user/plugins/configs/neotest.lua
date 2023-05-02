@@ -23,7 +23,13 @@ command! NeotestOutput lua require("neotest").output.open()
     output_panel = {
       enabled = false,
     },
+    output = {
+      enabled = true,
+    },
     quickfix = {
+      enabled = false,
+    },
+    diagnostic = {
       enabled = false,
     },
     -- your neotest config here

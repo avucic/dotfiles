@@ -34,10 +34,9 @@
 return function(_, opts)
   local null_ls = require("null-ls")
   local formatting = null_ls.builtins.formatting
-  -- local diagnostics = null_ls.builtins.diagnostics
+  local diagnostics = null_ls.builtins.diagnostics
   local code_actions = null_ls.builtins.code_actions.eslint
   local bundle_gemfile = os.getenv("BUNDLE_GEMFILE") or "~/.config/nvim/Gemfile"
-  print(bundle_gemfile)
 
   -- config variable is the default configuration table for the setup functino call
   -- local null_ls = require "null-ls"
@@ -45,7 +44,7 @@ return function(_, opts)
   -- Check supported formatters and linters
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
-  opts.debug = true
+  -- opts.debug = true
   opts.sources = {
 
     -- Set a formatter
@@ -84,6 +83,20 @@ return function(_, opts)
         BUNDLE_GEMFILE = bundle_gemfile,
       },
     }),
+    -- diagnostics.erb_lint.with({
+    --   command = "bundle",
+    --   args = {
+    --     "exec",
+    --     "erblint",
+    --     "--format",
+    --     "json",
+    --     "--stdin",
+    --     "$FILENAME",
+    --   },
+    --   env = {
+    --     BUNDLE_GEMFILE = bundle_gemfile,
+    --   },
+    -- }),
     formatting.prettierd.with({ extra_filetypes = { "html", "template", "json", "yaml" } }),
     formatting.pg_format,
 
