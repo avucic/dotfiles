@@ -118,20 +118,15 @@ maps.n["<leader>gt"]  = false
 maps.n["<leader>gb"]  = false
 maps.n["<leader>gc"]  = false
 
--- +Terminal
-maps.n["<leader>tt"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('horizontal', 1)<cr>", desc = "Defaul" }
-maps.n["<leader>tr"] = { "<Cmd>ToggleTermSetName<CR>", desc = "Rename" }
-maps.n["<leader>tf"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('float', 1)<cr>", desc = "Float" }
-maps.n["<leader>tF"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('float')<cr>", desc = "New float" }
-maps.n["<leader>tN"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('horizontal', nil)<cr>", desc = "New" }
-maps.n["<leader>tv"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('vertical', 1)<cr>", desc = "Vertical" }
-maps.n["<leader>tV"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('vertical')<cr>", desc = "New vertical" }
-maps.n["<leader>tT"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('tab', 1)<cr>", desc = "List terminals" }
-maps.n["<leader>tl"] = { "<cmd>lua require('user.core.plugins.toggleterm_telescope').open()<cr>", desc = "List terminals" }
-maps.n["<leader>tL"] = false
+-- +Tasks
+maps.n["<leader>tt"] = { "<cmd>OverseerRun<cr>", desc = "Run" }
+maps.n["<leader>tf"] = false
+maps.n["<leader>th"] = false
 maps.n["<leader>tn"] = false
 maps.n["<leader>tp"] = false
-maps.n["<leader>th"] = false
+maps.n["<leader>tu"] = false
+maps.n["<leader>tv"] = false
+maps.n["<leader>tl"] = false
 
 -- +Jump
 maps.n["<leader>jn"] = { "<cmd>lua require('aerial').next()<cr><cmd>WhichKey <LT>leader>j<CR>", desc = "Aerial next" }
@@ -185,13 +180,25 @@ maps.n["<leader>njd"] = { "<cmd>:ZkFindOrCreateJournalDailyNote<cr>", desc = "Ne
 maps.n["<leader>njf"] = { "<cmd>:ZkNew{group='fer', dir='journal/fer'}<cr>", desc = "New fer session" }
 
 -- +Open
-maps.n["<leader>otr"] = { "<cmd>OverseerRun<cr>", desc = "Run" }
 -- maps.n["<leader>ott"] = { "<cmd>lua require('telescope').extensions.toggletasks.spawn()<cr>", desc = "New" }
 -- maps.n["<leader>otl"] = { "<cmd>lua require('telescope').extensions.toggletasks.select()<cr>", desc = "List" }
 -- maps.n["<leader>ote"] = { "<cmd>lua require('telescope').extensions.toggletasks.edit()<cr>", desc = "Edit" }
 maps.n["<leader>og"] = { "<cmd>ChatGPT<cr>", desc = "ChatGPT" }
 maps.n["<leader>odo"] = { "<cmd>lua require('user.plugins.configs.dadbod').db_tasks()<cr>", desc = "Open DB Connection" }
 maps.n["<leader>odt"] = { "<cmd>DBUIToggle<cr>", desc = "Toggle DB Connection" }
+maps.n["<leader>ott"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('horizontal', 1)<cr>", desc = "Defaul" }
+maps.n["<leader>otr"] = { "<Cmd>ToggleTermSetName<CR>", desc = "Rename" }
+maps.n["<leader>otf"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('float', 1)<cr>", desc = "Float" }
+maps.n["<leader>otF"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('float')<cr>", desc = "New float" }
+maps.n["<leader>otN"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('horizontal', nil)<cr>", desc = "New" }
+maps.n["<leader>otv"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('vertical', 1)<cr>", desc = "Vertical" }
+maps.n["<leader>otV"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('vertical')<cr>", desc = "New vertical" }
+maps.n["<leader>otT"] = { "<cmd>lua require('user.plugins.configs.toggleterm').open_terminal('tab', 1)<cr>", desc = "List terminals" }
+maps.n["<leader>otl"] = { "<cmd>lua require('user.core.plugins.toggleterm_telescope').open()<cr>", desc = "List terminals" }
+maps.n["<leader>otL"] = false
+maps.n["<leader>otn"] = false
+maps.n["<leader>otp"] = false
+maps.n["<leader>oth"] = false
 
 -- +Search
 maps.n["<leader>sh"] = { "<cmd>lua require('telescope.builtin').help_tags()<CR>", desc = "Help" }

@@ -29,6 +29,7 @@ return function(plugin, opts)
         j = { name = "+Journal" },
         n = { name = "+New Note" },
       },
+      t = { name = "+Tasks" },
       s = { name = "+Search" },
       j = { name = "+Jump" },
       J = { name = "+Jump" },
@@ -47,7 +48,7 @@ return function(plugin, opts)
       o = {
         name = "+Open",
         d = { name = "+DB" },
-        t = { name = "+Tasks" },
+        t = { name = "+Terminal" },
       },
       g = {
         d = {

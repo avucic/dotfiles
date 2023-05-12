@@ -68,6 +68,7 @@ return {
   {
     "danielfalk/smart-open.nvim",
     dependencies = { "kkharji/sqlite.lua" },
+    branch = "0.2.x",
   },
   {
     "gbprod/yanky.nvim",

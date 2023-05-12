@@ -38,9 +38,6 @@ return {
       ensure_installed = {
         "prettier",
         "erb_lint",
-        -- "solargraph",
-        -- "solargraph-standardrb",
-        -- "solargraph-rails",
         "stylua",
         "gopls",
         "marksman",
