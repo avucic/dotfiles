@@ -69,6 +69,14 @@ maps.n["<leader>fn"] = { "<cmd>enew<cr>", desc = "New file" }
 maps.n["<leader>fE"] = { "<cmd>Telescope file_browser files=true<cr>", desc = "Explorer from root" }
 maps.n["<leader>fe"] = { "<cmd>Telescope file_browser path=%:p:h files=true<cr>", desc = "Explorer" }
 maps.n["<leader>fg"] = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", desc = "Live grep" }
+maps.n["<leader>fG"] = {
+  function()
+    require("telescope.builtin").live_grep {
+      additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
+    }
+  end,
+  desc = "Find words in all files",
+}
 maps.v["<leader>fg"] = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args({default_text = require('user.core.utils').get_visual_selection()})<CR>", desc = "Live grep" }
 maps.n["<leader>fd"] = { "<cmd>lua require('telescope').extensions.dir.live_grep()<CR>", desc = "Live grep dir" }
 maps.v["<leader>fg"] = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args({default_text = require('user.core.utils').get_visual_selection()})<CR>", desc = "Live grep" }
@@ -84,6 +92,8 @@ maps.n["<leader>fx"] = { "<cmd>OpenFileInFinder<cr>", desc = "Open file in folde
 maps.n["<leader>fX"] = { "<cmd>OpenFolderInFinder<cr>", desc = "Open folder" }
 maps.n["<leader>fT"] = { "<cmd>lua require('telescope.builtin')<CR>:Telescope<CR>", desc = "Open telescope" }
 maps.n["<leader>f-"] = { "<cmd>lua require('oil').open()<CR>", desc = "Open dir for editing" }
+maps.n["<leader>fW"] = false
+maps.n["<leader>fw"] = false
 -- maps.v["<leader>fn"] = { "<cmd>lua vim.fn.input('File: ', '', "file")<CR>", desc = "Open telescope" }
 
 -- '<,'>w %:h/svelte.lua
@@ -288,8 +298,7 @@ maps.n["\\\\"] = { "<cmd>ToggleTermToggleAll<cr>" }
 -- end
 
 -- treesj
-maps.n["gS"] = { "<cmd>TSJSplit<cr>" }
-maps.n["gJ"] = { "<cmd>TSJJoin<cr>" }
+maps.n["gJ"] = { "<cmd>TSJToggle<cr>" }
 maps.n["K"] = { "<leader>lK", remap = true } -- shortcut
 
 -- V ------------------------------------------------------------------------------------
@@ -313,5 +322,6 @@ maps.v["<c-f>"] = { "y<ESC>:lua require('telescope.builtin').live_grep({default_
 
 -- T ------------------------------------------------------------------------------------
 maps.t["\\\\"] = { "<cmd>ToggleTermToggleAll<cr>" }
+maps.t["<ESC>"] = { "<C-\\><C-n>" }
 
 return maps

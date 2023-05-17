@@ -70,12 +70,14 @@ return function(_, opts)
         BUNDLE_GEMFILE = bundle_gemfile,
       },
     }),
-    formatting.erb_lint.with({
+
+    diagnostics.erb_lint.with({
       command = "bundle",
       args = {
         "exec",
         "erblint",
-        "--autocorrect",
+        "--format",
+        "json",
         "--stdin",
         "$FILENAME",
       },
@@ -83,20 +85,7 @@ return function(_, opts)
         BUNDLE_GEMFILE = bundle_gemfile,
       },
     }),
-    -- diagnostics.erb_lint.with({
-    --   command = "bundle",
-    --   args = {
-    --     "exec",
-    --     "erblint",
-    --     "--format",
-    --     "json",
-    --     "--stdin",
-    --     "$FILENAME",
-    --   },
-    --   env = {
-    --     BUNDLE_GEMFILE = bundle_gemfile,
-    --   },
-    -- }),
+
     formatting.prettierd.with({ extra_filetypes = { "html", "template", "json", "yaml" } }),
     formatting.pg_format,
 

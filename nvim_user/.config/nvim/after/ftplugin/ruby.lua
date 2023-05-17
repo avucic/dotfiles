@@ -14,7 +14,7 @@ wk.register({
 			f = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "Run current file specs" },
 			a = { "<cmd>lua require('neotest').run.run(vim.fn.getcws())<cr>", "Run all specs" },
 			o = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Specs outline" },
-			O = { "<cmd>lua require('neotest').output.open({ enter = false })<cr>", "Specs output" },
+			e = { "<cmd>lua require('neotest').output.open({ enter = false })<cr>", "Specs output" },
 		},
 		d = {
 			name = "+Deubg",

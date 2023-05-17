@@ -89,7 +89,6 @@ return {
       },
     },
     config = function(_, opts)
-      print(vim.inspect(opts))
       require("nvim-navbuddy").setup(opts)
     end,
     event = "LspAttach",
