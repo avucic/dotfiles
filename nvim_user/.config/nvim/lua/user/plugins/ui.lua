@@ -18,7 +18,7 @@ return {
   {
     "echasnovski/mini.nvim",
     config = function(_opts)
-      require("mini.jump").setup()
+      -- require("mini.jump").setup()
       require("mini.move").setup()
       require("mini.ai").setup()
     end,

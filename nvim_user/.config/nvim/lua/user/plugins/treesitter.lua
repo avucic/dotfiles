@@ -6,26 +6,10 @@ return {
     },
     opts = require("user.plugins.configs.treesitter"),
   },
-  {
-    "lewis6991/spellsitter.nvim",
-    event = "InsertEnter",
-    config = function()
-      require("spellsitter").setup({
-        -- Whether enabled, can be a list of filetypes, e.g. {'python', 'lua'}
-        enable = true,
-      })
-    end,
-  },
-  {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    event = "BufRead",
-  },
-
-  {
-    "RRethy/nvim-treesitter-textsubjects",
-    event = "BufRead",
-  },
-
+  -- {
+  --   "nvim-treesitter/nvim-treesitter-textobjects",
+  --   event = "BufRead",
+  -- },
   {
     "nvim-treesitter/playground",
     cmd = {
@@ -58,6 +42,9 @@ return {
   {
     "sindrets/winshift.nvim",
     cmd = "WinShift",
+  },
+  {
+    "mfussenegger/nvim-treehopper",
   },
 
   -- {

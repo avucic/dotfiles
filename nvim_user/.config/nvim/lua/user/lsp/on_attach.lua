@@ -13,6 +13,9 @@ end
 return function(client, bufnr)
   -- TODO: LSPAttach event
   require("lsp_signature").on_attach(client, bufnr)
+  if client.server_capabilities.documentSymbolsProvider then
+    require("nvim-navbuddy").attach(client, bufnr)
+  end
 
   if vim.g.autoformat_range_only_enabled == true then
     vim.g.autoformat_enabled = false

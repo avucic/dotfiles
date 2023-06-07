@@ -46,4 +46,6 @@ return function(_, opts)
       },
     },
   })
+
+  vim.cmd([[hi GlancePreviewMatch NONE]]) -- Fix search highlight
 end
