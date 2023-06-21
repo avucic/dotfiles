@@ -29,7 +29,7 @@ maps.n["z="] = { "<cmd>lua require('telescope.builtin').spell_suggest()<CR>" }
 maps.n["<leader>W"] = { "<cmd>:noa w<cr>", desc = "Save without format" }
 maps.n["ww"] = { "<cmd>lua require('user.core.plugins.window_picker').pick()<cr>" }
 maps.n["gV"] = { "<cmd>lua require('tsht').nodes()<cr>" }
-maps.v["gv"] = { "<cmd>lua require('tsht').nodes()<cr>" }
+maps.v["gV"] = { "<cmd>lua require('tsht').nodes()<cr>" }
 
 -- remove from Astrovim. TODO: better way?
 maps.n["<A-j>"] = { "<Nop>" }
@@ -202,6 +202,7 @@ maps.n["<leader>lr"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", desc = "Rename cur
 maps.n["<leader>lG"] = false
 
 -- +Notes
+maps.n["<leader>nn"] = false
 maps.n["<leader>no"] = { "<Cmd>ZkOpenNotes<CR>", desc = "Open notes" }
 maps.n["<leader>ni"] = { "<cmd>ZkOpenNotebook<CR>", desc = "Open notebook" }
 maps.n["<leader>n."] = { "<Cmd>ZkCd<CR>", desc = "cdw" }

@@ -51,7 +51,7 @@ return function(_, _)
           end
         end,
       },
-      file_ignore_patterns = { "node_modules", "%.jpg", "%.png", "vendor" },
+      file_ignore_patterns = { "node_modules", "%.jpg", "%.png", "vendor", "tmp" },
       -- prompt_prefix = "❯ ",
       prompt_prefix = "   ",
       selection_caret = "❯ ",
@@ -207,12 +207,12 @@ return function(_, _)
         -- disables netrw and use telescope-file-browser in its place
         -- cwd_to_path = true,
         files = false,
-        -- hijack_netrw = true,
         select_buffer = true,
         respect_gitignore = false,
         hide_parent_dir = true,
         grouped = true,
-        initial_mode = "normal",
+        quiet = true,
+        -- initial_mode = "normal",
         mappings = {
           ["i"] = {
             ["N"] = fb_actions.create,

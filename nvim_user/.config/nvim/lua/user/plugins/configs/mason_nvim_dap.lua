@@ -1,7 +1,7 @@
 return function(_, opts)
   -- TODO: once mason introduce ruby debugger remove this
   local dap = require("dap")
-  local port = os.getenv("RUBY_DEBUG_PORT") or "1234"
+  local port = os.getenv("RUBY_DEBUG_PORT") or "12345"
   dap.adapters.ruby = function(callback, config)
     local script
     if config.current_line then

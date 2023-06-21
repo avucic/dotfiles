@@ -213,11 +213,6 @@ return {
     ft = "qf",
   },
   {
-    "chrisgrieser/nvim-early-retirement",
-    config = true,
-    event = "VeryLazy",
-  },
-  {
     "chrisgrieser/nvim-alt-substitute",
     opts = true,
     -- lazy-loading with `cmd =` does not work well with incremental preview
