@@ -180,6 +180,12 @@ maps.n["<leader>tu"] = false
 maps.n["<leader>tv"] = false
 maps.n["<leader>tl"] = false
 
+-- + Run
+maps.n["<leader>rf"] = { "<cmd>FlowRunFile<cr>", desc = "Run file" }
+maps.n["<leader>r;"] = { "<cmd>FlowLauncher<cr>", desc = "Run launcher" }
+maps.n["<leader>rl"] = { "<cmd>FlowRunLastCmd<cr>", desc = "Run last command" }
+maps.n["<leader>ro"] = { "<cmd>FlowLastOutput<cr>", desc = "Run last output" }
+
 -- +Jump
 maps.n["<leader>jn"] = { "<cmd>lua require('aerial').next()<cr><cmd>WhichKey <LT>leader>j<CR>", desc = "Aerial next" }
 maps.n["<leader>jN"] =
@@ -207,6 +213,7 @@ maps.n["<leader>lp"] = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "Prev
 maps.n["<leader>ll"] = { "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "Codelens" }
 maps.n["<leader>lr"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", desc = "Rename current symbol" }
 maps.n["<leader>lG"] = false
+maps.n["<leader>lD"] = { "<CMD>lua vim.lsp.set_log_level('debug')", desc = "Set lsp debug leverl" }
 
 -- +Notes
 maps.n["<leader>nn"] = false
@@ -241,8 +248,9 @@ maps.n["<leader>nfl"] = { "<Cmd>ZkTags<CR>", desc = "Links" }
 maps.n["<leader>nfb"] = { "<Cmd>ZkTags<CR>", desc = "Backlinks" }
 maps.n["<leader>nfo"] = { "<Cmd>ZkTags<CR>", desc = "Orphans" }
 
-maps.n["<leader>njd"] = { "<cmd>:ZkFindOrCreateJournalDailyNote<cr>", desc = "New dalily journal" }
-maps.n["<leader>njf"] = { "<cmd>:ZkNew{group='fer', dir='journal/fer'}<cr>", desc = "New fer session" }
+maps.n["<leader>njd"] = { "<cmd>ZkFindOrCreateJournalDailyNote<cr>", desc = "New dalily journal" }
+maps.n["<leader>njf"] = { "<cmd>ZkNew{group='fer', dir='journal/fer'}<cr>", desc = "New fer session" }
+maps.n["<leader>ns"] = { "<cmd>ScratchPad<cr>", desc = "Scratch Pad" }
 
 -- +Open
 -- maps.n["<leader>ott"] = { "<cmd>lua require('telescope').extensions.toggletasks.spawn()<cr>", desc = "New" }
