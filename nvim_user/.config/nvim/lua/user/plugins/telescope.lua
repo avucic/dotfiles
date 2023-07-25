@@ -61,14 +61,13 @@ return {
     "nvim-telescope/telescope-project.nvim",
   },
   { "LukasPietzschmann/telescope-tabs" },
-  -- {
-  --   "jedrzejboczar/toggletasks.nvim",
-  --   config = require("user.plugins.configs.toggletasks"),
-  -- },
   {
     "danielfalk/smart-open.nvim",
-    dependencies = { "kkharji/sqlite.lua" },
-    branch = "0.2.x",
+    dependencies = {
+      "kkharji/sqlite.lua",
+      "nvim-telescope/telescope-fzy-native.nvim",
+    },
+    -- branch = "0.2.x",
   },
   {
     "gbprod/yanky.nvim",
