@@ -31,17 +31,17 @@ return {
       })
     end,
   },
-  {
-    "avucic/telescope-vim-bookmarks.nvim",
-    init = require("user.plugins.configs.vim_bookmarks").init,
-    dependencies = { "MattesGroeger/vim-bookmarks" },
-    cmd = {
-      "BookmarkToggle",
-      "BookmarkAnnotate",
-      "BookmarkClear",
-      "BookmarkClearAll",
-    },
-  },
+  -- {
+  --   "avucic/telescope-vim-bookmarks.nvim",
+  --   init = require("user.plugins.configs.vim_bookmarks").init,
+  --   dependencies = { "MattesGroeger/vim-bookmarks" },
+  --   cmd = {
+  --     "BookmarkToggle",
+  --     "BookmarkAnnotate",
+  --     "BookmarkClear",
+  --     "BookmarkClearAll",
+  --   },
+  -- },
   {
     "johmsalas/text-case.nvim",
     cmd = {

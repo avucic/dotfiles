@@ -16,11 +16,20 @@ return {
     },
   },
   {
+    "kylechui/nvim-surround",
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end,
+    event = "BufEnter",
+  },
+  {
     "echasnovski/mini.nvim",
     config = function(_opts)
       -- require("mini.jump").setup()
       require("mini.bufremove").setup(
-      -- No need to copy this inside `setup()`. Will be used automatically.
+        -- No need to copy this inside `setup()`. Will be used automatically.
         {
           -- Whether to set Vim's settings for buffers (allow hidden buffers)
           set_vim_settings = true,
@@ -31,20 +40,20 @@ return {
       )
       require("mini.move").setup()
       require("mini.ai").setup()
-      require("mini.surround").setup({
-        mappings = {
-          add = "sa",            -- Add surrounding in Normal and Visual modes
-          delete = "sd",         -- Delete surrounding
-          find = "sf",           -- Find surrounding (to the right)
-          find_left = "sF",      -- Find surrounding (to the left)
-          highlight = "sh",      -- Highlight surrounding
-          replace = "sr",        -- Replace surrounding
-          update_n_lines = "sn", -- Update `n_lines`
-
-          suffix_last = "l",     -- Suffix to search with "prev" method
-          suffix_next = "n",     -- Suffix to search with "next" method
-        },
-      })
+      -- require("mini.surround").setup({
+      --   mappings = {
+      --     add = "ca", -- Add surrounding in Normal and Visual modes
+      --     delete = "cd", -- Delete surrounding
+      --     find = "cf", -- Find surrounding (to the right)
+      --     find_left = "cF", -- Find surrounding (to the left)
+      --     highlight = "ch", -- Highlight surrounding
+      --     replace = "cr", -- Replace surrounding
+      --     update_n_lines = "cn", -- Update `n_lines`
+      --
+      --     suffix_last = "l", -- Suffix to search with "prev" method
+      --     suffix_next = "n", -- Suffix to search with "next" method
+      --   },
+      -- })
     end,
     event = "BufEnter",
   },
@@ -62,7 +71,7 @@ return {
         -- configurations per mode
         ataraxis = {
           shade = "dark", -- if `dark` then dim the padding windows, otherwise if it's `light` it'll brighten said windows
-          backdrop = 0,   -- percentage by which padding windows should be dimmed/brightened. Must be a number between 0 and 1. Set to 0 to keep the same background color
+          backdrop = 0, -- percentage by which padding windows should be dimmed/brightened. Must be a number between 0 and 1. Set to 0 to keep the same background color
           minimum_writing_area = {
             -- minimum size of main window
             width = 70,
@@ -147,7 +156,7 @@ return {
           font = "+3",
         },
         twilight = false, -- enable twilight (ataraxis)
-        lualine = false,  -- hide nvim-lualine (ataraxis)
+        lualine = false, -- hide nvim-lualine (ataraxis)
       },
     },
     config = require("user.plugins.configs.true_zen"),

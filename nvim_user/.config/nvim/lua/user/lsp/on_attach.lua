@@ -10,6 +10,12 @@ local open_diagnostic = function()
   vim.diagnostic.open_float(nil, opts)
 end
 
+vim.diagnostic.config({
+  signs = {
+    priority = 8,
+  },
+})
+
 return function(client, bufnr)
   -- TODO: LSPAttach event
   require("lsp_signature").on_attach(client, bufnr)

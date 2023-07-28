@@ -44,4 +44,75 @@ return {
   --   event = "BufRead",
   --   config = require("user.plugins.configs.flit"),
   -- },
+  {
+    "rgroli/other.nvim",
+    cmd = { "Other" },
+    opt = {
+      mappings = {
+        {
+          -- builtin mappings
+          "rails",
+          "golang",
+          -- custom mapping
+          -- {
+          --   pattern = "/path/to/file/src/app/(.*)/.*.ext$",
+          --   target = "/path/to/file/src/view/%1/",
+          --   transformer = "lowercase",
+          -- },
+        },
+      },
+    },
+    config = function(_, opts)
+      require("other-nvim").setup({
+        mappings = {
+          "rails",
+          "golang",
+        },
+      })
+    end,
+  },
+  {
+    "LeonHeidelbach/trailblazer.nvim",
+    event = "BufRead",
+    config = function(_, opts)
+      require("trailblazer").setup({
+        -- your custom config goes here
+        mappings = { -- rename this to "force_mappings" to completely override default mappings and not merge with them
+          nv = { -- Mode union: normal & visual mode. Can be extended by adding i, x, ...
+            motions = {
+              new_trail_mark = "mm",
+              track_back = "mb",
+              peek_move_next_down = "mn",
+              peek_move_previous_up = "mp",
+              move_to_nearest = "ml",
+              toggle_trail_mark_list = "ma",
+            },
+            actions = {
+              delete_all_trail_marks = "mD",
+              paste_at_last_trail_mark = "my",
+              paste_at_all_trail_marks = "mY",
+              set_trail_mark_select_mode = "mt",
+              switch_to_next_trail_mark_stack = "m.",
+              switch_to_previous_trail_mark_stack = "m,",
+              set_trail_mark_stack_sort_mode = "ms",
+            },
+          },
+          -- You can also add/move any motion or action to mode specific mappings i.e.:
+          -- i = {
+          --     motions = {
+          --         new_trail_mark = '<C-l>',
+          --         ...
+          --     },
+          --     ...
+          -- },
+        },
+        trail_options = {
+          newest_mark_symbol = "⚑", -- disable this mark symbol by setting its value to ""
+          cursor_mark_symbol = "⚑", -- disable this mark symbol by setting its value to ""
+          next_mark_symbol = "⚑", -- disable this mark symbol by setting its value to ""
+          previous_mark_symbol = "⚑", -- disable this mark symbol by setting its value to ""
+        },
+      })
+    end,
+  },
 }

@@ -39,7 +39,7 @@ return function(_, _)
             end
 
             vim.fn.jobstart(
-              --
+            --
               { "viu", filepath },
               {
                 on_stdout = send_output,
@@ -160,10 +160,10 @@ return function(_, _)
     -- },
     extensions = {
       fzf = {
-        fuzzy = true, -- false will only do exact matching
+        fuzzy = true,                   -- false will only do exact matching
         override_generic_sorter = true, -- override the generic sorter
-        override_file_sorter = true, -- override the file sorter
-        case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+        override_file_sorter = true,    -- override the file sorter
+        case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
         -- the default case_mode is "smart_case"
       },
       lsp_handlers = {
@@ -177,20 +177,20 @@ return function(_, _)
         filetypes = { "png", "webp", "jpg", "jpeg", "gif" },
         find_cmd = "rg", -- find command (defaults to `fd`)
       },
-      vim_bookmarks = {
-        attach_mappings = function(_, map)
-          map("n", "dd", function() end)
-
-          return true
-        end,
-        all = {
-          attach_mappings = function(_, map)
-            map("n", "dd", function() end)
-
-            return true
-          end,
-        },
-      },
+      -- vim_bookmarks = {
+      --   attach_mappings = function(_, map)
+      --     map("n", "dd", function() end)
+      --
+      --     return true
+      --   end,
+      --   all = {
+      --     attach_mappings = function(_, map)
+      --       map("n", "dd", function() end)
+      --
+      --       return true
+      --     end,
+      --   },
+      -- },
       live_grep_args = {
         auto_quoting = true, -- enable/disable auto-quoting
         -- define mappings, e.g.
@@ -211,7 +211,8 @@ return function(_, _)
         respect_gitignore = false,
         hide_parent_dir = true,
         grouped = true,
-        quiet = true,
+        quiet = false,
+        hijack_netrw = true,
         -- initial_mode = "normal",
         mappings = {
           ["i"] = {
