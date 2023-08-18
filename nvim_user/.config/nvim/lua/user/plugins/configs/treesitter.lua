@@ -23,7 +23,17 @@ return function()
       -- additional_vim_regex_highlighting = true,
       -- disable = {}, -- list of language that will be disabled
     },
-    markid = { enable = true },
+    markid = {
+      enable = true,
+    },
+    -- is_supported = function(lang)
+    --   if vim.bo.filetype == "TelescopePrompt" or vim.bo.filetype == "telescopeprompt" then
+    --     return false
+    --   end
+    --   return true
+    --   -- local queries = require("nvim-treesitter.configs").get_module("markid").queries
+    --   -- return pcall(vim.treesitter.query.parse_query, lang, queries[lang] or queries["default"])
+    -- end,
     indent = {
       enable = false,
     },

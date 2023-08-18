@@ -16,14 +16,16 @@ return {
     -- event = "BufRead",
     opts = {
       -- your own inverses
-      -- inverses = {
-      --   ["true"] = "false",
-      --   ["yes"] = "no",
-      --   ["on"] = "off",
-      --   ["left"] = "right",
-      --   ["up"] = "down",
-      --   ["!="] = "==",
-      -- },
+      inverses = {
+        ["build"] = "create",
+        ["create"] = "build",
+        -- ["true"] = "false",
+        -- ["yes"] = "no",
+        -- ["on"] = "off",
+        -- ["left"] = "right",
+        -- ["up"] = "down",
+        -- ["!="] = "==",
+      },
       -- removes the default <leader>i keymap
       remove_default_keybinds = true,
     },

@@ -46,30 +46,31 @@ return {
   -- },
   {
     "rgroli/other.nvim",
-    cmd = { "Other" },
-    opt = {
+    cmd = { "Other", "OtherClear" },
+    opts = {
       mappings = {
+        -- builtin mappings
+        -- "golang",
+        -- custom mapping
         {
-          -- builtin mappings
-          "rails",
-          "golang",
-          -- custom mapping
-          -- {
-          --   pattern = "/path/to/file/src/app/(.*)/.*.ext$",
-          --   target = "/path/to/file/src/view/%1/",
-          --   transformer = "lowercase",
-          -- },
+          pattern = "/app/(.*)/(.*)/(.*).rb",
+          target = "/spec/%1/%2/%3_spec.rb",
+        },
+        {
+          pattern = "/spec/(.*)/(.*)/(.*)_spec.rb",
+          target = "/app/%1/%2/%3.rb",
+        },
+        {
+          pattern = "/app/(.*)/(.*).rb",
+          target = "/spec/%1/%2_spec.rb",
+        },
+        {
+          pattern = "/spec/(.*)/(.*)_spec.rb",
+          target = "/app/%1/%2.rb",
         },
       },
     },
-    config = function(_, opts)
-      require("other-nvim").setup({
-        mappings = {
-          "rails",
-          "golang",
-        },
-      })
-    end,
+    config = require("user.plugins.configs.other"),
   },
   {
     "LeonHeidelbach/trailblazer.nvim",
@@ -78,7 +79,7 @@ return {
       require("trailblazer").setup({
         -- your custom config goes here
         mappings = { -- rename this to "force_mappings" to completely override default mappings and not merge with them
-          nv = { -- Mode union: normal & visual mode. Can be extended by adding i, x, ...
+          nv = {     -- Mode union: normal & visual mode. Can be extended by adding i, x, ...
             motions = {
               new_trail_mark = "mm",
               track_back = "mb",
@@ -109,7 +110,7 @@ return {
         trail_options = {
           newest_mark_symbol = "⚑", -- disable this mark symbol by setting its value to ""
           cursor_mark_symbol = "⚑", -- disable this mark symbol by setting its value to ""
-          next_mark_symbol = "⚑", -- disable this mark symbol by setting its value to ""
+          next_mark_symbol = "⚑",   -- disable this mark symbol by setting its value to ""
           previous_mark_symbol = "⚑", -- disable this mark symbol by setting its value to ""
         },
       })

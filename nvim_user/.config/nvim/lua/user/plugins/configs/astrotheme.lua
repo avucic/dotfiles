@@ -174,9 +174,9 @@ return function(_, opts)
 
           hl.Comment.italic = true
           hl.DiagnosticError.italic = true
-          hl.DiagnosticHint.italic = true
           hl.DiagnosticWarn.italic = true
           hl.DiagnosticInfo = { italic = true, fg = C.bright_white }
+          hl.DiagnosticHint = { italic = true, fg = C.syntax.green }
 
           hl.TelescopePromptTitle = { fg = C.bg, bg = C.syntax.cyan }
           hl.TelescopePromptBorder = { fg = C.ui.selection, bg = C.ui.selection }
