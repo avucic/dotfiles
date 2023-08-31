@@ -19,6 +19,10 @@ return {
       inverses = {
         ["build"] = "create",
         ["create"] = "build",
+        ["after"] = "before",
+        ["before"] = "after",
+        ["required"] = "optional",
+        ["optional"] = "required",
         -- ["true"] = "false",
         -- ["yes"] = "no",
         -- ["on"] = "off",
