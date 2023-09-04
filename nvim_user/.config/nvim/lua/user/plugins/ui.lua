@@ -235,11 +235,11 @@ return {
       "WindowsMaximizeHorizontally",
     },
   },
-  {
-    "kevinhwang91/nvim-bqf",
-    requires = { "junegunn/fzf" },
-    ft = "qf",
-  },
+  -- {
+  --   "kevinhwang91/nvim-bqf",
+  --   requires = { "junegunn/fzf" },
+  --   ft = "qf",
+  -- },
 
   {
     "junegunn/fzf",
