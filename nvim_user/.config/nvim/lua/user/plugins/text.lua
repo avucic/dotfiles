@@ -23,6 +23,8 @@ return {
         ["before"] = "after",
         ["required"] = "optional",
         ["optional"] = "required",
+        ["maybe"] = "value",
+        ["value"] = "maybe",
         -- ["true"] = "false",
         -- ["yes"] = "no",
         -- ["on"] = "off",
