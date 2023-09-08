@@ -13,4 +13,8 @@ return {
       require("material").setup()
     end,
   },
+  {
+    lazy = false,
+    "shaunsingh/nord.nvim",
+  },
 }

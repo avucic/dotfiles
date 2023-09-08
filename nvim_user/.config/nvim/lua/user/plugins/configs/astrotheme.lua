@@ -118,7 +118,7 @@
 return function(_, opts)
   return {
     termguicolors = true,    -- Bool value, toggles if termguicolors are set by AstroTheme.
-    terminal_color = true,   -- Bool value, toggles if terminal_colors are set by AstroTheme.
+    terminal_colors = false, -- Bool value, toggles if terminal_colors are set by AstroTheme.
     plugin_default = "auto", -- Sets how all plugins will be loaded
     -- "auto": Uses lazy / packer enabled plugins to load highlights.
     -- true: Enables all plugins highlights.
@@ -176,7 +176,7 @@ return function(_, opts)
           hl.DiagnosticError.italic = true
           hl.DiagnosticWarn.italic = true
           hl.DiagnosticInfo = { italic = true, fg = C.bright_white }
-          hl.DiagnosticHint = { italic = true, fg = C.syntax.green }
+          hl.DiagnosticHint = { italic = true, fg = C.icon.js }
 
           hl.TelescopePromptTitle = { fg = C.bg, bg = C.syntax.cyan }
           hl.TelescopePromptBorder = { fg = C.ui.selection, bg = C.ui.selection }

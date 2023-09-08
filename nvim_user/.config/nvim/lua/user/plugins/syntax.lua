@@ -1,17 +1,4 @@
 return {
-  {
-    "folke/todo-comments.nvim",
-    dependencies = "nvim-lua/plenary.nvim",
-    config = function()
-      require("todo-comments").setup()
-    end,
-    cmd = {
-      "TodoLocList",
-      "TodoQuickFix",
-      "TodoTrouble",
-      "TodoTelescope",
-    },
-  },
   -- {
   --   "folke/paint.nvim", -- highlight symbols in code like @something TODO:
   --   event = "BufRead",
@@ -44,7 +31,7 @@ return {
   {
     "folke/todo-comments.nvim",
     config = require("user.plugins.configs.todo_comments"),
-    event = "BufRead",
+    event = "User AstroFile",
     opts = {
       signs = true,      -- show icons in the signs column
       sign_priority = 8, -- sign priority

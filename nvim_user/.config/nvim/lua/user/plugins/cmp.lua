@@ -32,9 +32,9 @@ return {
         },
       })
       -- table.insert(opts.sources, { name = "spell" })
-      table.insert(opts.sources, { name = "codeium", group_index = 1 })
-      table.insert(opts.sources, { name = "emoji", priority = 20000 })
-      opts.duplicates.codeium = 1
+      table.insert(opts.sources, { name = "codeium" })
+      -- table.insert(opts.sources, { name = "emoji", priority = 20000 })
+      -- opts.duplicates.codeium = 1
 
       return opts
     end,
