@@ -1,46 +1,21 @@
 -- let actions = require("oil.actions")
 return {
-  {
-    "kelly-lin/ranger.nvim",
-    config = function()
-      require("ranger-nvim").setup({
-        enable_cmds = true,
-        replace_netrw = true,
-        ui = {
-          border = "double",
-          height = 0.7,
-          width = 0.7,
-          x = 0.5,
-          y = 0.5,
-        },
-      })
-    end,
-    cmd = { "Ranger" },
-  },
   -- {
-  --   "luukvbaal/nnn.nvim",
+  --   "kelly-lin/ranger.nvim",
   --   config = function()
-  --     local builtin = require("nnn").builtin
-  --     require("nnn").setup({
-  --       picker = {
-  --         cmd = "tmux new-session nnn -Pp",
-  --         style = { border = "rounded" },
-  --         session = "shared",
+  --     require("ranger-nvim").setup({
+  --       enable_cmds = true,
+  --       replace_netrw = true,
+  --       ui = {
+  --         border = "double",
+  --         height = 0.7,
+  --         width = 0.7,
+  --         x = 0.5,
+  --         y = 0.5,
   --       },
-  --       mappings = {
-  --         { "<C-t>", builtin.open_in_tab }, -- open file(s) in tab
-  --         { "<C-s>", builtin.open_in_split }, -- open file(s) in split
-  --         { "<C-v>", builtin.open_in_vsplit }, -- open file(s) in vertical split
-  --         { "<C-p>", builtin.open_in_preview }, -- open file in preview split keeping nnn focused
-  --         { "<C-y>", builtin.copy_to_clipboard }, -- copy file(s) to clipboard
-  --         { "<C-w>", builtin.cd_to_path }, -- cd to file directory
-  --         { "<C-e>", builtin.populate_cmdline }, -- populate cmdline (:) with file(s)
-  --       },
-  --       -- replace_netrw = "picker",
-  --       -- windownav = "<C-l>",
   --     })
   --   end,
-  --   cmd = { "NnnExplorer", "NnnPicker" },
+  --   cmd = { "Ranger" },
   -- },
   {
     "stevearc/oil.nvim",
@@ -67,54 +42,114 @@ return {
     end,
   },
   -- {
-  --   "lvim-tech/lvim-shell",
-  --   lazy = false,
+  --   "lmburns/lf.nvim",
   --   config = function()
-  --     local lvim_shell = require("lvim-shell")
+  --     -- This feature will not work if the plugin is lazy-loaded
+  --     vim.g.lf_netrw = 1
   --
-  --     -- Ranger
-  --     _G.Ranger = function(dir)
-  --       dir = dir or "."
-  --       lvim_shell.float("ranger --choosefiles=/tmp/lvim-shell " .. dir, "l")
-  --     end
-  --     vim.cmd("command! -nargs=? -complete=dir Ranger :lua _G.Ranger(<f-args>)")
-  --     vim.keymap.set("n", "<C-c>r", function()
-  --       vim.cmd("Ranger")
-  --     end, { noremap = true, silent = true, desc = "Ranger" })
+  --     require("lf").setup({
+  --       escape_quit = false,
+  --       border = "rounded",
+  --     })
   --
-  --     -- Vifm
-  --     _G.Vifm = function(dir)
-  --       dir = dir or "."
-  --       lvim_shell.float("vifm --choose-files /tmp/lvim-shell " .. dir, "l")
-  --     end
-  --     vim.cmd("command! -nargs=? -complete=dir Vifm :lua _G.Ranger(<f-args>)")
-  --     vim.keymap.set("n", "<C-c>v", function()
-  --       vim.cmd("Ranger")
-  --     end, { noremap = true, silent = true, desc = "Vifm" })
+  --     -- vim.keymap.set("n", "<M-o>", "<Cmd>Lf<CR>")
   --
-  --     -- Lazygit
-  --     _G.Lazygit = function(dir)
-  --       dir = dir or "."
-  --       lvim_shell.float("lazygit -w " .. dir, "l")
-  --     end
-  --     vim.cmd("command! -nargs=? -complete=dir Lazygit :lua _G.Lazygit(<f-args>)")
-  --     vim.keymap.set("n", "<C-c>g", function()
-  --       vim.cmd("Lazygit")
-  --     end, { noremap = true, silent = true, desc = "Lazygit" })
-  --   end,
-  -- },
-  -- {
-  --   "lvim-tech/lvim-fm",
-  --   dependencies = { "lvim-tech/lvim-shell" },
-  --   config = function()
-  --     require("lvim-fm").setup({
-  --       -- your configuration comes here
-  --       -- or leave it empty to use the default settings
-  --       -- refer to the configuration section below
+  --     vim.api.nvim_create_autocmd({
+  --       event = "User",
+  --       pattern = "LfTermEnter",
+  --       callback = function(a)
+  --         vim.api.nvim_buf_set_keymap(a.buf, "t", "q", "q", { nowait = true })
+  --       end,
   --     })
   --   end,
-  --   cmd = {
-  --     "LvimFileManager",
-  --   },
+  --   cmd = { "Lf" },
+  --   -- requires = { "toggleterm.nvim" },
   -- },
+  {
+    "is0n/fm-nvim",
+    config = function()
+      require("fm-nvim").setup({
+        -- (Vim) Command used to open files
+        edit_cmd = "edit",
+
+        -- See `Q&A` for more info
+        on_close = {
+          function()
+            vim.cmd("BWnex")
+          end,
+        },
+        on_open = {},
+
+        -- UI Options
+        ui = {
+          -- Default UI (can be "split" or "float")
+          default = "float",
+
+          float = {
+            -- Floating window border (see ':h nvim_open_win')
+            border = "double",
+
+            -- Highlight group for floating window/border (see ':h winhl')
+            float_hl = "Normal",
+            border_hl = "FloatBorder",
+
+            -- Floating Window Transparency (see ':h winblend')
+            blend = 0,
+
+            -- Num from 0 - 1 for measurements
+            height = 0.8,
+            width = 0.8,
+
+            -- X and Y Axis of Window
+            x = 0.5,
+            y = 0.5,
+          },
+
+          split = {
+            -- Direction of split
+            direction = "topleft",
+
+            -- Size of split
+            size = 24,
+          },
+        },
+
+        -- Terminal commands used w/ file manager (have to be in your $PATH)
+        cmds = {
+          vifm_cmd = "vifm",
+          taskwarrior_cmd = "taskwarrior-tui",
+        },
+
+        -- Mappings used with the plugin
+        mappings = {
+          vert_split = "<C-v>",
+          horz_split = "<C-h>",
+          tabedit = "<C-t>",
+          edit = "<C-e>",
+          ESC = "<ESC>",
+        },
+
+        -- Path to broot config
+        broot_conf = vim.fn.stdpath("data") .. "/site/pack/packer/start/fm-nvim/assets/broot_conf.hjson",
+      })
+    end,
+    cmd = {
+      "Neomutt",
+      "Lazygit",
+      "Joshuto",
+      "Ranger",
+      "Broot",
+      "Gitui",
+      "Xplr",
+      "Vifm",
+      "Skim",
+      "Nnn",
+      "Fff",
+      "Twf",
+      "Fzf",
+      "Fzy",
+      "Lf",
+      "Fm",
+    },
+  },
 }

@@ -1,0 +1,267 @@
+" colorscheme papercolor-dark
+set vicmd=nvim
+set syscalls
+set viewcolumns=-80%{name}
+""set viewcolumns=-80%{name},10%{ext},{mtime}
+""set viewcolumns=-80%{name},10%{ext}
+
+
+" Syntax highlighting in preview
+"
+" Explicitly set highlight type for some extensions
+"
+" 256-color terminal
+" fileviewer *.[ch],*.[ch]pp,*.py highlight -O xterm256 -s dante --syntax c %c
+fileviewer *.py highlight -O xterm256 --syntax python
+fileviewer *.json highlight -O xterm256 --syntax json
+fileviewer *.rb highlight -O xterm256 --syntax ruby --style base16/onedark
+fileviewer *.erb highlight -O xterm256 --syntax erb --style base16/onedark
+fileviewer *.xml highlight -O xterm256 --syntax xml
+fileviewer *.xhtml highlight -O xterm256 --syntax html
+fileviewer *.opf highlight -O xterm256 --syntax xml
+fileviewer *.md highlight -O xterm256 --syntax markdown
+fileviewer *.lua highlight -O xterm256 --syntax lua
+fileviewer *.svg highlight -O xterm256 --syntax xml
+fileviewer *.vifm highlight -O xterm256 --syntax vim
+fileviewer *.vim highlight -O xterm256 --syntax vim
+fileviewer *.sh highlight -O xterm256 --syntax bash
+fileviewer vifmrc highlight -O xterm256 --syntax vim
+fileviewer Makefile,Makefile.* highlight -O xterm256 -s dante --syntax make %c
+fileviewer *.html,*.go,*.css,*.c highlight -O xterm256 -s dante %c
+
+
+
+
+" show file and directory preview in right pane
+view!
+" preview text files using "man"
+fileviewer {*.[1-8]},<text/troff> man ./%c | col -b
+" enable ls colors in folder preview
+fileviewer */ ls --color=always
+fileviewer .*/ ls --color=always
+
+" what to suggest on the right pane
+set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
+
+" enable trash and set trash folder
+set trash
+set trashdir='~/.local/share/Trash'
+
+" set format of statusline
+" set statusline='%t %20s %= %-30d %a'
+
+" set format of file modification time
+set timefmt='%b %d, %Y @ %H:%M'
+
+" useful options
+set syscalls dotfiles wildmenu wildstyle=popup
+set history=100 undolevels=100 followlinks norunexec
+set ignorecase smartcase nohlsearch incsearch
+
+set wildmenu
+" Display completions in a form of popup with descriptions of the matches
+set wildstyle=popup
+
+set ignorecase
+set smartcase
+
+" Use increment searching (search while typing)
+set incsearch
+
+
+" Try to leave some space from cursor to upper/lower border in lists
+set scrolloff=8
+" Set custom status line look
+set statusline="  %t%= %A %10u:%-7g %15E %20d  "
+
+" theme
+colorscheme custom
+
+" %a is the argument: In which directory to search
+" fd's -E is short for for --exclude
+" command! FZFfind :set noquickview | :execute 'goto' fnameescape(term('fd . %a --hidden -E .git -E .stversions | fzf 2> /dev/tty'))
+
+command flat    :execute '!find . -not -path "*/\.*" 2>/dev/null %%U'
+command! FZFfind : set noquickview
+                \| let $FZF_PICK = term('find ./* | fzf 2>/dev/tty')
+                \| if $FZF_PICK != ''
+                \|     execute 'goto' fnameescape($FZF_PICK)
+                \| endif
+nnoremap fg :FZFfind<cr>
+" nnoremap ,h :history<cr>:write ~/test<cr>q:execute 'cd "'.system('fzf < ~/test 2>/dev/tty').'"'<cr>
+
+" flatten current directory, ie list all files in directory and its
+" subdirectories and directories of subdirectories etc
+" command flatten :execute '!find . -not -path "*/\.*" 2>/dev/null %%U'
+command! df df -h %m 2> /dev/null
+command! diff nvim -d %f %F
+" command! zip zip -r %.zip %f
+" command! run !! ./%f
+" command! make !!make %a
+" command! mkcd :mkdir %a | cd %a
+" command! varep vim "+grep %a"
+command! reload :write | restart
+
+nnoremap fl :flat<cr>
+" the same as flatten but display only files
+" command! flattenf :execute '!find . -type f -not -path "*/\.*" 2>/dev/null %%U'
+command! flatf    :execute '!find . -type f -not -path "*/\.*" 2>/dev/null %%U'
+nnoremap ff :flatf<cr>
+
+" the same as flatten but display only directories
+" command! flattend :execute '!find . -type d -not -path "*/\.*" %%U'
+command! flatd    :execute '!find . -type d -not -path "*/\.*" %%U'
+nnoremap fd :flatd<cr>
+" Display sorting dialog
+nnoremap S :sort<cr>
+nnoremap Q :q<cr>
+nnoremap q :q<cr>
+nnoremap C-c :q<cr>
+
+" filtering
+nnoremap f :filter!<space>
+nnoremap F zR
+
+" Toggle visibility of preview window
+nnoremap w :view<cr>
+vnoremap w :view<cr>gv
+nnoremap W :tree!<cr>
+
+nnoremap <tab> t
+" Mappings for faster renaming
+nnoremap r cw<c-a>
+nnoremap . za
+nnoremap mm :bmark
+nnoremap ma :bmarks<cr>
+nnoremap mg :bmgo
+nnoremap md :delbmarks
+nnoremap mD :delbmarks!
+
+" File operators
+nnoremap mf :touch<space>
+nnoremap md :mkdir<space>
+
+" mapping to move up and toggle select
+" nnoremap <S-space> kt
+
+" mapping to toggle select and move down
+nnoremap <space> tj
+
+" rename without extension
+nnoremap r cW
+" rename with extension
+nnoremap R cw
+
+nnoremap T :tabnew<cr>:view!<cr>
+nnoremap H :tabprevious<cr>:view!<cr>
+nnoremap L :tabnext<cr>:view!<cr>
+
+" " create new tab
+" nnoremap <space>t : tabnew<cr>
+" nnoremap <space>j :tabprevious<cr>
+" nnoremap <space>k :tabnext<cr>
+" nnoremap <space>x :tabclose<cr>
+
+nnoremap Q :q<cr>
+
+" yank current directory path into the clipboard
+nnoremap yd :!echo -n %d | pbcopy %i<cr>:echo expand('%"d') "is yanked to clipboard"<cr>
+
+" yank current file path into the clipboard
+nnoremap yf :!echo -n %c:p | pbcopy %i<cr>:echo expand('%"c:p') "is yanked to clipboard"<cr>
+
+" yank current filename without path into the clipboard
+nnoremap yn :!echo -n %c | pbcopy %i<cr>:echo expand('%"c') "is yanked to clipboard"<cr>
+
+" yank root of current file's name into the clipboard
+nnoremap yr :!echo -n %c:r | pbcopy %i<cr>:echo expand('%"c:r') "is yanked to clipboard"<cr>
+
+" mapping to open shell in pwd
+" nnoremap S :shell<cr>
+
+" mapping to start terminal
+" nnoremap <a-t> :!$TERMINAL &<cr>
+
+" marks
+mark h ~/
+mark w ~/Work
+
+
+highlight User1 ctermbg=yellow ctermfg=black
+highlight User2 ctermbg=none ctermfg=blue cterm=bold
+highlight User3 ctermbg=none ctermfg=red cterm=bold
+highlight User4 ctermbg=none ctermfg=yellow cterm=bold
+highlight User5 ctermbg=non3 ctermfg=purple
+
+" Set custom status line look
+set statusline="%1* %-10t %2* owner:%u:%-7g %5* size:%s %N %3* attr:%A %4* %20d "
+
+" ------------------------------------------------------------------------------
+
+" Filetypes/directories
+set classify=' :dir:/, :exe:, :reg:, :link:,? :?:, ::../::'
+
+" Specific files
+set classify+=' ::.Xdefaults,,.Xresources,,.bashprofile,,.bash_profile,,.bashrc,,.dmrc,,.d_store,,.fasd,,.gitconfig,,.gitignore,,.jack-settings,,.mime.types,,.nvidia-settings-rc,,.pam_environment,,.profile,,.recently-used,,.selected_editor,,.xinitpurc,,.zprofile,,.yarnc,,.snclirc,,.tmux.conf,,.urlview,,.config,,.ini,,.user-dirs.dirs,,.mimeapps.list,,.offlineimaprc,,.msmtprc,,.Xauthority,,config::'
+set classify+=' ::dropbox::'
+set classify+=' ::favicon.*,,README,,readme::'
+set classify+=' ::.vim,,.vimrc,,.gvimrc,,.vifm::'
+set classify+=' ::gruntfile.coffee,,gruntfile.js,,gruntfile.ls::'
+set classify+=' ::gulpfile.coffee,,gulpfile.js,,gulpfile.ls::'
+set classify+=' ::ledger::'
+set classify+=' ::license,,copyright,,copying,,LICENSE,,COPYRIGHT,,COPYING::'
+set classify+=' ::node_modules::'
+set classify+=' ::react.jsx::'
+
+" File extensions
+set classify+='λ ::*.ml,,*.mli::'
+set classify+=' ::*.styl::'
+set classify+=' ::*.scss::'
+set classify+=' ::*.py,,*.pyc,,*.pyd,,*.pyo::'
+set classify+=' ::*.php::'
+set classify+=' ::*.markdown,,*.md::'
+set classify+=' ::*.json::'
+set classify+=' ::*.js::'
+set classify+=' ::*.bmp,,*.gif,,*.ico,,*.jpeg,,*.jpg,,*.png,,*.svg,,*.svgz,,*.tga,,*.tiff,,*.xmb,,*.xcf,,*.xpm,,*.xspf,,*.xwd,,*.cr2,,*.dng,,*.3fr,,*.ari,,*.arw,,*.bay,,*.crw,,*.cr3,,*.cap,,*.data,,*.dcs,,*.dcr,,*drf,,*.eip,,*.erf,,*.fff,,*.gpr,,*.iiq,,*.k25,,*.kdc,,*.mdc,,.*mef,,*.mos,,.*.mrw,,.*.obm,,*.orf,,*.pef,,*.ptx,,*.pxn,,*.r3d,,*.raf,,*.raw,,*.rwl,,*.rw2,,*.rwz,,*.sr2,,*.srf,,*.srf,,*.srw,,*.tif,,*.x3f::'
+set classify+=' ::*.ejs,,*.htm,,*.html,,*.slim,,*.xml::'
+set classify+=' ::*.mustasche::'
+set classify+=' ::*.css,,*.less,,*.bat,,*.conf,,*.ini,,*.rc,,*.yml,,*.cfg,,*.rc::'
+set classify+=' ::*.rss::'
+set classify+=' ::*.coffee::'
+set classify+=' ::*.twig::'
+set classify+=' ::*.c++,,*.cc,,*.c,,*.cpp,,*.cxx,,*.c,,*.h::'
+set classify+=' ::*.hs,,*.lhs::'
+set classify+=' ::*.lua::'
+set classify+=' ::*.jl::'
+set classify+=' ::*.go::'
+set classify+=' ::*.ts::'
+set classify+=' ::*.db,,*.dump,,*.sql::'
+set classify+=' ::*.sln,,*.suo::'
+set classify+=' ::*.exe::'
+set classify+=' ::*.diff,,*.sum,,*.md5,,*.sha512::'
+set classify+=' ::*.scala::'
+set classify+=' ::*.java,,*.jar::'
+set classify+=' ::*.xul::'
+set classify+=' ::*.clj,,*.cljc::'
+set classify+=' ::*.pl,,*.pm,,*.t::'
+set classify+=' ::*.cljs,,*.edn::'
+set classify+=' ::*.rb::'
+set classify+=' ::*.fish,,*.sh,,*.bash::'
+set classify+=' ::*.dart::'
+set classify+=' ::*.f#,,*.fs,,*.fsi,,*.fsscript,,*.fsx::'
+set classify+=' ::*.rlib,,*.rs::'
+set classify+=' ::*.d::'
+set classify+=' ::*.erl,,*.hrl::'
+set classify+=' ::*.ai::'
+set classify+=' ::*.psb,,*.psd::'
+set classify+=' ::*.jsx::'
+set classify+=' ::*.vim,,*.vimrc::'
+set classify+=' ::*.aac,,*.anx,,*.asf,,*.au,,*.axa,,*.flac,,*.m2a,,*.m4a,,*.mid,,*.midi,,*.mp3,,*.mpc,,*.oga,,*.ogg,,*.ogx,,*.ra,,*.ram,,*.rm,,*.spx,,*.wav,,*.wma,,*.ac3::'
+set classify+=' ::*.avi,,*.flv,,*.mkv,,*.mov,,*.mov,,*.mp4,,*.mpeg,,*.mpg,,*.webm::'
+set classify+=' ::*.epub,,*.pdf,,*.fb2,,*.djvu::'
+set classify+=' ::*.7z,,*.apk,,*.bz2,,*.cab,,*.cpio,,*.deb,,*.gem,,*.gz,,*.gzip,,*.lh,,*.lzh,,*.lzma,,*.rar,,*.rpm,,*.tar,,*.tgz,,*.xz,,*.zip::'
+set classify+=' ::*.cbr,,*.cbz::'
+set classify+=' ::*.log::'
+set classify+=' ::*.doc,,*.docx,,*.adoc::'
+set classify+=' ::*.xls,,*.xls,,*.xlsmx::'
+set classify+=' ::*.pptx,,*.ppt::'

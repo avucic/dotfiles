@@ -16,6 +16,14 @@ local ingore_spell = {
 }
 
 local aucmd_dict = {
+  TermOpen = {
+    {
+      pattern = "*",
+      callback = function()
+        vim.cmd([[setlocal nospell]])
+      end,
+    },
+  },
   FileType = {
     {
       pattern = "http",
@@ -29,6 +37,18 @@ local aucmd_dict = {
       pattern = "zsh",
       callback = function()
         vim.cmd([[set filetype=bash]])
+      end,
+    },
+    {
+      pattern = "vifm",
+      callback = function()
+        vim.cmd([[set filetype=vim]])
+      end,
+    },
+    {
+      pattern = "vifmrc",
+      callback = function()
+        vim.cmd([[set filetype=vim]])
       end,
     },
     {
