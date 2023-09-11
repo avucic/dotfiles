@@ -1,22 +1,5 @@
 -- let actions = require("oil.actions")
 return {
-  -- {
-  --   "kelly-lin/ranger.nvim",
-  --   config = function()
-  --     require("ranger-nvim").setup({
-  --       enable_cmds = true,
-  --       replace_netrw = true,
-  --       ui = {
-  --         border = "double",
-  --         height = 0.7,
-  --         width = 0.7,
-  --         x = 0.5,
-  --         y = 0.5,
-  --       },
-  --     })
-  --   end,
-  --   cmd = { "Ranger" },
-  -- },
   {
     "stevearc/oil.nvim",
     config = function()
@@ -41,33 +24,27 @@ return {
       })
     end,
   },
-  -- {
-  --   "lmburns/lf.nvim",
-  --   config = function()
-  --     -- This feature will not work if the plugin is lazy-loaded
-  --     vim.g.lf_netrw = 1
-  --
-  --     require("lf").setup({
-  --       escape_quit = false,
-  --       border = "rounded",
-  --     })
-  --
-  --     -- vim.keymap.set("n", "<M-o>", "<Cmd>Lf<CR>")
-  --
-  --     vim.api.nvim_create_autocmd({
-  --       event = "User",
-  --       pattern = "LfTermEnter",
-  --       callback = function(a)
-  --         vim.api.nvim_buf_set_keymap(a.buf, "t", "q", "q", { nowait = true })
-  --       end,
-  --     })
-  --   end,
-  --   cmd = { "Lf" },
-  --   -- requires = { "toggleterm.nvim" },
-  -- },
   {
     "is0n/fm-nvim",
     config = function()
+      -- local function Rename()
+      --   local temp = "/tmp/vifm_renamed"
+      --   local file = io.open(temp, "r")
+      --   if file ~= nil then
+      --     vim.cmd("bdelete!")
+      --     vim.cmd("edit " .. vim.fn.readfile(temp)[1])
+      --     io.close(file)
+      --     os.remove(temp)
+      --   end
+      -- end
+      --
+      -- local function Delete()
+      --   local file = vim.fn.expand("%:p")
+      --   if io.open(file, "r") == nil then
+      --     vim.cmd("bdelete!")
+      --   end
+      -- end
+
       require("fm-nvim").setup({
         -- (Vim) Command used to open files
         edit_cmd = "edit",
@@ -75,7 +52,7 @@ return {
         -- See `Q&A` for more info
         on_close = {
           function()
-            vim.cmd("BWnex")
+            vim.cmd([[ BWnex ]])
           end,
         },
         on_open = {},
@@ -114,12 +91,6 @@ return {
           },
         },
 
-        -- Terminal commands used w/ file manager (have to be in your $PATH)
-        cmds = {
-          vifm_cmd = "vifm",
-          taskwarrior_cmd = "taskwarrior-tui",
-        },
-
         -- Mappings used with the plugin
         mappings = {
           vert_split = "<C-v>",
@@ -128,9 +99,6 @@ return {
           edit = "<C-e>",
           ESC = "<ESC>",
         },
-
-        -- Path to broot config
-        broot_conf = vim.fn.stdpath("data") .. "/site/pack/packer/start/fm-nvim/assets/broot_conf.hjson",
       })
     end,
     cmd = {

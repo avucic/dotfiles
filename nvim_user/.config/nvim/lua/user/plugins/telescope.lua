@@ -9,6 +9,7 @@ return {
       local telescope = require("telescope")
       telescope.load_extension("file_browser")
       telescope.load_extension("textcase")
+      -- telescope.load_extension("harpoon")
     end,
   },
   {
@@ -71,6 +72,7 @@ return {
   },
   {
     "gbprod/yanky.nvim",
+    event = "User AstroFile",
     config = function()
       require("yanky").setup()
     end,

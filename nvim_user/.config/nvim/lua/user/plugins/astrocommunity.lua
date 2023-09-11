@@ -7,6 +7,7 @@ return {
   { import = "astrocommunity.code-runner.overseer-nvim" },
   { import = "astrocommunity.syntax.hlargs-nvim" },
   { import = "astrocommunity.test.neotest" },
+  { import = "astrocommunity.motion.harpoon" },
   {
     "nvim-neotest/neotest",
     config = require("user.plugins.configs.neotest"),

@@ -72,7 +72,17 @@ maps.n["<leader>fn"] = { "<cmd>enew<cr>", desc = "New file" }
 -- maps.n["<leader>fE"] = { "<cmd>Telescope file_browser files=true<cr>", desc = "Explorer from root" }
 -- maps.n["<leader>fe"] = { "<cmd>Telescope file_browser path=%:p:h files=true<cr>", desc = "Explorer" }
 maps.n["<leader>fE"] = { "<cmd>Vifm<cr>", desc = "Explorer" }
-maps.n["<leader>fe"] = { "<cmd>Vifm %:p:h<cr>", desc = "Explorer" }
+maps.n["<leader>fe"] = {
+  function()
+    local dir_arg = vim.fn.expand("%:p:h")
+    local current_file = vim.fn.expand("%:p")
+    if current_file ~= "" then
+      dir_arg = "--select=" .. current_file
+    end
+    require("fm-nvim").Vifm(dir_arg)
+  end,
+}
+
 -- maps.n["<leader>f-"] = { "<cmd>lua require('oil').open()<CR>", desc = "Open dir for editing" }
 -- maps.n["<leader>fE"] = { "<cmd>lua require('oil').open(vim.fn.expand('%:p:h'))<CR>", desc = "Open dir for editing" }
 maps.n["<leader>fg"] =
@@ -334,6 +344,14 @@ maps.n["<leader>yy"] = { "<cmd>lua require('telescope').extensions.yank_history.
 maps.n["<leader>ym"] = { "<cmd>lua require('telescope').extensions.macroscope.default()<cr>", desc = "Macro history" }
 maps.n["<leader>yD"] = { "<cmd>lua require('neoclip').clear_history()<cr>", desc = "Clear history" }
 
+-- +Harpoon
+maps.n["<leader>h"] = false
+-- maps.n["<leader>hh"] = { "<cmd>Telescope harpoon marks<cr>", desc = "Harpoon list files" }
+maps.n["<leader>hh"] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", desc = "Harpoon list files" }
+maps.n["<leader>hn"] = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", desc = "Harpoo next" }
+maps.n["<leader>hp"] = { "<cmd>lua require('harpoon.ui').nav_prev()<cr>", desc = "Harpoon previous" }
+maps.n["<leader>ha"] = { "<cmd>lua require('harpoon.mark').add_file()<cr>", desc = "Harpoon add" }
+
 -- Bookmarks
 -- maps.n["mm"] = { ":BookmarkToggle<cr>", desc = "Toggle bookmarks" }
 -- maps.n["ma"] =
@@ -348,11 +366,11 @@ maps.n["<leader>yD"] = { "<cmd>lua require('neoclip').clear_history()<cr>", desc
 
 -- Leap
 maps.n["s"] = { "<cmd>lua require('leap')<cr><Plug>(leap-forward-to)" }
-maps.n["ss"] = { "<cmd>lua require('leap')<cr><Plug>(leap-forward-till)" }
+-- maps.n["ss"] = { "<cmd>lua require('leap')<cr><Plug>(leap-forward-till)" }
 maps.n["S"] = { "<cmd>lua require('leap')<cr><Plug>(leap-backward-to)" }
-maps.n["SS"] = { "<cmd>lua require('leap')<cr><Plug>(leap-backward-till)" }
+-- maps.n["SS"] = { "<cmd>lua require('leap')<cr><Plug>(leap-backward-till)" }
 maps.n["gs"] = "<cmd>lua require('leap')<cr><Plug>(leap-from-window)"
-maps.n["sp"] = { "<cmd>lua require('user.plugins.configs.leap').paranormal()<cr>" }
+maps.n["<M-s>"] = { "<cmd>lua require('user.plugins.configs.leap').paranormal()<cr>" }
 
 -- multiple Cursor
 maps.n["<C-n>"] = "<Nop>"

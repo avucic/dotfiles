@@ -1,45 +1,85 @@
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-source ~/.env
-source "${HOME}/.zgen/zgen.zsh"
+# source ~/.env
+# source "${HOME}/.zgen/zgen.zsh"
+#
+# # if the init script doesn't exist
+# if ! zgen saved; then
+#
+#   # specify plugins here
+#   zgen oh-my-zsh
+#
+#   zgen oh-my-zsh plugins/git
+#   zgen oh-my-zsh plugins/sudo
+#   zgen oh-my-zsh plugins/command-not-found
+#   zgen oh-my-zsh plugins/docker
+#   # zgen oh-my-zsh plugins/rails
+#   zgen oh-my-zsh plugins/brew
+#   zgen oh-my-zsh plugins/asdf
+#   zgen oh-my-zsh plugins/ruby
+#   zgen oh-my-zsh plugins/autojump
+#   zgen oh-my-zsh plugins/direnv
+#   zgen oh-my-zsh plugins/rust
+#
+#   zgen load zsh-users/zsh-syntax-highlighting
+#   zgen load zsh-users/zsh-completions
+#   zgen load zsh-users/zsh-autosuggestions
+#   zgen load svenXY/timewarrior
+#   zgen load spaceship-prompt/spaceship-prompt
+#   zgen load olets/zsh-abbr
+#   zgen load MichaelAquilina/zsh-you-should-use
+#   zgen load marlonrichert/zsh-autocomplete
+#
+#   # workadround
+#   zgen load ~/.zgen/olets/zsh-abbr-main/zsh-abbr.plugin.zsh
+#
+#   # generate the init script from plugins above
+#   zgen save
+# fi
 
-# if the init script doesn't exist
-if ! zgen saved; then
+[[ -r ~/.znap/znap.zsh ]] ||
+    git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/.znap
 
-  # specify plugins here
-  zgen oh-my-zsh
+source ~/.znap/znap.zsh
 
-  zgen oh-my-zsh plugins/git
-  zgen oh-my-zsh plugins/sudo
-  zgen oh-my-zsh plugins/command-not-found
-  zgen oh-my-zsh plugins/docker
-  # zgen oh-my-zsh plugins/rails
-  zgen oh-my-zsh plugins/brew
-  zgen oh-my-zsh plugins/asdf
-  zgen oh-my-zsh plugins/ruby
-  zgen oh-my-zsh plugins/autojump
-  zgen oh-my-zsh plugins/direnv
-  zgen oh-my-zsh plugins/rust
-
-  zgen load zsh-users/zsh-syntax-highlighting
-  zgen load zsh-users/zsh-completions
-  zgen load zsh-users/zsh-autosuggestions
-  zgen load svenXY/timewarrior
-  zgen load spaceship-prompt/spaceship-prompt
-  zgen load olets/zsh-abbr
-  zgen load MichaelAquilina/zsh-you-should-use
-
-  # workadround
-  zgen load ~/.zgen/olets/zsh-abbr-main/zsh-abbr.plugin.zsh
-
-  # generate the init script from plugins above
-  zgen save
-fi
+zstyle ':znap:*' repos-dir ~/.znap/custom
 
 if command -v direnv &>/dev/null; then
   eval "$(direnv hook zsh)"
 fi
+
+# `znap prompt` makes your prompt visible in just 15-40ms!
+znap prompt sindresorhus/pure
+
+znap source avucic/ohmyzsh \
+  lib/{git,grep,history,key-bindings,completion} \
+  plugins/git \
+  plugins/colored-man-pages \
+  plugins/docker-compose \
+  plugins/asdf \
+  plugins/autojump \
+  plugins/direnv \
+  plugins/ruby \
+  plugins/rake \
+  plugins/asdf \
+  plugins/exa-zsh \
+  plugins/tmux
+
+#TODO:
+# fix rust plugins/rust \
+# plugins/docker \
+
+# `znap source` starts plugins.
+znap source zsh-users/zsh-syntax-highlighting
+znap source zsh-users/zsh-completions
+znap source zsh-users/zsh-autosuggestions
+znap source svenXY/timewarrior
+znap source olets/zsh-abbr
+znap source MichaelAquilina/zsh-you-should-use
+znap source marlonrichert/zsh-autocomplete
+
+# zstyle ':autocomplete:*' default-context history-incremental-search-backward
 
 #  Vars and Paths
 export PATH=/Users/vucinjo/bin:$PATH

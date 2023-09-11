@@ -40,7 +40,7 @@ local aucmd_dict = {
       end,
     },
     {
-      pattern = "vifm",
+      pattern = "*.vifm",
       callback = function()
         vim.cmd([[set filetype=vim]])
       end,
@@ -52,13 +52,13 @@ local aucmd_dict = {
       end,
     },
     {
-      pattern = "svg",
+      pattern = "*.svg",
       callback = function()
         vim.cmd([[set filetype=xml]])
       end,
     },
     {
-      pattern = "mjml",
+      pattern = "*.mjml",
       callback = function()
         vim.cmd([[set filetype=html]])
       end,

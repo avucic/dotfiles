@@ -12,22 +12,24 @@ set viewcolumns=-80%{name}
 "
 " 256-color terminal
 " fileviewer *.[ch],*.[ch]pp,*.py highlight -O xterm256 -s dante --syntax c %c
-fileviewer *.py highlight -O xterm256 --syntax python
-fileviewer *.json highlight -O xterm256 --syntax json
-fileviewer *.rb highlight -O xterm256 --syntax ruby --style base16/onedark
-fileviewer *.erb highlight -O xterm256 --syntax erb --style base16/onedark
-fileviewer *.xml highlight -O xterm256 --syntax xml
-fileviewer *.xhtml highlight -O xterm256 --syntax html
-fileviewer *.opf highlight -O xterm256 --syntax xml
-fileviewer *.md highlight -O xterm256 --syntax markdown
-fileviewer *.lua highlight -O xterm256 --syntax lua
-fileviewer *.svg highlight -O xterm256 --syntax xml
-fileviewer *.vifm highlight -O xterm256 --syntax vim
-fileviewer *.vim highlight -O xterm256 --syntax vim
-fileviewer *.sh highlight -O xterm256 --syntax bash
-fileviewer vifmrc highlight -O xterm256 --syntax vim
-fileviewer Makefile,Makefile.* highlight -O xterm256 -s dante --syntax make %c
-fileviewer *.html,*.go,*.css,*.c highlight -O xterm256 -s dante %c
+fileviewer *.py highlight -O xterm256 --syntax python --style xoria256
+fileviewer *.json highlight -O xterm256 --syntax json --style xoria256
+fileviewer *.rb highlight -O xterm256 --syntax ruby --style xoria256
+fileviewer *.erb highlight -O xterm256 --syntax erb --style xoria256
+fileviewer *.xhtml highlight -O xterm256 --syntax html --style xoria256
+fileviewer *.opf highlight -O xterm256 --syntax xml --style xoria256
+fileviewer *.md highlight -O xterm256 --syntax markdown --style xoria256
+fileviewer *.lua highlight -O xterm256 --syntax lua --style xoria256
+fileviewer *.svg highlight -O xterm256 --syntax xml --style xoria256
+fileviewer *.xml highlight -O xterm256 --syntax xml --style xoria256
+fileviewer *.vifm highlight -O xterm256 --syntax vim --style xoria256
+fileviewer *.vim highlight -O xterm256 --syntax vim --style xoria256
+fileviewer *.sh highlight -O xterm256 --syntax bash --style xoria256
+fileviewer vifmrc highlight -O xterm256 --syntax vim --style xoria256
+fileviewer Makefile,Makefile.* highlight -O xterm256 -s dante --syntax make %c --style xoria256
+fileviewer *.html,*.go,*.css,*.c highlight -O xterm256 -s dante %c --style xoria256
+
+" xoria256
 
 
 
@@ -127,7 +129,9 @@ nnoremap w :view<cr>
 vnoremap w :view<cr>gv
 nnoremap W :tree!<cr>
 
-nnoremap <tab> t
+" switch between panes
+nnoremap <tab> <space>
+
 " Mappings for faster renaming
 nnoremap r cw<c-a>
 nnoremap . za
