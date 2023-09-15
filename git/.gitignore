@@ -81,3 +81,4 @@ target/*
 solargraph/*
 .solargraph
 .erb-lint.yml
+*~
