@@ -34,42 +34,6 @@ local aucmd_dict = {
       end,
     },
     {
-      pattern = "zsh",
-      callback = function()
-        vim.cmd([[set filetype=bash]])
-      end,
-    },
-    {
-      pattern = "*.vifm",
-      callback = function()
-        vim.cmd([[set filetype=vim]])
-      end,
-    },
-    {
-      pattern = "vifmrc",
-      callback = function()
-        vim.cmd([[set filetype=vim]])
-      end,
-    },
-    {
-      pattern = "*.svg",
-      callback = function()
-        vim.cmd([[set filetype=xml]])
-      end,
-    },
-    {
-      pattern = "*.mjml",
-      callback = function()
-        vim.cmd([[set filetype=html]])
-      end,
-    },
-    {
-      pattern = "*.turbo_stream.erb",
-      callback = function()
-        vim.cmd([[set filetype=eruby]])
-      end,
-    },
-    {
       pattern = "*",
       callback = function()
         vim.cmd([[setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])
@@ -147,16 +111,47 @@ local aucmd_dict = {
   },
   BufRead = {
     {
-      group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
-      pattern = "Cargo.toml",
+      pattern = "zsh",
       callback = function()
-        require("cmp").setup.buffer({ sources = { { name = "crates" } } })
+        vim.cmd([[set filetype=bash]])
+      end,
+    },
+    {
+      pattern = "*.vifm",
+      callback = function()
+        vim.cmd([[set filetype=vim]])
+      end,
+    },
+    {
+      pattern = "*.svg",
+      callback = function()
+        vim.cmd([[set filetype=xml]])
       end,
     },
     {
       pattern = "*.mjml",
       callback = function()
         vim.cmd([[set filetype=html]])
+      end,
+    },
+    {
+      pattern = "*.turbo_stream.erb",
+      callback = function()
+        vim.cmd([[set filetype=eruby]])
+      end,
+    },
+
+    {
+      pattern = "vifmrc",
+      callback = function()
+        vim.cmd([[set filetype=vim]])
+      end,
+    },
+    {
+      group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
+      pattern = "Cargo.toml",
+      callback = function()
+        require("cmp").setup.buffer({ sources = { { name = "crates" } } })
       end,
     },
     {

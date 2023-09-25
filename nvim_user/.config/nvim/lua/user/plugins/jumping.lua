@@ -49,44 +49,36 @@ return {
     cmd = { "Other", "OtherClear" },
     opts = {
       mappings = {
-        -- builtin mappings
-        -- "golang",
-        -- custom mapping
+
         {
-          pattern = "/app/controllers/(.*)/(.*)/(.*)_controller.rb",
-          target = "/spec/requests/%1/%2/%3_spec.rb",
+          pattern = "/app/components/(.*).html.erb$",
+          target = "/app/components/%1.rb",
+          context = "component",
         },
         {
-          pattern = "/app/controllers/(.*)/(.*)_controller.rb",
-          target = "/spec/requests/%1/%2_spec.rb",
+          pattern = "/app/components/(.*).rb$",
+          target = "/app/components/%1.html.erb",
+          context = "component",
         },
         {
           pattern = "/app/controllers/(.*)_controller.rb",
           target = "/spec/requests/%1_spec.rb",
+          context = "request_spec",
         },
         {
           pattern = "/spec/requests/(.*)_spec.rb",
           target = "/app/controllers/%1_controller.rb",
+          context = "request_spec",
         },
         {
-          pattern = "/spec/requests/(.*)/(.*)_spec.rb",
-          target = "/app/controllers/%1/%2_controller.rb",
+          pattern = "/app/(.*).rb",
+          target = "/spec/%1_spec.rb",
+          context = "spec",
         },
         {
-          pattern = "/app/(.*)/(.*)/(.*).rb",
-          target = "/spec/%1/%2/%3_spec.rb",
-        },
-        {
-          pattern = "/spec/(.*)/(.*)/(.*)_spec.rb",
-          target = "/app/%1/%2/%3.rb",
-        },
-        {
-          pattern = "/app/(.*)/(.*).rb",
-          target = "/spec/%1/%2_spec.rb",
-        },
-        {
-          pattern = "/spec/(.*)/(.*)_spec.rb",
-          target = "/app/%1/%2.rb",
+          pattern = "/spec/(.*)_spec.rb",
+          target = "/app/%1.rb",
+          context = "spec",
         },
       },
     },
@@ -99,7 +91,7 @@ return {
       require("trailblazer").setup({
         -- your custom config goes here
         mappings = { -- rename this to "force_mappings" to completely override default mappings and not merge with them
-          nv = {     -- Mode union: normal & visual mode. Can be extended by adding i, x, ...
+          nv = { -- Mode union: normal & visual mode. Can be extended by adding i, x, ...
             motions = {
               new_trail_mark = "mm",
               track_back = "mb",
@@ -130,7 +122,7 @@ return {
         trail_options = {
           newest_mark_symbol = "⚑", -- disable this mark symbol by setting its value to ""
           cursor_mark_symbol = "⚑", -- disable this mark symbol by setting its value to ""
-          next_mark_symbol = "⚑",   -- disable this mark symbol by setting its value to ""
+          next_mark_symbol = "⚑", -- disable this mark symbol by setting its value to ""
           previous_mark_symbol = "⚑", -- disable this mark symbol by setting its value to ""
         },
       })

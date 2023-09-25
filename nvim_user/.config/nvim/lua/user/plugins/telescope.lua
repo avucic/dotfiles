@@ -9,8 +9,11 @@ return {
       local telescope = require("telescope")
       telescope.load_extension("file_browser")
       telescope.load_extension("textcase")
-      -- telescope.load_extension("harpoon")
     end,
+  },
+
+  {
+    "danielvolchek/tailiscope.nvim",
   },
   {
     "nvim-telescope/telescope-file-browser.nvim",

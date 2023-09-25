@@ -23,6 +23,11 @@ return function(client, bufnr)
     require("nvim-navbuddy").attach(client, bufnr)
   end
 
+  if client.name == "tailwindcss" then
+    require("telescope").load_extension("tailiscope")
+    vim.keymap.set("n", "<leader>oK", "<cmd>Telescope tailiscope<cr>", { desc = "Tailwind docs" })
+  end
+
   if vim.g.autoformat_range_only_enabled == true then
     vim.g.autoformat_enabled = false
 

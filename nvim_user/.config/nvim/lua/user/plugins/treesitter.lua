@@ -2,9 +2,12 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
-      "David-Kunz/markid", -- A Neovim extension to highlight same-name identifiers with the same color.
+      "~/Desktop/markid", -- A Neovim extension to highlight same-name identifiers with the same color.
     },
     opts = require("user.plugins.configs.treesitter"),
+  },
+  {
+    dir = "~/Desktop/markid",
   },
   -- {
   --   "nvim-treesitter/nvim-treesitter-textobjects",
