@@ -14,6 +14,7 @@ set viewcolumns=-80%{name}
 " fileviewer *.[ch],*.[ch]pp,*.py highlight -O xterm256 -s dante --syntax c %c
 fileviewer *.py highlight -O xterm256 --syntax python --style xoria256
 fileviewer *.json highlight -O xterm256 --syntax json --style xoria256
+fileviewer *.js highlight -O xterm256 --syntax javascript --style xoria256
 fileviewer *.rb,*.rake highlight -O xterm256 --syntax ruby --style xoria256
 fileviewer *.erb highlight -O xterm256 --syntax erb --style xoria256
 fileviewer *.xhtml highlight -O xterm256 --syntax html --style xoria256
@@ -55,6 +56,7 @@ set history=100 undolevels=100 followlinks norunexec
 set ignorecase smartcase nohlsearch incsearch
 
 set wildmenu
+set nodotfiles
 " Display completions in a form of popup with descriptions of the matches
 set wildstyle=popup
 
@@ -77,7 +79,7 @@ colorscheme custom
 " fd's -E is short for for --exclude
 " command! FZFfind :set noquickview | :execute 'goto' fnameescape(term('fd . %a --hidden -E .git -E .stversions | fzf 2> /dev/tty'))
 
-command flat    :execute '!find . -not -path "*/\.*" 2>/dev/null %%U'
+" command flat    :execute '!find . -not -path "*/\.*" 2>/dev/null %%U'
 command! FZFfind : set noquickview
                 \| let $FZF_PICK = term('find ./* | fzf 2>/dev/tty')
                 \| if $FZF_PICK != ''
@@ -98,16 +100,16 @@ command! diff nvim -d %f %F
 " command! varep vim "+grep %a"
 command! reload :write | restart
 
-nnoremap fl :flat<cr>
+" nnoremap fl :flat<cr>
 " the same as flatten but display only files
 " command! flattenf :execute '!find . -type f -not -path "*/\.*" 2>/dev/null %%U'
-command! flatf    :execute '!find . -type f -not -path "*/\.*" 2>/dev/null %%U'
-nnoremap ff :flatf<cr>
+" command! flatf    :execute '!find . -type f -not -path "*/\.*" 2>/dev/null %%U'
+" nnoremap ff :flatf<cr>
 
 " the same as flatten but display only directories
 " command! flattend :execute '!find . -type d -not -path "*/\.*" %%U'
-command! flatd    :execute '!find . -type d -not -path "*/\.*" %%U'
-nnoremap fd :flatd<cr>
+" command! flatd    :execute '!find . -type d -not -path "*/\.*" %%U'
+" nnoremap fd :flatd<cr>
 " Display sorting dialog
 nnoremap S :sort<cr>
 nnoremap Q :q<cr>
@@ -164,6 +166,10 @@ nnoremap L :tabnext<cr>:view!<cr>
 " nnoremap <space>x :tabclose<cr>
 
 nnoremap Q :q<cr>
+
+" open current dir
+nnoremap o :cd %d %c<CR><TAB>
+" nnoremap zo :sync %c<CR><Tab>
 
 " yank current directory path into the clipboard
 nnoremap yd :!echo -n %d | pbcopy %i<cr>:echo expand('%"d') "is yanked to clipboard"<cr>
