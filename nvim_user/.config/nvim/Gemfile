@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.2"
 
-gem "erb_lint", "0.3.1"
+gem "erb_lint"
 gem "erb-formatter"
 gem "solargraph", "0.48"
 gem "solargraph-rails"
