@@ -64,7 +64,6 @@ _build/*
 repl.sql
 .dir-locals.el
 api.org
-docs/*
 .trunk/*
 .tool-versions
 *.*book
