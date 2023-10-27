@@ -48,22 +48,60 @@ return {
     "rgroli/other.nvim",
     cmd = { "Other", "OtherClear" },
     opts = {
-      mappings = {
+      rememberBuffers = false,
+      keybindings = {
+        ["<cr>"] = "open_file()",
+        ["<esc>"] = "close_window()",
+        t = "open_file_tabnew()",
+        q = "close_window()",
+        ["<c-v>"] = "open_file_vs()",
+        ["<c-s>"] = "open_file_sp()",
+      },
 
+      mappings = {
+        -- {
+        --   pattern = "/app/components/(.*).html.erb$",
+        --   target = "/app/components/%1.rb",
+        --   context = "component",
+        -- },
         {
-          pattern = "/app/components/(.*).html.erb$",
-          target = "/app/components/%1.rb",
-          context = "component",
+          pattern = "/app/components/(.*)/component.rb",
+          target = {
+            {
+              target = "/app/components/%1/component.html.erb",
+              context = "html",
+            },
+            {
+              target = "/spec/components/%1/component_spec.rb",
+              context = "spec",
+            },
+          },
         },
         {
-          pattern = "/app/components/(.*).rb$",
-          target = "/app/components/%1.html.erb",
-          context = "component",
+          pattern = "/app/components/(.*)/component.html.erb$",
+          target = {
+            {
+              target = "/app/components/%1/component.rb",
+              context = "component",
+            },
+            {
+              target = "/spec/components/%1/component_spec.rb",
+              context = "spec",
+            },
+          },
         },
         {
           pattern = "/app/controllers/(.*)_controller.rb",
-          target = "/spec/requests/%1_spec.rb",
-          context = "request_spec",
+          target = {
+            {
+              target = "/spec/requests/%1_spec.rb",
+              context = "request_spec",
+            },
+            {
+              target = "/app/views/%1/index.html.erb",
+              context = "views",
+            },
+          },
         },
         {
           pattern = "/spec/requests/(.*)_spec.rb",
@@ -71,14 +109,14 @@ return {
           context = "request_spec",
         },
         {
-          pattern = "/app/(.*).rb",
-          target = "/spec/%1_spec.rb",
-          context = "spec",
-        },
-        {
           pattern = "/spec/(.*)_spec.rb",
           target = "/app/%1.rb",
           context = "spec",
+        },
+        {
+          pattern = "/app/(.*).rb",
+          target = "/spec/%1_spec.rb",
+          context = "file",
         },
       },
     },
