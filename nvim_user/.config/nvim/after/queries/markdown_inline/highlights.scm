@@ -4,3 +4,17 @@
   (code_span)
 ] @MarkdownInlineBlockCode
 
+[
+  (emphasis)
+] @MarkdownEmphasis
+
+
+[
+  (strong_emphasis)
+] @MarkdownStrongEmphasis
+
+
+[
+  (strikethrough)
+] @MarkdownStrikeThrough
+

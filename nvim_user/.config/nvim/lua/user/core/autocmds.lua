@@ -71,15 +71,16 @@ local aucmd_dict = {
         -- end
       end,
     },
-    -- {
-    --   pattern = "markdown",
-    --   callback = function()
-    --     vim.defer_fn(function()
-    --       vim.cmd([[call MarkdownConceal() ]]) -- TODO: fix conceal.
-    --     end, 100)
-    --   end,
-    --   -- once = true,
-    -- },
+    {
+      group = vim.api.nvim_create_augroup("MarkdownConceal", { clear = true }),
+      pattern = "markdown",
+      callback = function()
+        vim.defer_fn(function()
+          vim.cmd([[call MarkdownConceal() ]]) -- TODO: fix conceal.
+        end, 1)
+      end,
+      -- once = true,
+    },
     {
       pattern = "gitcommit",
       callback = function()
@@ -153,15 +154,6 @@ local aucmd_dict = {
       callback = function()
         require("cmp").setup.buffer({ sources = { { name = "crates" } } })
       end,
-    },
-    {
-      pattern = "markdown",
-      callback = function()
-        vim.defer_fn(function()
-          vim.cmd([[call MarkdownConceal() ]]) -- TODO: fix conceal.
-        end, 100)
-      end,
-      -- once = true,
     },
   },
 }

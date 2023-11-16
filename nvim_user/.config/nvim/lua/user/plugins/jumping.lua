@@ -118,6 +118,16 @@ return {
           target = "/spec/%1_spec.rb",
           context = "file",
         },
+        {
+          pattern = "/lib/(.*).rb",
+          target = "/spec/lib/%1_spec.rb",
+          context = "file",
+        },
+        {
+          pattern = "/spec/lib/(.*)_spec.rb",
+          target = "/lib/%1.rb",
+          context = "spec",
+        },
       },
     },
     config = require("user.plugins.configs.other"),

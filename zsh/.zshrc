@@ -128,7 +128,7 @@ export NVIM_LISTEN_ADDRESS=/tmp/nvim.pipe
 dstats() { docker stats --all --format "table {{.ID}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}" }
 dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
 
-clean_mac_snapshots() {
+delete_snapshots() {
   for d in $(tmutil listlocalsnapshotdates | grep "-"); do sudo tmutil deletelocalsnapshots $d; done
 }
 
@@ -180,5 +180,11 @@ read_and_review (){
     id=$(task add +review "$descr" | sed -n 's/Created task \(.*\)./\1/p')
     task "$id" annotate "$link"
 }
+
+function zr () { zellij run --name "$*" -- zsh -ic "$*";}
+function zrf () { zellij run --name "$*" --floating -- zsh -ic "$*";}
+function ze () { zellij edit "$*";}
+function zef () { zellij edit --floating "$*";}
+
 
 alias rnr=read_and_review

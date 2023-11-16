@@ -187,7 +187,9 @@ maps.n["<leader>gc"] = false
 maps.n["<leader>gC"] = false
 
 -- +Tasks
+maps.n["<leader>tT"] = { "<cmd>OverseerToggle<cr>", desc = "Toggle" }
 maps.n["<leader>tt"] = { "<cmd>OverseerRun<cr>", desc = "Run" }
+maps.n["<leader>tl"] = { "<cmd>OverseerRestartLast<cr>", desc = "last task" }
 maps.n["<leader>to"] = { "<cmd>Other<cr>", desc = "Other file" }
 maps.n["<leader>tO"] = { "<cmd>OtherClear<cr>", desc = "Other clear" }
 maps.n["<leader>tf"] = false
@@ -196,7 +198,6 @@ maps.n["<leader>tn"] = false
 maps.n["<leader>tp"] = false
 maps.n["<leader>tu"] = false
 maps.n["<leader>tv"] = false
-maps.n["<leader>tl"] = false
 
 -- + Run
 maps.n["<leader>rf"] = { "<cmd>FlowRunFile<cr>", desc = "Run file" }
@@ -277,9 +278,6 @@ maps.n["<leader>njf"] = { "<cmd>ZkNew{group='fer', dir='journal/fer'}<cr>", desc
 maps.n["<leader>ns"] = { "<cmd>ScratchPad<cr>", desc = "Scratch Pad" }
 
 -- +Open
--- maps.n["<leader>ott"] = { "<cmd>lua require('telescope').extensions.toggletasks.spawn()<cr>", desc = "New" }
--- maps.n["<leader>otl"] = { "<cmd>lua require('telescope').extensions.toggletasks.select()<cr>", desc = "List" }
--- maps.n["<leader>ote"] = { "<cmd>lua require('telescope').extensions.toggletasks.edit()<cr>", desc = "Edit" }
 maps.n["<leader>og"] = { "<cmd>ChatGPT<cr>", desc = "ChatGPT" }
 -- maps.n["<leader>odo"] =
 -- { "<cmd>lua require('user.plugins.configs.dadbod').db_tasks()<cr>", desc = "Open DB Connection" }

@@ -14,6 +14,7 @@ return {
     ft = { "go", "rust", "ruby" },
     dependencies = {
       -- "nvim-neotest/neotest-go",
+      "nvim-treesitter/nvim-treesitter", -- this adding nvim-treesitter
       "antoinemadec/FixCursorHold.nvim",
       "olimorris/neotest-rspec",
       "rouge8/neotest-rust",
@@ -21,6 +22,7 @@ return {
   },
   {
     "stevearc/overseer.nvim",
+    config = require("user.plugins.configs.overseer"),
     opts = {
       strategy = "toggleterm",
     },

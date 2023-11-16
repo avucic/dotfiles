@@ -1,0 +1,37 @@
+layout {
+  pane_template name="default-pane" cwd="~/Work/pricingwall.com/dev/pricing_wall"
+
+    default_tab_template name="default-tab" {
+      pane size=1 borderless=true {
+        plugin location="zellij:tab-bar"
+      }
+      children
+        pane size=1 borderless=true {
+          plugin location="zellij:status-bar"
+        }
+    }
+
+  tab focus=true name="Editor" {
+    pane split_direction="vertical" size="80%" {
+      default-pane {
+        command "direnv"
+          args "exec" "." "nvim"
+      }
+    }
+    pane split_direction="vertical"{
+      default-pane
+        default-pane {
+          start_suspended true
+            command "direnv"
+            args "exec" "." "rails" "c"
+        }
+    }
+  }
+
+  tab name="Server" {
+    default-pane {
+      command "direnv"
+        args "exec" "." "bin/dev"
+    }
+  }
+}

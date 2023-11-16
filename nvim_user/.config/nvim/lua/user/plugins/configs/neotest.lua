@@ -32,6 +32,10 @@ command! NeotestOutput lua require("neotest").output.open()
     diagnostic = {
       enabled = false,
     },
+    consumers = {
+      -- overseer = require("neotest.consumers.overseer"),
+    },
+
     -- your neotest config here
     adapters = {
       -- require("neotest-go"),

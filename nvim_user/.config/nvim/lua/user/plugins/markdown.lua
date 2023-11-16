@@ -144,4 +144,12 @@ return {
       require("autolist").setup({})
     end,
   },
+  {
+    "lukas-reineke/headlines.nvim",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    ft = { "markdown" },
+    event = "VeryLazy",
+    lazy = false,
+    config = require("user.plugins.configs.headlines"),
+  },
 }

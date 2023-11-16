@@ -1,72 +1,81 @@
 vim.cmd([[
-" sign define codeblock linehl=@MarkdownCodeBlockBG
-sign define hrline linehl=@MarkdownHorizontalLine
-
-function! MarkdownBlocks()
-    let l:continue = 0
-    execute "sign unplace * file=".expand("%")
-
-    " iterate through each line in the buffer
-    for l:lnum in range(1, len(getline(1, "$")))
-        " detect horizontal Line
-        if getline(l:lnum) =~ "^---$"
-            " place sign
-            execute "sign place ".l:lnum." line=".l:lnum." name=hrline file=".expand("%")
-        endif
-
-        " detect the start fo a code block
-        " if getline(l:lnum) =~ "^```.*$" || l:continue
-        "     " continue placing signs, until the block stops
-        "     let l:continue = 1
-        "     " place sign
-        "     execute "sign place ".l:lnum." line=".l:lnum." name=codeblock file=".expand("%")
-        "     " stop placing signs
-        "     if getline(l:lnum) =~ "^```$"
-        "         let l:continue = 0
-        "     endif
-        " endif
-
-    endfor
-endfunction
-
 function! MarkdownConceal()
-    hi MyStrikethrough gui=strikethrough
-    call matchadd('MyStrikethrough', '\~\~\zs.\+\ze\~\~')
-    call matchadd('Conceal',  '\~\~\ze.\+\~\~', 10, -1, {'conceal':''})
-    call matchadd('Conceal',  '\~\~.\+\zs\~\~\ze', 10, -1, {'conceal':''})
-    call matchadd('Conceal',  '\[\ \]', 10, -1, {'conceal':''})
-    call matchadd('Conceal',  '\[[xX]\]', 10, -1, {'conceal':''})
-    call matchadd('Conceal',  '\[-\]', 10, -1, {'conceal':'☒'})
-    call matchadd('Conceal',  '\[\.\]', 10, -1, {'conceal':'⊡'})
-    call matchadd('Conceal',  '\[[oO]\]', 10, -1, {'conceal':'⬕'})
-    call matchadd('Conceal',  '\~\~\ze.\+\~\~', 10, -1, {'conceal':''})
-    call matchadd('Conceal',  '\~\~.\+\zs\~\~\ze', 10, -1, {'conceal':''})
-    call matchadd('Conceal',  '^---$', 10, -1, {'conceal':''})
+    " call matchadd('Conceal',  '\~\~\ze.\+\~\~', 10, -1, {'conceal':''})
+    " call matchadd('Conceal',  '\~\~.\+\zs\~\~\ze', 10, -1, {'conceal':''})
+    " call matchadd('Conceal',  '\[\ \]', 10, -1, {'conceal':''})
+    " call matchadd('Conceal',  '\[[xX]\]', 10, -1, {'conceal':''})
+    " call matchadd('Conceal',  '\[-\]', 10, -1, {'conceal':'☒'})
+    " call matchadd('Conceal',  '\[\.\]', 10, -1, {'conceal':'⊡'})
+    " call matchadd('Conceal',  '\[[oO]\]', 10, -1, {'conceal':'⬕'})
+    " call matchadd('Conceal',  '\~\~\ze.\+\~\~', 10, -1, {'conceal':''})
+    " call matchadd('Conceal',  '\~\~.\+\zs\~\~\ze', 10, -1, {'conceal':''})
+    " call matchadd('Conceal',  '^---$', 10, -1, {'conceal':''})
 
-    call matchadd('@MarkdownTag',  '\v#([a-zA-Z_-]\/?)+')
-    call matchadd('MyStrikethrough', '\~\~\zs.\+\ze\~\~')
+    " call matchadd('@MarkdownTag',  '\v#([a-zA-Z_-]\/?)+')
 
-    syn match  mkdListItem    "^\s*[-*+]\s\+"   contains=mkdListTab,mkdListBullet2
-    syn match  mkdListItem    "^\s*\d\+\.\s\+"  contains=mkdListTab
-    syn match  mkdListTab     "^\s*\*"          contained contains=mkdListBullet1
-    syn match  mkdListBullet1 "\*"              contained conceal cchar=•
-    syn match  mkdListBullet2 "[-*+]"           contained conceal cchar=•
+		" highlight Conceal ctermbg=none ctermfg=none guibg=none guifg=none
+
+    		" syn match HashTag contained "#" conceal cchar=█
+    		syn match HashTag contained "#" conceal cchar=┃
+    		syn match Heading "^#" contains=HashTag
+    		syn match Heading "^##" contains=HashTag
+    		syn match Heading "^###" contains=HashTag
+    		syn match Heading "^####" contains=HashTag
+    		syn match Heading "^#####" contains=HashTag
+    		syn match Heading "^######" contains=HashTag
 endfunction
 
 set linebreak
-set shiftwidth=4 "TODO fix prettier . this is workaround for list indentation
+" set shiftwidth=4 "TODO fix prettier . this is workaround for list indentation
 set syntax=off "TODO fix prettier . this is workaround for list indentation
 set foldlevel=99
+set wrap
 
-" block
-au BufWinEnter *.md call MarkdownBlocks()
-au BufWritePost *.md call MarkdownBlocks()
-au InsertLeave *.md call MarkdownBlocks()
-" au BufWinLeave *.md call clearmatches()
 
-au BufWinEnter *.md call MarkdownConceal()
+" au BufWinEnter *.md call MarkdownConceal()
 
 ]])
+
+local function markdown_sugar()
+	local augroup = vim.api.nvim_create_augroup("markdown-conceal", {})
+	vim.api.nvim_create_autocmd("BufEnter", {
+		pattern = "*.md",
+		group = augroup,
+		callback = function()
+			local namespace = vim.api.nvim_create_namespace("markdown-namespace")
+			-- vim.api.nvim_set_hl(namespace, "Conceal", { bg = "NONE", fg = "#00cf37" })
+			vim.api.nvim_set_hl(namespace, "Heading", { bg = "NONE", fg = "#ff0000" })
+			vim.api.nvim_set_hl_ns(namespace)
+
+			vim.o.conceallevel = 1
+
+			vim.cmd([[
+
+				" Custom conceal
+        " syn match todoCheckbox '\v(\s+)?(-|\*)\s\[\s\]'hs=e-4 conceal cchar=
+        " syn match todoCheckbox '\v(\s+)?(-|\*)\s\[x\]'hs=e-4 conceal cchar=
+        " syn match todoCheckbox '\v(\s+)?(-|\*)\s\[-\]'hs=e-4 conceal cchar=󰅘
+        " syn match todoCheckbox '\v(\s+)?(-|\*)\s\[\.\]'hs=e-4 conceal cchar=⊡
+        " syn match todoCheckbox '\v(\s+)?(-|\*)\s\[o\]'hs=e-4 conceal cchar=⬕
+
+				" hi def link todoCheckbox @HeadingH1
+
+        " setlocal cole=1
+
+    		syn match HashTag contained "#" conceal cchar=█
+    		syn match HashTag contained "#" conceal cchar=┃
+    		syn match Heading "^#" contains=HashTag
+    		syn match Heading "^##" contains=HashTag
+    		syn match Heading "^###" contains=HashTag
+    		syn match Heading "^####" contains=HashTag
+    		syn match Heading "^#####" contains=HashTag
+    		syn match Heading "^######" contains=HashTag
+      ]])
+		end,
+	})
+end
+
+-- markdown_sugar()
 
 local map = require("user.core.utils").define_sts_jump_keymap
 map("a", { "inline_link" }, "link")
