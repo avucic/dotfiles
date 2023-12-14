@@ -9,8 +9,9 @@ return {
     "williamboman/mason-lspconfig.nvim",
     opts = {
       ensure_installed = {
-        "lua_ls",
+        -- "lua_ls",
         "solargraph",
+        -- "ruby_ls",
         "emmet_ls",
         "gopls",
         "tsserver",

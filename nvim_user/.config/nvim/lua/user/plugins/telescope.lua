@@ -71,9 +71,12 @@ return {
       "TextCaseOpenTelescopeLSPChange",
     },
     config = function()
+      require("textcase").setup()
       local telescope = require("telescope")
-      telescope.load_extension("textcase")
     end,
+    -- keys = {
+    --   { "ga.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "v" }, desc = "Telescope" },
+    -- },
   },
   {
     "nvim-telescope/telescope-media-files.nvim",

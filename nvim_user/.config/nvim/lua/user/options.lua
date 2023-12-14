@@ -11,6 +11,7 @@ return {
     foldlevelstart = -1,
   },
   g = {
+    netrw_keepj = false,
     mapleader = " ", -- sets vim.g.mapleader
     autoformat_enabled = true, -- enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled)
     cmp_enabled = true, -- enable completion at start

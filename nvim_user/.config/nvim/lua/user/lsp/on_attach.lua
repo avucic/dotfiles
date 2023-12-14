@@ -72,10 +72,10 @@ return function(client, bufnr)
   -- end fix
 
   -- TODO: LSPAttach event
-  require("lsp_signature").on_attach(client, bufnr)
-  if client.server_capabilities.documentSymbolsProvider then
-    require("nvim-navbuddy").attach(client, bufnr)
-  end
+  -- require("lsp_signature").on_attach(client, bufnr)
+  -- if client.server_capabilities.documentSymbolsProvider then
+  --   require("nvim-navbuddy").attach(client, bufnr)
+  -- end
 
   if client.name == "tailwindcss" then
     require("telescope").load_extension("tailiscope")
@@ -83,7 +83,7 @@ return function(client, bufnr)
   end
 
   -- TODO: why settings doesn't work?
-  if client.name == "lua_lsp" then
+  if client.name == "lua_ls" then
     disable_formatting(client)
   end
 

@@ -17,6 +17,9 @@ function! MarkdownConceal()
 
     		" syn match HashTag contained "#" conceal cchar=█
     		syn match HashTag contained "#" conceal cchar=┃
+    		" syn match Heading "^\(\(```{\w}\(.*\n\(^```.*$\)\@<!\)\+#\)\)" contains=HashTag
+    		" syn match Heading "^#" contains=HashTag
+    		" syn match Heading "^##\([{\n}{\r}```{\w}]\)\@<!" contains=HashTag
     		syn match Heading "^#" contains=HashTag
     		syn match Heading "^##" contains=HashTag
     		syn match Heading "^###" contains=HashTag
@@ -138,7 +141,7 @@ wk.register({
 		i = { ":PasteMDLink<cr>", "Insert link" },
 		p = { "<Cmd>MarkdownPreview<CR>", "Markdown preview" },
 		s = {
-			"<cmd>lua require('user.core.utils').toggle_term_cmd('cd $ZK_NOTEBOOK_DIR && markserv', {direction = 'horizontal'})<CR>",
+			"<cmd>lua require('user.core.utils').toggle_term_cmd({ cmd = 'cd $ZK_NOTEBOOK_DIR && markserv', direction = 'horizontal'})<CR>",
 			"Serve",
 		},
 	},

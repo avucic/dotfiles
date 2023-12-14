@@ -50,16 +50,22 @@ function M.opts()
         set_terminal_keymaps()
       end
     end,
+    on_open = function(term)
+      -- vim.cmd("startinsert!")
+      -- vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+    end,
     -- open_mapping = [[\\]],
     open_mapping = [[<c-\>]],
     persist_size = true,
-    shade_terminals = true,
+    shade_terminals = false,
     shading_factor = -8,
     insert_mappings = false,
     terminal_mappings = false,
     start_in_insert = true,
     direction = default_direction,
     highlights = {
+      -- border = "Normal",
+      -- background = "Normal",
       -- highlights which map to a highlight group name and a table of it's values
       -- NOTE: this is only a subset of values, any group placed here will be set for the terminal window split
       -- Normal = {

@@ -118,6 +118,12 @@ local aucmd_dict = {
       end,
     },
     {
+      pattern = "*.mjml",
+      callback = function()
+        vim.cmd([[set filetype=eruby]])
+      end,
+    },
+    {
       pattern = "*.vifm",
       callback = function()
         vim.cmd([[set filetype=vim]])
@@ -127,12 +133,6 @@ local aucmd_dict = {
       pattern = "*.svg",
       callback = function()
         vim.cmd([[set filetype=xml]])
-      end,
-    },
-    {
-      pattern = "*.mjml",
-      callback = function()
-        vim.cmd([[set filetype=html]])
       end,
     },
     {

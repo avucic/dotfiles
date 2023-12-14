@@ -22,10 +22,10 @@ end
 
 local _user_terminals = {}
 
-function M.toggle_term_cmd(cmd, opts)
+function M.toggle_term_cmd(opts)
+  local cmd = opts.cmd
   if _user_terminals[cmd] == nil then
-    _user_terminals[cmd] =
-        require("toggleterm.terminal").Terminal:new({ cmd = cmd, hidden = true, direction = opts.direction })
+    _user_terminals[cmd] = require("toggleterm.terminal").Terminal:new(opts)
   end
   _user_terminals[cmd]:toggle()
 end

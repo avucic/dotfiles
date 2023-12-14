@@ -4,6 +4,7 @@ return {
   -- example of imporing a plugin, comment out to use it or add your own
   -- available plugins can be found at https://github.com/AstroNvim/astrocommunity
 
+  { import = "astrocommunity.utility.noice-nvim" },
   { import = "astrocommunity.code-runner.overseer-nvim" },
   { import = "astrocommunity.syntax.hlargs-nvim" },
   { import = "astrocommunity.test.neotest" },

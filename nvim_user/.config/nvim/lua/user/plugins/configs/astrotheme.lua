@@ -117,8 +117,8 @@
 
 return function(_, opts)
   return {
-    termguicolors = true,    -- Bool value, toggles if termguicolors are set by AstroTheme.
-    terminal_colors = true,  -- Bool value, toggles if terminal_colors are set by AstroTheme.
+    termguicolors = true, -- Bool value, toggles if termguicolors are set by AstroTheme.
+    terminal_colors = false, -- Bool value, toggles if terminal_colors are set by AstroTheme.
     plugin_default = "auto", -- Sets how all plugins will be loaded
     -- "auto": Uses lazy / packer enabled plugins to load highlights.
     -- true: Enables all plugins highlights.
@@ -272,7 +272,7 @@ return function(_, opts)
           hl["SpellRare"] = { sp = "blue", undercurl = true }
           hl["SpellLocal"] = { sp = "red", undercurl = true }
           hl["@spell.markdown"] = { fg = C.ui.text, bold = false }
-          hl["@text.reference.markdown_inline"] = { fg = C.syntax.blue, bold = false }
+          hl["@text.reference.markdown_inline"] = { fg = C.syntax.blue, bold = false, underline = true }
           --
           hl["STS_highlight"] = { fg = "#00F1F5" }
         end,
