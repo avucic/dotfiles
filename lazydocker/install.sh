@@ -4,5 +4,5 @@
 set -e
 
 if ! command -v tmux &>/dev/null; then
-  brew install lazygit
+  brew install lazydocker
 fi

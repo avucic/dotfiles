@@ -11,9 +11,7 @@ command="${1}"
 # http://www.tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_07.html
 shift
 
-case "${command}" in
-  "install")
-    package="${1}"
+case "${command}" in "install") package="${1}"
 
     echo "🚀 Installing package: ${package}"
 

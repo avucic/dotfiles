@@ -52,7 +52,7 @@ fi
 # `znap prompt` makes your prompt visible in just 15-40ms!
 znap prompt sindresorhus/pure
 
-znap source avucic/ohmyzsh \
+znap source ohmyzsh/ohmyzsh \
   lib/{git,grep,history,key-bindings,completion} \
   plugins/git \
   plugins/colored-man-pages \

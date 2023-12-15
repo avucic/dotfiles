@@ -13,7 +13,7 @@ return {
         "solargraph",
         -- "ruby_ls",
         "emmet_ls",
-        "gopls",
+        -- "gopls",
         "tsserver",
         "html",
         "cssls",

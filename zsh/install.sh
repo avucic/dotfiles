@@ -2,12 +2,7 @@
 
 set -e
 
-echo "▶️  Zgen setup"
-curl -L git.io/antigen >$HOME/antigen.zsh
-git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
-
-if ! [ -e $HOME/.oh-my-zsh ]; then
-    echo "▶️  Oh my zsh setup"
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc
-    git clone https://github.com/svenXY/timewarrior ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/timewarrior
+if ! [ -e $HOME/.znap/custom/ohmyzsh/ohmyzsh/plugins ]; then
+  cd ~/.znap/custom/ohmyzsh/ohmyzsh/plugins
+  git clone https://github.com/MohamedElashri/exa-zsh
 fi
