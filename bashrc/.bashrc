@@ -19,4 +19,5 @@ export PATH=/Users/vucinjo/bin:$PATH
 # pip dir
 export PATH=$PATH:/usr/local/bin
 export PATH="/Users/vucinjo/bin/:$PATH"
+export TODOTXT_CFG_FILE=~/.config/todo.txt-cli/conf.cfg
 

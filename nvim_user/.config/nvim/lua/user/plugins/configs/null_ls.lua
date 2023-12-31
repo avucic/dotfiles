@@ -97,6 +97,14 @@ return function(_, opts)
     -- diagnostics.checkmake,
     code_actions.eslint_d,
     formatting.gofmt,
+    formatting.beautysh,
+    formatting.beautysh.with({
+      command = "beautysh",
+      args = {
+        "--indent-size 2",
+        "$FILENAME",
+      },
+    }),
     formatting.rustfmt.with({
       extra_args = { "--edition=2021" },
     }),

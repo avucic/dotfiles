@@ -97,13 +97,16 @@ return {
           horz_split = "<C-h>",
           tabedit = "<C-t>",
           edit = "<C-e>",
-          ESC = "<ESC>",
+        },
+        cmds = {
+          lazydocker_cmd = "lazydocker",
         },
       })
     end,
     cmd = {
       "Neomutt",
       "Lazygit",
+      "Lazydocker",
       "Joshuto",
       "Ranger",
       "Broot",

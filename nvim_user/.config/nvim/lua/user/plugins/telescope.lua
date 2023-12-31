@@ -66,13 +66,13 @@ return {
   {
     "johmsalas/text-case.nvim",
     cmd = {
+      "Subs",
       "TextCaseOpenTelescope",
       "TextCaseOpenTelescopeQuickChange",
       "TextCaseOpenTelescopeLSPChange",
     },
     config = function()
       require("textcase").setup()
-      local telescope = require("telescope")
     end,
     -- keys = {
     --   { "ga.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "v" }, desc = "Telescope" },

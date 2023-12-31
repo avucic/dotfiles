@@ -30,7 +30,7 @@ command! NeotestOutput lua require("neotest").output.open()
       enabled = false,
     },
     diagnostic = {
-      enabled = false,
+      enabled = true,
     },
     consumers = {
       -- overseer = require("neotest.consumers.overseer"),
@@ -43,12 +43,27 @@ command! NeotestOutput lua require("neotest").output.open()
       require("neotest-python"),
       require("neotest-rspec")({
         rspec_cmd = function()
-          return vim.tbl_flatten({
-            "bundle",
-            "exec",
-            "rspec",
-          })
+          local cmd = os.getenv("NEOTEST_RSPEC_COMMAND") or "docker compose exec -i test bundle exec rspec"
+          words = {}
+          for word in cmd:gmatch("[%w-]+") do
+            table.insert(words, word)
+          end
+          return vim.tbl_flatten(words)
         end,
+
+        transform_spec_path = function(path)
+          local prefix = require("neotest-rspec").root(path)
+          return path:gsub(prefix .. "/", "")
+        end,
+
+        results_path = "/app/tmp/rspec.output",
+        -- rspec_cmd = function()
+        --   return vim.tbl_flatten({
+        --     "bundle",
+        --     "exec",
+        --     "rspec",
+        --   })
+        -- end,
       }),
     },
   })

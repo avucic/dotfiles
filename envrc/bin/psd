@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+# The first digit is the number of characters on the name length of the website * 3.
+# The second digit is “t” is the number if name length is devided by 2, and “f” if it's not.
+# The third digit num of vocals.
+# The fourth digit is the last letter of the name of the website.
+# The fifth digit is “$” if the letter in the previous step was a vowel, and “%” if it was a consonant.
+# The last three digits are the first three letters of the name of the website if num of letters are even or first middle and last letter if letters are odd.
+# ["1a", "2b", "3c", "4d", "5e", "6f", "7g", "8h", "9i", "10j", "11k", "12l", "13m", "14n", "15o", "16p", "17q", "18r", "19s", "20t", "21u", "22v", "23w", "24x", "25y", "26z"]
+def psd(s)
+  vowels = %w[a e i o u]
+  pw = []
+  pw << s.length * 3
+  pw << (s.length % 3 == 0 ? 't' : 'f')
+  pw << s.scan(/a|e|i|o|u/).count
+  pw << s[-1]
+  pw << (vowels.include?(s[-1]) ? '$' : '%')
+  pw << s[0..2] if s.length.even?
+  pw << (s[0] << s[(s.length / 2).ceil] << s[-1]) unless s.length.even?
+  pw = pw.join('')
+  pw[-1] = pw[-1].upcase
+  pw << (pw.length * 3).to_s
+  pw
+end
+name, verify = ARGV
+if name
+ print(verify ? psd(name) == verify : psd(name))
+ $stdout.flush
+else
+  puts "Enter the name"
+end
+# p psd("twitter") == "21t2r%ttR"
+# p psd("facebook") == "24t4k%faC"

@@ -136,6 +136,24 @@ local aucmd_dict = {
       end,
     },
     {
+      pattern = ".env.*",
+      callback = function()
+        vim.cmd([[set filetype=sh]])
+      end,
+    },
+    {
+      pattern = "Dockerfile.*",
+      callback = function()
+        vim.cmd([[set filetype=dockerfile]])
+      end,
+    },
+    {
+      pattern = "*.conf.template",
+      callback = function()
+        vim.cmd([[set filetype=nginx]])
+      end,
+    },
+    {
       pattern = "*.turbo_stream.erb",
       callback = function()
         vim.cmd([[set filetype=eruby]])

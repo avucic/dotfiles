@@ -1,43 +1,6 @@
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# source ~/.env
-# source "${HOME}/.zgen/zgen.zsh"
-#
-# # if the init script doesn't exist
-# if ! zgen saved; then
-#
-#   # specify plugins here
-#   zgen oh-my-zsh
-#
-#   zgen oh-my-zsh plugins/git
-#   zgen oh-my-zsh plugins/sudo
-#   zgen oh-my-zsh plugins/command-not-found
-#   zgen oh-my-zsh plugins/docker
-#   # zgen oh-my-zsh plugins/rails
-#   zgen oh-my-zsh plugins/brew
-#   zgen oh-my-zsh plugins/asdf
-#   zgen oh-my-zsh plugins/ruby
-#   zgen oh-my-zsh plugins/autojump
-#   zgen oh-my-zsh plugins/direnv
-#   zgen oh-my-zsh plugins/rust
-#
-#   zgen load zsh-users/zsh-syntax-highlighting
-#   zgen load zsh-users/zsh-completions
-#   zgen load zsh-users/zsh-autosuggestions
-#   zgen load svenXY/timewarrior
-#   zgen load spaceship-prompt/spaceship-prompt
-#   zgen load olets/zsh-abbr
-#   zgen load MichaelAquilina/zsh-you-should-use
-#   zgen load marlonrichert/zsh-autocomplete
-#
-#   # workadround
-#   zgen load ~/.zgen/olets/zsh-abbr-main/zsh-abbr.plugin.zsh
-#
-#   # generate the init script from plugins above
-#   zgen save
-# fi
-
 [[ -r ~/.znap/znap.zsh ]] ||
     git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/.znap
 
@@ -52,37 +15,39 @@ fi
 # `znap prompt` makes your prompt visible in just 15-40ms!
 znap prompt sindresorhus/pure
 
+export ZSH_CUSTOM=~/.znap/custom
+
+# doesn't work as plugin
+[[ -r ~/.znap/completions/_docker ]] || ln -s ~/.znap/custom/ohmyzsh/ohmyzsh/plugins/docker/completions/* ~/.znap/completions/
+[[ -r ~/.znap/completions/_topydo ]] || ln -s ~/.znap/custom/ajnasz/topydo.zsh/_topydo ~/.znap/completions/
+# [[ -r ~/.znap/completions/_httpie ]] || ln -s ~/.znap/custom/ohmyzsh/ohmyzsh/plugins/httpie/* ~/.znap/completions/
+
 znap source ohmyzsh/ohmyzsh \
   lib/{git,grep,history,key-bindings,completion} \
-  plugins/git \
-  plugins/colored-man-pages \
-  plugins/docker-compose \
-  plugins/asdf \
-  plugins/autojump \
-  plugins/direnv \
-  plugins/ruby \
-  plugins/rake \
-  plugins/asdf \
-  plugins/exa-zsh \
-  plugins/tmux
+  plugins/{git,cp,docker-compose,rake,autojump,bundler,ruby,tmux,direnv,asdf,fzf,gitignore,history,tmuxinator}
 
-#TODO:
+
 # fix rust plugins/rust \
-# plugins/docker \
 
 # `znap source` starts plugins.
+znap source MohamedElashri/exa-zsh
 znap source zsh-users/zsh-syntax-highlighting
 znap source zsh-users/zsh-completions
 znap source zsh-users/zsh-autosuggestions
-znap source svenXY/timewarrior
 znap source olets/zsh-abbr
 znap source MichaelAquilina/zsh-you-should-use
 znap source marlonrichert/zsh-autocomplete
 
+
+# znap source go-task/task lib/completion/zsh/_task
+
+# `znap eval` makes evaluating generated command output up to 10 times faster.
+znap eval iterm2 'curl -fsSL https://iterm2.com/shell_integration/zsh'
+
 # zstyle ':autocomplete:*' default-context history-incremental-search-backward
 
 #  Vars and Paths
-export PATH=/Users/vucinjo/bin:$PATH
+export PATH=/Users/vucinjo/.bin:$PATH
 export PATH="$HOME/dotfiles/bin:$PATH"
 # pip dir
 export PATH=$PATH:/usr/local/bin
@@ -104,27 +69,6 @@ export ZK_NOTEBOOK_DIR='/Users/vucinjo/Dropbox/Notes'
 # export NVIM_LISTEN_ADDRESS=/tmp/nvim-$(basename $PWD)
 export NVIM_LISTEN_ADDRESS=/tmp/nvim.pipe
 
-# if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-#     alias nvim=nvr --servername $NVIM_LISTEN_ADDRESS --nostart -cc split --remote-wait +'set bufhidden=wipe'
-# fi
-#
-# # Run
-# # alias du="docker-compose up"
-# # Stop all containers
-# dstop() { docker stop $(docker ps -a -q); }
-# # Remove all containers
-# drm() { docker rm $(docker ps -a -q); }
-# # Stop and Remove all containers
-# # Remove all images
-# dri() { docker rmi $(docker images -q); }
-# drni() { docker rmi $(docker images | grep none | awk '{print $3}') }
-# # clean volumes
-# drv() { docker volume rm $(docker volume ls -qf dangling=true); }
-# # Dockerfile build, e.g., $dbu tcnksm/test
-# dbu() { docker build -t=$1 .; }
-# # Show all alias related docker
-# dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
-# # Bash into running container
 dstats() { docker stats --all --format "table {{.ID}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}" }
 dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
 
@@ -163,28 +107,7 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-
-# Taskwarrior
-alias in='task add'
-onday () {
-    deadline=$1
-    shift
-    in +onday wait:$deadline $@
-}
-
-read_and_review (){
-    link="$1"
-    title=$(wget -qO- $link | perl -l -0777 -ne 'print $1 if /<title.*?>\s*(.*?)\s*<\/title/si')
-    echo $title
-    descr="\"Read and review: $title\""
-    id=$(task add +review "$descr" | sed -n 's/Created task \(.*\)./\1/p')
-    task "$id" annotate "$link"
-}
-
-function zr () { zellij run --name "$*" -- zsh -ic "$*";}
-function zrf () { zellij run --name "$*" --floating -- zsh -ic "$*";}
-function ze () { zellij edit "$*";}
-function zef () { zellij edit --floating "$*";}
-
-
 alias rnr=read_and_review
+# alias t="topydo columns"
+source /opt/homebrew/etc/bash_completion.d/todo_completion complete -F _todo t
+alias t="/opt/homebrew/bin/todo.sh -d $HOME/.config/todo.txt-cli/conf.cfg"

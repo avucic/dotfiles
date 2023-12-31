@@ -200,6 +200,9 @@ return function(_, opts)
           hl.DashboardTasks = { fg = C.ui.purple }
           hl.DashboardFooter = { fg = C.syntax.mute }
 
+          hl.NoiceCmdlinePopupBorder = { fg = C.ui.text }
+          hl.NoiceCmdlinePopupTitle = { fg = C.ui.text }
+
           -- hl.Normal = { fg = C.fg, bg = C.bg }
           -- hl.FloatBorder = { fg = C.ui.text_inactive }
           -- hl.FloatTitle = { fg = C.ui.text_inactive }

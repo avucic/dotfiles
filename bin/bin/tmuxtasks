@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ ! "$(tmux display-message -p -F "#{session_name}")" = "popup" ];then
+  tmux new -d -s popup && tmux new-window -n Tasks -t popup 'tmuxp load -a tasks'
+  tmux display-popup -E "tmux attach -t popup"
+else
+  tmux display-popup -E "tmux select-window -t popup:'Tasks' || tmux new-window -n Tasks -t popup: 'tmuxp load -a tasks'"
+fi
+

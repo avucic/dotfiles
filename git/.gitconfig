@@ -81,3 +81,14 @@
 	cmd = nvim -d -c \"wincmd l\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
 [init]
 	defaultBranch = master
+[maintenance]
+	repo = /Users/vucinjo/.znap/custom/MichaelAquilina/zsh-you-should-use
+	repo = /Users/vucinjo/.znap/custom/MohamedElashri/exa-zsh
+	repo = /Users/vucinjo/.znap/custom/marlonrichert/zsh-autocomplete
+	repo = /Users/vucinjo/.znap/custom/ohmyzsh/ohmyzsh
+	repo = /Users/vucinjo/.znap/custom/olets/zsh-abbr
+	repo = /Users/vucinjo/.znap/custom/sindresorhus/pure
+	repo = /Users/vucinjo/.znap/custom/svenXY/timewarrior
+	repo = /Users/vucinjo/.znap/custom/zsh-users/zsh-autosuggestions
+	repo = /Users/vucinjo/.znap/custom/zsh-users/zsh-completions
+	repo = /Users/vucinjo/.znap/custom/zsh-users/zsh-syntax-highlighting

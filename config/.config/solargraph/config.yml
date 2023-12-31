@@ -5,3 +5,10 @@ plugins:
 reporters:
   - standardrb
   - reek
+exclude:
+  - views/**/*
+  - bundle/**/*
+  - node_modules/**/*
+  - spec/**/*
+  - test/**/*
+  - vendor/**/*

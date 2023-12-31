@@ -82,8 +82,13 @@ return function(client, bufnr)
     vim.keymap.set("n", "<leader>oK", "<cmd>Telescope tailiscope<cr>", { desc = "Tailwind docs" })
   end
 
+  -- if client.name == "nginx" then
+  --   require("telescope").load_extension("tailiscope")
+  --   vim.keymap.set("n", "<leader>oK", "<cmd>Telescope tailiscope<cr>", { desc = "Tailwind docs" })
+  -- end
+
   -- TODO: why settings doesn't work?
-  if client.name == "lua_ls" then
+  if client.name == "lua_format" then
     disable_formatting(client)
   end
 

@@ -14,6 +14,8 @@ return {
         -- "ruby_ls",
         "emmet_ls",
         -- "gopls",
+        "bashls",
+        "dockerls",
         "tsserver",
         "html",
         "cssls",
@@ -37,9 +39,12 @@ return {
     -- overrides `require("mason-null-ls").setup(...)`
     opts = {
       ensure_installed = {
+        "docker-compose-language-service",
         "prettier",
+        "prettierd",
         "erb_lint",
         "stylua",
+        "beautysh",
         "gopls",
         "marksman",
         "zk",

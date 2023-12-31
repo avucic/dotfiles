@@ -1,4 +1,5 @@
-vim.cmd([[vnoremap <C-r> "hy:%s/<C-r>h//gI<left><left><left>]])
+vim.cmd([[vnoremap <C-r> "hy:%s@<C-r>h@@gI<left><left><left>]])
+-- vim.cmd([[vnoremap <C-r> "hy:Subs/<C-r>h//gI<left><left><left>]])
 -- vim.cmd([[nnoremap <leader-r> :%s/\<<C-r><C-w>\>/]])
 
 -- command line
@@ -148,7 +149,7 @@ maps.n["<leader>bp"] = {
 maps.n["<leader>bq"] =
   { "<cmd>lua require('astronvim.utils.buffer').close(0)<CR><cmd>WhichKey <LT>leader>b<CR>", desc = "Close" }
 maps.n["<leader>bQ"] = {
-  "<cmd>lua require('astronvim.utils.buffer').close(0, true)<CR><cmd>WhichKey <LT>leader>b<CR>",
+  "<cmd>q<cr>",
   desc = "Force close",
 }
 maps.n["<leader>b-"] = {
@@ -256,16 +257,7 @@ maps.n["<leader>nnd"] =
 maps.n["<leader>nnl"] =
   { "<cmd>:ZkFindOrCreateNote { group='literature_notes', dir='literature_notes'}<cr>", desc = "Literature note" }
 maps.n["<leader>nnp"] = { "<cmd>:ZkFindOrCreateProjectNote<cr>", desc = "Project note" }
-
-maps.n["<leader>ntt"] = {
-  "<cmd>lua require('user.core.utils').toggle_term_cmd({cmd = 'vit list due:today or +next', direction = 'float'})<CR>",
-  desc = "Tasks today",
-}
-maps.n["<leader>ntT"] = {
-  "<cmd>lua require('user.core.utils').toggle_term_cmd({cmd = 'timew week', direction = 'float'})<CR>",
-  desc = "Tasks week",
-}
-maps.n["<leader>nto"] = { "<cmd>ZkAnnotateTask<cr>", desc = "Tasks week" }
+maps.n["<leader>ntt"] = { "<cmd>lua _TASKS_TOGGLE()<CR>", desc = "Tasks today" }
 
 maps.n["<leader>nfg"] = { "<Cmd>ZkGrep<CR>", desc = "Grep" }
 maps.n["<leader>nft"] = { "<Cmd>ZkTags<CR>", desc = "By tags" }
@@ -275,7 +267,13 @@ maps.n["<leader>nfo"] = { "<Cmd>ZkTags<CR>", desc = "Orphans" }
 
 maps.n["<leader>njd"] = { "<cmd>ZkFindOrCreateJournalDailyNote<cr>", desc = "New dalily journal" }
 maps.n["<leader>njf"] = { "<cmd>ZkNew{group='fer', dir='journal/fer'}<cr>", desc = "New fer session" }
-maps.n["<leader>ns"] = { "<cmd>ScratchPad<cr>", desc = "Scratch Pad" }
+maps.n["<leader>ns"] = { "<cmd>lua _SCRATCHPAD_TOGGLE()<cr>", desc = "Scratch Pad" }
+
+-- Docker
+maps.n["<leader>e"] = {
+  "<cmd>lua require('user.core.utils').toggle_term_cmd({cmd = 'lazydocker', direction = 'float'})<CR>",
+  desc = "LazyDocker",
+}
 
 -- +Open
 maps.n["<leader>og"] = { "<cmd>ChatGPT<cr>", desc = "ChatGPT" }
@@ -429,5 +427,10 @@ maps.v["<c-f>"] = { "y<ESC>:lua require('telescope.builtin').live_grep({default_
 -- T ------------------------------------------------------------------------------------
 maps.t["\\\\"] = { "<cmd>ToggleTermToggleAll<cr>" }
 maps.t["<c-q>"] = { "<C-\\><C-n>" }
+
+maps.t["<C-h>"] = false
+maps.t["<C-j>"] = false
+maps.t["<C-k>"] = false
+maps.t["<C-l>"] = false
 
 return maps

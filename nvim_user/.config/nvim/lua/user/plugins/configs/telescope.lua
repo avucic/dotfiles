@@ -231,6 +231,9 @@ return function(_, _)
         -- theme = { }, -- use own theme spec
         -- layout_config = { mirror=true }, -- mirror preview pane
       },
+      project = {
+        patterns = { ".git", "Makefile", "package.json", "Gemfile" },
+      },
       file_browser = {
         theme = "ivy",
         -- disables netrw and use telescope-file-browser in its place

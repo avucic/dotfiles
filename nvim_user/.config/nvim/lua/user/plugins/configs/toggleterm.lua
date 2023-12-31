@@ -1,5 +1,48 @@
 local M = {}
 
+local Terminal = require("toggleterm.terminal").Terminal
+
+local scratchpad = Terminal:new({
+  cmd = "nvim scratchpad.md",
+  dir = "~/Dropbox/Notes",
+  direction = "float",
+  hidden = true,
+  close_on_exit = true,
+  float_opts = {
+    width = function()
+      return math.floor(vim.o.columns * 0.5)
+    end,
+
+    height = function()
+      return math.floor((vim.o.lines - vim.o.cmdheight) * 0.5)
+    end,
+  },
+})
+
+function _SCRATCHPAD_TOGGLE()
+  scratchpad:toggle()
+end
+
+local tasks = Terminal:new({
+  cmd = "tmuxp load todo",
+  direction = "float",
+  hidden = true,
+  close_on_exit = true,
+  float_opts = {
+    width = function()
+      return math.floor(vim.o.columns * 0.5)
+    end,
+
+    height = function()
+      return math.floor((vim.o.lines - vim.o.cmdheight) * 0.5)
+    end,
+  },
+})
+
+function _TASKS_TOGGLE()
+  tasks:toggle()
+end
+
 local function set_terminal_keymaps()
   local opts = { buffer = 0 }
   vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
@@ -50,9 +93,9 @@ function M.opts()
         set_terminal_keymaps()
       end
     end,
+
     on_open = function(term)
       -- vim.cmd("startinsert!")
-      -- vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
     end,
     -- open_mapping = [[\\]],
     open_mapping = [[<c-\>]],

@@ -1,0 +1,13 @@
+[all]
+title = All tasks
+filterexpr =
+groupexpr =
+
+[today]
+title = Due today
+filterexpr = due:tod
+
+[overdue]
+title = Overdue tasks
+filterexpr = due:<tod
+sortexpr = desc:due

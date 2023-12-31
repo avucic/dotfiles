@@ -1,0 +1,22 @@
+session_name: popup
+windows:
+- layout: f248,467x84,0,0,475
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: zsh
+  start_directory: /Users/vucinjo/dotfiles
+  window_name: dotfiles
+- focus: 'true'
+  layout: e0f0,231x39,0,0{66x39,0,0,477,164x39,67,0[164x31,67,0{50x31,67,0,478,47x31,118,0,482,65x31,166,0[65x15,166,0,479,65x15,166,16,480]},164x7,67,32,481]}
+  options: {}
+  panes:
+  - bash
+  - bash
+  - zsh
+  - bash
+  - bash
+  - focus: 'true'
+    shell_command: Python
+  start_directory: /Users/vucinjo/dotfiles
+  window_name: Tasks
