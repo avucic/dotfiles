@@ -4,7 +4,7 @@
 
 set -e
 
-brew install entr
+brew install entr gnu-sed findutils
 # if [ ! -e ~/.todo.actions.d/note ]; then
 #   mkdir -p ~/.todo.actions.d
 #
@@ -20,6 +20,11 @@ fi
 if [ ! -e ~/.todo.actions.d/edit ]; then
   wget https://raw.githubusercontent.com/mbrubeck/todo.txt-cli/master/todo.actions.d/edit -P ~/.todo.actions.d/edit/
   chmod u+x ~/.todo.actions.d/edit/edit
+fi
+
+if [ ! -e ~/.todo.actions.d/edit ]; then
+  wget https://raw.githubusercontent.com/severoraz/todotxt-cli-tedit/master/tedit -P ~/.todo.actions.d/tedit/
+  chmod u+x ~/.todo.actions.d/tedit/tedit
 fi
 
 if [ ! -e ~/.todo.actions.d/watch ]; then

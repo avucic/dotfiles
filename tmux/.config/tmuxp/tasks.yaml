@@ -7,9 +7,9 @@ windows:
     panes:
       - focus: "true"
         shell_command: t watch ls
-      - t watch view date today
+      - t watch view today
       - t watch view context @in
       - t watch view context @me
-      - t watch view project pw
+      - t watch list +pw -@in
       - focus: "true"
         shell_command: blank

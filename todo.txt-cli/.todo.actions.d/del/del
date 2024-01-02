@@ -1,0 +1,21 @@
+#!/bin/bash
+
+action=$1
+shift
+
+[ "$action" = "usage" ] && {
+  echo "  Customized del to delete notes through deletion"
+  echo ""
+  exit
+}
+
+
+read -p "Are you sure? (y/n) " choice
+case "$choice" in
+  y|Y )
+    yes | "$TODO_SH" note del "$@" >/dev/null
+    yes | "$TODO_SH" command del "$@"
+    ;;
+  n|N ) ;;
+  * ) echo "invalid";;
+esac

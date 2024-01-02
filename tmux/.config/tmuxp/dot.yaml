@@ -1,0 +1,7 @@
+session_name: dotfiles
+windows:
+  - window_name: Dotfiles
+    start_directory: ~/dotfiles
+    focus: "true"
+    panes:
+      - nvim

@@ -6,8 +6,9 @@ return function(_, opts)
 
   dap.adapters.ruby = function(callback, config)
     local port = config.debuggerPort or os.getenv("RUBY_DEBUG_PORT") or "12345"
-    local host = config.debuggerPort or "127.0.0.1"
+    local host = config.debuggeHost or "127.0.0.1"
 
+    dap.set_log_level("TRACE")
     print("DAP: Launching debugger with", port, host, vim.inspect(config.executable))
     callback({
       type = "server",
@@ -17,8 +18,10 @@ return function(_, opts)
         local final_config = vim.deepcopy(config)
         local current_line = vim.fn.line(".")
         local script = final_config.script and final_config.script:gsub("${currentLine}", current_line)
-        final_config.script = script
         local executable = config.executable
+
+        final_config.script = script
+
         if executable then
           for i, v in pairs(executable.args) do
             v = v:gsub("${currentLine}", current_line)

@@ -107,7 +107,6 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-alias rnr=read_and_review
 # alias t="topydo columns"
 source /opt/homebrew/etc/bash_completion.d/todo_completion complete -F _todo t
-alias t="/opt/homebrew/bin/todo.sh -d $HOME/.config/todo.txt-cli/conf.cfg"
+alias t="/opt/homebrew/bin/todo.sh"

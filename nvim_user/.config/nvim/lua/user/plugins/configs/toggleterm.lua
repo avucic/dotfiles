@@ -24,7 +24,7 @@ function _SCRATCHPAD_TOGGLE()
 end
 
 local tasks = Terminal:new({
-  cmd = "tmuxp load todo",
+  cmd = "tmuxp load tasks",
   direction = "float",
   hidden = true,
   close_on_exit = true,
