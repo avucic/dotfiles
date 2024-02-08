@@ -70,6 +70,7 @@ return function(plugin, opts)
       },
     },
     ["<leader>"] = {
+      f = { name = "+Files" },
       x = {
         name = "+Text",
         g = { name = "+Google translate" },
