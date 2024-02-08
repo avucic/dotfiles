@@ -276,7 +276,9 @@ maps.n["<leader>e"] = {
 }
 
 -- +Open
-maps.n["<leader>og"] = { "<cmd>ChatGPT<cr>", desc = "ChatGPT" }
+maps.n["<leader>og"] = { ":Gen<CR>", desc = "Ollama" }
+maps.n["<leader>oG"] = { "<cmd>lua require('gen').select_model()<cr>", desc = "Change Ollama model" }
+maps.v["<leader>og"] = { ":Gen<CR>", desc = "Ollama" }
 -- maps.n["<leader>odo"] =
 -- { "<cmd>lua require('user.plugins.configs.dadbod').db_tasks()<cr>", desc = "Open DB Connection" }
 maps.n["<leader>odt"] = { "<cmd>DBUIToggle<cr>", desc = "Toggle DB Connection" }
