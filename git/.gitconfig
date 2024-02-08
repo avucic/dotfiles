@@ -2,6 +2,7 @@
   excludesFile = ~/.gitignore
 	autocrlf = input
 	editor = nvim
+  pager = delta
 [user]
 	name = Aleksandar Vucic
 	email = vucinjo@gmail.com
@@ -46,7 +47,6 @@
 	fc = !git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout
 	mrb = !git for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
 
-
 [color]
 	ui = true
 [push]
@@ -75,10 +75,30 @@
 	keepBackup = false
 
 [mergetool "nvimdiff"]
-	cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
-  trustExitCode = true
-[mergetool "fugitive"]
+	; cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 	cmd = nvim -d -c \"wincmd l\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+
+; [core]
+;     pager = delta
+
+[delta]
+	features = side-by-side line-numbers decorations
+	navigate = true
+	whitespace-error-style = 22 reverse
+[delta "decorations"]
+	commit-decoration-style = bold yellow box ul
+	file-style = bold yellow ul
+	file-decoration-style = none
+[interactive]
+	diffFilter = delta --color-only
+
+
+
+
+
+
+
+
 [init]
 	defaultBranch = master
 [maintenance]
