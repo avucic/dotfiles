@@ -70,6 +70,7 @@
 
 [merge]
 	tool = nvimdiff
+	conflictstyle = diff3
 
 [mergetool]
 	keepBackup = false
@@ -78,19 +79,18 @@
 	; cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 	cmd = nvim -d -c \"wincmd l\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
 
-; [core]
-;     pager = delta
-
 [delta]
 	features = side-by-side line-numbers decorations
 	navigate = true
 	whitespace-error-style = 22 reverse
+	true-color = always
 [delta "decorations"]
 	commit-decoration-style = bold yellow box ul
 	file-style = bold yellow ul
 	file-decoration-style = none
+
 [interactive]
-	diffFilter = delta --color-only
+    diffFilter = delta --color-only --features=interactive
 
 
 
