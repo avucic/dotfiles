@@ -1,47 +1,8 @@
 local M = {}
 
-local Terminal = require("toggleterm.terminal").Terminal
-
-local scratchpad = Terminal:new({
-  cmd = "nvim scratchpad.md",
-  dir = "~/Dropbox/Notes",
-  direction = "float",
-  hidden = true,
-  close_on_exit = true,
-  float_opts = {
-    width = function()
-      return math.floor(vim.o.columns * 0.5)
-    end,
-
-    height = function()
-      return math.floor((vim.o.lines - vim.o.cmdheight) * 0.5)
-    end,
-  },
-})
-
-function _SCRATCHPAD_TOGGLE()
-  scratchpad:toggle()
-end
-
-local tasks = Terminal:new({
-  cmd = "tmuxp load tasks",
-  direction = "float",
-  hidden = true,
-  close_on_exit = true,
-  float_opts = {
-    width = function()
-      return math.floor(vim.o.columns * 0.5)
-    end,
-
-    height = function()
-      return math.floor((vim.o.lines - vim.o.cmdheight) * 0.5)
-    end,
-  },
-})
-
-function _TASKS_TOGGLE()
-  tasks:toggle()
-end
+require("user.plugins.configs.toggleterm.lazygit")
+require("user.plugins.configs.toggleterm.tasks")
+require("user.plugins.configs.toggleterm.scratchpad")
 
 local function set_terminal_keymaps()
   local opts = { buffer = 0 }
