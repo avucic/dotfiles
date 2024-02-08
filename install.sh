@@ -36,3 +36,4 @@ export DOTFILES_LOCATION
 ./bin/dotfiles install stylua
 ./bin/dotfiles install prettier
 ./bin/dotfiles install irb
+./bin/dotfiles install marksman
