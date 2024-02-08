@@ -166,7 +166,7 @@ maps.n["<leader>gl"] = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc = 
 maps.n["<leader>gO"] = { "<cmd>OpenInGHFile<cr>", desc = "Open current file in Github" }
 maps.n["<leader>go"] = { "<cmd>OpenInGHRepo<cr>", desc = "Open page with line in Github" }
 maps.n["<leader>gs"] = {
-  "<cmd>lua require('user.core.utils').toggle_term_cmd({cmd = 'lazygit --use-config-file ~/.config/lazygit/config.yml', direction = 'float'})<CR>",
+  "<cmd>lua _LAZYGIT_TOGGLE()<CR>",
   desc = "Git status",
 }
 maps.n["<leader>gdd"] = { "<cmd>lua require('gitsigns').diffthis()<cr>", desc = "Diff" }
