@@ -2,14 +2,13 @@ session_name: popup
 windows:
   - window_name: Tasks
     focus: "true"
-    layout: e0f0,231x39,0,0{66x39,0,0,477,164x39,67,0[164x31,67,0{50x31,67,0,478,47x31,118,0,482,65x31,166,0[65x15,166,0,479,65x15,166,16,480]},164x7,67,32,481]}
+    # layout: e621,103x26,0,0{36x26,0,0,35,66x26,37,0[66x21,37,0{33x21,37,0,36,32x21,71,0,37},66x4,37,22,38]}
+    layout: 9882,233x39,0,0{74x39,0,0,66,158x39,75,0[158x28,75,0{79x28,75,0,67,78x28,155,0,68},158x10,75,29,69]}
     options: {}
     panes:
       - focus: "true"
         shell_command: t watch ls
-      - t watch view today
       - t watch view context @in
       - t watch view context @me
-      - t watch list +pw -@in
       - focus: "true"
         shell_command: blank
