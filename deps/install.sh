@@ -11,7 +11,8 @@ for i in stow yarn stylua tmuxp sqlfluff rg direnv \
 	pgformatter protobuf jq zoxide yaml-language-server \
 	fd checkmake mike-engel/jwt-cli/jwt-cli nvr direnv zk code-minimap fd  \
 	sqlfluff rust-analyzer viu tree htop taskd timewarrior nim vit \
-	xclip wget silicon coreutils libpq wrk bash bat fzf highlight vips libyaml autojump exa httpie
+	xclip wget silicon coreutils libpq wrk bash bat fzf highlight vips libyaml autojump exa httpie gh git-delta \
+  neovim-remote
 do
 	if ! command -v $i &>/dev/null; then
   	brew install $i
