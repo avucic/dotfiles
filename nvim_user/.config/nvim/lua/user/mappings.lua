@@ -13,6 +13,8 @@ local maps = { i = {}, n = {}, v = {}, t = {}, x = {} }
 
 -- N ------------------------------------------------------------------------------------
 maps.n["<leader>c"] = false
+maps.n["<c-z>"] = "<Nop>"
+maps.n["<C-q>"] = false
 maps.n["<leader>C"] = false
 maps.n["<leader>n"] = false
 maps.n["<leader>p"] = false
@@ -193,6 +195,7 @@ maps.n["<leader>tt"] = { "<cmd>OverseerRun<cr>", desc = "Run" }
 maps.n["<leader>tl"] = { "<cmd>OverseerRestartLast<cr>", desc = "last task" }
 maps.n["<leader>to"] = { "<cmd>Other<cr>", desc = "Other file" }
 maps.n["<leader>tO"] = { "<cmd>OtherClear<cr>", desc = "Other clear" }
+maps.n["<leader>ta"] = { "<cmd>OverseerQuickAction<cr>", desc = "Task action" }
 maps.n["<leader>tf"] = false
 maps.n["<leader>th"] = false
 maps.n["<leader>tn"] = false
@@ -340,6 +343,7 @@ maps.n["<leader>xt"] = { "<cmd>lua require('nvim-toggler').toggle()<cr>", desc =
 maps.v["<leader>xge"] = { ":'<,'>Translate English<CR>", desc = "english" }
 maps.v["<leader>xgs"] = { ":'<,'>Translate Serbian<CR>", desc = "serbian" }
 maps.n["<leader>xi."] = { "<cmd>TextCaseOpenTelescope<CR>", desc = "Current word" }
+maps.v["<leader>xi"] = { "<cmd>TextCaseOpenTelescope<CR>", desc = "Open Smart Case Telescope" }
 maps.n["<leader>xiq"] = { "<cmd>TextCaseOpenTelescopeQuickChange<CR>", desc = "Telescope Quick Change" }
 maps.n["<leader>xil"] = { "<cmd>TextCaseOpenTelescopeLSPChange<CR>", desc = "Telescope LSP Change" }
 maps.n["<leader>xr"] = { [[:%s/\<<C-r><C-w>\>/]], desc = "Replace" }
@@ -349,14 +353,6 @@ maps.n["<leader>xr"] = { [[:%s/\<<C-r><C-w>\>/]], desc = "Replace" }
 maps.n["<leader>yy"] = { "<cmd>lua require('telescope').extensions.yank_history.yank_history()<cr>", desc = "History" }
 maps.n["<leader>ym"] = { "<cmd>lua require('telescope').extensions.macroscope.default()<cr>", desc = "Macro history" }
 maps.n["<leader>yD"] = { "<cmd>lua require('neoclip').clear_history()<cr>", desc = "Clear history" }
-
--- +Harpoon
--- maps.n["<leader>h"] = false
--- -- maps.n["<leader>hh"] = { "<cmd>Telescope harpoon marks<cr>", desc = "Harpoon list files" }
--- maps.n["<leader>hh"] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", desc = "Harpoon list files" }
--- maps.n["<leader>hn"] = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", desc = "Harpoo next" }
--- maps.n["<leader>hp"] = { "<cmd>lua require('harpoon.ui').nav_prev()<cr>", desc = "Harpoon previous" }
--- maps.n["<leader>ha"] = { "<cmd>lua require('harpoon.mark').add_file()<cr>", desc = "Harpoon add" }
 
 -- Bookmarks
 -- maps.n["mm"] = { ":BookmarkToggle<cr>", desc = "Toggle bookmarks" }
