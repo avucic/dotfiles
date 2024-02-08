@@ -1,5 +1,4 @@
 return {
-
   {
     "APZelos/blamer.nvim",
     cmd = "GitBlameToggle",
