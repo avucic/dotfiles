@@ -1,8 +1,10 @@
 local M = {}
 
+-- require("user.plugins.configs.toggleterm.nvim_remote")
 require("user.plugins.configs.toggleterm.lazygit")
 require("user.plugins.configs.toggleterm.tasks")
 require("user.plugins.configs.toggleterm.scratchpad")
+-- require("user.plugins.configs.toggleterm.vifm")
 
 local function set_terminal_keymaps()
   local opts = { buffer = 0 }

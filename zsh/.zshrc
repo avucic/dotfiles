@@ -65,9 +65,13 @@ export DISABLE_AUTO_TITLE='true'
 
 export DISABLE_AUTO_TITLE='true'
 export ZK_NOTEBOOK_DIR='/Users/vucinjo/Dropbox/Notes'
-# nvim and lazygit
+
+# nvim remote
 # export NVIM_LISTEN_ADDRESS=/tmp/nvim-$(basename $PWD)
-export NVIM_LISTEN_ADDRESS=/tmp/nvim.pipe
+export NVIM_PIPE='~/.cache/nvim/server.pipe'
+export NVIM_LISTEN_ADDRESS=${NVIM_PIPE}
+
+alias nvim="nvim --listen ${NVIM_LISTEN_ADDRESS}"
 
 dstats() { docker stats --all --format "table {{.ID}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}" }
 dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
@@ -111,4 +115,3 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 export TODOTXT_CFG_FILE=$HOME/.config/todo.txt-cli/conf.cfg
 source /opt/homebrew/etc/bash_completion.d/todo_completion complete -F _todo t
 alias t="/opt/homebrew/bin/todo.sh"
-alias nvim='nvim --listen /tmp/nvim-server.pipe'

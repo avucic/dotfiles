@@ -1,4 +1,17 @@
 -- let actions = require("oil.actions")
+
+function Rename(file)
+  vim.cmd("bdelete!")
+  vim.cmd("edit " .. vim.fn.readfile(file)[1])
+end
+
+-- function Delete()
+--   local file = vim.fn.expand("%:p")
+--   if io.open(file, "r") == nil then
+--     vim.cmd([[BWnex]])
+--   end
+-- end
+
 return {
   {
     "stevearc/oil.nvim",
@@ -27,24 +40,6 @@ return {
   {
     "is0n/fm-nvim",
     config = function()
-      -- local function Rename()
-      --   local temp = "/tmp/vifm_renamed"
-      --   local file = io.open(temp, "r")
-      --   if file ~= nil then
-      --     vim.cmd("bdelete!")
-      --     vim.cmd("edit " .. vim.fn.readfile(temp)[1])
-      --     io.close(file)
-      --     os.remove(temp)
-      --   end
-      -- end
-      --
-      -- local function Delete()
-      --   local file = vim.fn.expand("%:p")
-      --   if io.open(file, "r") == nil then
-      --     vim.cmd("bdelete!")
-      --   end
-      -- end
-
       require("fm-nvim").setup({
         -- (Vim) Command used to open files
         edit_cmd = "edit",

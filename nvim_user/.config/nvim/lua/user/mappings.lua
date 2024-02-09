@@ -84,6 +84,7 @@ maps.n["<leader>fe"] = {
     end
     require("fm-nvim").Vifm(dir_arg)
   end,
+  desc = "LazyDocker",
 }
 
 -- maps.n["<leader>f-"] = { "<cmd>lua require('oil').open()<CR>", desc = "Open dir for editing" }

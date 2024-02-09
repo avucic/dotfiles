@@ -1,10 +1,13 @@
 local Terminal = require("toggleterm.terminal").Terminal
-local lg_cmd = "lazygit -w $PWD"
--- lazygit --use-config-file ~/.config/lazygit/config.yml
--- local lg_cmd = "lazygit --use-config-file ~/.config/lazygit/config.yml -w $PWD"
--- if vim.v.servername ~= nil then
---   lg_cmd = string.format("NVIM_SERVER=%s lazygit -ucf ~/.config/nvim/lazygit.toml -w $PWD", vim.v.servername)
--- end
+local lg_cmd = "lazygit"
+
+function Edit(fn, line_number)
+  local edit_cmd = string.format(":e %s", fn)
+  if line_number ~= nil then
+    edit_cmd = string.format(":e +%d %s", line_number, fn)
+  end
+  vim.cmd(edit_cmd)
+end
 
 vim.env.GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
 
