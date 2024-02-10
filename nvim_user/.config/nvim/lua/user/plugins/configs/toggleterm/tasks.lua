@@ -5,6 +5,9 @@ local tasks = Terminal:new({
   direction = "float",
   hidden = true,
   close_on_exit = true,
+  highlights = {
+    NormalFloat = {},
+  },
   float_opts = {
     width = function()
       return math.floor(vim.o.columns * 0.5)

@@ -74,18 +74,8 @@ maps.n["<c-w>tq"] = { "<cmd>tabclose<cr>", desc = "Close tab" }
 maps.n["<leader>fn"] = { "<cmd>enew<cr>", desc = "New file" }
 -- maps.n["<leader>fE"] = { "<cmd>Telescope file_browser files=true<cr>", desc = "Explorer from root" }
 -- maps.n["<leader>fe"] = { "<cmd>Telescope file_browser path=%:p:h files=true<cr>", desc = "Explorer" }
-maps.n["<leader>fE"] = { "<cmd>Vifm<cr>", desc = "Explorer" }
-maps.n["<leader>fe"] = {
-  function()
-    local dir_arg = vim.fn.expand("%:p:h")
-    local current_file = vim.fn.expand("%:p")
-    if current_file ~= "" then
-      dir_arg = "--select=" .. current_file
-    end
-    require("fm-nvim").Vifm(dir_arg)
-  end,
-  desc = "LazyDocker",
-}
+maps.n["<leader>fe"] = { "<cmd>lua _VIFM_TOGGLE()<cr>", desc = "Explorer from current dir" }
+maps.n["<leader>fE"] = { "<cmd>lua _VIFM_TOGGLE(vim.fn.getcwd())<cr>", desc = "Explorer from current dir" }
 
 -- maps.n["<leader>f-"] = { "<cmd>lua require('oil').open()<CR>", desc = "Open dir for editing" }
 -- maps.n["<leader>fE"] = { "<cmd>lua require('oil').open(vim.fn.expand('%:p:h'))<CR>", desc = "Open dir for editing" }

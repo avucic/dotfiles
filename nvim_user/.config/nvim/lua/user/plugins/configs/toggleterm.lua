@@ -1,10 +1,9 @@
 local M = {}
 
--- require("user.plugins.configs.toggleterm.nvim_remote")
 require("user.plugins.configs.toggleterm.lazygit")
 require("user.plugins.configs.toggleterm.tasks")
 require("user.plugins.configs.toggleterm.scratchpad")
--- require("user.plugins.configs.toggleterm.vifm")
+require("user.plugins.configs.toggleterm.vifm")
 
 local function set_terminal_keymaps()
   local opts = { buffer = 0 }
@@ -77,9 +76,9 @@ function M.opts()
       -- Normal = {
       --   guibg = "#ff6600",
       -- },
-      -- NormalFloat = {
-      --   guifg = "#ff6600",
-      -- },
+      NormalFloat = {
+        guifg = "#ff6600",
+      },
       FloatBorder = {
         guifg = "#1a1d24",
         -- guibg = "<VALUE-HERE>",

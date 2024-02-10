@@ -53,7 +53,7 @@ export PATH="$HOME/dotfiles/bin:$PATH"
 export PATH=$PATH:/usr/local/bin
 export ERL_AFLAGS="-kernel shell_history enabled" # enable history in iex
 export PATH="$HOME/dotfiles/bin:$PATH"
-export EDITOR="nvim"
+# export EDITOR="nvim"
 export TERM=xterm-256color
 # export TERM=screen-256color
 export COLORTERM='24bit'
@@ -67,11 +67,10 @@ export DISABLE_AUTO_TITLE='true'
 export ZK_NOTEBOOK_DIR='/Users/vucinjo/Dropbox/Notes'
 
 # nvim remote
-# export NVIM_LISTEN_ADDRESS=/tmp/nvim-$(basename $PWD)
-export NVIM_PIPE='~/.cache/nvim/server.pipe'
+# export NVIM_PIPE=/tmp/nvim-$(basename $PWD)
+export NVIM_PIPE='/tmp/nvim.pipe'
 export NVIM_LISTEN_ADDRESS=${NVIM_PIPE}
-
-alias nvim="nvim --listen ${NVIM_LISTEN_ADDRESS}"
+alias nvim="nvim --listen ${NVIM_PIPE}"
 
 dstats() { docker stats --all --format "table {{.ID}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}" }
 dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }

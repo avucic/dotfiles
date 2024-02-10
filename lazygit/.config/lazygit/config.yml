@@ -1,5 +1,6 @@
-os:
-  editAtLine: 'nvim --server /tmp/nvim-server.pipe --remote-tab "$(pwd)/{{filename}}"'
+# os:
+#   editPreset: "nvim-remote"
+#   edit: "nvr --nostart --remote-silent -l $(pwd)/{{filename}}"
 gui:
   theme:
     activeBorderColor:
