@@ -1,6 +1,6 @@
-# os:
-#   editPreset: "nvim-remote"
-#   edit: "nvr --nostart --remote-silent -l $(pwd)/{{filename}}"
+os:
+  editPreset: "nvim-remote"
+  edit: "nvr --nostart --remote-silent -l $(pwd)/{{filename}}"
 gui:
   theme:
     activeBorderColor:
