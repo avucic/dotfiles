@@ -2,7 +2,7 @@ return function(_, _)
   local telescope = require("telescope")
 
   local actions = require("telescope.actions")
-  local fb_actions = telescope.extensions.file_browser.actions
+  -- local fb_actions = telescope.extensions.file_browser.actions
   local lga_actions = require("telescope-live-grep-args.actions")
   local state = require("telescope.actions.state")
 
@@ -234,39 +234,39 @@ return function(_, _)
       project = {
         patterns = { ".git", "Makefile", "package.json", "Gemfile" },
       },
-      file_browser = {
-        theme = "ivy",
-        -- disables netrw and use telescope-file-browser in its place
-        -- cwd_to_path = true,
-        files = false,
-        select_buffer = true,
-        respect_gitignore = false,
-        hide_parent_dir = true,
-        grouped = true,
-        quiet = false,
-        hijack_netrw = true,
-        -- initial_mode = "normal",
-        mappings = {
-          ["i"] = {
-            ["N"] = fb_actions.create,
-            ["<c-h>"] = fb_actions.toggle_hidden,
-            -- your custom insert mode mappings
-          },
-          ["n"] = {
-            ["w"] = pick_window,
-            ["n"] = fb_actions.create,
-            ["."] = fb_actions.change_cwd,
-            ["N"] = fb_actions.create,
-            ["h"] = fb_actions.goto_parent_dir,
-            ["d"] = fb_actions.remove,
-            ["x"] = fb_actions.open,
-            ["y"] = fb_actions.copy,
-            ["<c-h>"] = fb_actions.toggle_hidden,
-            ["l"] = actions.select_default,
-            -- your custom normal mode mappings
-          },
-        },
-      },
+      -- file_browser = {
+      --   theme = "ivy",
+      --   -- disables netrw and use telescope-file-browser in its place
+      --   -- cwd_to_path = true,
+      --   files = false,
+      --   select_buffer = true,
+      --   respect_gitignore = false,
+      --   hide_parent_dir = true,
+      --   grouped = true,
+      --   quiet = false,
+      --   hijack_netrw = true,
+      --   -- initial_mode = "normal",
+      --   mappings = {
+      --     ["i"] = {
+      --       ["N"] = fb_actions.create,
+      --       ["<c-h>"] = fb_actions.toggle_hidden,
+      --       -- your custom insert mode mappings
+      --     },
+      --     ["n"] = {
+      --       ["w"] = pick_window,
+      --       ["n"] = fb_actions.create,
+      --       ["."] = fb_actions.change_cwd,
+      --       ["N"] = fb_actions.create,
+      --       ["h"] = fb_actions.goto_parent_dir,
+      --       ["d"] = fb_actions.remove,
+      --       ["x"] = fb_actions.open,
+      --       ["y"] = fb_actions.copy,
+      --       ["<c-h>"] = fb_actions.toggle_hidden,
+      --       ["l"] = actions.select_default,
+      --       -- your custom normal mode mappings
+      --     },
+      --   },
+      -- },
     },
   }
 end

@@ -72,8 +72,6 @@ maps.n["<c-w>tq"] = { "<cmd>tabclose<cr>", desc = "Close tab" }
 
 -- +Files
 maps.n["<leader>fn"] = { "<cmd>enew<cr>", desc = "New file" }
--- maps.n["<leader>fE"] = { "<cmd>Telescope file_browser files=true<cr>", desc = "Explorer from root" }
--- maps.n["<leader>fe"] = { "<cmd>Telescope file_browser path=%:p:h files=true<cr>", desc = "Explorer" }
 maps.n["<leader>fe"] = { "<cmd>lua _VIFM_TOGGLE()<cr>", desc = "Explorer from current dir" }
 maps.n["<leader>fE"] = { "<cmd>lua _VIFM_TOGGLE(vim.fn.getcwd())<cr>", desc = "Explorer from current dir" }
 

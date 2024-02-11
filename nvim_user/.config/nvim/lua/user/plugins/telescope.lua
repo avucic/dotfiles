@@ -7,7 +7,6 @@ return {
       require("plugins.configs.telescope")(plg, opts)
 
       local telescope = require("telescope")
-      telescope.load_extension("file_browser")
       telescope.load_extension("textcase")
     end,
   },
@@ -31,9 +30,6 @@ return {
   },
   {
     "danielvolchek/tailiscope.nvim",
-  },
-  {
-    "nvim-telescope/telescope-file-browser.nvim",
   },
   {
     "gbrlsnchs/telescope-lsp-handlers.nvim",
