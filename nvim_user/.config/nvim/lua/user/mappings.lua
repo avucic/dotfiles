@@ -264,10 +264,7 @@ maps.n["<leader>njf"] = { "<cmd>ZkNew{group='fer', dir='journal/fer'}<cr>", desc
 maps.n["<leader>ns"] = { "<cmd>lua _SCRATCHPAD_TOGGLE()<cr>", desc = "Scratch Pad" }
 
 -- Docker
-maps.n["<leader>e"] = {
-  "<cmd>lua require('user.core.utils').toggle_term_cmd({cmd = 'lazydocker', direction = 'float'})<CR>",
-  desc = "LazyDocker",
-}
+maps.n["<leader>e"] = { "<cmd>lua _LAZYDOCKER_TOGGLE()<CR>", desc = "LazyDocker" }
 
 -- +Open
 maps.n["<leader>og"] = { ":Gen<CR>", desc = "Ollama" }

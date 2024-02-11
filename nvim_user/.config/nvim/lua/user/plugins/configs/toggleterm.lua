@@ -1,6 +1,7 @@
 local M = {}
 
 require("user.plugins.configs.toggleterm.lazygit")
+require("user.plugins.configs.toggleterm.lazydocker")
 require("user.plugins.configs.toggleterm.tasks")
 require("user.plugins.configs.toggleterm.scratchpad")
 require("user.plugins.configs.toggleterm.vifm")
