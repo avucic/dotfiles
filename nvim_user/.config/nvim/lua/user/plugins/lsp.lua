@@ -75,22 +75,4 @@ return {
       vim.g.lsp_format_modifications_silence = 1
     end,
   },
-  {
-    "SmiteshP/nvim-navbuddy",
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "SmiteshP/nvim-navic",
-      "MunifTanjim/nui.nvim",
-    },
-    opts = {
-      lsp = {
-        preference = { "rust_analyzer" },
-        auto_attach = true,
-      },
-    },
-    config = function(_, opts)
-      require("nvim-navbuddy").setup(opts)
-    end,
-    event = "LspAttach",
-  },
 }

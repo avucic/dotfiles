@@ -207,7 +207,7 @@ maps.n["<leader>jr"] = { "<cmd>lua require('telescope.builtin').lsp_references()
 -- +LSP
 maps.n["<leader>lK"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "Hover symbol details" }
 maps.n["<leader>la"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code action" }
-maps.n["<leader>ls"] = { "<cmd>lua require('nvim-navbuddy').open()<CR>", desc = "LSP explorer" }
+-- maps.n["<leader>ls"] = { "<cmd>lua require('nvim-navbuddy').open()<CR>", desc = "LSP explorer" }
 -- maps.n["<leader>le"] = { "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Diagnostic buffer" }
 maps.n["<leader>le"] = { "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Diagnostic buffer" }
 maps.n["<leader>lD"] = { "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "Declaration" }
@@ -216,7 +216,9 @@ maps.n["<leader>ld"] = { "<cmd>Glance definitions<CR>", desc = "Definition" }
 maps.n["<leader>lwe"] = { "<cmd>lua vim.diagnostic.setqflist()<cr>", desc = "Diagnostic workspace" }
 maps.n["<leader>lwa"] = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", desc = "Add" }
 maps.n["<leader>lwr"] = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", desc = "Remove" }
-maps.n["<leader>lws"] = { "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", desc = "Symbols" }
+-- maps.n["<leader>lws"] = { "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", desc = "Symbols" }
+maps.n["<leader>lws"] =
+  { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>", desc = "Workspace symbols" }
 maps.n["<leader>lf"] = { "<cmd>lua vim.lsp.buf.format({async = true })<cr>", desc = "Format" }
 maps.n["<leader>li"] = { "<cmd>Glance implementations<cr>", desc = "Implementation" }
 maps.n["<leader>lI"] = { "<cmd>Mason<cr>", desc = "Info" }
@@ -297,9 +299,7 @@ maps.n["<leader>oth"] = false
 maps.n["<leader>sh"] = { "<cmd>lua require('telescope.builtin').help_tags()<CR>", desc = "Help" }
 maps.n["<leader>sk"] = { "<cmd>lua require('telescope.builtin').keymaps()<CR>", desc = "Keymaps" }
 -- maps.n["<leader>ss"] = { "<cmd>lua require('telescope.builtin').lsp_document_symbols({symbol_width = 0.5})<CR>", desc = "Symbols" }
-maps.n["<leader>ss"] = { "<cmd>lua require('nvim-navbuddy').open()<CR>", desc = "LSP explorer" }
-maps.n["<leader>sS"] =
-  { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>", desc = "Workspace symbols" }
+-- maps.n["<leader>ss"] = { "<cmd>lua require('nvim-navbuddy').open()<CR>", desc = "LSP explorer" }
 -- maps.n["<leader>so"] = { "<cmd>lua require('aerial').toggle()<cr>", desc = "Outline" }
 maps.n["<leader>sO"] = { "<cmd>lua require('telescope.builtin').vim_options()<CR>", desc = "Options" }
 maps.n["<leader>s;"] = { "<cmd>lua require('telescope.builtin').command_history()<CR>", desc = "History" }
