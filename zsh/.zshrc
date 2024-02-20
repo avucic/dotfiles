@@ -19,7 +19,6 @@ export ZSH_CUSTOM=~/.znap/custom
 
 # doesn't work as plugin
 [[ -r ~/.znap/completions/_docker ]] || ln -s ~/.znap/custom/ohmyzsh/ohmyzsh/plugins/docker/completions/* ~/.znap/completions/
-[[ -r ~/.znap/completions/_topydo ]] || ln -s ~/.znap/custom/ajnasz/topydo.zsh/_topydo ~/.znap/completions/
 # [[ -r ~/.znap/completions/_httpie ]] || ln -s ~/.znap/custom/ohmyzsh/ohmyzsh/plugins/httpie/* ~/.znap/completions/
 
 znap source ohmyzsh/ohmyzsh \
@@ -110,7 +109,6 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-# alias t="topydo columns"
 export TODOTXT_CFG_FILE=$HOME/.config/todo.txt-cli/conf.cfg
 source /opt/homebrew/etc/bash_completion.d/todo_completion complete -F _todo t
 alias t="/opt/homebrew/bin/todo.sh"
