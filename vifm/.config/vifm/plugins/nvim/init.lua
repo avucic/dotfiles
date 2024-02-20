@@ -36,7 +36,16 @@ vifm.events.listen({
     -- vifm.sb.info(event.op)
     if event.op == "move" then
       if event.totrash then
-        -- send_to_nvim("Delete", event.target)
+        -- shell.run({
+        --   "nvr",
+        --   "--servername",
+        --   path,
+        --   "--remote-silent",
+        --   "-l",
+        --   "--remote-send",
+        --   ":BWnex<cr>",
+        --   -- ":lua _VIFM_TOGGLE()",
+        -- })
       elseif event.fromtrash then
         -- pass
       else
@@ -44,7 +53,7 @@ vifm.events.listen({
           shell.run({
             "nvr",
             "--servername",
-            "/tmp/nvim.pipe",
+            path,
             "--remote-silent",
             "-l",
             "--remote-send",

@@ -3,20 +3,27 @@ local Path = require("plenary.path")
 local tmp_path = "/tmp/nvim-vifm"
 
 function Rename(old, new)
+  local orig = vim.notify
+  vim.notify = function() end
   local current_buf_name = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
 
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    local name = vim.api.nvim_buf_get_name(buf)
-    local listed = vim.bo[buf].buflisted
-    if listed then
-      if old == name then
-        vim.api.nvim_buf_set_name(buf, new)
-        vim.api.nvim_buf_call(buf, vim.cmd.edit)
+    local is_valid = vim.api.nvim_buf_is_valid(buf)
+    if is_valid then
+      local name = vim.api.nvim_buf_get_name(buf)
+
+      local listed = vim.bo[buf].buflisted
+      if listed then
+        if old == name then
+          vim.api.nvim_buf_set_name(buf, new)
+          vim.api.nvim_buf_call(buf, vim.cmd.edit)
+        end
       end
     end
   end
 
   vim.cmd([[BWnex]])
+  vim.notify = orig
 end
 
 function _VIFM_TOGGLE(dir_arg)
@@ -35,15 +42,15 @@ function _VIFM_TOGGLE(dir_arg)
     cmd = cmd,
     direction = "float",
     close_on_exit = true,
-    -- float_opts = {
-    --
-    --   width = function()
-    --     return vim.o.columns
-    --   end,
-    --   height = function()
-    --     return vim.o.lines
-    --   end,
-    -- },
+    float_opts = {
+      width = function()
+        return math.floor(vim.o.columns * 0.5)
+      end,
+
+      height = function()
+        return math.floor((vim.o.lines - vim.o.cmdheight) * 0.5)
+      end,
+    },
     highlights = {
       NormalFloat = {},
     },
