@@ -28,7 +28,13 @@ end
 
 function _VIFM_TOGGLE(dir_arg)
   local current_file = vim.fn.expand("%:p")
-  local cmd = ('vifm --choose-files "%s"'):format(tmp_path)
+  local current_file_name = vim.fn.expand("%")
+  local cmd
+  if dir_arg ~= nil or current_file_name == "" then
+    cmd = ('vifm --choose-files "%s"'):format(tmp_path)
+  else
+    cmd = ('vifm --choose-files "%s" --select "%s"'):format(tmp_path, current_file_name)
+  end
 
   if current_file ~= "" and dir_arg == nil then
     cmd = cmd .. " " .. vim.fn.expand("%:p:h")
