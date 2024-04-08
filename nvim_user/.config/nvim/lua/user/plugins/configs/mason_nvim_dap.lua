@@ -43,4 +43,32 @@ return function(c, opts)
       callback({ type = "server", host = host, port = port })
     end
   end
+  dap.adapters.go = {
+    type = "server",
+    port = "${port}",
+    executable = {
+      command = "dlv",
+      args = { "dap", "-l", "127.0.0.1:${port}" },
+    },
+  }
+
+  -- local dap = require("dap")
+  -- local mason_registry = require("mason-registry")
+  -- local codelldb_root = mason_registry.get_package("codelldb"):get_install_path() .. "/extension/"
+  -- local codelldb_path = codelldb_root .. "adapter/codelldb"
+  -- local liblldb_path = codelldb_root .. "lldb/lib/liblldb.so"
+  -- dap.adapters.rust = {
+  --   type = "server",
+  --   port = "${port}",
+  --   host = "127.0.0.1",
+  --   executable = {
+  --     command = codelldb_path,
+  --     args = { "--liblldb", liblldb_path, "--port", "${port}" },
+  --   },
+  -- }
+  -- dap.adapters.rust = {
+  --   type = "executable",
+  --   command = "/Users/vucinjo/.local/share/nvim/mason/packages/codelldb/extension/lldb/lib/liblldb.dylib", -- adjust as needed, must be absolute path
+  --   name = "lldb",
+  -- }
 end

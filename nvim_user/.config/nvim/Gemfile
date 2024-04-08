@@ -5,7 +5,7 @@ ruby "3.2.2"
 
 gem "erb_lint"
 gem "erb-formatter", git: "https://github.com/nebulab/erb-formatter", branch: "main"
-gem "solargraph", "0.48"
+gem "solargraph", "0.50"
 gem "solargraph-rails"
 gem "solargraph-standardrb"
 gem "standard"

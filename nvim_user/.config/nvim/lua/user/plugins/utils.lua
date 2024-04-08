@@ -1,4 +1,5 @@
 return {
+  { "nvim-neotest/nvim-nio" },
   {
     "max397574/colortils.nvim",
     cmd = "Colortils",
@@ -100,12 +101,12 @@ return {
     "klen/nvim-config-local",
     opts = {
       -- Default configuration (optional)
-      config_files = { ".vimrc.lua", ".vimrc" },            -- Config file patterns to load (lua supported)
+      config_files = { ".vimrc.lua", ".vimrc" }, -- Config file patterns to load (lua supported)
       hashfile = vim.fn.stdpath("data") .. "/config-local", -- Where the plugin keeps files data
-      autocommands_create = true,                           -- Create autocommands (VimEnter, DirectoryChanged)
-      commands_create = true,                               -- Create commands (ConfigSource, ConfigEdit, ConfigTrust, ConfigIgnore)
-      silent = true,                                        -- Disable plugin messages (Config loaded/ignored)
-      lookup_parents = false,                               -- Lookup config files in parent directories
+      autocommands_create = true, -- Create autocommands (VimEnter, DirectoryChanged)
+      commands_create = true, -- Create commands (ConfigSource, ConfigEdit, ConfigTrust, ConfigIgnore)
+      silent = true, -- Disable plugin messages (Config loaded/ignored)
+      lookup_parents = false, -- Lookup config files in parent directories
     },
     config = require("user.plugins.configs.nvim_local_config"),
   },

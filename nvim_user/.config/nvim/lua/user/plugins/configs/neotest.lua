@@ -39,6 +39,7 @@ command! NeotestOutput lua require("neotest").output.open()
     -- your neotest config here
     adapters = {
       -- require("neotest-go"),
+      require("rustaceanvim.neotest"),
       require("neotest-rust"),
       require("neotest-python"),
       require("neotest-rspec")({

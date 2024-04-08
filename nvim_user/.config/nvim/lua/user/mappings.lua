@@ -1,4 +1,5 @@
 vim.cmd([[vnoremap <C-r> "hy:%s@<C-r>h@@gI<left><left><left>]])
+vim.cmd([[vnoremap <C-g> "hy:g/<C-r>h/normal<space>]])
 -- vim.cmd([[vnoremap <C-r> "hy:Subs/<C-r>h//gI<left><left><left>]])
 -- vim.cmd([[nnoremap <leader-r> :%s/\<<C-r><C-w>\>/]])
 
@@ -307,7 +308,7 @@ maps.n["<leader>sc"] = { "<cmd>lua require('telescope.builtin').commands()<CR>",
 maps.n["<leader>s<cr>"] = { "<cmd>lua require('telescope.builtin').resume()<CR>", desc = "Resume" }
 maps.n["<leader>sb"] = { "<cmd>lua require('telescope.builtin').buffers()<CR>", desc = "Buffers" }
 maps.n["<leader>sw"] = { "<cmd>BrowserSearch<cr>", desc = "Web" }
-maps.n["<leader>st"] = { "<cmd>TodoQuickFix<cr>", desc = "Todo list" }
+maps.n["<leader>st"] = { "<cmd>TodoTelescope<cr>", desc = "Todo list" }
 
 -- +Toggle
 maps.n["<leader>ub"] = { "<cmd>lua require('user.core.utils').toggle_theme()<cr>", desc = "Toggle theme" }
@@ -341,22 +342,16 @@ maps.v["<leader>yy"] = { "<cmd>lua require('telescope').extensions.yank_history.
 maps.n["<leader>ym"] = { "<cmd>lua require('telescope').extensions.macroscope.default()<cr>", desc = "Macro history" }
 maps.n["<leader>yD"] = { "<cmd>lua require('neoclip').clear_history()<cr>", desc = "Clear history" }
 
--- Bookmarks
--- maps.n["mm"] = { ":BookmarkToggle<cr>", desc = "Toggle bookmarks" }
--- maps.n["ma"] =
---   { ":lua require('user.plugins.configs.vim_bookmarks').open_bookmarks_workaround()<cr>", desc = "List all Bookmarks" }
--- maps.n["mf"] =
---   { ":lua require('telescope').extensions.vim_bookmarks.current_file()<cr>", desc = "List current file Bookmarks" }
--- maps.n["mD"] = { "<cmd>normal mx<cr>", desc = "Delete bookmarks" }
-
 -- -- portal
 -- maps.n["<c-o>"] = { "<cmd>lua require('portal').jump_backward()<cr>", desc = "Backward" }
 -- maps.n["<c-i>"] = { "<cmd>lua require('portal').jump_forward()<cr>", desc = "Forward" }
 
 -- Leap
 maps.n["s"] = { "<cmd>lua require('leap')<cr><Plug>(leap-forward-to)" }
+maps.v["s"] = { "<cmd>lua require('leap')<cr><Plug>(leap-forward-to)" }
 -- maps.n["ss"] = { "<cmd>lua require('leap')<cr><Plug>(leap-forward-till)" }
 maps.n["S"] = { "<cmd>lua require('leap')<cr><Plug>(leap-backward-to)" }
+maps.v["S"] = { "<cmd>lua require('leap')<cr><Plug>(leap-backward-to)" }
 -- maps.n["SS"] = { "<cmd>lua require('leap')<cr><Plug>(leap-backward-till)" }
 maps.n["gs"] = "<cmd>lua require('leap')<cr><Plug>(leap-from-window)"
 maps.n["<M-s>"] = { "<cmd>lua require('user.plugins.configs.leap').paranormal()<cr>" }

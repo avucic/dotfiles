@@ -203,6 +203,9 @@ return function(_, opts)
           hl.NoiceCmdlinePopupBorder = { fg = C.ui.text }
           hl.NoiceCmdlinePopupTitle = { fg = C.ui.text }
 
+          hl.TodoBgTODO = { italic = true, bg = C.bright_white, fg = C.ui.base }
+          hl.TodoBgNOTE = { italic = true, bg = "#f1a971", fg = C.ui.base }
+          --
           -- hl.Normal = { fg = C.fg, bg = C.bg }
           -- hl.FloatBorder = { fg = C.ui.text_inactive }
           -- hl.FloatTitle = { fg = C.ui.text_inactive }
