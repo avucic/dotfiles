@@ -43,10 +43,6 @@ return {
     },
   },
   {
-    "sindrets/winshift.nvim",
-    cmd = "WinShift",
-  },
-  {
     "mfussenegger/nvim-treehopper",
   },
 

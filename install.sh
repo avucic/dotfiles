@@ -25,7 +25,7 @@ export DOTFILES_LOCATION
 ./bin/dotfiles install envrc
 ./bin/dotfiles install editorconfig
 ./bin/dotfiles install bin
-./bin/dotfiles install nvim_user
+./bin/dotfiles install nvim
 ./bin/dotfiles install tmux
 ./bin/dotfiles install zsh
 ./bin/dotfiles install vifm
