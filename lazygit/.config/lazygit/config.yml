@@ -1,6 +1,6 @@
 os:
   editPreset: "nvim-remote"
-  edit: "nvr --nostart --remote-silent -l $(pwd)/{{filename}}"
+  edit: "nvr --nostart --remote-silent -l {{filename}}"
 gui:
   theme:
     activeBorderColor:
@@ -62,3 +62,10 @@ keybinding:
     nextItem: "j" # go one line down
     prevBlock: "p" # goto the previous block / panel
     nextBlock: "n" # goto the next block / panel
+    # scrollUpMain: <pgup>
+    # scrollDownMain: <pgdown>
+    # scrollUpMain-alt1: K
+    # scrollDownMain-alt1: J
+  commits:
+    moveDownCommit: J
+    moveUpCommit: K

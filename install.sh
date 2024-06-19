@@ -32,7 +32,6 @@ export DOTFILES_LOCATION
 ./bin/dotfiles install lazygit
 ./bin/dotfiles install lazydocker
 ./bin/dotfiles install todo.txt-cli
-./bin/dotfiles install topydo
 ./bin/dotfiles install stylua
 ./bin/dotfiles install prettier
 ./bin/dotfiles install irb

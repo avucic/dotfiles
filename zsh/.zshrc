@@ -111,4 +111,6 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 export TODOTXT_CFG_FILE=$HOME/.config/todo.txt-cli/conf.cfg
 source /opt/homebrew/etc/bash_completion.d/todo_completion complete -F _todo t
+
+alias tsk=task
 alias t="/opt/homebrew/bin/todo.sh"
