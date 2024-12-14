@@ -14,7 +14,7 @@ set viewcolumns=-80%{name}
 " fileviewer *.[ch],*.[ch]pp,*.py highlight -O xterm256 -s dante --syntax c %c
 fileviewer *.py highlight -O xterm256 --syntax python --style xoria256
 fileviewer *.json highlight -O xterm256 --syntax json --style xoria256
-fileviewer *.js highlight -O xterm256 --syntax javascript --style xoria256
+fileviewer *.js,*.ts,*.tsx highlight -O xterm256 --syntax javascript --style xoria256
 fileviewer *.rb,*.rake highlight -O xterm256 --syntax ruby --style xoria256
 fileviewer *.erb highlight -O xterm256 --syntax erb --style xoria256
 fileviewer *.xhtml highlight -O xterm256 --syntax html --style xoria256
@@ -26,8 +26,7 @@ fileviewer *.xml highlight -O xterm256 --syntax xml --style xoria256
 fileviewer *.vifm,*.vim, vifmrc  highlight -O xterm256 --syntax vim --style xoria256
 fileviewer *.sh highlight -O xterm256 --syntax bash --style xoria256
 fileviewer Makefile,Makefile.* highlight -O xterm256 -s dante --syntax make %c --style xoria256
-fileviewer *.html,*.go,*.css,*.c highlight -O xterm256 -s dante %c --style xoria256
-
+fileviewer *.html,*.rust,*.go,*.css,*.c highlight -O xterm256 -s dante %c --style xoria256
 
 " show file and directory preview in right pane
 view!
@@ -140,6 +139,9 @@ nnoremap mD :delbmarks!
 " File operators
 nnoremap mf :touch<space>
 nnoremap md :mkdir<space>
+
+
+filetype * open %c
 
 " Open file in the background using its default program
 nnoremap gx :file &<cr>l
@@ -280,3 +282,5 @@ filextype *.pdf
 filextype *.sh,*.txt,*.config,*.conf,*.vim,*.rc,*.*rc,*.h, *.rb, *.html,*.json
 \ nvim %f
 
+fileviewer *.png,*.jpg,*.jpeg,*.gif 
+\ tput cup %py %px > /dev/tty && ~/.iterm2/imgcat %c:p > /dev/tty %N

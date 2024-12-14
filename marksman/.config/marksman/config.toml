@@ -1,11 +1,7 @@
-# This file lists all configuration options with their default values.
-# You do not need to duplicate all the values in your own user or project config.
-# Only override what is needed.
-
 [core]
 markdown.file_extensions = ["md", "markdown"]
 # Configures text sync protocol between the editor (LSP client)
-# and Marksman (LSP server).
+# and Marksman (LSP server). 
 # Can be either 'full' or `incremental`:
 # * full: the whole copy of a document is sent by the editor
 #   on every update,
@@ -17,6 +13,11 @@ markdown.file_extensions = ["md", "markdown"]
 # sync which result in slightly correpted state and are really hard
 # to diagnose.
 text_sync = "full"
+# When set to true, level 1 headings will be treated as document titles
+# (this includes an assumption of having a single title in the document).
+# Setting this to false automatically changes the default wiki link 
+# completion style to a file-based one.
+title_from_heading = true
 # Use incremental resolution of project-wide references.
 # This is much more efficient but is currently experimental
 incremental_references = false
@@ -32,8 +33,10 @@ toc.enable = true
 create_missing_file.enable = true
 
 [completion]
+# The maximum number of candidates returned for a completion 
+candidates = 50
 # The style of wiki links completion.
-# Other values include:
+# Other values include: 
 # * "file-stem" to complete using file name without an extension,
 # * "file-path-stem" same as above but using file path.
-wiki.style = "file-stem"
+wiki.style = "title-slug"

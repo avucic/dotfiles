@@ -79,3 +79,4 @@ solargraph/*
 .solargraph
 .erb-lint.yml
 *~
+.cert/*

@@ -1,6 +1,0 @@
-{
-  "Print Line": {
-    "prefix": ["pr"],
-    "body": ["println!(\"{:?}\", ${1:Object});"]
-  }
-}

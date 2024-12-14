@@ -29,7 +29,7 @@ znap source ohmyzsh/ohmyzsh \
 # fix rust plugins/rust \
 
 # `znap source` starts plugins.
-znap source MohamedElashri/exa-zsh
+znap source z-shell/zsh-eza 
 znap source zsh-users/zsh-syntax-highlighting
 znap source zsh-users/zsh-completions
 znap source zsh-users/zsh-autosuggestions
@@ -71,6 +71,10 @@ export NVIM_LISTEN_ADDRESS=${NVIM_PIPE}
 alias nvim="nvim --listen ${NVIM_PIPE}"
 export EDITOR="nvim"
 
+export TODO_DIR="~/Dropbox/todo"
+export TODO_FILE="~/Dropbox/todo/todo.txt"
+export DONE_FILE="~/Dropbox/todo/done.txt"
+
 dstats() { docker stats --all --format "table {{.ID}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}" }
 dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
 
@@ -83,7 +87,7 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=#666666 # in neovim terminal auto sugg
 
 #  Custom func's
 #  lsof -t -i tcp:3000 | xargs kill
-kill_port() {
+kill-port() {
   readonly port=${1:?"The port must be specified."}
 
   # lsof -i tcp:"$port" | grep LISTEN | awk '{print $2}' | xargs kill
