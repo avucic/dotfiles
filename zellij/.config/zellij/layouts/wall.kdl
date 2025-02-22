@@ -14,24 +14,19 @@ layout {
   tab focus=true name="Editor" {
     pane split_direction="vertical" size="80%" {
       default-pane {
-        command "direnv"
-          args "exec" "." "nvim"
+        command "nvim"
       }
     }
     pane split_direction="vertical"{
       default-pane
         default-pane {
           start_suspended true
-            command "direnv"
-            args "exec" "." "rails" "c"
         }
     }
   }
 
   tab name="Server" {
     default-pane {
-      command "direnv"
-        args "exec" "." "bin/dev"
     }
   }
 }

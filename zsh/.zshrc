@@ -1,6 +1,8 @@
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+source ~/.env
+
 [[ -r ~/.znap/znap.zsh ]] ||
     git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/.znap
 
