@@ -25,7 +25,7 @@ export ZSH_CUSTOM=~/.znap/custom
 
 znap source ohmyzsh/ohmyzsh \
   lib/{git,grep,history,key-bindings,completion} \
-  plugins/{git,cp,docker-compose,rake,autojump,bundler,ruby,tmux,direnv,asdf,fzf,gitignore,history,tmuxinator}
+  plugins/{git,cp,docker-compose,rake,bundler,ruby,tmux,direnv,asdf,fzf,gitignore,history,tmuxinator}
 
 
 # fix rust plugins/rust \
@@ -102,10 +102,6 @@ then
   export PATH=${PATH}:`go env GOPATH`/bin
 fi
 
-if command -v zoxide &> /dev/null
-then
- eval "$(zoxide init zsh)"
-fi
 
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
@@ -120,3 +116,9 @@ source /opt/homebrew/etc/bash_completion.d/todo_completion complete -F _todo t
 
 alias tsk=task
 alias t="/opt/homebrew/bin/todo.sh"
+# eval "$(zellij setup --generate-auto-start zsh)"
+
+if command -v zoxide &> /dev/null
+then
+ eval "$(zoxide init zsh --cmd j)"
+fi

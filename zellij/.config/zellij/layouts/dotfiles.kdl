@@ -1,0 +1,13 @@
+layout {
+  pane_template name="dotfiles" cwd="~/dotfiles"
+
+  default_tab_template name="default-tab" {
+    pane size=1 borderless=true {
+      plugin location="zellij:tab-bar"
+    }
+    children
+    pane size=1 borderless=true {
+      plugin location="zellij:status-bar"
+    }
+  }
+}
