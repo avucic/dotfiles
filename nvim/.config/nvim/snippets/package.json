@@ -1,0 +1,62 @@
+{
+  "name": "example-snippets",
+  "contributes": {
+    "snippets": [
+      {
+        "language": [
+          "lua"
+        ],
+        "path": "./lua.json"
+      },
+      {
+        "language": [
+          "rust"
+        ],
+        "path": "./rust.json"
+      },
+      {
+        "language": [
+          "ruby"
+        ],
+        "path": "./ruby.json"
+      },
+      {
+        "language": [
+          "eruby"
+        ],
+        "path": "./eruby.json"
+      },
+      {
+        "language": [
+          "rust"
+        ],
+        "path": "./rust.json"
+      },
+      {
+        "language": [
+          "go"
+        ],
+        "path": "./go.json"
+      },
+      {
+        "language": [
+          "markdown",
+          "md"
+        ],
+        "path": "./markdown.json"
+      },
+      {
+        "language": [
+          "typescript"
+        ],
+        "path": "./typescript.json"
+      },
+      {
+        "language": [
+          "typescriptreact"
+        ],
+        "path": "./typescriptreact.json"
+      }
+    ]
+  }
+}

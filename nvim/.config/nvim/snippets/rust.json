@@ -1,0 +1,80 @@
+{
+  "Print Line": {
+    "prefix": [
+      "pr"
+    ],
+    "body": [
+      "println!(\"{:?}\", ${1:Object});"
+    ]
+  },
+  "Error enum": {
+    "prefix": "error",
+    "body": [
+      "pub type Result<T> = core::result::Result<T, Error>;",
+      "",
+      "#[derive(Debug)]",
+      "pub enum Error {",
+      "\t${1:// TBC}",
+      "}",
+      "",
+      "",
+      "impl core::fmt::Display for Error {",
+      "\tfn fmt(&self, fmt: &mut core::fmt::Formatter) -> core::result::Result<(), core::fmt::Error> {",
+      "\t\twrite!(fmt, \"{self:?}\")",
+      "\t}",
+      "}",
+      "",
+      "impl std::error::Error for Error {}"
+    ],
+    "description": "Error boilerplate"
+  },
+  "Error with From": {
+    "prefix": "errorwithfrom",
+    "body": [
+      "use derive_more::From;",
+      "",
+      "pub type Result<T> = core::result::Result<T, Error>;",
+      "",
+      "#[derive(Debug, From)]",
+      "pub enum Error {",
+      "\t// -- Externals",
+      "\t#[from]",
+      "\tIo(std::io::Error), // as example${1}",
+      "}",
+      "",
+      "",
+      "impl core::fmt::Display for Error {",
+      "\tfn fmt(&self, fmt: &mut core::fmt::Formatter) -> core::result::Result<(), core::fmt::Error> {",
+      "\t\twrite!(fmt, \"{self:?}\")",
+      "\t}",
+      "}",
+      "",
+      "impl std::error::Error for Error {}",
+      ""
+    ],
+    "description": "error.rs boostrap code with derive_more::From"
+  },
+  "impl From": {
+    "prefix": "impl-from",
+    "body": [
+      "impl From<${1:from_type}> for ${2:to_type} {",
+      "\tfn from(err: ${1}) -> Self {",
+      "\t\t$3",
+      "\t}",
+      "}"
+    ],
+    "description": "impl From implementation"
+  },
+  "impl Display for Error": {
+    "prefix": "impl-error-display",
+    "body": [
+      "impl core::fmt::Display for ${1:to_error} {",
+      "\tfn fmt(&self, fmt: &mut core::fmt::Formatter) -> core::result::Result<(), core::fmt::Error> {",
+      "\t\twrite!(fmt, \"{self:?}\")",
+      "\t}",
+      "}",
+      ""
+    ],
+    "description": "impl From implementation"
+  }
+}

@@ -1,0 +1,18 @@
+local bufnr = vim.api.nvim_get_current_buf()
+
+vim.keymap.set("n", "<Leader>mK", "<cmd>RustLsp openDocs<cr>", { desc = "Open docs", buffer = bufnr })
+vim.keymap.set("n", "<Leader>me", "<cmd>RustLsp explainError<cr>", { desc = "Explain error", buffer = bufnr })
+vim.keymap.set("n", "<Leader>mc", "<cmd>RustLsp openCargo<cr>", { desc = "Open cargo", buffer = bufnr })
+vim.keymap.set("n", "<Leader>mx", "<cmd>RustLsp expandMacro<cr>", { desc = "Expand macro", buffer = bufnr })
+vim.keymap.set("v", "<Leader>mo", "diOption<<esc>pa><esc>", { desc = "Add option", buffer = bufnr })
+vim.keymap.set("v", "<Leader>mO", "diOption<<esc>pa><esc>", { desc = "Remove option", buffer = bufnr })
+vim.keymap.set("v", "<Leader>mr", "diResult<<esc>pa><esc>", { desc = "Add option", buffer = bufnr })
+vim.keymap.set("v", "<Leader>mR", "diResult<<esc>pa><esc>", { desc = "Remove option", buffer = bufnr })
+vim.keymap.set("v", "<Leader>ms", "diSome(<esc>pa)<esc>", { desc = "Add some", buffer = bufnr })
+
+vim.keymap.set("n", "<Leader>tT", "<cmd>OverseerRun<cr>", { desc = "Run tasks", buffer = bufnr })
+vim.keymap.set("n", "<Leader>tt", "<CMD>RustLsp testables<CR>", { desc = "Run tests", buffer = bufnr })
+vim.keymap.set("n", "<Leader>dd", "<CMD>RustLsp debuggables<CR>", { desc = "Run debuggables", buffer = bufnr })
+vim.keymap.set("n", "<Leader>dl", "<CMD>RustLsp! debuggables<CR>", { desc = "Run last debuggable", buffer = bufnr })
+vim.keymap.set("n", "<Leader>tl", "<CMD>RustLsp! testables<CR>", { desc = "Run last testable", buffer = bufnr })
+vim.keymap.set("n", "<Leader>tL", "<CMD>OverseerRestartLast<CR>", { desc = "Run last taks", buffer = bufnr })

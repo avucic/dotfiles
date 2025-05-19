@@ -1,0 +1,18 @@
+{
+  "byebug": {
+    "prefix": ["bb"],
+    "body": ["byebug"]
+  },
+  "save_and_open_screenshot": {
+    "prefix": ["scr"],
+    "body": ["save_and_open_screenshot"]
+  },
+  "save_and_open_page": {
+    "prefix": ["sop"],
+    "body": ["save_and_open_page"]
+  },
+  "Rspec spec": {
+    "prefix": ["spec"],
+    "body": ["require \"rails_helper\"", "", "RSpec.describe ${1} do", "end"]
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "CSF 3.0: Setup with Render (React TS)": {
+    "scope": "typescript,typescriptreact",
+    "prefix": "stb",
+    "body": [
+      "import { Meta, StoryObj } from '@storybook/react';",
+      "",
+      "import {${TM_FILENAME_BASE/.(?:story|stories).*/${1}/}} from './${TM_FILENAME_BASE/.(?:story|stories).*/${1}/}';",
+      "",
+      "const meta = {",
+      "\tcomponent: ${TM_FILENAME_BASE/.(?:story|stories).*/${1}/}",
+      "} satisfies Meta<typeof ${TM_FILENAME_BASE/.(?:story|stories).*/${1}/}>",
+      "",
+      "export default meta;",
+      "",
+      "type Story = StoryObj<typeof meta>;",
+      "",
+      "export const Default: Story = {",
+      "\targs: {",
+      "\t},",
+      "\tparameters: {",
+      "\t\tlayout: 'fullscreen'",
+      "\t}",
+      "};"
+    ],
+    "description": "Scaffold a Story"
+  },
+  "useEffect": {
+    "scope": "typescript,typescriptreact",
+    "prefix": "useE",
+    "body": [
+      "useEffect(() => {",
+      "\t${1}",
+      "}, [${2}]);"
+    ]
+  },
+  "React component": {
+    "scope": "typescript,typescriptreact",
+    "prefix": "rc",
+    "body": [
+      "import React from 'react'",
+      "",
+      "type ${1:${TM_FILENAME_BASE}}Props = {",
+      "",
+      "}",
+      "",
+      "export function ${1:${TM_FILENAME_BASE}}(props:${0:${TM_FILENAME_BASE}}Props) {",
+      "\treturn (",
+      "\t\t<div>${1:${TM_FILENAME_BASE}}</div>",
+      "\t)",
+      "}"
+    ]
+  },
+  "Arrow function": {
+    "scope": "typescript,typescriptreact",
+    "prefix": "af",
+    "body": [
+      "($1)=>{$2}"
+    ]
+  },
+  "Async Arrow function": {
+    "scope": "typescript,typescriptreact",
+    "prefix": "aaf",
+    "body": [
+      "async ($1)=>{$2}"
+    ]
+  }
+}

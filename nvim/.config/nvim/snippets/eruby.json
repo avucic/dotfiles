@@ -1,0 +1,10 @@
+{
+  "byebug": {
+    "prefix": ["bb"],
+    "body": ["byebug"]
+  },
+  "debug": {
+    "prefix": ["db"],
+    "body": ["<% require \"debug\"; debugger %>"]
+  }
+}

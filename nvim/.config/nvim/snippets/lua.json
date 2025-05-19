@@ -1,0 +1,64 @@
+{
+  "DelayFN": {
+    "prefix": ["df"],
+    "body": ["vim.defer_fn(function()", " $1", "end, ${2:1000})"]
+  },
+
+  "Module": {
+    "prefix": ["md"],
+    "body": [
+      "local M = {}",
+      "",
+      "function M.setup()",
+      "end",
+      "",
+      "function M.config()",
+      "\tlocal plugin = require(\"user.core.utils\").load_module(\"plugin\")",
+      "\tif not plugin then",
+      "\t\treturn {}",
+      "\tend",
+      "",
+      "\tplugin.setup()",
+      "end",
+      "",
+      "return M"
+    ]
+  },
+  "Dump": {
+    "prefix": ["dmp"],
+    "body": [
+      "function dump(o)",
+      "\tif type(o) == \"table\" then",
+      "\t\tlocal s = \"{ \"",
+      "\t\tfor k, v in pairs(o) do",
+      "\t\t\tif type(k) ~= \"number\" then",
+      "\t\t\t\tk = '\"' .. k .. '\"'",
+      "\t\t\tend",
+      "\t\t\ts = s .. \"[\" .. k .. \"] = \" .. dump(v) .. \",\"",
+      "\t\tend",
+      "\t\treturn s .. \"} \"",
+      "\telse",
+      "\t\treturn tostring(o)",
+      "\tend",
+      "end"
+    ]
+  },
+  "FileExists": {
+    "prefix": ["fex"],
+    "body": [
+      "local function file_exists(fname)",
+      "  if fname == nil then",
+      "    return false",
+      "  end",
+      "",
+      "  local f = io.open(fname, \"r\")",
+      "  if f ~= nil then",
+      "    io.close(f)",
+      "    return true",
+      "  else",
+      "    return false",
+      "  end",
+      "end"
+    ]
+  }
+}
