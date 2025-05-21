@@ -62,7 +62,7 @@ return {
         old_on_attach(bufnr)
 
         local prefix, maps = "<Leader>g", astrocore.empty_map_table()
-        maps.n[prefix .. "s"] = { "<cmd>Neogit kind=auto<CR>", desc = "Git status" }
+        maps.n[prefix .. "s"] = { "<cmd>Neogit kind=floating<CR>", desc = "Git status" }
         astrocore.set_mappings(maps, { buffer = bufnr })
       end
     end,

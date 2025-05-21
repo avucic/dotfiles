@@ -57,6 +57,32 @@ return {
             "!**/node_modules/**",
           },
         },
+        {
+          type = "pwa-node",
+          request = "launch",
+          name = "Debug Current Test by name",
+          autoAttachChildProcesses = true,
+          skipFiles = { "<node_internals>/**", "**/node_modules/**" },
+          program = "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+          runtimeExecutable = "node",
+          rootPath = "${workspaceFolder}",
+          cwd = "${workspaceFolder}",
+          args = function() return { "run", "${relativeFile}", "-t", vim.fn.input "Name: " } end,
+          -- args = {
+          --   "-t", -- Jest flag for test name pattern
+          --   "PUT YOUR TEST NAME PATTERN HERE", -- Replace with the actual test name or pattern
+          --   "${file}", -- Optional: run tests only in the current file
+          --   "--runInBand", -- Recommended for debugging
+          -- },
+          smartStep = true,
+          console = "integratedTerminal",
+          internalConsoleOptions = "neverOpen",
+          sourceMaps = true,
+          resolveSourceMapLocations = {
+            "${workspaceFolder}/**",
+            "!**/node_modules/**",
+          },
+        },
 
         {
           type = "pwa-node",

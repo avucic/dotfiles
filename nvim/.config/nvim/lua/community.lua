@@ -5,6 +5,8 @@
 ---@type LazySpec
 return {
   "AstroNvim/astrocommunity",
+  { import = "astrocommunity.recipes.ai" },
+
   { import = "astrocommunity.pack.lua" },
   -- import/override with your plugins folder
   { import = "astrocommunity.pack.rust" },
@@ -39,7 +41,7 @@ return {
   { import = "astrocommunity.motion.nvim-spider" }, -- jump to part of the word text objects
   { import = "astrocommunity.motion.nvim-surround" },
   -- { import = "astrocommunity.motion.marks-nvim" },
-  { import = "astrocommunity.note-taking.zk-nvim", tag = "v0.3.0" },
+  { import = "astrocommunity.note-taking.zk-nvim" },
   { import = "astrocommunity.quickfix.nvim-bqf" },
   { import = "astrocommunity.utility.noice-nvim" },
   { import = "astrocommunity.utility.nvim-toggler" },
@@ -65,20 +67,6 @@ return {
   },
 
   {
-    "NeogitOrg/neogit",
-    cmg = { "Neogit" },
-    dependencies = {
-      {
-        "AstroNvim/astrocore",
-        opts = function(_, opts)
-          local maps = opts.mappings
-          maps.n["<Leader>gs"] = { "<cmd>Neogit kind=split<CR>", desc = "Git status" }
-        end,
-      },
-    },
-  },
-
-  {
     "sindrets/diffview.nvim",
     cmd = {
       "DiffviewOpen",
@@ -91,7 +79,9 @@ return {
         "AstroNvim/astrocore",
         opts = function(_, opts)
           local maps = opts.mappings
-          maps.n["<Leader>gf"] = { "<cmd>DiffviewOpen<cr>", desc = "DiffView" }
+          -- maps.n["<Leader>gd"] = { desc = "Diff" }
+          maps.n["<Leader>gdo"] = { "<cmd>DiffviewOpen<cr>", desc = "DiffView" }
+          maps.n["<Leader>gdq"] = { ":q<cr>", desc = "Diff close" }
           maps.n["<Leader>gh"] = { "<cmd>DiffviewFileHistory %<cr>", desc = "History" }
           maps.n["<Leader>gR"] = { "<cmd>DiffviewRefresh<cr>", desc = "Refresh" }
         end,
@@ -197,7 +187,6 @@ return {
 
   {
     "zk-org/zk-nvim",
-    tag = "v0.3.0",
     dependencies = {
       "nvim-neorocks/toml-edit.lua",
     },

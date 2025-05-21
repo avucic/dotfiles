@@ -25,7 +25,7 @@ maps.n["<C-q>"] = false
 maps.n["|"] = false
 -- maps.n["j"] = false
 
-maps.n["<c-q>"] =      { "<cmd>silent! cclose<cr><cmd>nohlsearch<cr><cmd>ToggleTermToggleAll<cr>" }
+-- maps.n["<c-q>"] =      { "<cmd>silent! cclose<cr><cmd>nohlsearch<cr><cmd>ToggleTermToggleAll<cr>" }
 maps.n["<esc>"] =      { "<cmd>nohlsearch<cr><cmd>lua Snacks.notifier.hide()<cr>" }
 maps.n["<esc><esc>"] = { "<cmd>nohlsearch<cr><cmd>lua Snacks.notifier.hide()<cr>" }
 
@@ -57,7 +57,7 @@ maps.n["<c-w>t"] = { desc = "Tabs" }
 -- maps.n["<c-w>tt"] = { "<cmd>lua require('telescope-tabs').list_tabs()<cr>", desc = "List tabs" }
 maps.n["<c-w>tn"] = { "<cmd>tabnew<cr>", desc = "new tab" }
 maps.n["<c-w>tq"] = { "<cmd>tabclose<cr>", desc = "Close tab" }
-maps.n["<c-q>"] = { "<cmd>tabclose<cr>", desc = "Close tab" }
+--
 
 -- +Files
 maps.n["<Leader>fn"] = { "<cmd>enew<cr>", desc = "New file" }
