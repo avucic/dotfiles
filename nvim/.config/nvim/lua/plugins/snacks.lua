@@ -40,7 +40,6 @@ return {
       words = { enabled = true },
       scroll = { enabled = false },
       statuscolumn = { enabled = true },
-      input = { enabled = true },
       picker = {
         -- layout = "verti",
         layout = "telescope",
@@ -52,6 +51,9 @@ return {
               -- ["<C-q>"] = { "close", mode = { "n", "i" } },
               ["g."] = { "toggle_hidden", mode = { "n" } },
               ["gi"] = { "toggle_ignored", mode = { "n" } },
+              -- ["<c-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
+              -- ["<c-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
+
               -- ["<c-tab>"] = { "cycle_win", mode = { "i", "n" } },
             },
           },

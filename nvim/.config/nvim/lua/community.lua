@@ -6,18 +6,20 @@
 return {
   "AstroNvim/astrocommunity",
   { import = "astrocommunity.recipes.ai" },
-
+  --
   { import = "astrocommunity.pack.lua" },
   -- import/override with your plugins folder
   { import = "astrocommunity.pack.rust" },
   { import = "astrocommunity.pack.ruby" },
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.go" },
-  { import = "astrocommunity.pack.html-css" },
+  -- -- { import = "astrocommunity.pack.html-css" },
   { import = "astrocommunity.pack.markdown" },
-  { import = "astrocommunity.pack.tailwindcss" },
+  -- -- { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.full-dadbod" },
+  { import = "astrocommunity.pack.biome" },
+  -- { import = "astrocommunity.pack.html-css" },
 
   -- TODO:
   -- 1.fix telescope-nvchad-theme
@@ -79,7 +81,7 @@ return {
         "AstroNvim/astrocore",
         opts = function(_, opts)
           local maps = opts.mappings
-          -- maps.n["<Leader>gd"] = { desc = "Diff" }
+          maps.n["<Leader>gd"] = { desc = "Diff" }
           maps.n["<Leader>gdo"] = { "<cmd>DiffviewOpen<cr>", desc = "DiffView" }
           maps.n["<Leader>gdq"] = { ":q<cr>", desc = "Diff close" }
           maps.n["<Leader>gh"] = { "<cmd>DiffviewFileHistory %<cr>", desc = "History" }
@@ -142,15 +144,15 @@ return {
       },
     },
     opts = function(_, opts)
-      opts.default_file_explorer = "oil"
+      opts.default_file_explorer = true
       opts.keymaps = {
         ["<C-w>v"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
         ["<C-w>s"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
         ["<C-t>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" },
         ["<C-p>"] = false,
         ["<C-h>"] = false,
-        ["<C-s>"] = false,
-        ["<C-v>"] = false,
+        -- ["<C-s>"] = false,
+        -- ["<C-v>"] = false,
         ["."] = false,
         -- ["h"] = { "actions.parent", desc = "Parent" },
         -- ["l"] = { "actions.select", desc = "Select" },
@@ -185,12 +187,53 @@ return {
     end,
   },
 
+  -- to fix luautf8 issue
+  -- luarocks install luautf8 --lua-version=5.1
+  -- luarocks install toml-edit --lua-version=5.1
   {
     "zk-org/zk-nvim",
     dependencies = {
       "nvim-neorocks/toml-edit.lua",
+      {
+        "vhyrro/luarocks.nvim",
+
+        priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
+        config = true,
+        opts = {
+          ["toml-edit"] = { "toml-edit" }, -- specifies a list of rocks to install
+          ["luautf8"] = { "luautf8" },
+          -- luarocks_build_args = { "--with-lua=/my/path" }, -- extra options to pass to luarocks's configuration script
+          --   },
+        },
+      },
     },
     config = require("plugins.custom.zk").config,
+    opts = {
+      picker = "snacks_picker",
+      lsp = {
+        -- `config` is passed to `vim.lsp.start(config)`
+        config = {
+          name = "zk",
+          cmd = { "zk", "lsp" },
+          filetypes = { "markdown" },
+          -- on_attach = ...
+          -- etc, see `:h vim.lsp.start()`
+        },
+
+        -- automatically attach buffers in a zk notebook that match the given filetypes
+        auto_attach = {
+          enabled = true,
+        },
+      },
+
+      picker_options = {
+        snacks_picker = {
+          layout = {
+            preset = "ivy",
+          },
+        },
+      },
+    },
     cmd = {
       "ZkOrphahs",
       "ZkLink",

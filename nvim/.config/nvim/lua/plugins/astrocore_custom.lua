@@ -1,6 +1,3 @@
-local ft = require "Comment.ft"
-ft.set("cedar", { "//%s" })
-
 ---@type LazySpec
 return {
   "AstroNvim/astrocore",
@@ -62,7 +59,8 @@ return {
         old_on_attach(bufnr)
 
         local prefix, maps = "<Leader>g", astrocore.empty_map_table()
-        maps.n[prefix .. "s"] = { "<cmd>Neogit kind=floating<CR>", desc = "Git status" }
+        maps.n[prefix .. "s"] = { "<cmd>Neogit kind=split<CR>", desc = "Git status" }
+        maps.n[prefix .. "g"] = { "<cmd>Neogit kind=split<CR>", desc = "Git status" }
         astrocore.set_mappings(maps, { buffer = bufnr })
       end
     end,

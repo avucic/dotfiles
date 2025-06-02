@@ -21,7 +21,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
-      "David-Kunz/markid",
+      -- "David-Kunz/markid",
     },
     opts = {
       markid = { enable = true },

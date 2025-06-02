@@ -9,7 +9,13 @@ return {
         opts = function(_, opts)
           local maps = opts.mappings
           maps.n["<leader>:"] = { desc = "AI" }
+
           maps.n["<leader>:l"] = {
+            function() require("codecompanion").prompt "lsp" end,
+            desc = "Explain the LSP diagnostics for the selected code",
+          }
+
+          maps.v["<leader>:l"] = {
             function() require("codecompanion").prompt "lsp" end,
             desc = "Explain the LSP diagnostics for the selected code",
           }
@@ -29,7 +35,7 @@ return {
             desc = "Prompt",
           }
 
-          maps.v["<leader>:"] = { ":CodeCompanion " }
+          maps.v["<leader>::"] = { ":CodeCompanion " }
         end,
       },
     },

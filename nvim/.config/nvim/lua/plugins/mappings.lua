@@ -128,6 +128,7 @@ maps.n["<leader>bD"] = { "<cmd>WipeWindowlessBufs<cr>", desc = "Wipeout all buff
 -- maps.n["<Leader>gdb"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.diff_branch_file()<cr>", desc = "Diff branch file" }
 -- maps.n["<Leader>gdf"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.diff_commit_file()<cr>", desc = "Search file" }
 -- maps.n["<Leader>gds"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.search_log_content()<cr>", desc = "Search log" }
+maps.n["<Leader>gs"] = { "<cmd>Neogit kind=split<CR>", desc = "Git status" }
 maps.n["<Leader>gT"] = false
 maps.n["<Leader>gt"] = false
 maps.n["<Leader>gS"] = false

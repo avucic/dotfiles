@@ -67,7 +67,7 @@ end
 function M.config(_, opts)
   local zk = require "zk"
 
-  zk.setup(opts)
+  -- zk.setup(opts)
 
   create_commands()
   local commands = require "zk.commands"

@@ -18,6 +18,19 @@ return {
     },
     -- customize lsp formatting options
     formatting = {
+      filter = function(client)
+        -- disable formatting for lua_ls
+        if client.name == "null-ls" then
+          if vim.bo.filetype == "markdonw" then
+            return true
+          else
+            return false
+          end
+        end
+
+        -- enable all other clients
+        return true
+      end,
       -- control auto formatting on save
       format_on_save = {
         enabled = true, -- enable or disable format on save globally
