@@ -1,5 +1,5 @@
 {
-  "name": "example-snippets",
+  "name": "personal-snippets",
   "contributes": {
     "snippets": [
       {
@@ -56,6 +56,12 @@
           "typescriptreact"
         ],
         "path": "./typescriptreact.json"
+      },
+      {
+        "language": [
+          "javascript"
+        ],
+        "path": "./javascript.json"
       }
     ]
   }
