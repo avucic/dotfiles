@@ -47,21 +47,10 @@
       },
       {
         "language": [
-          "typescript"
+          "typescriptreact",
+          "javascriptreact"
         ],
-        "path": "./typescript.json"
-      },
-      {
-        "language": [
-          "typescriptreact"
-        ],
-        "path": "./typescriptreact.json"
-      },
-      {
-        "language": [
-          "javascript"
-        ],
-        "path": "./javascript.json"
+        "path": "./javascriptreact.json"
       }
     ]
   }
