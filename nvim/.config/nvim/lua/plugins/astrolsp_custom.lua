@@ -1,5 +1,3 @@
--- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- AstroLSP allows you to customize the features in AstroNvim's LSP configuration engine
 -- Configuration documentation can be found with `:h astrolsp`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -18,19 +16,6 @@ return {
     },
     -- customize lsp formatting options
     formatting = {
-      filter = function(client)
-        -- disable formatting for lua_ls
-        if client.name == "null-ls" then
-          if vim.bo.filetype == "markdonw" then
-            return true
-          else
-            return false
-          end
-        end
-
-        -- enable all other clients
-        return true
-      end,
       -- control auto formatting on save
       format_on_save = {
         enabled = true, -- enable or disable format on save globally
@@ -46,13 +31,31 @@ return {
         -- "lua_ls",
       },
       timeout_ms = 1000, -- default format timeout
-      -- filter = function(client) -- fully override the default formatting function
+      -- filter = function(client)
+      --   -- disable formatting for lua_ls
+      --   if client.name == "null-ls" then
+      --     return false
+      --     -- local supported_filetypes = { "markdown", "lua", "json", "yaml", "yml" }
+      --     -- return vim.tbl_contains(supported_filetypes, vim.bo.filetype)
+      --   end
+      --
+      --   -- enable all other clients
       --   return true
-      -- end
+      -- end,
     },
     -- enable servers that you already have installed without mason
     servers = {
       -- "pyright"
+      jsonls = {
+        settings = {
+          json = {
+            format = {
+              enable = false,
+            },
+          },
+          validate = { enable = true },
+        },
+      },
     },
     -- customize language server configuration options passed to `lspconfig`
     ---@diagnostic disable: missing-fields

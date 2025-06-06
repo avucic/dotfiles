@@ -23,6 +23,8 @@ return {
           end,
         },
       },
+
+      { "L3MON4D3/LuaSnip", version = "v2.*" },
       -- {
       --   "Exafunction/windsurf.nvim",
       --   dependencies = {
@@ -35,11 +37,21 @@ return {
       -- },
     },
     opts = {
+      snippets = { preset = "luasnip" },
       sources = {
+        -- transform_items = function(_, items)
+        --   local wanted = {}
+        --   for _, item in ipairs(items) do
+        --     print(item.kind)
+        --     if item.kind ~= require("blink.cmp.types").CompletionItemKind.Snippet then wanted[#wanted + 1] = item end
+        --   end
+        --   return wanted
+        -- end,
         default = {
           "snippets",
           "lsp",
           "path",
+          "codeium",
           "buffer",
           "spell",
         },

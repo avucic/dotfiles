@@ -47,8 +47,9 @@ return {
           -- input window
           input = {
             keys = {
-              ["<Esc>"] = { "close", mode = { "n" } },
+              -- ["<Esc>"] = { "close", mode = { "n" } },
               -- ["<C-q>"] = { "close", mode = { "n", "i" } },
+              ["<C-c>"] = { "close", mode = { "n", "i" } },
               ["g."] = { "toggle_hidden", mode = { "n" } },
               ["gi"] = { "toggle_ignored", mode = { "n" } },
               -- ["<c-u>"] = { "preview_scroll_up", mode = { "i", "n" } },

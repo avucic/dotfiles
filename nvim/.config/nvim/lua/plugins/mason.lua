@@ -34,7 +34,7 @@ return {
         -- "erb_lint",
         -- "marksman",
         "zk",
-        "css-lsp"
+        "css-lsp",
       },
     },
   },

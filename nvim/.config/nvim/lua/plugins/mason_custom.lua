@@ -9,6 +9,7 @@ return {
     opts = {
       -- Make sure to use the names found in `:Mason`
       ensure_installed = {
+        "json-lsp",
         -- install language servers
         "lua-language-server",
 
@@ -27,5 +28,17 @@ return {
         "css-lsp",
       },
     },
+  },
+
+  {
+    "jay-babu/mason-null-ls.nvim",
+    opts = function(_, opts)
+      local null_ls = require "null-ls"
+      opts.handlers.prettierd = function()
+        null_ls.register(null_ls.builtins.formatting.prettierd.with {
+          filetypes = { "html" },
+        })
+      end
+    end,
   },
 }
