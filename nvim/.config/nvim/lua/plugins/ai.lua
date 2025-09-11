@@ -74,59 +74,62 @@ return {
         --
         --
         adapters = {
-          ollama = function()
-            return require("codecompanion.adapters").extend("ollama", {
-              name = "qwen",
-              parameters = {
-                sync = true,
-              },
-              schema = {
-                model = {
-                  default = "deepseek-coder",
+          http = {
+
+            ollama = function()
+              return require("codecompanion.adapters").extend("ollama", {
+                name = "qwen",
+                parameters = {
+                  sync = true,
                 },
-              },
-            })
-          end,
+                schema = {
+                  model = {
+                    default = "deepseek-coder",
+                  },
+                },
+              })
+            end,
 
-          -- ollama = {
-          --   enabled = true,
-          --   model = "deepseek-coder", -- The model you pulled with Ollama
-          --   host = "http://localhost:11434", -- Default Ollama API endpoint
-          --   context_window = 4096, -- Adjust based on your model's context window
-          -- },
-          -- ollama = function()
-          --   return require("codecompanion.adapters").extend("ollama", {
-          --     enabled = true,
-          --     model = "deepseek-coder", -- The model you pulled with Ollama
-          --     host = "http://localhost:11434", -- Default Ollama API endpoint
-          --     context_window = 4096, -- Adjust based on your model's context window
-          --   })
-          -- end,
+            -- ollama = {
+            --   enabled = true,
+            --   model = "deepseek-coder", -- The model you pulled with Ollama
+            --   host = "http://localhost:11434", -- Default Ollama API endpoint
+            --   context_window = 4096, -- Adjust based on your model's context window
+            -- },
+            -- ollama = function()
+            --   return require("codecompanion.adapters").extend("ollama", {
+            --     enabled = true,
+            --     model = "deepseek-coder", -- The model you pulled with Ollama
+            --     host = "http://localhost:11434", -- Default Ollama API endpoint
+            --     context_window = 4096, -- Adjust based on your model's context window
+            --   })
+            -- end,
 
-          -- ollama = function()
-          --   return require("codecompanion.adapters").extend("openai_compatible", {
-          --     -- env = {
-          --     --   -- url = "http[s]://open_compatible_ai_url", -- optional: default value is ollama url http://127.0.0.1:11434
-          --     --   -- api_key = "OPENAI_API_KEY", -- optional: if your endpoint is authenticated
-          --     --   chat_url = "/v1/chat/completions", -- optional: default value, override if different
-          --     -- },
-          --     schema = {
-          --       model = {
-          --         default = "deepseek-coder:1.3b",
-          --       },
-          --     },
-          --   })
-          -- end,
+            -- ollama = function()
+            --   return require("codecompanion.adapters").extend("openai_compatible", {
+            --     -- env = {
+            --     --   -- url = "http[s]://open_compatible_ai_url", -- optional: default value is ollama url http://127.0.0.1:11434
+            --     --   -- api_key = "OPENAI_API_KEY", -- optional: if your endpoint is authenticated
+            --     --   chat_url = "/v1/chat/completions", -- optional: default value, override if different
+            --     -- },
+            --     schema = {
+            --       model = {
+            --         default = "deepseek-coder:1.3b",
+            --       },
+            --     },
+            --   })
+            -- end,
 
-          gemini = function()
-            return require("codecompanion.adapters").extend("gemini", {
-              env = {
-                --   -- url = "http[s]://open_compatible_ai_url", -- optional: default value is ollama url http://127.0.0.1:11434
-                api_key = os.getenv "GEMINI_API_KEY", -- optional: if your endpoint is authenticated
-                --   chat_url = "/v1/chat/completions", -- optional: default value, override if different
-              },
-            })
-          end,
+            gemini = function()
+              return require("codecompanion.adapters").extend("gemini", {
+                env = {
+                  --   -- url = "http[s]://open_compatible_ai_url", -- optional: default value is ollama url http://127.0.0.1:11434
+                  api_key = os.getenv "GEMINI_API_KEY", -- optional: if your endpoint is authenticated
+                  --   chat_url = "/v1/chat/completions", -- optional: default value, override if different
+                },
+              })
+            end,
+          },
         },
         prompt_library = {
           ["Commit Message"] = {

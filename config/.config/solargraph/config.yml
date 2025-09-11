@@ -1,14 +1,30 @@
-plugins:
-  - solargraph-rails
-  - solargraph-standardrb
-  - solargraph-reek
-reporters:
-  - standardrb
-  - reek
+---
+include:
+- Rakefile
+- Gemfile
+- "*.gemspec"
+- "**/*.rb"
 exclude:
-  - views/**/*
-  - bundle/**/*
-  - node_modules/**/*
-  - spec/**/*
-  - test/**/*
-  - vendor/**/*
+- views/**/*
+- bundle/**/*
+- node_modules/**/*
+- spec/**/*
+- test/**/*
+- vendor/**/*
+require: []
+domains: []
+reporters:
+- standardrb
+- reek
+formatter:
+  rubocop:
+    cops: safe
+    except: []
+    only: []
+    extra_args: []
+require_paths: []
+# plugins:
+# - solargraph-rails
+# - solargraph-standardrb
+# - solargraph-reek
+max_files: 5000

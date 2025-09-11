@@ -61,11 +61,60 @@ return {
     ---@diagnostic disable: missing-fields
     config = {
       -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
+      ruby_lsp = {
+        -- cmd = {
+        --   "/Users/vucinjo/.asdf/shims/ruby-lsp",
+        -- },
+        -- -- cmd_env = { BUNDLE_GEMFILE = vim.fn.getenv "GLOBAL_GEMFILE" },
+        -- -- cmd = { "ruby-lsp" },
+        -- filetypes = { "ruby", "eruby" },
+        -- root_dir = function() return vim.loop.cwd() end,
+        -- settings = {
+        init_options = {
+          cmd_env = {
+            BUNDLE_GEMFILE = vim.loop.cwd() .. "/.ruby-lsp/Gemfile.custom",
+          },
+          linters = { "standard", "reek" },
+          addonSettings = {
+            ["Ruby LSP Reek"] = {},
+          },
+          -- enabledFeatures = {
+          --   "codeActions",
+          --   "documentHighlights",
+          --   "documentSymbols",
+          --   "foldingRange",
+          --   "formatting",
+          --   "hover",
+          --   "inlayHints",
+          --   "linkedEditingRange",
+          --   "selectionRange",
+          --   "semanticTokens",
+          --   "signatureHelp",
+          --   "typeDefinition",
+          -- },
+          formatter = "standard", -- or "rubocop", etc.,
+        },
+      },
+      -- },
     },
     -- customize how language servers are attached
     handlers = {
       -- a function without a key is simply the default handler, functions take two parameters, the server name and the configured options table for that server
       -- function(server, opts) require("lspconfig")[server].setup(opts) end
+      -- function(server, opts)
+      --   -- require("lspconfig")[server].setup(opts)
+      --   if server == "ruby_lsp" then
+      --     require("lspconfig").ruby_lsp.setup {
+      --       init_options = {
+      --         addonSettings = {
+      --           ["Ruby LSP Rails"] = {
+      --             enablePendingMigrationsPrompt = true, -- Optional: disable migrations prompt
+      --           },
+      --         },
+      --       },
+      --     }
+      --   end
+      -- end,
 
       -- the key is the server that is being setup with `lspconfig`
       -- rust_analyzer = false, -- setting a handler to false will disable the set up of that language server

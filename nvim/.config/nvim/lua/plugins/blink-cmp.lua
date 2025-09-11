@@ -38,6 +38,18 @@ return {
     },
     opts = {
       snippets = { preset = "luasnip" },
+      keymap = {
+        -- set to 'none' to disable the 'default' preset
+        preset = "default",
+
+        -- disable a keymap from the preset
+        -- ["<Cr>"] = { "accept_and_enter" }, -- or {}
+
+        -- show with a list of providers
+        ["<C-space>"] = { function(cmp) cmp.show { providers = { "snippets" } } end },
+
+        -- control whether the next command will be run when using a function
+      },
       sources = {
         -- transform_items = function(_, items)
         --   local wanted = {}
@@ -88,6 +100,12 @@ return {
             -- IMPORTANT: use the same name as you would for nvim-cmp
             name = "codeium",
             module = "blink.compat.source",
+
+            enabled = function()
+              local path = vim.api.nvim_buf_get_name(0)
+              if string.find(path, "oil://", 1, true) == 1 then return false end
+              return true
+            end,
 
             -- all blink.cmp source config options work as normal:
             -- score_offset = -3,

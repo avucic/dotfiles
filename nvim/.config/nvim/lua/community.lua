@@ -10,7 +10,7 @@ return {
   { import = "astrocommunity.pack.lua" },
   -- import/override with your plugins folder
   { import = "astrocommunity.pack.rust" },
-  { import = "astrocommunity.pack.ruby" },
+  -- { import = "astrocommunity.pack.ruby" },
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.go" },
   -- -- { import = "astrocommunity.pack.html-css" },
@@ -207,32 +207,32 @@ return {
         },
       },
     },
-    config = require("plugins.custom.zk").config,
+    config = function(_, opts) require("plugins.custom.zk").config(opts) end,
     opts = {
-      picker = "snacks_picker",
-      lsp = {
-        -- `config` is passed to `vim.lsp.start(config)`
-        config = {
-          name = "zk",
-          cmd = { "zk", "lsp" },
-          filetypes = { "markdown" },
-          -- on_attach = ...
-          -- etc, see `:h vim.lsp.start()`
-        },
+      picker = "telescope",
+      -- lsp = {
+      --   -- `config` is passed to `vim.lsp.start(config)`
+      --   config = {
+      --     name = "zk",
+      --     cmd = { "zk", "lsp" },
+      --     filetypes = { "markdown" },
+      --     -- on_attach = ...
+      --     -- etc, see `:h vim.lsp.start()`
+      --   },
+      --
+      --   -- automatically attach buffers in a zk notebook that match the given filetypes
+      --   auto_attach = {
+      --     enabled = true,
+      --   },
+      -- },
 
-        -- automatically attach buffers in a zk notebook that match the given filetypes
-        auto_attach = {
-          enabled = true,
-        },
-      },
-
-      picker_options = {
-        snacks_picker = {
-          layout = {
-            preset = "ivy",
-          },
-        },
-      },
+      -- picker_options = {
+      --   snacks_picker = {
+      --     layout = {
+      --       preset = "ivy",
+      --     },
+      --   },
+      -- },
     },
     cmd = {
       "ZkOrphahs",
@@ -287,6 +287,7 @@ return {
           local maps = opts.mappings
           maps.n["<Leader>y"] = { desc = "Yank" }
           maps.n["<Leader>yy"] = { "<cmd>lua Snacks.picker.yanky() <cr>", desc = "Yank history" }
+          maps.v["<Leader>yy"] = { "<cmd>lua Snacks.picker.yanky() <cr>", desc = "Yank history" }
         end,
       },
     },
@@ -421,31 +422,59 @@ return {
       }
     end,
   },
-  -- {
-  --   "stevearc/conform.nvim",
-  --   optional = true,
-  --   opts = function(_, opts)
-  --     if not opts.formatters_by_ft then opts.formatters_by_ft = {} end
-  --     -- https://biomejs.dev/internals/language-support/
-  --     local supported_ft = {
-  --       "astro",
-  --       "css",
-  --       "graphql",
-  --       "html",
-  --       "javascript",
-  --       "javascriptreact",
-  --       "json",
-  --       "jsonc",
-  --       "markdown",
-  --       "svelte",
-  --       "typescript",
-  --       "typescriptreact",
-  --       "vue",
-  --       "yaml",
-  --     }
-  --     for _, ft in ipairs(supported_ft) do
-  --       opts.formatters_by_ft[ft] = { "biome" }
-  --     end
-  --   end,
-  -- },
+  {
+    "stevearc/conform.nvim",
+    optional = true,
+    config = function()
+      local util = require "conform.util"
+      require("conform").setup {
+        formatters = {
+          biome = {
+            command = util.find_executable({
+              "node_modules/.bin/biome",
+              "biome",
+            }, "biome"),
+            args = { "format", "--stdin-file-path", "$FILENAME" },
+            stdin = true,
+            cwd = util.root_file { "biome.json", "package.json", ".git" },
+          },
+        },
+      }
+    end,
+    --   opts = function(_, opts)
+    --     if not opts.formatters_by_ft then opts.formatters_by_ft = {} end
+    --     if not opts.formatters then opts.formatters = {} end
+    --     -- https://biomejs.dev/internals/language-support/
+    --     -- local supported_ft = {
+    --     --   "astro",
+    --     --   "css",
+    --     --   "graphql",
+    --     --   "html",
+    --     --   "javascript",
+    --     --   "javascriptreact",
+    --     --   "json",
+    --     --   "jsonc",
+    --     --   "markdown",
+    --     --   "svelte",
+    --     --   "typescript",
+    --     --   "typescriptreact",
+    --     --   "vue",
+    --     --   "yaml",
+    --     -- }
+    --     -- for _, ft in ipairs(supported_ft) do
+    --     --   opts.formatters_by_ft[ft] = { "biome" }
+    --     -- end
+    --
+    --     table.insert(opts.formatters, {
+    --       biome = {
+    --         -- Use 'npx' to ensure the project's local 'biome' executable is used.
+    --         -- 'npx' will automatically look for 'biome' in node_modules/.bin and then global.
+    --         command = "npx",
+    --         -- The 'args' are passed to 'npx biome ...'.
+    --         -- '$FILENAME' is a placeholder replaced by conform with the current buffer's file path.
+    --         args = { "biome", "format", "--stdin-file-path", "$FILENAME" },
+    --       },
+    --     })
+    --   end,
+  },
 }

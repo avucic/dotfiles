@@ -47,10 +47,10 @@ maps.n["<A-k>"] = { "<Nop>" }
 maps.n["<c-w>"] = { desc = "Window management" }
 maps.n["<c-w>q"] = { "<cmd>:q<cr>", desc = "Close" }
 maps.n["<c-w>D"] = { "<cmd>only<cr>", desc = "Close others" }
-maps.n["<C-w>K"] = { "<cmd>lua require('smart-splits').resize_up()<cr><cmd>WhichKey <c-w><cr>", desc = "Resize split up" }
-maps.n["<C-w>J"] = { "<cmd>lua require('smart-splits').resize_down()<cr><cmd>WhichKey <c-w><cr>", desc = "Resize split down" }
-maps.n["<C-w>H"] = { "<cmd>lua require('smart-splits').resize_left()<cr><cmd>WhichKey <c-w><cr>", desc = "Resize split left" }
-maps.n["<C-w>L"] = { "<cmd>lua require('smart-splits').resize_right()<cr><cmd>WhichKey <c-w><cr>", desc = "Resize split right" }
+maps.n["<C-w>+"] = { "<cmd>lua require('smart-splits').resize_up()<cr><cmd>WhichKey <c-w><cr>", desc = "Resize split up" }
+maps.n["<C-w>-"] = { "<cmd>lua require('smart-splits').resize_down()<cr><cmd>WhichKey <c-w><cr>", desc = "Resize split down" }
+maps.n["<C-w>>"] = { "<cmd>lua require('smart-splits').resize_left()<cr><cmd>WhichKey <c-w><cr>", desc = "Resize split left" }
+maps.n["<C-w><"] = { "<cmd>lua require('smart-splits').resize_right()<cr><cmd>WhichKey <c-w><cr>", desc = "Resize split right" }
 
 -- tabs
 maps.n["<c-w>t"] = { desc = "Tabs" }
@@ -61,6 +61,7 @@ maps.n["<c-w>tq"] = { "<cmd>tabclose<cr>", desc = "Close tab" }
 
 -- +Files
 maps.n["<Leader>fn"] = { "<cmd>enew<cr>", desc = "New file" }
+maps.n["<Leader>e"] = { "<cmd>Triptych<CR>", desc = "Explorer" }
 -- maps.n["<Leader>fe"] = { "<cmd>lua _VIFM_TOGGLE()<cr>", desc = "Explorer from current dir" }
 -- maps.n["<Leader>fE"] = { "<cmd>lua _VIFM_TOGGLE(vim.fn.getcwd())<cr>", desc = "Explorer from current dir" }
 -- maps.n["<Leader>fd"] = { "<cmd>lua require('telescope').extensions.dir.live_grep()<CR>", desc = "Find dir" }
@@ -178,7 +179,7 @@ maps.v["<Leader>nn"] = { ":'<,'>ZkFindOrCreateNoteFromVisualSelection<cr>", desc
 
 -- maps.n["<Leader>nf"] = { desc = "Find notes" }
 maps.n["<Leader>nw"] = { "<Cmd>ZkGrep<CR>", desc = "Grep" }
-maps.n["<Leader>nt"] = { "<Cmd>ZkTags<CR>", desc = "By tags" }
+maps.n["<Leader>nT"] = { "<Cmd>ZkTags<CR>", desc = "By tags" }
 maps.n["<Leader>nl"] = { "<Cmd>ZkLinks<CR>", desc = "Links" }
 maps.n["<Leader>nb"] = { "<Cmd>ZkBacklinks<CR>", desc = "Backlinks" }
 maps.n["<Leader>no"] = { "<Cmd>ZkOrphans<CR>", desc = "Orphans" }
