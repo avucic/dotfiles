@@ -69,7 +69,7 @@ return {
       configs.herb_ls = {
         default_config = {
           cmd = { "herb-language-server", "--stdio" },
-          filetypes = { "html", "ruby", "eruby" },
+          filetypes = { "html", "eruby" },
           root_dir = util.root_pattern("Gemfile", ".git"),
         },
       }
