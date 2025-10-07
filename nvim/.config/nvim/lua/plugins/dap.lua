@@ -29,7 +29,7 @@ return {
       executable = {
         command = "node",
         args = {
-          get_pkg_path("js-debug-adapter", "/js-debug/src/dapDebugServer.js"),
+          get_pkg_path,
           "${port}",
         },
       },

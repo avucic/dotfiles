@@ -20,6 +20,7 @@ return {
   { import = "astrocommunity.pack.full-dadbod" },
   { import = "astrocommunity.pack.biome" },
   -- { import = "astrocommunity.pack.html-css" },
+  { import = "astrocommunity.note-taking.obsidian-nvim" },
 
   -- TODO:
   -- 1.fix telescope-nvchad-theme
@@ -43,7 +44,7 @@ return {
   { import = "astrocommunity.motion.nvim-spider" }, -- jump to part of the word text objects
   { import = "astrocommunity.motion.nvim-surround" },
   -- { import = "astrocommunity.motion.marks-nvim" },
-  { import = "astrocommunity.note-taking.zk-nvim" },
+  -- { import = "astrocommunity.note-taking.zk-nvim" },
   { import = "astrocommunity.quickfix.nvim-bqf" },
   { import = "astrocommunity.utility.noice-nvim" },
   { import = "astrocommunity.utility.nvim-toggler" },
@@ -190,74 +191,74 @@ return {
   -- to fix luautf8 issue
   -- luarocks install luautf8 --lua-version=5.1
   -- luarocks install toml-edit --lua-version=5.1
-  {
-    "zk-org/zk-nvim",
-    dependencies = {
-      "nvim-neorocks/toml-edit.lua",
-      {
-        "vhyrro/luarocks.nvim",
-
-        priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
-        config = true,
-        opts = {
-          ["toml-edit"] = { "toml-edit" }, -- specifies a list of rocks to install
-          ["luautf8"] = { "luautf8" },
-          -- luarocks_build_args = { "--with-lua=/my/path" }, -- extra options to pass to luarocks's configuration script
-          --   },
-        },
-      },
-    },
-    config = function(_, opts) require("plugins.custom.zk").config(opts) end,
-    opts = {
-      picker = "telescope",
-      -- lsp = {
-      --   -- `config` is passed to `vim.lsp.start(config)`
-      --   config = {
-      --     name = "zk",
-      --     cmd = { "zk", "lsp" },
-      --     filetypes = { "markdown" },
-      --     -- on_attach = ...
-      --     -- etc, see `:h vim.lsp.start()`
-      --   },
-      --
-      --   -- automatically attach buffers in a zk notebook that match the given filetypes
-      --   auto_attach = {
-      --     enabled = true,
-      --   },
-      -- },
-
-      -- picker_options = {
-      --   snacks_picker = {
-      --     layout = {
-      --       preset = "ivy",
-      --     },
-      --   },
-      -- },
-    },
-    cmd = {
-      "ZkOrphahs",
-      "ZkLink",
-      "ZkGrep",
-      "ZkIndex",
-      "ZkNew",
-      -- "ZkNewFromTitleSelection",
-      "ZkNewFromContentSelection",
-      "ZkCd",
-      "ZkNotes",
-      "ZkBacklinks",
-      "ZkLinks",
-      "ZkInsertLinkAtSelection",
-      "ZkInsertLink",
-      "ZkMatch",
-      "ZkTags",
-      "ZkOpenNotebook",
-      "ZkFindOrCreate",
-      "ZkFindOrCreateJournalDailyNote",
-      "ZkOpenNotes",
-      "ZkFindOrCreateNote",
-      "ZkFindOrCreateProjectNote",
-    },
-  },
+  -- {
+  --   "zk-org/zk-nvim",
+  --   dependencies = {
+  --     "nvim-neorocks/toml-edit.lua",
+  --     {
+  --       "vhyrro/luarocks.nvim",
+  --
+  --       priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
+  --       config = true,
+  --       opts = {
+  --         ["toml-edit"] = { "toml-edit" }, -- specifies a list of rocks to install
+  --         ["luautf8"] = { "luautf8" },
+  --         -- luarocks_build_args = { "--with-lua=/my/path" }, -- extra options to pass to luarocks's configuration script
+  --         --   },
+  --       },
+  --     },
+  --   },
+  --   config = function(_, opts) require("plugins.custom.zk").config(opts) end,
+  --   opts = {
+  --     picker = "telescope",
+  --     -- lsp = {
+  --     --   -- `config` is passed to `vim.lsp.start(config)`
+  --     --   config = {
+  --     --     name = "zk",
+  --     --     cmd = { "zk", "lsp" },
+  --     --     filetypes = { "markdown" },
+  --     --     -- on_attach = ...
+  --     --     -- etc, see `:h vim.lsp.start()`
+  --     --   },
+  --     --
+  --     --   -- automatically attach buffers in a zk notebook that match the given filetypes
+  --     --   auto_attach = {
+  --     --     enabled = true,
+  --     --   },
+  --     -- },
+  --
+  --     -- picker_options = {
+  --     --   snacks_picker = {
+  --     --     layout = {
+  --     --       preset = "ivy",
+  --     --     },
+  --     --   },
+  --     -- },
+  --   },
+  --   cmd = {
+  --     "ZkOrphahs",
+  --     "ZkLink",
+  --     "ZkGrep",
+  --     "ZkIndex",
+  --     "ZkNew",
+  --     -- "ZkNewFromTitleSelection",
+  --     "ZkNewFromContentSelection",
+  --     "ZkCd",
+  --     "ZkNotes",
+  --     "ZkBacklinks",
+  --     "ZkLinks",
+  --     "ZkInsertLinkAtSelection",
+  --     "ZkInsertLink",
+  --     "ZkMatch",
+  --     "ZkTags",
+  --     "ZkOpenNotebook",
+  --     "ZkFindOrCreate",
+  --     "ZkFindOrCreateJournalDailyNote",
+  --     "ZkOpenNotes",
+  --     "ZkFindOrCreateNote",
+  --     "ZkFindOrCreateProjectNote",
+  --   },
+  -- },
   {
     "folke/flash.nvim",
     event = "VeryLazy",
@@ -441,40 +442,5 @@ return {
         },
       }
     end,
-    --   opts = function(_, opts)
-    --     if not opts.formatters_by_ft then opts.formatters_by_ft = {} end
-    --     if not opts.formatters then opts.formatters = {} end
-    --     -- https://biomejs.dev/internals/language-support/
-    --     -- local supported_ft = {
-    --     --   "astro",
-    --     --   "css",
-    --     --   "graphql",
-    --     --   "html",
-    --     --   "javascript",
-    --     --   "javascriptreact",
-    --     --   "json",
-    --     --   "jsonc",
-    --     --   "markdown",
-    --     --   "svelte",
-    --     --   "typescript",
-    --     --   "typescriptreact",
-    --     --   "vue",
-    --     --   "yaml",
-    --     -- }
-    --     -- for _, ft in ipairs(supported_ft) do
-    --     --   opts.formatters_by_ft[ft] = { "biome" }
-    --     -- end
-    --
-    --     table.insert(opts.formatters, {
-    --       biome = {
-    --         -- Use 'npx' to ensure the project's local 'biome' executable is used.
-    --         -- 'npx' will automatically look for 'biome' in node_modules/.bin and then global.
-    --         command = "npx",
-    --         -- The 'args' are passed to 'npx biome ...'.
-    --         -- '$FILENAME' is a placeholder replaced by conform with the current buffer's file path.
-    --         args = { "biome", "format", "--stdin-file-path", "$FILENAME" },
-    --       },
-    --     })
-    --   end,
   },
 }

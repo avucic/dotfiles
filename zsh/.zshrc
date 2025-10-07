@@ -52,7 +52,6 @@ export ZSH_CUSTOM=~/.znap/custom
 # iTerm2 Shell Integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-
 # -----------------------------------------------------------------------------
 # Path Modifications
 # -----------------------------------------------------------------------------
@@ -92,6 +91,8 @@ export TODOTXT_CFG_FILE=$HOME/.config/todo.txt-cli/conf.cfg
 # FZF
 export FZF_DEFAULT_OPTS='--preview "pygmentize {}" --color dark --bind "?:toggle-preview" --preview-window "right:50%:hidden"'
 
+export ZSH_AI_PROVIDER="gemini"
+
 
 # -----------------------------------------------------------------------------
 # Znap Plugin Sourcing
@@ -104,7 +105,7 @@ znap prompt
 
 znap source ohmyzsh/ohmyzsh \
   lib/{git,grep,history,key-bindings} \
-  plugins/{git,cp,docker-compose,rake,bundler,ruby,tmux,direnv,fzf,gitignore,history,tmuxinator}
+  plugins/{git,cp,docker-compose,rake,bundler,ruby,tmux,direnv,fzf,gitignore,history,tmuxinator,zsh-ai}
 
 
 # `znap source` starts plugins.
@@ -113,6 +114,7 @@ znap source zsh-users/zsh-syntax-highlighting
 znap source zsh-users/zsh-autosuggestions
 znap source olets/zsh-abbr
 znap source MichaelAquilina/zsh-you-should-use
+znap source matheusml/zsh-ai
 # znap source marlonrichert/zsh-autocomplete
 # znap source zsh-users/zsh-completions
 
@@ -171,3 +173,4 @@ kill-port() {
 # -----------------------------------------------------------------------------
 alias tsk=task
 alias t="/opt/homebrew/bin/todo.sh"
+alias n="nvim"

@@ -27,11 +27,15 @@ return {
       },
       filename = {
         [".foorc"] = "fooscript",
+        ["todo.txt"] = "todotxt",
+        ["done.txt"] = "todotxt",
       },
       pattern = {
         [".*/etc/foo/.*"] = "fooscript",
         [".env.*"] = "sh",
         ["vifmrc"] = "vim",
+        ["todo.txt"] = "todotxt",
+        ["done.txt"] = "todotxt",
       },
     },
     -- vim options can be configured here

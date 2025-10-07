@@ -160,14 +160,14 @@ maps.n["<Leader>jr"] = { "<cmd>lua Snacks.picker.lsp_references()<CR>", desc = "
 
 -- +Notes
 maps.n["<Leader>n"] = { false, desc = "Notes" }
-maps.n["<Leader>nn"] = false
-maps.n["<Leader>nf"] = { "<Cmd>ZkOpenNotes<CR>", desc = "Open notes" }
-maps.n["<Leader>ni"] = { "<cmd>ZkOpenNotebook<CR>", desc = "Open notebook" }
-maps.n["<Leader>n."] = { "<Cmd>ZkCd<CR>", desc = "cdw" }
-maps.n["<Leader>nR"] = { "<Cmd>ZkIndex<CR>", desc = "Reindex" }
-maps.n["<Leader>nn"] = { "<Cmd>ZkFindOrCreateNote<CR>", desc = "Find or create note" }
-
-maps.v["<Leader>nn"] = { ":'<,'>ZkFindOrCreateNoteFromVisualSelection<cr>", desc = "New Project note", silent = true }
+-- maps.n["<Leader>nn"] = false
+-- maps.n["<Leader>nf"] = { "<Cmd>ZkOpenNotes<CR>", desc = "Open notes" }
+-- maps.n["<Leader>ni"] = { "<cmd>ZkOpenNotebook<CR>", desc = "Open notebook" }
+-- maps.n["<Leader>n."] = { "<Cmd>ZkCd<CR>", desc = "cdw" }
+-- maps.n["<Leader>nR"] = { "<Cmd>ZkIndex<CR>", desc = "Reindex" }
+-- maps.n["<Leader>nn"] = { "<Cmd>ZkFindOrCreateNote<CR>", desc = "Find or create note" }
+--
+-- maps.v["<Leader>nn"] = { ":'<,'>ZkFindOrCreateNoteFromVisualSelection<cr>", desc = "New Project note", silent = true }
 
 
 
@@ -177,11 +177,11 @@ maps.v["<Leader>nn"] = { ":'<,'>ZkFindOrCreateNoteFromVisualSelection<cr>", desc
 -- maps.n["<Leader>ntc"] = { "<cmd>ToDoTxtCapture<CR>", desc = "Todos capture" }
 
 -- maps.n["<Leader>nf"] = { desc = "Find notes" }
-maps.n["<Leader>nw"] = { "<Cmd>ZkGrep<CR>", desc = "Grep" }
-maps.n["<Leader>nT"] = { "<Cmd>ZkTags<CR>", desc = "By tags" }
-maps.n["<Leader>nl"] = { "<Cmd>ZkLinks<CR>", desc = "Links" }
-maps.n["<Leader>nb"] = { "<Cmd>ZkBacklinks<CR>", desc = "Backlinks" }
-maps.n["<Leader>no"] = { "<Cmd>ZkOrphans<CR>", desc = "Orphans" }
+-- maps.n["<Leader>nw"] = { "<Cmd>ZkGrep<CR>", desc = "Grep" }
+-- maps.n["<Leader>nT"] = { "<Cmd>ZkTags<CR>", desc = "By tags" }
+-- maps.n["<Leader>nl"] = { "<Cmd>ZkLinks<CR>", desc = "Links" }
+-- maps.n["<Leader>nb"] = { "<Cmd>ZkBacklinks<CR>", desc = "Backlinks" }
+-- maps.n["<Leader>no"] = { "<Cmd>ZkOrphans<CR>", desc = "Orphans" }
 
 -- maps.n["<Leader>nj"] = { desc = "New dalily journal" }
 -- maps.n["<Leader>njd"] = { "<cmd>ZkFindOrCreateJournalDailyNote<cr>", desc = "New dalily journal" }

@@ -60,6 +60,9 @@ return {
       -- customize language server configuration options passed to `lspconfig`
       ---@diagnostic disable: missing-fields
       config = {
+        marksman = {
+          enabled = false,
+        },
         standardrb = {
           enabled = vim.g.ruby_lsp_formatter == "standard" or vim.g.ruby_lsp_formatter == nil,
         },
@@ -77,7 +80,7 @@ return {
             cmd_env = {
               BUNDLE_GEMFILE = vim.loop.cwd() .. "/.ruby-lsp/Gemfile.custom",
             },
-            linters = { "standard", "reek" },
+            linters = { "standard", "reek", "rubocop" },
             addonSettings = {
               ["Ruby LSP Reek"] = {},
             },
@@ -187,6 +190,14 @@ return {
         -- client.server_capabilities.semanticTokensProvider = nil
         if client.name == "vtsls" then
           vim.keymap.set("n", "<leader>lwt", "<cmd>TSC<cr>", { desc = "Run tsc errors check", buffer = bufnr })
+        end
+
+        if client.name == "herb_ls" then
+          if vim.g.herb_lsp_formatting == false then
+            -- Explicitly disable formatting capability for herb_ls
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end
         end
 
         if client.name == "cssls" then

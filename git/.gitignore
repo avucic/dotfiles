@@ -83,3 +83,4 @@ solargraph/*
 .cert/*
 .tasks.json
 .nvim.lua
+Taskfile.yml
