@@ -2,7 +2,9 @@
   excludesFile = ~/.gitignore
 	autocrlf = input
 	editor = nvim
-  pager = delta
+[pager]
+  diff = delta
+  log = delta
 [user]
 	name = Aleksandar Vucic
 	email = vucinjo@gmail.com

@@ -101,11 +101,11 @@ export ZSH_AI_PROVIDER="gemini"
 znap prompt sindresorhus/pure
 #
 # eval "$(starship init zsh)"
-znap prompt
+# znap prompt
 
 znap source ohmyzsh/ohmyzsh \
   lib/{git,grep,history,key-bindings} \
-  plugins/{git,cp,docker-compose,rake,bundler,ruby,tmux,direnv,fzf,gitignore,history,tmuxinator,zsh-ai}
+  plugins/{git,cp,docker-compose,rake,bundler,ruby,tmux,direnv,fzf,gitignore,history,tmuxinator}
 
 
 # `znap source` starts plugins.
@@ -174,3 +174,4 @@ kill-port() {
 alias tsk=task
 alias t="/opt/homebrew/bin/todo.sh"
 alias n="nvim"
+alias cl="clear"
