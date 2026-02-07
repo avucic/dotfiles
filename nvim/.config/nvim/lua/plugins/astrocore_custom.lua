@@ -6,12 +6,12 @@ return {
     opts = {
       -- Configure core features of AstroNvim
       features = {
-        large_buf = { size = 1024 * 256, lines = 10000 },             -- set global limits for large files for disabling features like treesitter
-        autopairs = true,                                             -- enable autopairs at start
-        cmp = true,                                                   -- enable completion at start
+        large_buf = { size = 1024 * 256, lines = 10000 }, -- set global limits for large files for disabling features like treesitter
+        autopairs = true, -- enable autopairs at start
+        cmp = true, -- enable completion at start
         diagnostics = { virtual_text = true, virtual_lines = false }, -- diagnostic settings on startup
-        highlighturl = true,                                          -- highlight URLs at start
-        notifications = true,                                         -- enable notifications at start
+        highlighturl = true, -- highlight URLs at start
+        notifications = true, -- enable notifications at start
       },
       -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
       diagnostics = {
@@ -41,13 +41,13 @@ return {
       },
       -- vim options can be configured here
       options = {
-        opt = {                   -- vim.opt.<key>
+        opt = { -- vim.opt.<key>
           relativenumber = false, -- sets vim.opt.relativenumber
-          number = true,          -- sets vim.opt.number
-          spell = true,           -- sets vim.opt.spell
-          signcolumn = "yes",     -- sets vim.opt.signcolumn to yes
-          wrap = false,           -- sets vim.opt.wrap
-          conceallevel = 3,
+          number = true, -- sets vim.opt.number
+          spell = true, -- sets vim.opt.spell
+          signcolumn = "yes", -- sets vim.opt.signcolumn to yes
+          wrap = false, -- sets vim.opt.wrap
+          conceallevel = 2,
           foldenable = false,
           -- foldexpr = "v:lua.vim.treesitter.foldexpr()",
           -- foldtext = "v:lua.vim.treesitter.foldtext()",
@@ -66,7 +66,6 @@ return {
 
         local prefix, maps = "<Leader>g", astrocore.empty_map_table()
         maps.n[prefix .. "s"] = { "<cmd>Neogit kind=split<CR>", desc = "Git status" }
-        maps.n[prefix .. "g"] = { "<cmd>Neogit kind=split<CR>", desc = "Git status" }
         astrocore.set_mappings(maps, { buffer = bufnr })
       end
     end,

@@ -1,20 +1,34 @@
---- Gets a path to a package in the Mason registry.
---- Prefer this to `get_package`, since the package might not always be
---- available yet and trigger errors.
----@param pkg string
----@param path? string
-local function get_pkg_path(pkg, path)
-  pcall(require, "mason")
-  local root = vim.env.MASON or (vim.fn.stdpath "data" .. "/mason")
-  path = path or ""
-  local ret = root .. "/packages/" .. pkg .. "/" .. path
-  return ret
+local function vscode_launch_config_exists()
+  local cwd = vim.fn.getcwd()
+  local filepath = cwd .. "/.vscode/launch.json"
+  return vim.fn.filereadable(filepath) == 1
+end
+
+local function get_remote_root()
+  -- Check for a buffer-local variable (e.g., set in a project's .nvim.lua file)
+  if vim.b.dap_remote_root ~= nil then return vim.b.dap_remote_root end
+  -- Check for a global variable
+  if vim.g.dap_remote_root ~= nil then return vim.g.dap_remote_root end
+  -- Default remote root
+  return "/app"
+end
+
+local function get_container_name()
+  -- Check for a buffer-local variable
+  if vim.b.dap_container_name ~= nil then return vim.b.dap_container_name end
+  -- Check for a global variable
+  if vim.g.dap_container_name ~= nil then return vim.g.dap_container_name end
+
+  vim.notify("Dap container is missing", "error")
 end
 
 return {
   "jay-babu/mason-nvim-dap.nvim",
   dependencies = {
     "rcarriga/nvim-dap-ui",
+  },
+  keys = {
+    { "<leader>dl", function() require("dap").run_last() end, desc = "Last task" },
   },
   opts = {
     ensure_installed = { "js", "node2" }, -- Automatically install the adapter
@@ -24,84 +38,182 @@ return {
 
     dap.adapters["pwa-node"] = {
       type = "server",
-      host = "localhost",
+      host = "::1",
       port = "${port}",
       executable = {
-        command = "node",
+        command = "js-debug-adapter",
         args = {
-          get_pkg_path,
           "${port}",
         },
       },
     }
 
-    for _, language in ipairs { "typescript", "typescriptreact", "javascript", "svelte" } do
-      dap.configurations[language] = {
-        {
-          type = "pwa-node",
-          request = "launch",
-          name = "Debug Current Test File",
-          autoAttachChildProcesses = true,
-          skipFiles = { "<node_internals>/**", "**/node_modules/**" },
-          program = "${workspaceFolder}/node_modules/vitest/vitest.mjs",
-          runtimeExecutable = "node",
-          rootPath = "${workspaceFolder}",
-          cwd = "${workspaceFolder}",
-          args = { "run", "${relativeFile}" },
-          smartStep = true,
-          console = "integratedTerminal",
-          internalConsoleOptions = "neverOpen",
-          sourceMaps = true,
-          resolveSourceMapLocations = {
-            "${workspaceFolder}/**",
-            "!**/node_modules/**",
-          },
-        },
-        {
-          type = "pwa-node",
-          request = "launch",
-          name = "Debug Current Test by name",
-          autoAttachChildProcesses = true,
-          skipFiles = { "<node_internals>/**", "**/node_modules/**" },
-          program = "${workspaceFolder}/node_modules/vitest/vitest.mjs",
-          runtimeExecutable = "node",
-          rootPath = "${workspaceFolder}",
-          cwd = "${workspaceFolder}",
-          args = function() return { "run", "${relativeFile}", "-t", vim.fn.input "Name: " } end,
-          -- args = {
-          --   "-t", -- Jest flag for test name pattern
-          --   "PUT YOUR TEST NAME PATTERN HERE", -- Replace with the actual test name or pattern
-          --   "${file}", -- Optional: run tests only in the current file
-          --   "--runInBand", -- Recommended for debugging
-          -- },
-          smartStep = true,
-          console = "integratedTerminal",
-          internalConsoleOptions = "neverOpen",
-          sourceMaps = true,
-          resolveSourceMapLocations = {
-            "${workspaceFolder}/**",
-            "!**/node_modules/**",
-          },
-        },
+    if not vscode_launch_config_exists() then
+      local workspace_folder = vim.fn.getcwd()
+      local remote_root = get_remote_root()
+      local container_name = get_container_name()
 
-        {
-          type = "pwa-node",
-          request = "launch",
-          name = "Launch file",
-          program = "${file}",
-          cwd = vim.fn.getcwd(),
-          sourceMaps = true,
-          protocol = "inspector",
-          console = "integratedTerminal",
-        },
-        {
-          type = "pwa-node",
-          request = "attach",
-          name = "Attach to process",
-          processId = require("dap.utils").pick_process,
-          cwd = vim.fn.getcwd(),
-        },
-      }
+      -- Lua DAP configuration for attaching to Docker Node
+      local current_line = tostring(vim.fn.line ".")
+      for _, adapter in pairs { "pwa-node", "pwa-chrome" } do
+        require("dap").adapters[adapter] = {
+          type = "server",
+          host = "localhost",
+          port = "${port}",
+          executable = {
+            command = "js-debug-adapter",
+            args = { "${port}" },
+          },
+        }
+      end
+      for _, language in ipairs { "typescript", "typescriptreact", "javascript", "svelte" } do
+        dap.configurations[language] = {
+          {
+            type = "pwa-node",
+            request = "attach",
+            name = "Attach to Docker Node",
+            address = "localhost",
+            port = 9229,
+            localRoot = vim.fn.getcwd(), -- or specify path
+            remoteRoot = "/app",
+            protocol = "inspector",
+            restart = true,
+            skipFiles = {
+              "<node_internals>/**",
+            },
+          },
+
+          {
+            type = "pwa-chrome",
+            request = "attach",
+            name = "Attach Chrome (React @ 4000)",
+            port = 9222,
+            webRoot = "${workspaceFolder}",
+            sourceMaps = true,
+            protocol = "inspector",
+            url = "http://localhost:4000",
+          },
+          -- {
+          --   type = "pwa-chrome",
+          --   request = "launch",
+          --   name = "Launch Chrome (React)",
+          --
+          --   url = "http://localhost:4000",
+          --   webRoot = "${workspaceFolder}",
+          --   sourceMaps = true,
+          --
+          --   -- 🔴 ABSOLUTELY REQUIRED on macOS
+          --   userDataDir = vim.fn.stdpath "data" .. "/chrome-debug",
+          --
+          --   -- 🔴 Do NOT reuse existing Chrome
+          --   runtimeArgs = {
+          --     "--no-first-run",
+          --     "--no-default-browser-check",
+          --     "--disable-extensions",
+          --   },
+          -- },
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Debug Vitest - file (Generic)",
+            runtimeExecutable = "npx",
+            runtimeArgs = function()
+              return {
+                "vitest",
+                "run",
+                "--no-cache",
+                "--inspect-brk=9229",
+                "--no-file-parallelism",
+                "${relativeFile}",
+              }
+            end,
+            port = 9229,
+            cwd = workspace_folder,
+            localRoot = workspace_folder,
+            sourceMaps = true,
+            protocol = "inspector",
+            console = "integratedTerminal",
+            skipFiles = {
+              "<node_internals>/**",
+              "**/node_modules/**",
+            },
+            resolveSourceMapLocations = {
+              workspace_folder .. "/**/*.ts",
+              workspace_folder .. "/**/*.js",
+            },
+            trace = true,
+            smartStep = true,
+          },
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Debug Vitest - current spec (Generic)",
+            runtimeExecutable = "npx",
+            runtimeArgs = function()
+              return {
+                "vitest",
+                "run",
+                "--no-cache",
+                "--inspect-brk=9229",
+                "--no-file-parallelism",
+                "${relativeFile}:" .. current_line,
+              }
+            end,
+            port = 9229,
+            cwd = workspace_folder,
+            localRoot = workspace_folder,
+            sourceMaps = true,
+            protocol = "inspector",
+            console = "integratedTerminal",
+            skipFiles = {
+              "<node_internals>/**",
+              "**/node_modules/**",
+            },
+            resolveSourceMapLocations = {
+              workspace_folder .. "/**/*.ts",
+              workspace_folder .. "/**/*.js",
+            },
+            trace = true,
+            smartStep = true,
+          },
+
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Debug Vitest - current spec name (Generic)",
+            runtimeExecutable = "npx",
+            runtimeArgs = function()
+              local test_name = vim.fn.input "Test name: "
+              return {
+                "vitest",
+                "run",
+                "--no-cache",
+                "--inspect-brk=9229",
+                "--no-file-parallelism",
+                "-t",
+                test_name,
+                "${relativeFile}",
+              }
+            end,
+            port = 9229,
+            cwd = workspace_folder,
+            localRoot = workspace_folder,
+            sourceMaps = true,
+            protocol = "inspector",
+            console = "integratedTerminal",
+            skipFiles = {
+              "<node_internals>/**",
+              "**/node_modules/**",
+            },
+            resolveSourceMapLocations = {
+              workspace_folder .. "/**/*.ts",
+              workspace_folder .. "/**/*.js",
+            },
+            trace = true,
+            smartStep = true,
+          },
+        }
+      end
     end
   end,
 }

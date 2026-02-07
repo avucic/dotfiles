@@ -68,7 +68,13 @@ return {
           "spell",
         },
         per_filetype = { sql = { "dadbod" } },
+
         providers = {
+          codecompanion = {
+            name = "CodeCompanion",
+            module = "codecompanion.providers.completion.blink",
+            enabled = true,
+          },
           dadbod = { module = "vim_dadbod_completion.blink" },
           -- minuet = {
           --   name = "minuet",

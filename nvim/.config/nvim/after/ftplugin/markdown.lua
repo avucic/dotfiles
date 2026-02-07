@@ -10,8 +10,8 @@ vim.keymap.set("n", "<Leader>mp", "<cmd>Vivify<cr>", { desc = "Preview in browse
 vim.keymap.set("n", "<Leader>mu", "", { desc = "Toggle", buffer = bufnr })
 vim.keymap.set("n", "<Leader>muc", "<cmd>RenderMarkdown toggle<cr>", { desc = "Render Markdown", buffer = bufnr })
 
-vim.keymap.set("v", "<Leader>mx", "", { desc = "Formatting", buffer = bufnr })
-vim.keymap.set("v", "<Leader>mxb", "di**<esc>pa**<esc>", { desc = "Bold text", buffer = bufnr })
-vim.keymap.set("v", "<Leader>mxi", "di_<esc>pa_<esc>", { desc = "Italic text", buffer = bufnr })
-vim.keymap.set("v", "<Leader>mxs", "di~~<esc>pa~~<esc>", { desc = "Strikethrough text", buffer = bufnr })
-vim.keymap.set("v", "<Leader>mxc", "di`<esc>pa`<esc>", { desc = "Code", buffer = bufnr })
+vim.keymap.set("v", "<Leader>xf", "", { desc = "Formatting", buffer = bufnr })
+vim.keymap.set("v", "<Leader>xfb", "di**<esc>pa**<esc>", { desc = "Bold text", buffer = bufnr })
+vim.keymap.set("v", "<Leader>xfi", "di_<esc>pa_<esc>", { desc = "Italic text", buffer = bufnr })
+vim.keymap.set("v", "<Leader>xfs", "di~~<esc>pa~~<esc>", { desc = "Strikethrough text", buffer = bufnr })
+vim.keymap.set("v", "<Leader>xfc", "di`<esc>pa`<esc>", { desc = "Code", buffer = bufnr })

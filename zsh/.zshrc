@@ -31,6 +31,7 @@ export TERM=xterm-256color # or wezterm, xterm-kitty, screen-256color
 export COLORTERM='24bit'
 export ERL_AFLAGS="-kernel shell_history enabled" # enable history in iex
 export DISABLE_AUTO_TITLE='true'
+export shell="$(which zsh)"
 
 
 # -----------------------------------------------------------------------------
@@ -77,8 +78,17 @@ fi
 # -----------------------------------------------------------------------------
 # Neovim & Development Related Exports
 # -----------------------------------------------------------------------------
-export NVIM_PIPE=/tmp/nvim-$(basename $PWD)
-export NVIM_LISTEN_ADDRESS=${NVIM_PIPE}
+# export NVIM_PIPE=/tmp/nvim-$(basename $PWD)
+# export NVIM_LISTEN_ADDRESS=${NVIM_PIPE}
+# export EDITOR="nvim"
+# if [[ -n "$TMUX" ]]; then
+#   # Use tmux session name for uniqueness if inside tmux
+#   export NVIM_PIPE="/tmp/nvim-$(basename "$PWD")-$(tmux display-message -p '#{session_name}')"
+# else
+#   # Fallback for outside tmux
+#   export NVIM_PIPE="/tmp/nvim-$(basename "$PWD")"
+# fi
+# export NVIM_LISTEN_ADDRESS="${NVIM_PIPE}"
 export EDITOR="nvim"
 
 # Zettelkasten & Todo

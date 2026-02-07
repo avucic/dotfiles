@@ -41,6 +41,10 @@ return {
       scroll = { enabled = false },
       statuscolumn = { enabled = true },
       picker = {
+        exclude = { -- add folder names here to exclude
+          ".git",
+          "node_modules",
+        },
         -- layout = "verti",
         layout = "telescope",
         win = {

@@ -1,0 +1,241 @@
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# GENERAL
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# resourece
+# https://github.com/rothgar/awesome-tmux?tab=readme-ov-file#plugins
+# Default index
+set -g base-index 1
+setw -g pane-base-index 1
+set-option -gw xterm-keys on
+set -g status-keys vi
+set -g history-limit 30000
+set -g default-shell $SHELL
+set -g escape-time 0
+
+setenv -g PATH "$HOME/bin:$PATH"
+set-option -g history-limit 20000
+
+bind-key C-e run-shell "nvim-edit-tmux-output"
+
+#set -g default-command "reattach-to-user-namespace -l ${SHELL}"
+#Automatically set window title
+# set-window-option -g automatic-rename on
+set-window-option -g mode-keys vi
+set-option -g set-titles on
+# set -g display-panes-time 2500
+set -g default-terminal "tmux-256color"
+set -as terminal-overrides ',xterm*:sitm=\E[3m'
+
+set-option -ga terminal-overrides ",xterm-256color:Tc"
+set-option -g mouse on
+set-option -g status-interval 5
+set-option -g automatic-rename on
+set-option -g automatic-rename-format '#{b:pane_current_path}'
+set-option -g renumber-windows on
+set-window-option -g window-status-current-style fg=#61afef
+set-window-option -g mode-keys vi
+set -g mouse on
+# set -g renumber-windows on
+# set-option -g status-position top
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# BINDINGS
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# change prefix
+unbind C-b
+set -g prefix `
+bind-key ` send-prefix
+# Change prefix
+# set -g prefix C-a
+# bind C-a send-prefix
+
+# vim mode, plus vim style keys
+bind-key -T copy-mode-vi 'v' send-keys -X begin-selection
+# bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
+bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "pbcopy"
+bind-key -T copy-mode-vi 'C-v' send -X begin-selection \; send -X rectangle-toggle
+
+
+# Fix cursor insert shape for nvim
+set -g -a terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
+set-option -g allow-passthrough on
+
+set -g default-terminal "${TERM}"
+set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
+set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours - needs tmux-3.0
+# set -ga terminal-overrides ",xterm-256color:Tc,alacritty:RGB"
+
+## Join windows: <prefix> s, <prefix> j
+# bind-key j command-prompt -p "join pane from:"  "join-pane -s '%%'"
+# bind-key s command-prompt -p "send pane to:"  "join-pane -t '%%'"
+
+# Reload config
+bind R source-file ~/.tmux.conf \; display "Reloading config..."
+
+bind-key Tab next-window
+bind-key S-Tab previous-window
+bind = select-layout even-horizontal
+
+bind-key f run-shell 'tmuxpopup'
+# bind-key p run-shell 'tmuxtasks'
+
+unbind '"'
+unbind %
+
+# make scrolling with wheels work
+bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'select-pane -t=; copy-mode -e; send-keys -M'"
+bind -n WheelDownPane select-pane -t= \; send-keys -M
+bind-key -T prefix Space resize-pane -Z
+
+# nvim navigation
+is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
+    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?)(diff)?$'"
+bind-key -n 'C-h' if-shell "$is_vim" 'send-keys C-h'  'select-pane -L'
+bind-key -n 'C-j' if-shell "$is_vim" 'send-keys C-j'  'select-pane -D'
+bind-key -n 'C-k' if-shell "$is_vim" 'send-keys C-k'  'select-pane -U'
+bind-key -n 'C-l' if-shell "$is_vim" 'send-keys C-l'  'select-pane -R'
+tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
+if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
+    "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\'  'select-pane -l'"
+if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
+    "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\\\'  'select-pane -l'"
+
+bind '\' split-window -h
+bind - split-window -v
+
+# bind-key -T copy-mode-vi 'C-h' select-pane -L
+# bind-key -T copy-mode-vi 'C-j' select-pane -D
+# bind-key -T copy-mode-vi 'C-k' select-pane -U
+# bind-key -T copy-mode-vi 'C-l' select-pane -R
+# bind-key -T copy-mode-vi 'C-\' select-pane -l
+
+# resize panes
+bind-key -n C-left resize-pane -L 10
+bind-key -n C-down resize-pane -D 5
+bind-key -n C-up resize-pane -U 10
+bind-key -n C-right resize-pane -R 5
+
+bind-key -r h resize-pane -L 10
+bind-key -r j resize-pane -D 5
+bind-key -r k resize-pane -U 10
+bind-key -r l resize-pane -R 5
+# zoom
+bind-key -n M-space resize-pane -Z
+
+
+bind -r H select-pane -L
+bind -r J select-pane -D
+bind -r K select-pane -U
+bind -r L select-pane -R
+
+# swap window to left or right
+# bind-key -r , { swap-window -t -1; previous-window }
+# bind-key -r . { swap-window -t +1; next-window }
+
+# pane movement
+# bind-key v choose-window 'move-pane -h -s "%%"'
+
+# bind-key s move-pane -v 
+# bind-key v move-pane -h
+
+
+# bind-key F find-window
+# bind F command-prompt "find-window '%%'"
+
+# bind-key -T prefix C-n  next-window
+# bind-key -T prefix n    next-window
+# unbind-key -T prefix C-n
+# unbind-key -T prefix l
+# unbind-key -T prefix w
+
+
+bind-key x kill-pane # skip "kill-pane 1? (y/n)" prompt
+bind-key X kill-window # skip "kill-pane 1? (y/n)" prompt
+
+bind-key Enter next-layout
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# CONFIGURATION
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+set -g pane-active-border-style bg=default,fg=magenta
+set -g pane-border-style fg=green
+set -g @onedark_widgets "#{cpu_fg_color} CPU: #{cpu_icon}#{cpu_percentage} | Online: #{online_status}"
+
+bind-key "w" run-shell "sesh connect \"$(
+  sesh list -t --icons | fzf-tmux -p 80%,70% \
+    --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ' \
+    --header '  ^a all ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' \
+    --bind 'j:down,k:up' \
+    --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list --icons)' \
+    --bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -t --icons)' \
+    --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c --icons)' \
+    --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z --icons)' \
+    --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
+    --bind 'ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list -t --icons)' \
+    --preview-window 'right:55%' \
+    --preview 'sesh preview {}'
+)\""
+
+
+# Let panes remain in place when their command exits.
+set -g remain-on-exit on
+# When a pane's command exits, check if it's the final pane in the session.
+# If so, respawn; else kill the pane.
+set-hook -g pane-died "if -F '#{&&:#{==:#{session_windows},1},#{==:#{window_panes},1}}' 'respawn-pane' 'kill-pane'"
+set -g detach-on-destroy off  # don't exit from tmux when closing a session
+
+set -g popup-border-style fg=#3a3e47
+
+# set -g @tilit-easymode 'on'
+# set -g @tilit-prefix 'M-space'
+# set -g repeat-time 1000
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# PLUGINS
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'odedlaz/tmux-onedark-theme'
+set -g @plugin 'roosta/tmux-fuzzback'
+set -g @plugin 'tmux-plugins/tmux-online-status'
+set -g @plugin 'tmux-plugins/tmux-cpu'
+# set -g @plugin '2kabhishek/tmux-tilit'
+# set -g @plugin 'laktak/extrakto'
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
+
+
+# override tilit
+unbind-key -T prefix M-Left
+unbind-key -T prefix M-Right
+
+unbind-key -n M-n
+unbind-key -n M-t
+unbind-key -n M-j
+unbind-key -n M-k
+unbind-key -n M-f
+unbind-key -n M-T
+
+bind-key -n M-o  display-popup -w "90%" -h "90%" -d "#{pane_current_path}" -E "zsh"
+bind-key -n M-d display-popup -w "90%" -h "90%" -d "#{pane_current_path}" -E "lazydocker"
+
+
+bind-key -n M-/ split-pane -v -c "#{pane_current_path}"
+# bind-key -n M-\\ split-pane -h -c "#{pane_current_path}"
+bind-key -n M-\\ split-pane -h
+
+
+# bind-key -n M-H swap-pane -s '{left-of}'
+# bind-key -n M-J swap-pane -s '{down-of}'
+# bind-key -n M-K swap-pane -s '{up-of}'
+# bind-key -n M-L swap-pane -s '{right-of}'
+
+
+
+# bind-key -n M-o run-shell 'tmuxpopup'
+#
+#
+# setw -g window-status-format '#I #W#{?window_bell_flag,🔔,}#{?window_zoomed_flag,  🔍,}'
+# setw -g window-status-current-format  '#I #W#{?window_zoomed_flag,  🔍,}'
+# set -g status-left "#[fg=$onedark_black,bg=$onedark_green,bold] #S #{prefix_highlight}#[fg=$onedark_green,bg=$onedark_black,nobold,nounderscore,noitalics]"
+

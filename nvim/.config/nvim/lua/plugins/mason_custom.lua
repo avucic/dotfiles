@@ -13,6 +13,10 @@ return {
         -- install language servers
         "lua-language-server",
         "herb-language-server",
+        "tailwindcss-language-server",
+        "standardjs",
+        "eslint-lsp",
+        -- "prettierd",
         "ruby-lsp",
 
         -- install formatters
@@ -55,7 +59,7 @@ return {
         -- Define herb_ls as a custom server with its command and filetypes
         herb_ls = {
           cmd = { "herb-language-server", "--stdio" },
-          filetypes = { "eruby", "erb", "html.erb" },
+          filetypes = { "eruby", "erb", "html.erb", "html.herb" },
         },
       })
     end,

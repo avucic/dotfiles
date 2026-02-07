@@ -14,31 +14,25 @@ return {
         },
       },
     },
-
-    keys = {
-      { "<leader>nt", "<cmd>TodoTxt<cr>", desc = "Toggle Todos" },
-      { "<leader>ntn", "<cmd>TodoTxt new<cr>", desc = "New todo entry" },
-      { "<leader>ntt", "<cmd>TodoTxt<cr>", desc = "Toggle todo.txt" },
-      { "<leader>ntd", "<cmd>DoneTxt<cr>", desc = "Toggle done.txt" },
-      { "<leader>ntg", "<cmd>TodoTxt ghost<cr>", desc = "Toggle ghost text" },
-      { "<cr>", "<Plug>(TodoTxtToggleState)", desc = "Toggle task state" },
-      { "<c-c>n", "<Plug>(TodoTxtCyclePriority)", desc = "Cycle priority" },
-      { "<leader>ntm", "<Plug>(TodoTxtMoveDone)", desc = "Move done tasks" },
-      { "<leader>nts", desc = "Sort tasks" },
-      { "<leader>ntss", "<Plug>(TodoTxtSortTasks)", desc = "Sort tasks (default)" },
-      { "<leader>ntsp", "<Plug>(TodoTxtSortByPriority)", desc = "Sort by priority" },
-      { "<leader>ntsc", "<Plug>(TodoTxtSortByContext)", desc = "Sort by context" },
-      { "<leader>ntsP", "<Plug>(TodoTxtSortByProject)", desc = "Sort by project" },
-      { "<leader>ntsd", "<Plug>(TodoTxtSortByDueDate)", desc = "Sort by due date" },
-    },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
-      config = function(_, opts)
+      config = function()
         require("nvim-treesitter.configs").setup {
           ensure_installed = { "todotxt" },
           highlight = { enable = true },
         }
       end,
+
+      dependencies = {
+        "nvim-telescope/telescope.nvim",
+        {
+          "AstroNvim/astrocore",
+          opts = function(_, opts)
+            local maps = opts.mappings
+            maps.n["<Leader>tt"] = { "<cmd>TodoTxt<cr>", desc = "TodoTxt" }
+          end,
+        },
+      },
     },
   },
   {

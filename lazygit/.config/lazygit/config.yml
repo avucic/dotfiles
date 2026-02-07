@@ -28,10 +28,10 @@ gui:
     show: true
 git:
   branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium --oneline {{branchName}} --"
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never
-    # useConfig: use
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never
+      # useConfig: use
   commit:
     signOff: false
   merging:
@@ -51,11 +51,12 @@ git:
     showWholeGraph: false
   autoFetch: true
   autoRefresh: true
-  allBranchesLogCmd: "git log --graph --all --color=always --abbrev-commit --decorate --date=relative  --pretty=medium"
   overrideGpg: false # prevents lazygit from spawning a separate process when using GPG
   disableForcePushing: false
   parseEmoji: false
   diffContextSize: 3
+  allBranchesLogCmds:
+    - git log --graph --all --color=always --abbrev-commit --decorate --date=relative  --pretty=medium
 keybinding:
   universal:
     prevItem: "k" # go one line up

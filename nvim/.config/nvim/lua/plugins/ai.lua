@@ -40,19 +40,20 @@ return {
       },
     },
     cmd = { "CodeCompanionChat", "CodeCompanionCmd", "CodeCompanion", "CodeCompanionActions" },
+
     config = function()
-      local adapter = {
-        adapter = "ollama",
-        -- model = "yi-coder:1.5b",
-        -- model = "yi-coder:9b",
-        model = "deepseek-coder",
-      }
+      -- local adapter = {
+      --   adapter = "ollama",
+      --   -- model = "yi-coder:1.5b",
+      --   -- model = "yi-coder:9b",
+      --   model = "deepseek-coder",
+      -- }
       require("codecompanion").setup {
         strategies = {
           -- chat = adapter,
-          chat = { adapter = "gemini" },
-          inline = { adapter = "gemini" },
-          agent = { adapter = "gemini" },
+          chat = { adapter = "copilot" },
+          inline = { adapter = "copilot" },
+          agent = { adapter = "copilot" },
         },
         --
         -- adapters = {
@@ -75,16 +76,15 @@ return {
         --
         adapters = {
           http = {
-
             ollama = function()
               return require("codecompanion.adapters").extend("ollama", {
-                name = "qwen",
+                -- Remove or change this line: name = "qwen",
                 parameters = {
                   sync = true,
                 },
                 schema = {
                   model = {
-                    default = "deepseek-coder",
+                    default = "deepseek-coder", -- This is the model that should be used
                   },
                 },
               })
@@ -176,10 +176,10 @@ return {
       }
     end,
   },
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function() require("copilot").setup {} end,
-  },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   event = "InsertEnter",
+  --   config = function() require("copilot").setup {} end,
+  -- },
 }

@@ -19,4 +19,28 @@ vim.api.nvim_create_autocmd("OptionSet", {
   end,
 })
 
+local branch_name_generator = require "plugins.custom.generate_branch_name_to_clipboard"
+
+vim.api.nvim_create_user_command("GenerateBranchName", branch_name_generator.generate_branch_name_to_clipboard, {
+  desc = "Prompt for ticket and title, then copy formatted string to clipboard",
+  bang = false,
+})
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  callback = function()
+    vim.keymap.set(
+      "n",
+      "<leader>bl",
+      "<cmd>lua require('astrocore.buffer').nav((vim.v.count > 0 and vim.v.count or 1))<cr><cmd>WhichKey <LT>leader>b<CR>",
+      { desc = "Next buffer", buffer = true }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>bh",
+      "<cmd>lua require('astrocore.buffer').nav(-(vim.v.count > 0 and vim.v.count or 1))<cr><cmd>WhichKey <LT>leader>b<CR>",
+      { desc = "Prev buffer", buffer = true }
+    )
+  end,
+})
+
 return {}

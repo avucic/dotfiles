@@ -200,6 +200,29 @@ return {
           end
         end
 
+        if client.name == "vtsls" then
+          if vim.g.vtls_lsp_formatting == false then
+            -- Explicitly disable formatting capability for herb_ls
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end
+
+          -- require("lspconfig").vtsls.setup {
+          --   settings = {
+          --     typescript = {
+          --       preferences = {
+          --         importModuleSpecifier = "non-relative",
+          --       },
+          --     },
+          --     vtsls = {
+          --       preferences = {
+          --         importModuleSpecifier = "non-relative",
+          --       },
+          --     },
+          --   },
+          -- }
+        end
+
         if client.name == "cssls" then
           local capabilities = require("blink-cmp").get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
 

@@ -18,7 +18,7 @@ return {
   -- -- { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.full-dadbod" },
-  { import = "astrocommunity.pack.biome" },
+  -- { import = "astrocommunity.pack.biome" },
   -- { import = "astrocommunity.pack.html-css" },
   { import = "astrocommunity.note-taking.obsidian-nvim" },
 
@@ -62,8 +62,7 @@ return {
         "AstroNvim/astrocore",
         opts = function(_, opts)
           local maps = opts.mappings
-          maps.n["<Leader>od"] = { desc = "DB" }
-          maps.n["<Leader>odt"] = { "<cmd>DBUIToggle<cr>", desc = "Toggle DB Connection" }
+          maps.n["<Leader>oD"] = { "<cmd>DBUIToggle<cr>", desc = "Toggle DB Connection" }
         end,
       },
     },
@@ -92,9 +91,47 @@ return {
     },
     opts = function(_, opts)
       opts.keymaps = {
+        diff1 = {
+          {
+            "n",
+            "ud",
+            "<Cmd>vsp % | setl nodiff <CR>",
+            { desc = "Clear diff" },
+          },
+        },
+        diff2 = {
+          {
+            "n",
+            "ud",
+            "<Cmd>vsp % | setl nodiff <CR>",
+            { desc = "Clear diff" },
+          },
+        },
+        diff3 = {
+          {
+            "n",
+            "ud",
+            "<Cmd>vsp % | setl nodiff <CR>",
+            { desc = "Clear diff" },
+          },
+        },
         view = {
           ["<C-q>"] = "<Cmd>DiffviewClose<CR>",
           ["q"] = "<Cmd>DiffviewClose<CR>",
+        },
+        file_history_panel = {
+          {
+            "n",
+            "ud",
+            "<Cmd>vsp % | setl nodiff <CR>",
+            { desc = "Undiff file in split" },
+          },
+          {
+            "n",
+            "q",
+            "<Cmd>DiffviewClose<CR>",
+            { desc = "Turn off diff in all windows" },
+          },
         },
       }
     end,
@@ -299,52 +336,65 @@ return {
       require("astrocore").set_mappings {
         n = {
           ["<Leader>t<cr>"] = { "<cmd>OverseerToggle<cr>", desc = "Toggle" },
-          ["<Leader>tt"] = { "<cmd>OverseerRun<cr>", desc = "Run" },
+          ["<Leader>tr"] = { "<cmd>OverseerRun<cr>", desc = "Run" },
           ["<Leader>tl"] = { "<cmd>OverseerRestartLast<cr>", desc = "last task" },
-          ["<Leader>ta"] = { "<cmd>OverseerQuickAction<cr>", desc = "Task action" },
+          ["<Leader>ta"] = { "<cmd>OverseerTaskAction<cr>", desc = "Task action" },
         },
       }
     end,
-    cmd = { "OverseerRestartLast" },
+    cmd = { "OverseerRestartLast", "OverseerRun", "OverseerRestartLast", "OverseerQuickAction" },
     opts = {
-      strategy = {
-        "toggleterm",
-        -- load your default shell before starting the task
-        use_shell = false,
-        -- overwrite the default toggleterm "direction" parameter
-        direction = "horizontal",
-        -- overwrite the default toggleterm "highlights" parameter
-        highlights = nil,
-        -- overwrite the default toggleterm "auto_scroll" parameter
-        auto_scroll = nil,
-        -- have the toggleterm window close and delete the terminal buffer
-        -- automatically after the task exits
-        close_on_exit = false,
-        -- have the toggleterm window close without deleting the terminal buffer
-        -- automatically after the task exits
-        -- can be "never, "success", or "always". "success" will close the window
-        -- only if the exit code is 0.
-        quit_on_exit = "never",
-        -- open the toggleterm window when a task starts
-        open_on_start = true,
-        -- mirrors the toggleterm "hidden" parameter, and keeps the task from
-        -- being rendered in the toggleable window
-        hidden = true,
-        -- command to run when the terminal is created. Combine with `use_shell`
-        -- to run a terminal command before starting the task
-        on_create = nil,
+      task_list = {
+        -- Default direction. Can be "left", "right", or "bottom"
+        direction = "bottom",
       },
+      -- strategy = {
+      --   "toggleterm",
+      --   -- load your default shell before starting the task
+      --   use_shell = false,
+      --   -- overwrite the default toggleterm "direction" parameter
+      --   direction = "vertical",
+      --   -- overwrite the default toggleterm "highlights" parameter
+      --   highlights = nil,
+      --   -- overwrite the default toggleterm "auto_scroll" parameter
+      --   auto_scroll = nil,
+      --   -- have the toggleterm window close and delete the terminal buffer
+      --   -- automatically after the task exits
+      --   close_on_exit = false,
+      --   -- have the toggleterm window close without deleting the terminal buffer
+      --   -- automatically after the task exits
+      --   -- can be "never, "success", or "always". "success" will close the window
+      --   -- only if the exit code is 0.
+      --   quit_on_exit = "never",
+      --   -- open the toggleterm window when a task starts
+      --   open_on_start = true,
+      --   -- mirrors the toggleterm "hidden" parameter, and keeps the task from
+      --   -- being rendered in the toggleable window
+      --   hidden = true,
+      --   -- command to run when the terminal is created. Combine with `use_shell`
+      --   -- to run a terminal command before starting the task
+      --   on_create = nil,
+      -- },
     },
     config = function(_, opts)
       local overseer = require "overseer"
       overseer.setup(opts)
 
       vim.api.nvim_create_user_command("OverseerRestartLast", function()
-        local tasks = overseer.list_tasks { recent_first = true }
+        local task_list = require "overseer.task_list"
+        local tasks = overseer.list_tasks {
+          status = {
+            overseer.STATUS.SUCCESS,
+            overseer.STATUS.FAILURE,
+            overseer.STATUS.CANCELED,
+          },
+          sort = task_list.sort_finished_recently,
+        }
         if vim.tbl_isempty(tasks) then
-          Snacks.notify.warn "No tasks found"
+          vim.notify("No tasks found", vim.log.levels.WARN)
         else
-          overseer.run_action(tasks[1], "restart")
+          local most_recent = tasks[1]
+          overseer.run_action(most_recent, "restart")
         end
       end, {})
     end,
@@ -420,26 +470,6 @@ return {
       require("astrocore").set_mappings {
         n = { ["<Leader>rr"] = { "<cmd>SnipRun<cr>", desc = "Execute" } },
         v = { ["<Leader>rr"] = { "<cmd>SnipRun<cr>", desc = "Execute" } },
-      }
-    end,
-  },
-  {
-    "stevearc/conform.nvim",
-    optional = true,
-    config = function()
-      local util = require "conform.util"
-      require("conform").setup {
-        formatters = {
-          biome = {
-            command = util.find_executable({
-              "node_modules/.bin/biome",
-              "biome",
-            }, "biome"),
-            args = { "format", "--stdin-file-path", "$FILENAME" },
-            stdin = true,
-            cwd = util.root_file { "biome.json", "package.json", ".git" },
-          },
-        },
       }
     end,
   },

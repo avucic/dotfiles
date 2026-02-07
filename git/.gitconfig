@@ -114,3 +114,5 @@
 	repo = /Users/vucinjo/.znap/custom/zsh-users/zsh-autosuggestions
 	repo = /Users/vucinjo/.znap/custom/zsh-users/zsh-completions
 	repo = /Users/vucinjo/.znap/custom/zsh-users/zsh-syntax-highlighting
+[pull]
+	rebase = true

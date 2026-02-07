@@ -1,7 +1,7 @@
 -- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 -- stylua: ignore start
 
-vim.cmd [[vnoremap <C-r> "hy:%s@<C-r>h@@gI<left><left><left>]]
+vim.cmd [[vnoremap <C-r> "hy:%s^<C-r>h^^gI<left><left><left>]]
 vim.cmd [[vnoremap <C-g> "hy:g/<C-r>h/normal<space>]]
 -- vim.cmd([[vnoremap <C-r> "hy:Subs/<C-r>h//gI<left><left><left>]])
 -- vim.cmd([[nnoremap <Leader-r> :%s/\<<C-r><C-w>\>/]])
@@ -66,7 +66,7 @@ maps.n["<Leader>e"] = { "<cmd>Triptych<CR>", desc = "Explorer" }
 -- maps.n["<Leader>fE"] = { "<cmd>lua _VIFM_TOGGLE(vim.fn.getcwd())<cr>", desc = "Explorer from current dir" }
 -- maps.n["<Leader>fd"] = { "<cmd>lua require('telescope').extensions.dir.live_grep()<CR>", desc = "Find dir" }
 -- maps.n["<Leader>f?"] = { "<cmd>lua Snacks.picker.search_history()<CR>", desc = "History" }
-maps.n["<Leader>fy"] = { "<cmd>let @*=expand('%')<cr>", desc = "Yank file path" }
+maps.n["<Leader>fy"] = { "<cmd>let @*=expand('%:.')<cr>", desc = "Yank file path" }
 maps.n["<Leader>fY"] = { "<cmd>let @*=expand('%:p')<cr>", desc = "Yank full file path" }
 maps.n["<Leader>fx"] = { "<cmd>OpenFile<cr>", desc = "Open file in folder" }
 maps.n["<Leader>fX"] = { "<cmd>OpenFolderInFinder<cr>", desc = "Open folder" }
@@ -112,6 +112,14 @@ maps.n["<leader>bQ"] = { "<cmd>q<cr>", desc = "Force close", }
 maps.n["<leader>bD"] = { "<cmd>WipeWindowlessBufs<cr>", desc = "Wipeout all buffers not shown in a window", }
 
 -- +Git
+maps.n["<Leader>gO"] = {
+  function() require("snacks").gitbrowse({branch= "master"}) end,
+  desc = "Git browse current file (master)"
+}
+maps.x["<Leader>gO"] = {
+  function() require("snacks").gitbrowse({branch= "master"}) end,
+  desc = "Git browse current file (master)"
+}
 -- maps.n["<Leader>gf"] = { "<cmd>Easypick changed_files<cr>", desc = "List changed files" }
 -- maps.n["<Leader>gr"] = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", desc = "Reset hunk" }
 -- maps.n["<Leader>gR"] = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = "Reset buffer" }
@@ -129,6 +137,7 @@ maps.n["<leader>bD"] = { "<cmd>WipeWindowlessBufs<cr>", desc = "Wipeout all buff
 -- maps.n["<Leader>gdf"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.diff_commit_file()<cr>", desc = "Search file" }
 -- maps.n["<Leader>gds"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.search_log_content()<cr>", desc = "Search log" }
 maps.n["<Leader>gs"] = { "<cmd>Neogit kind=split<CR>", desc = "Git status" }
+maps.n["<Leader>gnN"] = { "<cmd>GenerateBranchName<CR>", desc = "Generate branch name" }
 maps.n["<Leader>gT"] = false
 maps.n["<Leader>gt"] = false
 maps.n["<Leader>gS"] = false

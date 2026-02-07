@@ -11,7 +11,7 @@ vim.keymap.set("v", "<Leader>mR", "diResult<<esc>pa><esc>", { desc = "Remove opt
 vim.keymap.set("v", "<Leader>ms", "diSome(<esc>pa)<esc>", { desc = "Add some", buffer = bufnr })
 
 vim.keymap.set("n", "<Leader>tT", "<cmd>OverseerRun<cr>", { desc = "Run tasks", buffer = bufnr })
-vim.keymap.set("n", "<Leader>tt", "<CMD>RustLsp testables<CR>", { desc = "Run tests", buffer = bufnr })
+-- vim.keymap.set("n", "<Leader>tt", "<CMD>RustLsp testables<CR>", { desc = "Run tests", buffer = bufnr })
 vim.keymap.set("n", "<Leader>dd", "<CMD>RustLsp debuggables<CR>", { desc = "Run debuggables", buffer = bufnr })
 vim.keymap.set("n", "<Leader>dl", "<CMD>RustLsp! debuggables<CR>", { desc = "Run last debuggable", buffer = bufnr })
 vim.keymap.set("n", "<Leader>tl", "<CMD>RustLsp! testables<CR>", { desc = "Run last testable", buffer = bufnr })
