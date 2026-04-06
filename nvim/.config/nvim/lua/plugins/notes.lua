@@ -1,4 +1,4 @@
-local Util = require "core.utils"
+local Util = require "utils.core"
 
 local node_id_function = function(title)
   local lower_title = string.lower(title)
@@ -25,7 +25,7 @@ local markdown_link_func = function(opts)
   return string.format("[%s%s](%s%s)", opts.label, header, path, anchor)
 end
 
-local note_frontmatter_func = function(note)
+local frontmatter_func = function(note)
   -- Add the title of the note as an alias.
   -- if note.title then
   --     note:add_alias(note.title)
@@ -87,7 +87,7 @@ return {
       order = { " ", "x" },
     },
     frontmatter = {
-      func = note_frontmatter_func,
+      func = frontmatter_func,
     },
     workspaces = {
       {

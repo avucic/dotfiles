@@ -1,24 +1,3 @@
-local function find_tsconfig()
-  -- Try to find tsconfig.app.json first, then fall back to tsconfig.json, searching upwards from the current buffer's directory
-  local configs = { "tsconfig.app.json", "tsconfig.json" }
-  local path_sep = package.config:sub(1, 1)
-  local function join_path(...) return table.concat({ ... }, path_sep) end
-  local function is_root(dir)
-    local parent = vim.fn.fnamemodify(dir, ":h")
-    return dir == parent
-  end
-  local dir = vim.fn.expand "%:p:h"
-  while dir and dir ~= "" do
-    for _, config in ipairs(configs) do
-      local config_path = join_path(dir, config)
-      if vim.fn.filereadable(config_path) == 1 then return config_path end
-    end
-    if is_root(dir) then break end
-    dir = vim.fn.fnamemodify(dir, ":h")
-  end
-  return nil
-end
-
 return {
   -- {
   --   "ray-x/lsp_signature.nvim",
@@ -145,10 +124,62 @@ return {
         flags = {
           -- watch = true,
           noEmit = true,
-          project = find_tsconfig,
+          project = require("utils.project").find_tsconfig,
         },
       }
     end,
+  },
+  {
+    "AstroNvim/astrocore",
+    opts = {
+      commands = {
+        EslintWorkspace = {
+          desc = "Workspace ESLint diagnostics",
+          function()
+            local project = require "utils.project"
+            local root = project.eslint_root()
+            vim.notify("Running ESLint in: " .. root)
+
+            if not root then
+              vim.notify("No ESLint config found", vim.log.levels.WARN)
+              return
+            end
+
+            vim.system({ "pnpm", "eslint", ".", "-f", "json", "--cache" }, {
+              cwd = root,
+              text = true,
+            }, function(result)
+              vim.schedule(function()
+                local ok, decoded = pcall(vim.json.decode, result.stdout)
+
+                if not ok then return end
+
+                local items = {}
+
+                for _, file in ipairs(decoded) do
+                  for _, msg in ipairs(file.messages) do
+                    table.insert(items, {
+                      filename = file.filePath,
+                      lnum = msg.line,
+                      col = msg.column,
+                      text = msg.message,
+                      type = msg.severity == 2 and "E" or "W",
+                    })
+                  end
+                end
+
+                vim.fn.setqflist({}, " ", {
+                  title = "ESLint (" .. root .. ")",
+                  items = items,
+                })
+
+                vim.cmd "copen"
+              end)
+            end)
+          end,
+        },
+      },
+    },
   },
 
   -- {

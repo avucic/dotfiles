@@ -61,8 +61,6 @@ keybinding:
   universal:
     prevItem: "k" # go one line up
     nextItem: "j" # go one line down
-    prevBlock: "p" # goto the previous block / panel
-    nextBlock: "n" # goto the next block / panel
     # scrollUpMain: <pgup>
     # scrollDownMain: <pgdown>
     # scrollUpMain-alt1: K

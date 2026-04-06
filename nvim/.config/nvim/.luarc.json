@@ -3,5 +3,8 @@
     "diagnostics.globals": [
         "Snacks",
         "vim"
+    ],
+    "diagnostics.disable": [
+        "assign-type-mismatch"
     ]
 }

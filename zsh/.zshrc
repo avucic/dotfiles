@@ -32,7 +32,7 @@ export COLORTERM='24bit'
 export ERL_AFLAGS="-kernel shell_history enabled" # enable history in iex
 export DISABLE_AUTO_TITLE='true'
 export shell="$(which zsh)"
-
+export PATH="$HOME/.local/bin:$PATH"
 
 # -----------------------------------------------------------------------------
 # Essential Sources & Setup

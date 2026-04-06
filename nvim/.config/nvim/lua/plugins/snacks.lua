@@ -15,8 +15,8 @@ return {
     "folke/snacks.nvim",
     ---@type snacks.Config
     keys = {
-      { "<leader>ns", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
-      { "<leader>nS", function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+      { "<leader>n.", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+      { "<leader>ns", function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
       { "<c-w>Z", function() Snacks.zen.zen() end, desc = "Zen window" },
       { "<c-w>z", function() Snacks.zen.zoom() end, desc = "Zoom window" },
       { "<leader>f/", function() Snacks.picker.lines() end, desc = "Search buffer" },
@@ -51,6 +51,7 @@ return {
           -- input window
           input = {
             keys = {
+              ["<C-l>"] = { "loclist", mode = { "n", "i" } },
               -- ["<Esc>"] = { "close", mode = { "n" } },
               -- ["<C-q>"] = { "close", mode = { "n", "i" } },
               ["<C-c>"] = { "close", mode = { "n", "i" } },

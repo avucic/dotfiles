@@ -42,101 +42,25 @@ return {
     cmd = { "CodeCompanionChat", "CodeCompanionCmd", "CodeCompanion", "CodeCompanionActions" },
 
     config = function()
-      -- local adapter = {
-      --   adapter = "ollama",
-      --   -- model = "yi-coder:1.5b",
-      --   -- model = "yi-coder:9b",
-      --   model = "deepseek-coder",
-      -- }
       require("codecompanion").setup {
         strategies = {
-          -- chat = adapter,
           chat = { adapter = "copilot" },
           inline = { adapter = "copilot" },
           agent = { adapter = "copilot" },
         },
-        --
-        -- adapters = {
-        --   deepseek = function()
-        --     return require("codecompanion.adapters").extend("openai_compatible", {
-        --       env = {
-        --         url = "https://api.deepseek.com",
-        --         api_key = vim.env.DEEPSEEK_API_KEY,
-        --       },
-        --     })
-        --   end,
-        -- },
-        -- strategies = {
-        --   chat = { adapter = "deepseek" },
-        --   inline = { adapter = "deepseek" },
-        --   agent = { adapter = "deepseek" },
-        -- },
-        --
-        --
-        --
         adapters = {
           http = {
-            ollama = function()
-              return require("codecompanion.adapters").extend("ollama", {
-                -- Remove or change this line: name = "qwen",
-                parameters = {
-                  sync = true,
-                },
-                schema = {
-                  model = {
-                    default = "deepseek-coder", -- This is the model that should be used
-                  },
-                },
-              })
-            end,
-
-            -- ollama = {
-            --   enabled = true,
-            --   model = "deepseek-coder", -- The model you pulled with Ollama
-            --   host = "http://localhost:11434", -- Default Ollama API endpoint
-            --   context_window = 4096, -- Adjust based on your model's context window
-            -- },
-            -- ollama = function()
-            --   return require("codecompanion.adapters").extend("ollama", {
-            --     enabled = true,
-            --     model = "deepseek-coder", -- The model you pulled with Ollama
-            --     host = "http://localhost:11434", -- Default Ollama API endpoint
-            --     context_window = 4096, -- Adjust based on your model's context window
-            --   })
-            -- end,
-
-            -- ollama = function()
-            --   return require("codecompanion.adapters").extend("openai_compatible", {
-            --     -- env = {
-            --     --   -- url = "http[s]://open_compatible_ai_url", -- optional: default value is ollama url http://127.0.0.1:11434
-            --     --   -- api_key = "OPENAI_API_KEY", -- optional: if your endpoint is authenticated
-            --     --   chat_url = "/v1/chat/completions", -- optional: default value, override if different
-            --     -- },
-            --     schema = {
-            --       model = {
-            --         default = "deepseek-coder:1.3b",
-            --       },
-            --     },
-            --   })
-            -- end,
-
-            gemini = function()
-              return require("codecompanion.adapters").extend("gemini", {
-                env = {
-                  --   -- url = "http[s]://open_compatible_ai_url", -- optional: default value is ollama url http://127.0.0.1:11434
-                  api_key = os.getenv "GEMINI_API_KEY", -- optional: if your endpoint is authenticated
-                  --   chat_url = "/v1/chat/completions", -- optional: default value, override if different
-                },
-              })
-            end,
+            openrouter_auto = require("plugins.custom.codecompanion").adapters.openrouter_auto,
+            openrouter_free = require("plugins.custom.codecompanion").adapters.openrouter_free,
+            ollama = require("plugins.custom.codecompanion").adapters.ollama,
+            gemini = require("plugins.custom.codecompanion").adapters.gemini,
           },
         },
         prompt_library = {
-          ["Commit Message"] = {
+          ["My Commit Message"] = {
             strategy = "inline",
             description = "Generate a commit message",
             opts = {
-              short_name = "commit_message",
               auto_submit = true,
               placement = "before|false",
             },
@@ -176,10 +100,4 @@ return {
       }
     end,
   },
-  -- {
-  --   "zbirenbaum/copilot.lua",
-  --   cmd = "Copilot",
-  --   event = "InsertEnter",
-  --   config = function() require("copilot").setup {} end,
-  -- },
 }

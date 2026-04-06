@@ -154,6 +154,15 @@ maps.n["<Leader>tl"] = false
 -- maps.n["<Leader>tn"] = false
 maps.n["<Leader>tp"] = false
 maps.n["<Leader>tv"] = false
+maps.n["<leader>td"] = {
+  function()
+  if vim.wo.diff then
+    vim.cmd("windo diffoff")
+  else
+    vim.cmd("windo diffthis")
+  end
+end, desc = "Toggle diff mode" }
+
 
 -- + Run
 maps.n["<Leader>r"] = { desc = "Run and execute" }
@@ -169,6 +178,7 @@ maps.n["<Leader>jr"] = { "<cmd>lua Snacks.picker.lsp_references()<CR>", desc = "
 
 -- +Notes
 maps.n["<Leader>n"] = { false, desc = "Notes" }
+maps.n["<Leader>nS"] = { function () require("utils.core").open_scratch_float() end, desc = "Scratch" }
 -- maps.n["<Leader>nn"] = false
 -- maps.n["<Leader>nf"] = { "<Cmd>ZkOpenNotes<CR>", desc = "Open notes" }
 -- maps.n["<Leader>ni"] = { "<cmd>ZkOpenNotebook<CR>", desc = "Open notebook" }

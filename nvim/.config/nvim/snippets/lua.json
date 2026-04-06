@@ -1,11 +1,18 @@
 {
   "DelayFN": {
-    "prefix": ["df"],
-    "body": ["vim.defer_fn(function()", " $1", "end, ${2:1000})"]
+    "prefix": [
+      "df"
+    ],
+    "body": [
+      "vim.defer_fn(function()",
+      " $1",
+      "end, ${2:1000})"
+    ]
   },
-
   "Module": {
-    "prefix": ["md"],
+    "prefix": [
+      "md"
+    ],
     "body": [
       "local M = {}",
       "",
@@ -13,7 +20,7 @@
       "end",
       "",
       "function M.config()",
-      "\tlocal plugin = require(\"user.core.utils\").load_module(\"plugin\")",
+      "\tlocal plugin = require(\"user.utils.core\").load_module(\"plugin\")",
       "\tif not plugin then",
       "\t\treturn {}",
       "\tend",
@@ -25,7 +32,9 @@
     ]
   },
   "Dump": {
-    "prefix": ["dmp"],
+    "prefix": [
+      "dmp"
+    ],
     "body": [
       "function dump(o)",
       "\tif type(o) == \"table\" then",
@@ -44,7 +53,9 @@
     ]
   },
   "FileExists": {
-    "prefix": ["fex"],
+    "prefix": [
+      "fex"
+    ],
     "body": [
       "local function file_exists(fname)",
       "  if fname == nil then",

@@ -53,6 +53,27 @@ return {
           -- foldtext = "v:lua.vim.treesitter.foldtext()",
         },
       },
+      -- commands = {
+      --   EslintAll = {
+      --     function()
+      --       require("lint").linters.eslint.cmd = "eslint"
+      --
+      --       vim.fn.jobstart({ "pnpm eslint", "." }, {
+      --         stdout_buffered = true,
+      --         on_stdout = function(_, data)
+      --           vim.schedule(function()
+      --             vim.fn.setqflist({}, " ", {
+      --               title = "ESLint Workspace",
+      --               lines = data,
+      --             })
+      --             vim.cmd "copen"
+      --           end)
+      --         end,
+      --       })
+      --     end,
+      --     desc = "ESLint whole workspace",
+      --   },
+      -- },
     },
   },
   {

@@ -1,5 +1,5 @@
 local bufnr = vim.api.nvim_get_current_buf()
-local util = require "core.utils"
+local util = require "utils.core"
 
 -- Define your keymap configurations as a table
 local todotxt_keymap_configs = {

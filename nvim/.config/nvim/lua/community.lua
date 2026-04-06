@@ -46,11 +46,11 @@ return {
   -- { import = "astrocommunity.motion.marks-nvim" },
   -- { import = "astrocommunity.note-taking.zk-nvim" },
   { import = "astrocommunity.quickfix.nvim-bqf" },
+  { import = "astrocommunity.quickfix.quicker-nvim" },
   { import = "astrocommunity.utility.noice-nvim" },
   { import = "astrocommunity.utility.nvim-toggler" },
   { import = "astrocommunity.git.diffview-nvim" },
   { import = "astrocommunity.git.neogit" },
-
   -- { import = "astrocommunity.utility.telescope-live-grep-args-nvim" },
   -- { import = "astrocommunity.debugging.telescope-dap-nvim" },
 

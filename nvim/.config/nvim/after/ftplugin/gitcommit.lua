@@ -6,7 +6,7 @@ vim.keymap.set(
   -- function() require("codecompanion").prompt "commit_message" end,
   function()
     vim.notify "Fetching ai message..."
-    require("codecompanion").prompt "commit_message"
+    require("codecompanion").prompt "commit"
   end,
   { desc = "AI commit message", buffer = bufnr }
 )
