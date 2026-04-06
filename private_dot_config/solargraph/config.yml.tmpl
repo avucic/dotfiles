@@ -1,0 +1,28 @@
+{{- if .install_ruby_config -}}
+---
+include:
+- Rakefile
+- Gemfile
+- "*.gemspec"
+- "**/*.rb"
+exclude:
+- views/**/*
+- bundle/**/*
+- node_modules/**/*
+- spec/**/*
+- test/**/*
+- vendor/**/*
+require: []
+domains: []
+reporters:
+- standardrb
+- reek
+formatter:
+  rubocop:
+    cops: safe
+    except: []
+    only: []
+    extra_args: []
+require_paths: []
+max_files: 5000
+{{- end }}

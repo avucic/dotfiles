@@ -1,0 +1,135 @@
+# -----------------------------------------------------------------------------
+# Helper Functions
+# -----------------------------------------------------------------------------
+_add_to_path() {
+  local new_path="$1"
+  local position="${2:-prepend}"
+
+  if [[ -d "$new_path" ]]; then
+    case ":$PATH:" in
+      *":$new_path:"*) ;;
+      *)
+        if [[ "$position" == "prepend" ]]; then
+          export PATH="$new_path:$PATH"
+        else
+          export PATH="$PATH:$new_path"
+        fi
+        ;;
+    esac
+  fi
+}
+
+# -----------------------------------------------------------------------------
+# Core Environment Variables
+# -----------------------------------------------------------------------------
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export TERM=xterm-256color
+export COLORTERM='24bit'
+export ERL_AFLAGS="-kernel shell_history enabled"
+export DISABLE_AUTO_TITLE='true'
+export shell="$(which zsh)"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
+# -----------------------------------------------------------------------------
+# Essential Sources & Setup
+# -----------------------------------------------------------------------------
+source ~/.env
+
+# Znap: Fast Zsh Plugin Manager
+[[ -r ~/.znap/znap.zsh ]] || \
+    git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/.znap
+source ~/.znap/znap.zsh
+zstyle ':znap:*' repos-dir ~/.znap/custom
+export ZSH_CUSTOM=~/.znap/custom
+
+# asdf completions
+fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
+autoload -Uz compinit && compinit
+
+# -----------------------------------------------------------------------------
+# Path Modifications
+# -----------------------------------------------------------------------------
+_add_to_path "$HOME/.bin" "prepend"
+_add_to_path "$HOME/dotfiles/bin" "prepend"
+_add_to_path "/usr/local/bin" "append"
+
+if command -v go &> /dev/null; then
+  _add_to_path "$(go env GOPATH)/bin" "append"
+  if [[ -n "$GOROOT" ]]; then
+    _add_to_path "$GOROOT/bin" "append"
+  fi
+  if [[ -n "$GOPATH" && "$GOPATH/bin" != "$(go env GOPATH)/bin" ]]; then
+    _add_to_path "$GOPATH/bin" "append"
+  fi
+fi
+
+# -----------------------------------------------------------------------------
+# Editor & Notes
+# -----------------------------------------------------------------------------
+export EDITOR="nvim"
+export ZK_NOTEBOOK_DIR="$HOME/Dropbox/Notes"
+
+# FZF
+export FZF_DEFAULT_OPTS='--preview "pygmentize {}" --color dark --bind "?:toggle-preview" --preview-window "right:50%:hidden"'
+
+# AI
+export ZSH_AI_PROVIDER="claude"
+
+# -----------------------------------------------------------------------------
+# Znap Plugins
+# -----------------------------------------------------------------------------
+znap prompt sindresorhus/pure
+
+znap source ohmyzsh/ohmyzsh \
+  lib/{git,grep,history,key-bindings} \
+  plugins/{git,cp,docker-compose,rake,bundler,ruby,tmux,direnv,fzf,gitignore,history,tmuxinator}
+
+znap source zsh-users/zsh-syntax-highlighting
+znap source zsh-users/zsh-autosuggestions
+znap source olets/zsh-abbr
+znap source MichaelAquilina/zsh-you-should-use
+
+# -----------------------------------------------------------------------------
+# Hooks & Completions
+# -----------------------------------------------------------------------------
+if command -v direnv &>/dev/null; then
+  eval "$(direnv hook zsh)"
+fi
+
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh --cmd j)"
+fi
+
+if command -v jump &> /dev/null; then
+  eval "$(jump shell)"
+fi
+
+# -----------------------------------------------------------------------------
+# Fixes
+# -----------------------------------------------------------------------------
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=#666666
+
+# -----------------------------------------------------------------------------
+# Functions
+# -----------------------------------------------------------------------------
+dstats() { docker stats --all --format "table {{.ID}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}" }
+dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
+
+delete_snapshots() {
+  for d in $(tmutil listlocalsnapshotdates | grep "-"); do sudo tmutil deletelocalsnapshots $d; done
+}
+
+kill-port() {
+  readonly port=${1:?"The port must be specified."}
+  echo $(lsof -t -i:${port})
+  kill -9 $(lsof -t -i:${port})
+}
+
+# -----------------------------------------------------------------------------
+# Aliases
+# -----------------------------------------------------------------------------
+alias tsk=task
+alias n="nvim"
+alias cl="clear"

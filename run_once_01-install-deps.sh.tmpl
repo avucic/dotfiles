@@ -1,0 +1,54 @@
+#!/bin/bash
+set -e
+
+{{ if eq .chezmoi.os "darwin" -}}
+echo "==> Installing Homebrew packages..."
+
+if ! command -v brew &>/dev/null; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+brew bundle --file=/dev/stdin <<EOF
+# Core tools
+brew "neovim"
+brew "tmux"
+brew "fzf"
+brew "ripgrep"
+brew "fd"
+brew "bat"
+brew "eza"
+brew "tree"
+brew "htop"
+brew "jq"
+brew "wget"
+brew "coreutils"
+
+# Git tools
+brew "gh"
+brew "git-delta"
+brew "lazygit"
+brew "lazydocker"
+
+# Dev tools
+brew "direnv"
+brew "zoxide"
+brew "stylua"
+brew "nvr"
+brew "tmuxp"
+brew "sesh"
+brew "zk"
+brew "code-minimap"
+brew "mike-engel/jwt-cli/jwt-cli"
+brew "silicon"
+brew "pngpaste"
+EOF
+
+echo "==> Installing npm global packages..."
+if npm --version &>/dev/null; then
+  npm install -g @fsouza/prettierd
+  npm install -g dotenv
+else
+  echo "  Skipping npm packages (node not available yet)"
+fi
+
+{{ end -}}

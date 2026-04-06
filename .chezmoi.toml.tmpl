@@ -1,0 +1,4 @@
+[data]
+  email = "{{ promptStringOnce . "email" "Email address" }}"
+  name = "{{ promptStringOnce . "name" "Full name" }}"
+  install_ruby_config = {{ promptBoolOnce . "install_ruby_config" "Install Ruby dev config (solargraph, rubocop, Gemfile)" }}
