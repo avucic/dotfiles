@@ -1,10 +1,3 @@
 {
-    "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
-    "diagnostics.globals": [
-        "Snacks",
-        "vim"
-    ],
-    "diagnostics.disable": [
-        "assign-type-mismatch"
-    ]
+  "format.enable": false
 }

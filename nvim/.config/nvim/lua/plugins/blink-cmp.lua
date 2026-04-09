@@ -9,20 +9,19 @@ return {
           enable_events = true,
         },
       },
-
-      {
-        "Exafunction/codeium.nvim",
-        event = "BufEnter",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        opts = {
-          enable_chat = true,
-          enabled = function()
-            local path = vim.api.nvim_buf_get_name(0)
-            if string.find(path, "oil://", 1, true) == 1 then return false end
-            return true
-          end,
-        },
-      },
+      -- {
+      --   "Exafunction/windsurf.nvim",
+      --   dependencies = {
+      --     "nvim-lua/plenary.nvim",
+      --   },
+      --   config = function()
+      --     require("codeium").setup {
+      --       virtual_text = { enabled = true },
+      --     }
+      --   end,
+      --   cmd = "Codeium",
+      --   build = ":Codeium Auth",
+      -- },
 
       { "L3MON4D3/LuaSnip", version = "v2.*" },
       -- {
@@ -42,6 +41,17 @@ return {
         -- set to 'none' to disable the 'default' preset
         preset = "default",
 
+        ["<Tab>"] = {
+          function()
+            local ok, supermaven = pcall(require, "supermaven-nvim.completion_preview")
+            if ok and supermaven.has_suggestion() then
+              vim.schedule(supermaven.on_accept_suggestion)
+              return true
+            end
+          end,
+          "select_next",
+          "fallback",
+        },
         -- disable a keymap from the preset
         -- ["<Cr>"] = { "accept_and_enter" }, -- or {}
 
@@ -63,7 +73,7 @@ return {
           "snippets",
           "lsp",
           "path",
-          "codeium",
+          -- "codeium",
           "buffer",
           "spell",
         },
@@ -142,13 +152,4 @@ return {
       },
     },
   },
-
-  -- {
-  --   "milanglacier/minuet-ai.nvim",
-  --   config = function()
-  --     require("minuet").setup {
-  --       provider = "gemini",
-  --     }
-  --   end,
-  -- },
 }

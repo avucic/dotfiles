@@ -1,8 +1,19 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 set -e
+source "$DOTFILES_LOCATION/install.sh"
 
-if ! [ -e $HOME/.znap/custom/ohmyzsh/ohmyzsh/plugins ]; then
-  cd ~/.znap/custom/ohmyzsh/ohmyzsh/plugins
-  # git clone https://github.com/MohamedElashri/exa-zsh
+echo "🐳 Installing zsh..."
+
+install_package eza
+install_package fzf
+install_package zoxide
+
+# Znap: Fast Zsh Plugin Manager
+if ! [ -e $HOME/.znap ]; then
+  git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/.znap
+fi
+
+if [ -e $HOME/.zshrc ]; then
+  rm ~/.zshrc
 fi

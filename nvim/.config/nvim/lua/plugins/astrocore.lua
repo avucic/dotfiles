@@ -35,7 +35,6 @@ return {
       },
       pattern = {
         [".*/etc/foo/.*"] = "fooscript",
-        ["//%s"] = "cedar",
       },
     },
     -- vim options can be configured here

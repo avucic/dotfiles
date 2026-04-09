@@ -42,6 +42,7 @@ return {
       -- vim options can be configured here
       options = {
         opt = { -- vim.opt.<key>
+          exrc = true,
           relativenumber = false, -- sets vim.opt.relativenumber
           number = true, -- sets vim.opt.number
           spell = true, -- sets vim.opt.spell

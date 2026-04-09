@@ -1,5 +1,9 @@
 return {
   {
+    "github/copilot.vim",
+    cmd = "Copilot",
+  },
+  {
     "olimorris/codecompanion.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -42,11 +46,15 @@ return {
     cmd = { "CodeCompanionChat", "CodeCompanionCmd", "CodeCompanion", "CodeCompanionActions" },
 
     config = function()
+      ---@type ProjectConfig
+      local project = vim.g.project or {}
+      local adapter = project.ai_adapter or "copilot"
+
       require("codecompanion").setup {
         strategies = {
-          chat = { adapter = "copilot" },
-          inline = { adapter = "copilot" },
-          agent = { adapter = "copilot" },
+          chat = { adapter = adapter },
+          inline = { adapter = adapter },
+          agent = { adapter = adapter },
         },
         adapters = {
           http = {
@@ -97,6 +105,21 @@ return {
             },
           },
         },
+      }
+    end,
+  },
+  {
+    "supermaven-inc/supermaven-nvim",
+    event = "InsertEnter",
+    config = function()
+      require("supermaven-nvim").setup {
+        keymaps = {
+          accept_suggestion = "<C-e>",
+          clear_suggestion = "<C-c>",
+          accept_word = "<C-f>",
+        },
+        -- disable_inline_completion = false,
+        disable_keymaps = false,
       }
     end,
   },

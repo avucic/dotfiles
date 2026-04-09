@@ -94,12 +94,12 @@ maps.n["<Leader>bO"] = { "<Leader>bC", desc = "Close all", remap = true }
 maps.n["<Leader>bR"] = { function() require("astrocore.buffer").close_left() end, desc = "Close all buffers to the right" }
 maps.n["<Leader>bL"] = { function() require("astrocore.buffer").close_right() end, desc = "Close all buffers to the left" }
 maps.n["<Leader>bp"] = false
-maps.n["<leader>bl"] = { "<cmd>lua require('astrocore.buffer').nav((vim.v.count > 0 and vim.v.count or 1))<cr><cmd>WhichKey <LT>leader>b<CR>", desc = "Next buffer", }
-maps.n["<leader>bh"] = { "<cmd>lua require('astrocore.buffer').nav(-(vim.v.count > 0 and vim.v.count or 1))<cr><cmd>WhichKey <LT>leader>b<CR>", desc = "Previous buffer", }
-maps.n["<leader>bq"] = { "<cmd>lua require('astrocore.buffer').close(0)<CR><cmd>WhichKey <LT>leader>b<CR>", desc = "Close" }
+maps.n["<Leader>bl"] = { "<cmd>lua require('astrocore.buffer').nav((vim.v.count > 0 and vim.v.count or 1))<cr><cmd>WhichKey <LT>leader>b<CR>", desc = "Next buffer", }
+maps.n["<Leader>bh"] = { "<cmd>lua require('astrocore.buffer').nav(-(vim.v.count > 0 and vim.v.count or 1))<cr><cmd>WhichKey <LT>leader>b<CR>", desc = "Previous buffer", }
+maps.n["<Leader>bq"] = { "<cmd>lua require('astrocore.buffer').close(0)<CR><cmd>WhichKey <LT>leader>b<CR>", desc = "Close" }
 -- maps.n["<leader>bd"] = { "<cmd>lua require('astroui.status.heirline').buffer_picker(function(bufnr) require('astrocore.buffer').close(bufnr) end)<CR><cmd>WhichKey <Leader>b<CR>", desc = "Clooooooooooooooose" }
 maps.n["<Leader>bd"] = false
-maps.n["<leader>bd"] = {
+maps.n["<Leader>bd"] = {
   function()
     require('astroui.status.heirline').buffer_picker(
       function(bufnr)
@@ -137,6 +137,7 @@ maps.x["<Leader>gO"] = {
 -- maps.n["<Leader>gdf"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.diff_commit_file()<cr>", desc = "Search file" }
 -- maps.n["<Leader>gds"] = { "<cmd>lua require('telescope').extensions.advanced_git_search.search_log_content()<cr>", desc = "Search log" }
 maps.n["<Leader>gs"] = { "<cmd>Neogit kind=split<CR>", desc = "Git status" }
+maps.n["<leader>gs"] = { "<cmd>Neogit kind=split<CR>", desc = "Git status" }
 maps.n["<Leader>gnN"] = { "<cmd>GenerateBranchName<CR>", desc = "Generate branch name" }
 maps.n["<Leader>gT"] = false
 maps.n["<Leader>gt"] = false
@@ -145,6 +146,7 @@ maps.n["<Leader>gS"] = false
 -- +Open
 maps.n["<Leader>o"] = { false, desc = "Open" }
 maps.n["<Leader>oN"] = { "<cmd>NoiceTelescope<cr>", desc = "Notifications" }
+maps.n["<Leader>ot"] = { "<cmd>ToggleTerm<cr>", desc = "Terminal" }
 
 -- +Tasks
 maps.n["<Leader>t"] = { desc = "Tasks" }

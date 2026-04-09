@@ -1,0 +1,30 @@
+{
+  "name": "Api",
+  "image": "image",
+  "runArgs": [
+    "--network=tabz_default"
+  ],
+  "workspaceFolder": "/rails",
+  "remoteEnv": {
+    "DEVCONTAINER": "true",
+    "SHELL": "/bin/zsh",
+    "GEMINI_API_KEY": "${localEnv:GEMINI_API_KEY}",
+    "ANTHROPIC_API_KEY": "${localEnv:ANTHROPIC_API_KEY}"
+  },
+  "features": {
+    "ghcr.io/duduribeiro/devcontainer-features/neovim:1": {
+      "version": "stable"
+    },
+    "ghcr.io/meaningful-ooo/devcontainer-features/homebrew:2": {},
+    "ghcr.io/kreemer/features/stow:1": {},
+    "ghcr.io/robbert229/devcontainer-features/postgresql-client": {}
+  },
+  "mounts": [
+    "source=${localEnv:HOME}/.config/github-copilot,target=/root/.config/github-copilot,type=bind,readonly",
+    "source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,readonly",
+    "source=${localEnv:HOME}/.dotfiles,target=/root/.dotfiles,type=bind",
+    "source=${localWorkspaceFolder}/.nvim.lua.ignore,target=/tmp/nvim.lua,type=bind,readonly"
+  ],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/rails,type=bind",
+  "postStartCommand": "ln -sf /tmp/nvim.lua /rails/.nvim.lua && /root/.dotfiles/install.sh"
+}

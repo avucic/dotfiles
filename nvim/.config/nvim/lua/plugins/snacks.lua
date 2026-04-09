@@ -1,3 +1,5 @@
+local Snacks = require "snacks"
+
 local function toggle_dim()
   if vim.g.dim == nil then vim.g.dim = false end
 
@@ -17,6 +19,21 @@ return {
     keys = {
       { "<leader>n.", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
       { "<leader>ns", function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+      {
+        "<leader>nS",
+        function()
+          Snacks.scratch {
+            name = "Global", -- shows in the window title
+            ft = "markdown",
+            filekey = {
+              cwd = false, -- 🔑 ignore current directory
+              branch = false, -- 🔑 ignore git branch
+              count = false, -- ignore vim.v.count1
+            },
+          }
+        end,
+        desc = "Select Global Scratch Buffer",
+      },
       { "<c-w>Z", function() Snacks.zen.zen() end, desc = "Zen window" },
       { "<c-w>z", function() Snacks.zen.zoom() end, desc = "Zoom window" },
       { "<leader>f/", function() Snacks.picker.lines() end, desc = "Search buffer" },
@@ -36,6 +53,9 @@ return {
       { "<leader>u<tab>", toggle_dim, desc = "Dim" },
     },
     opts = {
+      scratch = {
+        ft = "markdown",
+      },
       bigfile = { enabled = true },
       words = { enabled = true },
       scroll = { enabled = false },
@@ -48,6 +68,10 @@ return {
         -- layout = "verti",
         layout = "telescope",
         win = {
+          wo = {
+            winblend = 0,
+            winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+          },
           -- input window
           input = {
             keys = {

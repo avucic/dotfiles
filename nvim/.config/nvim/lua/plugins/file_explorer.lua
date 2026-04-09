@@ -1,4 +1,5 @@
 return {
+  ---@type LazySpec
   {
     "simonmclean/triptych.nvim",
     dependencies = {

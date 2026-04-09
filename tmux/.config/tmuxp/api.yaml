@@ -1,0 +1,20 @@
+session_name: api
+start_directory: ~/Work/tabz
+options:
+  status-left: "#[fg=#282c34,bg=#61afef,bold] #S #{prefix_highlight}#[fg=#61afef,bg=#282c34,nobold,nounderscore,noitalics]"
+  status-left-length: "100"
+windows:
+  - window_name: api
+    focus: 'true'
+    layout: ece5,472x77,0,0[472x63,0,0,1,472x13,0,64{236x13,0,64,2,235x13,237,64,3}]
+    panes:
+      - shell_command:
+          - sleep 0.3
+          - devcontainer exec --workspace-folder . bash -lc "cd /rails/services/api && exec nvim"
+      - shell_command:
+      - shell_command:
+          - sleep 0.3
+          - devcontainer exec --workspace-folder . bash -lc "cd /rails/services/api && exec bin/rails console"
+  - window_name: docker
+    panes:
+    - shell_command: lazydocker

@@ -119,65 +119,40 @@ function M.setup_keymaps_and_help_popup(bufnr, keymap_configs, help_title)
 end
 
 function M.open_scratch_float()
-  local file = vim.fn.expand "~/Dropbox/Notes/scratchpad.md"
+  local file = os.getenv "SCRATCHPAD_FILE" or vim.fn.expand "~/Dropbox/Notes/scratchpad.md"
 
   -- Ensure file exists
   if vim.fn.filereadable(file) == 0 then vim.fn.writefile({}, file) end
 
-  -- Create scratch buffer
-  local buf = vim.api.nvim_create_buf(false, true)
+  -- If already open in a buffer, reuse it; otherwise create one bound to the file
+  local buf = vim.fn.bufnr(file, true)
+  vim.fn.bufload(buf)
+  vim.bo[buf].bufhidden = "hide" -- keep buffer alive when window closes
 
-  -- 🔑 give buffer a name so :w works
-  vim.api.nvim_buf_set_name(buf, "scratch://notes")
-
-  vim.bo[buf].buftype = "acwrite"
-  vim.bo[buf].bufhidden = "wipe"
-  vim.bo[buf].swapfile = false
-  vim.bo[buf].modifiable = true
-  vim.bo[buf].filetype = "markdown"
-
-  -- Load file contents
-  vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.fn.readfile(file))
-  vim.b[buf].scratch_target_file = file
-
-  -- Intercept :w
-  vim.api.nvim_create_autocmd("BufWriteCmd", {
-    buffer = buf,
-    callback = function()
-      local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
-      vim.fn.writefile(lines, file)
-      vim.bo[buf].modified = false
-      vim.notify("Scratch saved ✔", vim.log.levels.INFO)
-    end,
-  })
-
-  -- Floating window
   local width = math.floor(vim.o.columns * 0.75)
   local height = math.floor(vim.o.lines * 0.75)
 
-  vim.api.nvim_open_win(buf, true, {
+  local win = vim.api.nvim_open_win(buf, true, {
     relative = "editor",
     width = width,
     height = height,
     row = math.floor((vim.o.lines - height) / 2),
     col = math.floor((vim.o.columns - width) / 2),
-    style = "minimal",
     border = "rounded",
+    -- 🔑 NO style = "minimal" — that's what kills syntax, signs, conceal, etc.
   })
 
-  -- Writing-friendly
-  vim.wo.wrap = true
-  vim.wo.spell = true
-  vim.wo.linebreak = true
+  -- Window-local writing settings (use nvim_set_option_value so they're scoped to this win)
+  vim.api.nvim_set_option_value("wrap", true, { win = win })
+  vim.api.nvim_set_option_value("linebreak", true, { win = win })
+  vim.api.nvim_set_option_value("spell", true, { win = win })
+  vim.api.nvim_set_option_value("conceallevel", 2, { win = win })
+  vim.api.nvim_set_option_value("concealcursor", "nc", { win = win })
 
   vim.keymap.set("n", "q", function()
-    local win = vim.fn.bufwinid(buf)
-    if win ~= -1 then vim.api.nvim_win_close(win, true) end
-  end, {
-    buffer = buf, -- 🔑 THIS is what scopes it
-    silent = true,
-    nowait = true,
-  })
+    if vim.bo[buf].modified then vim.cmd "silent! write" end
+    if vim.api.nvim_win_is_valid(win) then vim.api.nvim_win_close(win, true) end
+  end, { buffer = buf, silent = true, nowait = true })
 end
 
 return M

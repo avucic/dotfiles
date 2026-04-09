@@ -1,8 +1,0 @@
-keybinds {
-    shared_among "normal" "locked" {
-        bind "Alt h" { MoveFocus "left"; }
-        bind "Alt j" { MoveFocus "down"; }
-        bind "Alt k" { MoveFocus "up"; }
-        bind "Alt l" { MoveFocus "right"; }
-    }
-}

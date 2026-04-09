@@ -18,9 +18,10 @@ return {
         -- "rust",
       }
 
-      if vim.g.custom_other_mappings and type(vim.g.custom_other_mappings) == "table" then
-        vim.list_extend(mappings, vim.g.custom_other_mappings)
-      end
+      local project = vim.g.project or {}
+      local custom_other_mappings = project.custom_other_mappings or {}
+
+      vim.list_extend(mappings, custom_other_mappings)
 
       return {
         -- rememberBuffers = false,

@@ -42,8 +42,11 @@ return {
         let g:VM_leader = ','
         let g:VM_maps = {}
         let g:VM_maps['Find Under'] = '<M-n>'
-        let g:VM_maps['Find Subword Under'] = '<M-n>'
-        let g:VM_maps['Select Cursor Down'] = '<M-j>'
+        let g:VM_maps['Skip Region'] = '<C-x>'
+        let g:VM_maps['Remove Region'] = '<M-p>'
+
+        let g:VM_maps['Select Cursor Down'] = '<M-S-j>'
+        let g:VM_maps['Select Cursor Up']   = '<M-S-k>'
         let g:VM_maps['Select Cursor Up'] = '<M-k>'
         " let g:VM_maps = {}
         " let g:VM_maps["Add Cursor At Pos"]            = '<c-c>'

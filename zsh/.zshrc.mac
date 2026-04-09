@@ -1,0 +1,19 @@
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export PATH="/Users/vucinjo/.bin:$PATH"
+
+# iTerm2
+test -e "$HOME/.iterm2_shell_integration.zsh" && \
+  source "$HOME/.iterm2_shell_integration.zsh"
+znap eval iterm2 'curl -fsSL https://iterm2.com/shell_integration/zsh'
+
+# Mac only plugins
+znap source ohmyzsh/ohmyzsh plugins/{docker-compose,rake,bundler,ruby,tmuxinator}
+
+delete_snapshots() {
+  for d in $(tmutil listlocalsnapshotdates | grep "-"); do
+    sudo tmutil deletelocalsnapshots $d
+  done
+}
+
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8

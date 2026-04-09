@@ -1,15 +1,11 @@
-#!/usr/bin/env zsh
-
+#!/usr/bin/env bash
 
 set -e
+source "$DOTFILES_LOCATION/install.sh"
 
-if ! command -v tmux &>/dev/null; then
-  brew install tmux
-fi
+echo "🐳 Installing zsh..."
 
+install_package tmux
 
-# if ! [ -e $HOME/.tmux.conf ]; then
-    ln -sf "${DOTFILES_LOCATION}/tmux/.tmux.conf" "${HOME}/.tmux.conf"
-    git clone --depth 1 https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    echo "▶️  Tmux setup"
-# fi
+git clone --depth 1 https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+echo "▶️  Tmux setup"

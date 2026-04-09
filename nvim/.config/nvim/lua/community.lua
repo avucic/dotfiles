@@ -9,22 +9,18 @@ return {
   --
   { import = "astrocommunity.pack.lua" },
   -- import/override with your plugins folder
-  { import = "astrocommunity.pack.rust" },
+  -- { import = "astrocommunity.pack.rust" },
   -- { import = "astrocommunity.pack.ruby" },
   { import = "astrocommunity.pack.bash" },
-  { import = "astrocommunity.pack.go" },
+  -- { import = "astrocommunity.pack.go" },
   -- -- { import = "astrocommunity.pack.html-css" },
   { import = "astrocommunity.pack.markdown" },
   -- -- { import = "astrocommunity.pack.tailwindcss" },
-  { import = "astrocommunity.pack.typescript" },
+  -- { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.full-dadbod" },
   -- { import = "astrocommunity.pack.biome" },
   -- { import = "astrocommunity.pack.html-css" },
-  { import = "astrocommunity.note-taking.obsidian-nvim" },
-
-  -- TODO:
-  -- 1.fix telescope-nvchad-theme
-  -- 2. lazy load some plugins like dial, leap, harpoon
+  -- { import = "astrocommunity.note-taking.obsidian-nvim" },
 
   -- { import = "astrocommunity.markdown-and-latex.markview-nvim" },
   { import = "astrocommunity.code-runner.overseer-nvim" },
@@ -33,7 +29,6 @@ return {
   { import = "astrocommunity.editing-support.nvim-treesitter-endwise" },
   { import = "astrocommunity.editing-support.text-case-nvim" },
   { import = "astrocommunity.editing-support.treesj" },
-  -- { import = "astrocommunity.editing-support.true-zen-nvim" },
   { import = "astrocommunity.editing-support.yanky-nvim" },
   { import = "astrocommunity.file-explorer.oil-nvim" },
   { import = "astrocommunity.markdown-and-latex.render-markdown-nvim" },
@@ -41,16 +36,17 @@ return {
   { import = "astrocommunity.motion.flash-nvim" },
   { import = "astrocommunity.motion.harpoon" },
   { import = "astrocommunity.motion.mini-move" }, -- move lines
-  { import = "astrocommunity.motion.nvim-spider" }, -- jump to part of the word text objects
+  -- { import = "astrocommunity.motion.nvim-spider" }, -- jump to part of the word text objects
   { import = "astrocommunity.motion.nvim-surround" },
   -- { import = "astrocommunity.motion.marks-nvim" },
-  -- { import = "astrocommunity.note-taking.zk-nvim" },
+  { import = "astrocommunity.note-taking.zk-nvim" },
   { import = "astrocommunity.quickfix.nvim-bqf" },
-  { import = "astrocommunity.quickfix.quicker-nvim" },
   { import = "astrocommunity.utility.noice-nvim" },
   { import = "astrocommunity.utility.nvim-toggler" },
   { import = "astrocommunity.git.diffview-nvim" },
   { import = "astrocommunity.git.neogit" },
+  { import = "astrocommunity.recipes.picker-lsp-mappings" },
+
   -- { import = "astrocommunity.utility.telescope-live-grep-args-nvim" },
   -- { import = "astrocommunity.debugging.telescope-dap-nvim" },
 
@@ -228,74 +224,6 @@ return {
   -- to fix luautf8 issue
   -- luarocks install luautf8 --lua-version=5.1
   -- luarocks install toml-edit --lua-version=5.1
-  -- {
-  --   "zk-org/zk-nvim",
-  --   dependencies = {
-  --     "nvim-neorocks/toml-edit.lua",
-  --     {
-  --       "vhyrro/luarocks.nvim",
-  --
-  --       priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
-  --       config = true,
-  --       opts = {
-  --         ["toml-edit"] = { "toml-edit" }, -- specifies a list of rocks to install
-  --         ["luautf8"] = { "luautf8" },
-  --         -- luarocks_build_args = { "--with-lua=/my/path" }, -- extra options to pass to luarocks's configuration script
-  --         --   },
-  --       },
-  --     },
-  --   },
-  --   config = function(_, opts) require("plugins.custom.zk").config(opts) end,
-  --   opts = {
-  --     picker = "telescope",
-  --     -- lsp = {
-  --     --   -- `config` is passed to `vim.lsp.start(config)`
-  --     --   config = {
-  --     --     name = "zk",
-  --     --     cmd = { "zk", "lsp" },
-  --     --     filetypes = { "markdown" },
-  --     --     -- on_attach = ...
-  --     --     -- etc, see `:h vim.lsp.start()`
-  --     --   },
-  --     --
-  --     --   -- automatically attach buffers in a zk notebook that match the given filetypes
-  --     --   auto_attach = {
-  --     --     enabled = true,
-  --     --   },
-  --     -- },
-  --
-  --     -- picker_options = {
-  --     --   snacks_picker = {
-  --     --     layout = {
-  --     --       preset = "ivy",
-  --     --     },
-  --     --   },
-  --     -- },
-  --   },
-  --   cmd = {
-  --     "ZkOrphahs",
-  --     "ZkLink",
-  --     "ZkGrep",
-  --     "ZkIndex",
-  --     "ZkNew",
-  --     -- "ZkNewFromTitleSelection",
-  --     "ZkNewFromContentSelection",
-  --     "ZkCd",
-  --     "ZkNotes",
-  --     "ZkBacklinks",
-  --     "ZkLinks",
-  --     "ZkInsertLinkAtSelection",
-  --     "ZkInsertLink",
-  --     "ZkMatch",
-  --     "ZkTags",
-  --     "ZkOpenNotebook",
-  --     "ZkFindOrCreate",
-  --     "ZkFindOrCreateJournalDailyNote",
-  --     "ZkOpenNotes",
-  --     "ZkFindOrCreateNote",
-  --     "ZkFindOrCreateProjectNote",
-  --   },
-  -- },
   {
     "folke/flash.nvim",
     event = "VeryLazy",

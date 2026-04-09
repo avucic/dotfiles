@@ -1,187 +1,75 @@
-# -----------------------------------------------------------------------------
-# Helper Functions
-# -----------------------------------------------------------------------------
-# Adds a path to the PATH variable if it doesn't already exist.
-# Usage: _add_to_path "/path/to/add" [prepend|append]
-_add_to_path() {
-  local new_path="$1"
-  local position="${2:-prepend}" # default to prepend
+# ── Platform detection ────────────────────────────────────────────────────────
+IS_MAC=false
+IS_LINUX=false
+IS_DEVCONTAINER=false
+[[ "$(uname)" == "Darwin" ]] && IS_MAC=true
+[[ "$(uname)" == "Linux" ]] && IS_LINUX=true
+[[ -n "${DEVCONTAINER:-}" ]] && IS_DEVCONTAINER=true
+export IS_MAC IS_LINUX IS_DEVCONTAINER
 
-  if [[ -d "$new_path" ]]; then
-    case ":$PATH:" in
-      *":$new_path:"*) ;; # Path already exists, do nothing
-      *)
-        if [[ "$position" == "prepend" ]]; then
-          export PATH="$new_path:$PATH"
-        else
-          export PATH="$PATH:$new_path"
-        fi
-        ;;
-    esac
-  fi
-}
-
-
-# -----------------------------------------------------------------------------
-# Core Environment Variables
-# -----------------------------------------------------------------------------
-export LC_CTYPE=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export TERM=xterm-256color # or wezterm, xterm-kitty, screen-256color
-export COLORTERM='24bit'
-export ERL_AFLAGS="-kernel shell_history enabled" # enable history in iex
-export DISABLE_AUTO_TITLE='true'
-export shell="$(which zsh)"
+# ── Env ───────────────────────────────────────────────────────────────────────
 export PATH="$HOME/.local/bin:$PATH"
+export EDITOR="nvim"
+export TERM=xterm-256color
+export COLORTERM='24bit'
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=#666666
+export FZF_DEFAULT_OPTS='--preview "cat {}" --color dark --bind "?:toggle-preview" --preview-window "right:50%:hidden"'
+export ZSH_AI_PROVIDER="gemini"
+export DISABLE_AUTO_TITLE='true'
 
-# -----------------------------------------------------------------------------
-# Essential Sources & Setup
-# -----------------------------------------------------------------------------
-source ~/.env
+ZSH_TMUX_AUTOQUIT=true
+ZSH_TMUX_CONFIG=$HOME/.tmux.conf
 
-# Znap: Fast Zsh Plugin Manager
-[[ -r ~/.znap/znap.zsh ]] || \
-    git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/.znap
-source ~/.znap/znap.zsh
-zstyle ':znap:*' repos-dir ~/.znap/custom
-export ZSH_CUSTOM=~/.znap/custom
-
-# asdf: Language Version Manager
-. $HOME/.asdf/asdf.sh
-# . $HOME/.asdf/completions/asdf.bash
-
-# iTerm2 Shell Integration
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# -----------------------------------------------------------------------------
-# Path Modifications
-# -----------------------------------------------------------------------------
-# Prepend important binaries
-_add_to_path "/Users/vucinjo/.bin" "prepend"
-_add_to_path "$HOME/dotfiles/bin" "prepend"
-# Append common binaries
-_add_to_path "/usr/local/bin" "append"
-
-# Conditional Go paths
-if command -v go &> /dev/null; then
-  _add_to_path "$(go env GOPATH)/bin" "append"
-  if [[ -n "$GOROOT" ]]; then
-    _add_to_path "$GOROOT/bin" "append"
-  fi
-  # Add GOPATH/bin if it's distinct from `go env GOPATH`/bin
-  if [[ -n "$GOPATH" && "$GOPATH/bin" != "$(go env GOPATH)/bin" ]]; then
-    _add_to_path "$GOPATH/bin" "append"
-  fi
+# Auto install TPM plugins on first run
+if [ -d ~/.tmux/plugins/tpm ] && [ ! -d ~/.tmux/plugins/tmux-onedark-theme ]; then
+  ~/.tmux/plugins/tpm/bin/install_plugins
 fi
 
+# shellcheck source=/dev/null
+[[ -f "$HOME/.env" ]] && source "$HOME/.env"
 
-# -----------------------------------------------------------------------------
-# Neovim & Development Related Exports
-# -----------------------------------------------------------------------------
-# export NVIM_PIPE=/tmp/nvim-$(basename $PWD)
-# export NVIM_LISTEN_ADDRESS=${NVIM_PIPE}
-# export EDITOR="nvim"
-# if [[ -n "$TMUX" ]]; then
-#   # Use tmux session name for uniqueness if inside tmux
-#   export NVIM_PIPE="/tmp/nvim-$(basename "$PWD")-$(tmux display-message -p '#{session_name}')"
-# else
-#   # Fallback for outside tmux
-#   export NVIM_PIPE="/tmp/nvim-$(basename "$PWD")"
-# fi
-# export NVIM_LISTEN_ADDRESS="${NVIM_PIPE}"
-export EDITOR="nvim"
+# ── Znap ──────────────────────────────────────────────────────────────────────
+ZNAP_DIR="$HOME/.znap"
+# shellcheck source=/dev/null
+source "$ZNAP_DIR/znap.zsh"
+zstyle ':znap:*' repos-dir "$ZNAP_DIR/custom"
 
-# Zettelkasten & Todo
-export ZK_NOTEBOOK_DIR='/Users/vucinjo/Dropbox/Notes'
-export TODO_DIR="~/Dropbox/todo"
-export TODO_FILE="~/Dropbox/todo/todo.txt"
-export DONE_FILE="~/Dropbox/todo/done.txt"
-export TODOTXT_CFG_FILE=$HOME/.config/todo.txt-cli/conf.cfg
-
-# FZF
-export FZF_DEFAULT_OPTS='--preview "pygmentize {}" --color dark --bind "?:toggle-preview" --preview-window "right:50%:hidden"'
-
-export ZSH_AI_PROVIDER="gemini"
-
-
-# -----------------------------------------------------------------------------
-# Znap Plugin Sourcing
-# -----------------------------------------------------------------------------
-# `znap prompt` makes your prompt visible in just 15-40ms!
+# ── Prompt ────────────────────────────────────────────────────────────────────
+# ── Interactive only ──────────────────────────────────────────────────────────
+if [[ ! -o interactive ]] || [[ ! -t 1 ]]; then
+  return
+fi
 znap prompt sindresorhus/pure
-#
-# eval "$(starship init zsh)"
-# znap prompt
 
+# Load specific OMZ libs and plugins after oh-my-zsh.sh
 znap source ohmyzsh/ohmyzsh \
   lib/{git,grep,history,key-bindings} \
   plugins/{git,cp,docker-compose,rake,bundler,ruby,tmux,direnv,fzf,gitignore,history,tmuxinator}
 
-
-# `znap source` starts plugins.
-znap source z-shell/zsh-eza
+# ── Plugins ───────────────────────────────────────────────────────────────────
 znap source zsh-users/zsh-syntax-highlighting
 znap source zsh-users/zsh-autosuggestions
 znap source olets/zsh-abbr
 znap source MichaelAquilina/zsh-you-should-use
 znap source matheusml/zsh-ai
-# znap source marlonrichert/zsh-autocomplete
-# znap source zsh-users/zsh-completions
 
-# znap source go-task/task lib/completion/zsh/_task
-
-# `znap eval` makes evaluating generated command output up to 10 times faster.
+# ── Tool hooks ────────────────────────────────────────────────────────────────
 znap eval iterm2 'curl -fsSL https://iterm2.com/shell_integration/zsh'
 
-# -----------------------------------------------------------------------------
-# Conditional Hooks & Completions
-# -----------------------------------------------------------------------------
-# direnv hook
-if command -v direnv &>/dev/null; then
-  eval "$(direnv hook zsh)"
-fi
+command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
+command -v zoxide &>/dev/null && eval "$(zoxide init zsh --cmd j)"
 
-# zoxide hook
-if command -v zoxide &> /dev/null; then
- eval "$(zoxide init zsh --cmd j)"
-fi
-
-
-# todo.txt-cli completion
-source /opt/homebrew/etc/bash_completion.d/todo_completion complete -F _todo t
-
-
-# -----------------------------------------------------------------------------
-# Fixes & Specific Configurations
-# -----------------------------------------------------------------------------
-# Zsh Autosuggestions: in neovim terminal auto suggestions not visible
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=#666666
-
-# oh-my-zsh docker completions (commented in original)
-# [[ -r ~/.znap/completions/_docker ]] || ln -s ~/.znap/custom/ohmyzsh/ohmyzsh/plugins/docker/completions/* ~/.znap/completions/
-
-
-# -----------------------------------------------------------------------------
-# Custom Functions
-# -----------------------------------------------------------------------------
-dstats() { docker stats --all --format "table {{.ID}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}" }
-dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
-
-delete_snapshots() {
-  for d in $(tmutil listlocalsnapshotdates | grep "-"); do sudo tmutil deletelocalsnapshots $d; done
-}
-
-kill-port() {
-  readonly port=${1:?"The port must be specified."}
-  echo $(lsof -t -i:${port})
-  kill -9 $(lsof -t -i:${port})
-}
-
-
-# -----------------------------------------------------------------------------
-# Aliases
-# -----------------------------------------------------------------------------
-alias tsk=task
-alias t="/opt/homebrew/bin/todo.sh"
+# ── Aliases ───────────────────────────────────────────────────────────────────
 alias n="nvim"
 alias cl="clear"
+
+# ── Platform-specific configs ─────────────────────────────────────────────────
+# shellcheck source=/dev/null
+$IS_DEVCONTAINER && [[ -f "$HOME/.zshrc.devcontainer" ]] && source "$HOME/.zshrc.devcontainer"
+# shellcheck source=/dev/null
+$IS_MAC && [[ -f "$HOME/.zshrc.mac" ]] && source "$HOME/.zshrc.mac"
+# shellcheck source=/dev/null
+$IS_LINUX && ! $IS_DEVCONTAINER && [[ -f "$HOME/.zshrc.linux" ]] && source "$HOME/.zshrc.linux"
+# shellcheck source=/dev/null
+[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
+export PATH="$HOME/.devcontainers/bin:$PATH"
