@@ -1,6 +1,6 @@
 {
   "name": "Api",
-  "image": "image",
+  "image": "tabz-api",
   "runArgs": [
     "--network=tabz_default"
   ],
@@ -21,10 +21,14 @@
   },
   "mounts": [
     "source=${localEnv:HOME}/.config/github-copilot,target=/root/.config/github-copilot,type=bind,readonly",
+    "source=${localEnv:HOME}/.dotfiles,target=/root/.dotfiles,type=bind,readonly",
+    "source=${localEnv:HOME}/.gitignore,target=/root/.gitignore,type=bind,readonly",
+    "source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,readonly",
     "source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,readonly",
-    "source=${localEnv:HOME}/.dotfiles,target=/root/.dotfiles,type=bind",
-    "source=${localWorkspaceFolder}/.nvim.lua.ignore,target=/tmp/nvim.lua,type=bind,readonly"
+    "source=${localEnv:HOME}/.supermaven,target=/root/.supermaven,type=bind",
+    "source=${localEnv:HOME}/Documents/Notes,target=/root/Notes,type=bind",
+    "source=${localWorkspaceFolder}/.nvim.lua.ignore,target=/tmp/.nvim.lua,type=bind"
   ],
   "workspaceMount": "source=${localWorkspaceFolder},target=/rails,type=bind",
-  "postStartCommand": "ln -sf /tmp/nvim.lua /rails/.nvim.lua && /root/.dotfiles/install.sh"
+  "postCreateCommand": "bash /root/.dotfiles/devcontainer/install.sh"
 }

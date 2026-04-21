@@ -20,16 +20,28 @@ set -e
 
 echo "➡️ Running post-create setup..."
 
-# Try to switch to zsh (ignore failure)
-if command -v zsh >/dev/null 2>&1; then
-  chsh -s "$(which zsh)" "$(whoami)" 2>/dev/null || true
-  echo "✔ zsh set (if permitted)"
-else
-  echo "ℹ zsh not installed"
-fi
+cat <<EOF >/root/.env
+ME_VAULT_DIR=/root/Notes/me
+WORK_VAULT_DIR=/root/Notes/work
+ZK_NOTEBOOK_DIR=/root/Notes/me
+EOF
 
-# Configure global gitignore
-git config --global core.excludesfile /root/.gitignore || true
-echo "✔ git global ignore configured"
+cp /tmp/.nvim.lua /rails/.nvim.lua
 
+/root/.dotfiles/install.sh
+
+# chsh -s "$(which zsh) $(whoami)"
+
+# # Try to switch to zsh (ignore failure)
+# if command -v zsh >/dev/null 2>&1; then
+#   chsh -s "$(which zsh)" "$(whoami)" 2>/dev/null || true
+#   echo "✔ zsh set (if permitted)"
+# else
+#   echo "ℹ zsh not installed"
+# fi
+#
+# # Configure global gitignore
+# git config --global core.excludesfile /root/.gitignore || true
+# echo "✔ git global ignore configured"
+#
 echo "✅ Done"

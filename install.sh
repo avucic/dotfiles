@@ -38,8 +38,8 @@ pkg_sqlite_libs() { brew="-";      apk="sqlite-libs"; }
 COMMON_PACKAGES=(
   neovim
   zsh
-  tmux
-  git
+  # tmux
+  # git
   stow
   fzf
   ripgrep
@@ -113,6 +113,7 @@ install_homebrew() {
   fi
 
   log "🍺 Installing Homebrew..."
+  # Homebrew install — add NONINTERACTIVE
   run /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
   if [ "$IS_MAC" = "true" ]; then
@@ -194,7 +195,7 @@ stow_packages() {
 
     if [ -f "${pkg_path}/install.sh" ]; then
       log "🔧 Running install.sh for ${package}"
-      run bash -c "cd '${pkg_path}' && chmod +x install.sh && ./install.sh"
+      run bash -c "cd '${pkg_path}' &&  ./install.sh"
     fi
 
     log "📁 Stowing ${package} → ${HOME}"
