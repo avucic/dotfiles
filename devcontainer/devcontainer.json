@@ -1,6 +1,6 @@
 {
   "name": "Api",
-  "image": "tabz-api",
+  "image": "tabz-api-dev",
   "runArgs": [
     "--network=tabz_default"
   ],
@@ -11,23 +11,22 @@
     "GEMINI_API_KEY": "${localEnv:GEMINI_API_KEY}",
     "ANTHROPIC_API_KEY": "${localEnv:ANTHROPIC_API_KEY}"
   },
-  "features": {
-    "ghcr.io/duduribeiro/devcontainer-features/neovim:1": {
-      "version": "stable"
-    },
-    "ghcr.io/meaningful-ooo/devcontainer-features/homebrew:2": {},
-    "ghcr.io/kreemer/features/stow:1": {},
-    "ghcr.io/robbert229/devcontainer-features/postgresql-client": {}
-  },
   "mounts": [
     "source=${localEnv:HOME}/.config/github-copilot,target=/root/.config/github-copilot,type=bind,readonly",
-    "source=${localEnv:HOME}/.dotfiles,target=/root/.dotfiles,type=bind,readonly",
+    "source=${localEnv:HOME}/.dotfiles,target=/root/.dotfiles,type=bind",
     "source=${localEnv:HOME}/.gitignore,target=/root/.gitignore,type=bind,readonly",
     "source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,readonly",
     "source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,readonly",
     "source=${localEnv:HOME}/.supermaven,target=/root/.supermaven,type=bind",
     "source=${localEnv:HOME}/Documents/Notes,target=/root/Notes,type=bind",
-    "source=${localWorkspaceFolder}/.nvim.lua.ignore,target=/tmp/.nvim.lua,type=bind"
+    "source=tabz-nvim-data,target=/root/.local/share/nvim,type=volume",
+    "source=tabz-zoxide,target=/root/.local/share/zoxide,type=volume",
+    "source=tabz-nvim-state,target=/root/.local/state/nvim,type=volume",
+    "source=tabz-nvim-cache,target=/root/.cache/nvim,type=volume",
+    "source=tabz-nvim-data,target=/root/.local/share/nvim,type=volume",
+    "source=tabz-nvim-state,target=/root/.local/state/nvim,type=volume",
+    "source=tabz-nvim-cache,target=/root/.cache/nvim,type=volume",
+    "source=tabz-znap,target=/root/.znap,type=volume"
   ],
   "workspaceMount": "source=${localWorkspaceFolder},target=/rails,type=bind",
   "postCreateCommand": "bash /root/.dotfiles/devcontainer/install.sh"

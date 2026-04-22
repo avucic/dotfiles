@@ -19,4 +19,12 @@ if #tools > 0 then
   })
 end
 
+local cwd = vim.fn.getcwd()
+local devcontainer = os.getenv "DEVCONTAINER" or os.getenv "REMOTE_CONTAINERS"
+
+if devcontainer then
+  local f = cwd .. "/.nvim.lua.devcontainer"
+  if vim.fn.filereadable(f) == 1 then dofile(f) end
+end
+
 return specs

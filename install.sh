@@ -5,7 +5,8 @@ set -euo pipefail
 DOTFILES_LOCATION=${DOTFILES_LOCATION:-"$HOME/.dotfiles"}
 export DOTFILES_LOCATION
 
-IS_DEVCONTAINER=${DEVCONTAINER:-false}
+IS_DEVCONTAINER=false
+[ "${DEVCONTAINER:-}" = "true" ] && IS_DEVCONTAINER=true
 IS_MAC=$([ "$(uname)" = "Darwin" ] && echo true || echo false)
 IS_ALPINE=$([ -f /etc/alpine-release ] && echo true || echo false)
 DRY_RUN=${DRY_RUN:-false}
@@ -21,6 +22,7 @@ pkg_ripgrep() { brew="ripgrep"; apk="ripgrep"; }
 pkg_fd() { brew="fd"; apk="fd"; }
 pkg_jq() { brew="jq"; apk="jq"; }
 pkg_lazygit() { brew="lazygit"; apk="lazygit"; }
+pkg_eza() { brew="eza"; apk="eza"; }
 pkg_zoxide() { brew="zoxide"; apk="zoxide"; }
 pkg_direnv() { brew="direnv"; apk="direnv"; }
 pkg_luarocks() { brew="luarocks"; apk="luarocks"; }
@@ -53,6 +55,7 @@ COMMON_PACKAGES=(
   curl
   unzip
   sqlite
+  vivify
 )
 
 MAC_PACKAGES=(
@@ -126,6 +129,10 @@ install_homebrew() {
 # ── Core: install a single named package ─────────────────────────────────────
 # Exported so nested install.sh scripts can call: install_package lazygit
 install_package() {
+  if [ "${DOTFILES_ASSUME_PACKAGES:-}" = "1" ]; then
+    return 0
+  fi
+
   local name="$1"
   local fn="pkg_${name}"
 
@@ -151,7 +158,7 @@ install_package() {
   ok "  installed $name ($pkg)"
 }
 export -f install_package
-export IS_MAC IS_ALPINE DRY_RUN
+export IS_MAC IS_ALPINE IS_DEVCONTAINER DRY_RUN
 
 # ── Install all platform packages ─────────────────────────────────────────────
 install_all_packages() {
@@ -223,9 +230,14 @@ set_default_shell() {
 main() {
   [ "$DRY_RUN" = "true" ] && warn "DRY_RUN enabled — no changes will be made"
 
-  install_all_packages
-  stow_packages
-  set_default_shell
+  if [ "$IS_DEVCONTAINER" = "true" ]; then
+    info "Dev container: skipping system installers and chsh (image provides packages)"
+    stow_packages
+  else
+    install_all_packages
+    stow_packages
+    set_default_shell
+  fi
 
   log "🎉 All done!"
 }

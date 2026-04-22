@@ -1,47 +1,12 @@
 #!/usr/bin/env bash
-set -e
-#
-# DOTFILES_REPO="https://github.com/avucic/dotfiles"
-# DOTFILES_BRANCH="refactoring"
-# DOTFILES_DIR="$HOME/.dotfiles"
-#
-# apt-get update -y && apt-get install -y stow git curl tmux unzip zsh
-#
-# # Clone dotfiles
-# if [ ! -d "$DOTFILES_DIR" ]; then
-#   git clone --branch "$DOTFILES_BRANCH" --depth 1 "$DOTFILES_REPO" "$DOTFILES_DIR"
-# fi
-#
-# cd "$DOTFILES_DIR"
-#
-# # echo 'cd /rails' >>"$HOME/.zshrc"
-#
-# ./install.sh
+set -euo pipefail
 
-echo "➡️ Running post-create setup..."
+export DEVCONTAINER=true
 
-cat <<EOF >/root/.env
+if [ ! -f "$HOME/.env" ]; then
+  cat <<'EOF' >"$HOME/.env"
 ME_VAULT_DIR=/root/Notes/me
 WORK_VAULT_DIR=/root/Notes/work
 ZK_NOTEBOOK_DIR=/root/Notes/me
 EOF
-
-cp /tmp/.nvim.lua /rails/.nvim.lua
-
-/root/.dotfiles/install.sh
-
-# chsh -s "$(which zsh) $(whoami)"
-
-# # Try to switch to zsh (ignore failure)
-# if command -v zsh >/dev/null 2>&1; then
-#   chsh -s "$(which zsh)" "$(whoami)" 2>/dev/null || true
-#   echo "✔ zsh set (if permitted)"
-# else
-#   echo "ℹ zsh not installed"
-# fi
-#
-# # Configure global gitignore
-# git config --global core.excludesfile /root/.gitignore || true
-# echo "✔ git global ignore configured"
-#
-echo "✅ Done"
+fi

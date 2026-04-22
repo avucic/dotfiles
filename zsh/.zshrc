@@ -26,7 +26,11 @@ if [ -d ~/.tmux/plugins/tpm ] && [ ! -d ~/.tmux/plugins/tmux-onedark-theme ]; th
 fi
 
 # shellcheck source=/dev/null
-[[ -f "$HOME/.env" ]] && source "$HOME/.env"
+if [ -f "$HOME/.env" ]; then
+  set -a              # auto-export all variables defined from here on
+  source "$HOME/.env"
+  set +a              # stop auto-exporting
+fi
 
 # ── Znap ──────────────────────────────────────────────────────────────────────
 ZNAP_DIR="$HOME/.znap"
@@ -43,8 +47,30 @@ znap prompt sindresorhus/pure
 
 # Load specific OMZ libs and plugins after oh-my-zsh.sh
 znap source ohmyzsh/ohmyzsh \
-  lib/{git,grep,history,key-bindings} \
-  plugins/{git,cp,docker-compose,rake,bundler,ruby,tmux,direnv,fzf,gitignore,history,tmuxinator}
+  lib/git \
+  lib/grep \
+  lib/history \
+  lib/key-bindings
+
+# Core plugins (always safe)
+znap source ohmyzsh/ohmyzsh \
+  plugins/git \
+  plugins/cp \
+  plugins/docker-compose \
+  plugins/rake \
+  plugins/bundler \
+  plugins/ruby \
+  plugins/direnv \
+  plugins/fzf \
+  plugins/gitignore \
+  plugins/history
+
+# Tmux plugins only if tmux is installed
+if (( $+commands[tmux] )); then
+  znap source ohmyzsh/ohmyzsh \
+    plugins/tmux \
+    plugins/tmuxinator
+fi
 
 # ── Plugins ───────────────────────────────────────────────────────────────────
 znap source zsh-users/zsh-syntax-highlighting

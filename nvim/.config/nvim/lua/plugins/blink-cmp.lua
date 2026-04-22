@@ -73,7 +73,7 @@ return {
           "snippets",
           "lsp",
           "path",
-          -- "codeium",
+          "codeium",
           "buffer",
           "spell",
         },

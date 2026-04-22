@@ -18,9 +18,9 @@ return {
         maps.n["<Leader>nd"] = { name = "Day" }
         maps.n["<Leader>ni"] = {
           function()
-            local dir = require("obsidian.api").resolve_workspace_dir()
+            local dir = tostring(require("obsidian.api").resolve_workspace_dir())
             local path = vim.fs.joinpath(dir, "01_Inbox", "Inbox.md")
-            vim.cmd("edit " .. vim.fn.expand(path))
+            vim.cmd("edit " .. path)
           end,
           desc = "Inbox",
         }
@@ -73,12 +73,8 @@ return {
     },
     workspaces = {
       {
-        name = "me",
-        path = "~/Documents/Notes/me",
-      },
-      {
         name = "work",
-        path = "~/Documents/Notes/work",
+        path = os.getenv("WORK_VAULT_DIR") or "~/Documents/Notes/work",
       },
     },
     completion = {
