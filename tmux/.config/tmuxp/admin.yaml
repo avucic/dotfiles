@@ -1,4 +1,5 @@
 session_name: admin
+start_directory: ~/Work/tabz
 options:
   status-left: "#[fg=#282c34,bg=#e06c75,bold] #S #{prefix_highlight}#[fg=#e06c75,bg=#282c34,nobold,nounderscore,noitalics]"
   status-left-length: "100"
@@ -7,5 +8,3 @@ windows:
     layout: even-horizontal
     panes:
       - shell_command: devcontainer exec bash -lc "cd /rails/services/admin && nvim"
-
-

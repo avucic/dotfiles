@@ -9,7 +9,7 @@ return {
   --
   { import = "astrocommunity.pack.lua" },
   -- import/override with your plugins folder
-  -- { import = "astrocommunity.pack.rust" },
+  { import = "astrocommunity.pack.rust" },
   -- { import = "astrocommunity.pack.ruby" },
   { import = "astrocommunity.pack.bash" },
   -- { import = "astrocommunity.pack.go" },

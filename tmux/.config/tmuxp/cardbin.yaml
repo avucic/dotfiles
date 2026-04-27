@@ -1,0 +1,7 @@
+session_name: cardbin
+start_directory: ~/Work/tabz
+windows:
+  - window_name: cardbin
+    layout: even-horizontal
+    panes:
+      - shell_command: devcontainer exec bash -lc 'cd /rails/services/cardbin && nvim'

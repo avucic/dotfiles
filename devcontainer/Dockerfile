@@ -55,12 +55,19 @@ RUN ARCH=$(dpkg --print-architecture) && \
     | tar -xz -C /usr/local/bin && \
     eza --version | head -1
 
-# ── Dotfiles + install ───────────────────────────────────────────────────────
-COPY --from=dotfiles . /root/.dotfiles
 
+# # ── Dotfiles + install ───────────────────────────────────────────────────────
+# COPY --from=dotfiles . /root/.dotfiles
+#
 RUN mkdir -p /root/.ssh && ssh-keyscan github.com gitlab.com >> /root/.ssh/known_hosts
 
 RUN --mount=type=ssh bash /root/.dotfiles/install-image.sh && \
     rm -rf /root/.ssh/id_*
+
+
+ENV DEVCONTAINER=true \
+    ME_VAULT_DIR=/root/Notes/me \
+    WORK_VAULT_DIR=/root/Notes/work \
+    ZK_NOTEBOOK_DIR=/root/Notes/me
 
 RUN npm install -g neovim

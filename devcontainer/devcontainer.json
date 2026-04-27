@@ -1,10 +1,12 @@
 {
   "name": "Api",
-  "image": "tabz-api-dev",
-  "runArgs": [
-    "--network=tabz_default"
-  ],
-  "workspaceFolder": "/rails",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "BASE_IMAGE": "${localEnv:BASE_IMAGE}"
+    }
+  },
+  "workspaceFolder": "/app",
   "remoteEnv": {
     "DEVCONTAINER": "true",
     "SHELL": "/bin/zsh",
@@ -28,6 +30,5 @@
     "source=tabz-nvim-cache,target=/root/.cache/nvim,type=volume",
     "source=tabz-znap,target=/root/.znap,type=volume"
   ],
-  "workspaceMount": "source=${localWorkspaceFolder},target=/rails,type=bind",
-  "postCreateCommand": "bash /root/.dotfiles/devcontainer/install.sh"
+  "workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind"
 }

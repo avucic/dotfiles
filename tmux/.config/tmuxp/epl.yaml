@@ -1,0 +1,10 @@
+session_name: epl
+start_directory: ~/Work/tabz/services/epl
+options:
+  status-left: "#[fg=#282c34,bg=#ffb86c,bold] #S #{prefix_highlight}#[fg=#ffb86c,bg=#282c34,nobold,nounderscore,noitalics]"
+  status-left-length: "100"
+windows:
+  - window_name: epl
+    layout: even-horizontal
+    panes:
+      - shell_command: devcontainer exec -- nvim
