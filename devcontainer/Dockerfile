@@ -58,7 +58,7 @@ RUN ARCH=$(dpkg --print-architecture) && \
 
 # # ── Dotfiles + install ───────────────────────────────────────────────────────
 # COPY --from=dotfiles . /root/.dotfiles
-#
+
 RUN mkdir -p /root/.ssh && ssh-keyscan github.com gitlab.com >> /root/.ssh/known_hosts
 
 RUN --mount=type=ssh bash /root/.dotfiles/install-image.sh && \

@@ -16,6 +16,8 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=#666666
 export FZF_DEFAULT_OPTS='--preview "cat {}" --color dark --bind "?:toggle-preview" --preview-window "right:50%:hidden"'
 export ZSH_AI_PROVIDER="gemini"
 export DISABLE_AUTO_TITLE='true'
+export LANG=C.UTF-8
+export LC_ALL=C.UTF-8
 
 ZSH_TMUX_AUTOQUIT=true
 ZSH_TMUX_CONFIG=$HOME/.tmux.conf
@@ -27,9 +29,9 @@ fi
 
 # shellcheck source=/dev/null
 if [ -f "$HOME/.env" ]; then
-  set -a              # auto-export all variables defined from here on
+  set -a # auto-export all variables defined from here on
   source "$HOME/.env"
-  set +a              # stop auto-exporting
+  set +a # stop auto-exporting
 fi
 
 # ── Znap ──────────────────────────────────────────────────────────────────────
@@ -61,12 +63,29 @@ znap source ohmyzsh/ohmyzsh \
   plugins/bundler \
   plugins/ruby \
   plugins/direnv \
-  plugins/fzf \
   plugins/gitignore \
-  plugins/history
+  plugins/history # plugins/fzf \
+
+# fzf shell integration (path varies by install method)
+if (($+commands[fzf])); then
+  for f in \
+    /usr/share/fzf/key-bindings.zsh \
+    /usr/share/doc/fzf/examples/key-bindings.zsh \
+    /opt/homebrew/opt/fzf/shell/key-bindings.zsh \
+    /usr/local/opt/fzf/shell/key-bindings.zsh; do
+    [[ -f $f ]] && source $f && break
+  done
+  for f in \
+    /usr/share/fzf/completion.zsh \
+    /usr/share/doc/fzf/examples/completion.zsh \
+    /opt/homebrew/opt/fzf/shell/completion.zsh \
+    /usr/local/opt/fzf/shell/completion.zsh; do
+    [[ -f $f ]] && source $f && break
+  done
+fi
 
 # Tmux plugins only if tmux is installed
-if (( $+commands[tmux] )); then
+if (($+commands[tmux])); then
   znap source ohmyzsh/ohmyzsh \
     plugins/tmux \
     plugins/tmuxinator
@@ -99,3 +118,4 @@ $IS_LINUX && ! $IS_DEVCONTAINER && [[ -f "$HOME/.zshrc.linux" ]] && source "$HOM
 # shellcheck source=/dev/null
 [[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
 export PATH="$HOME/.devcontainers/bin:$PATH"
+export PATH="$HOME/bin:$PATH"

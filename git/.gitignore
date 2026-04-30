@@ -82,10 +82,12 @@ solargraph/*
 *~
 .cert/*
 .tasks.json
-.nvim.lua
+.nvim.lua*
 Taskfile.yml
 docker-compose.override.yml
 .herb.yml
 .herb.yaml
 .pnpm-store/
 *.tsbuildinfo
+
+*.devcontainer/*

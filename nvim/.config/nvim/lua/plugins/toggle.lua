@@ -5,8 +5,8 @@ return {
     init = function(_)
       require("astrocore").set_mappings {
         n = {
-          ["<Leader>to"] = { "<cmd>Other<cr>", desc = "Other file" },
-          ["<Leader>tO"] = { "<cmd>OtherClear<cr>", desc = "Other clear" },
+          ["<Leader>aa"] = { "<cmd>Other<cr>", desc = "Other file" },
+          ["<Leader>aA"] = { "<cmd>OtherClear<cr>", desc = "Other clear" },
         },
       }
     end,

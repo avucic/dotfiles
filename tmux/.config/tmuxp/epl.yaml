@@ -5,6 +5,12 @@ options:
   status-left-length: "100"
 windows:
   - window_name: epl
-    layout: even-horizontal
+    layout: main-horizontal
+    options:
+      main-pane-height: "80%"
     panes:
-      - shell_command: devcontainer exec -- nvim
+      - focus: true
+      - shell_command:
+          - dev-exec zsh
+      - shell_command:
+          - dev-exec zsh

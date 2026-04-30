@@ -150,12 +150,13 @@ maps.n["<Leader>ot"] = { "<cmd>ToggleTerm<cr>", desc = "Terminal" }
 
 -- +Tasks
 maps.n["<Leader>t"] = { desc = "Tasks" }
-maps.n["<Leader>tf"] = false
+-- maps.n["<Leader>tf"] = false
 maps.n["<Leader>th"] = false
 maps.n["<Leader>tl"] = false
 -- maps.n["<Leader>tn"] = false
 maps.n["<Leader>tp"] = false
 maps.n["<Leader>tv"] = false
+maps.n["<Leader>tn"] = false
 maps.n["<leader>td"] = {
   function()
   if vim.wo.diff then

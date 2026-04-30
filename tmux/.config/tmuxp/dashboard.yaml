@@ -1,5 +1,5 @@
 session_name: dashboard
-start_directory: ~/Work/tabz
+start_directory: ~/Work/tabz/services/dashboard
 options:
   status-left: "#[fg=#282c34,bg=#e5c07b,bold] #S #{prefix_highlight}#[fg=#e5c07b,bg=#282c34,nobold,nounderscore,noitalics]"
   status-left-length: "100"
@@ -7,4 +7,4 @@ windows:
   - window_name: dashboard
     layout: even-horizontal
     panes:
-      - shell_command: devcontainer exec bash -lc "cd /rails/services/dashboard && nvim"
+      - shell_command: dev-exec zsh

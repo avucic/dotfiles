@@ -1,12 +1,4 @@
 {
-  "name": "Api",
-  "build": {
-    "dockerfile": "Dockerfile",
-    "args": {
-      "BASE_IMAGE": "${localEnv:BASE_IMAGE}"
-    }
-  },
-  "workspaceFolder": "/app",
   "remoteEnv": {
     "DEVCONTAINER": "true",
     "SHELL": "/bin/zsh",
@@ -16,8 +8,8 @@
   "mounts": [
     "source=${localEnv:HOME}/.config/github-copilot,target=/root/.config/github-copilot,type=bind,readonly",
     "source=${localEnv:HOME}/.dotfiles,target=/root/.dotfiles,type=bind",
-    "source=${localEnv:HOME}/.gitignore,target=/root/.gitignore,type=bind,readonly",
-    "source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,readonly",
+    "source=${localEnv:HOME}/.dotfiles/git/.gitignore,target=/root/.gitignore,type=bind,readonly",
+    "source=${localEnv:HOME}/.dotfiles/git/.gitconfig,target=/root/.gitconfig,type=bind,readonly",
     "source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,readonly",
     "source=${localEnv:HOME}/.supermaven,target=/root/.supermaven,type=bind",
     "source=${localEnv:HOME}/Documents/Notes,target=/root/Notes,type=bind",

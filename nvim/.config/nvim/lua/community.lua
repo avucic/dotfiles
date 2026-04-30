@@ -263,10 +263,10 @@ return {
     init = function(_)
       require("astrocore").set_mappings {
         n = {
-          ["<Leader>t<cr>"] = { "<cmd>OverseerToggle<cr>", desc = "Toggle" },
-          ["<Leader>tr"] = { "<cmd>OverseerRun<cr>", desc = "Run" },
-          ["<Leader>tl"] = { "<cmd>OverseerRestartLast<cr>", desc = "last task" },
-          ["<Leader>ta"] = { "<cmd>OverseerTaskAction<cr>", desc = "Task action" },
+          ["<Leader>ro"] = { "<cmd>OverseerToggle<cr>", desc = "Toggle" },
+          ["<Leader>rr"] = { "<cmd>OverseerRun<cr>", desc = "Run" },
+          ["<Leader>rl"] = { "<cmd>OverseerRestartLast<cr>", desc = "last task" },
+          ["<Leader>ra"] = { "<cmd>OverseerTaskAction<cr>", desc = "Task action" },
         },
       }
     end,

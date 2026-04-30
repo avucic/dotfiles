@@ -13,6 +13,7 @@ DRY_RUN=${DRY_RUN:-false}
 
 # ── Package definitions ───────────────────────────────────────────────────────
 pkg_zsh() { brew="zsh"; apk="zsh"; }
+pkg_jq() { brew="jq"; apk="jq"; }
 pkg_git() { brew="git"; apk="git"; }
 pkg_neovim() { brew="neovim"; apk="neovim"; }
 pkg_tmux() { brew="tmux"; apk="tmux"; }

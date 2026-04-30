@@ -1,5 +1,5 @@
 session_name: api
-start_directory: ~/Work/tabz
+start_directory: ~/Work/tabz/services/api
 options:
   status-left: "#[fg=#282c34,bg=#61afef,bold] #S #{prefix_highlight}#[fg=#61afef,bg=#282c34,nobold,nounderscore,noitalics]"
   status-left-length: "100"
@@ -10,12 +10,13 @@ windows:
     options:
       main-pane-height: "80%"
     panes:
+      - focus: true
+        shell_command:
+          - sleep 0.5
+          - dev-exec zsh
       - shell_command:
           - sleep 0.5
-          - devcontainer exec --workspace-folder . bash -lc "cd /rails/services/api && exec nvim"
-      - shell_command:
-          - sleep 0.5
-          - devcontainer exec --workspace-folder . bash -lc "cd /rails/services/api && zsh"
+          - dev-exec zsh
       - shell_command:
   - window_name: docker
     panes:

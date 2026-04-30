@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# ~/.dotfiles/bin/dev-exec
+set -euo pipefail
+
+# --- find nearest .devcontainer walking up from cwd ---
+service_dir=""
+dir="$PWD"
+while [[ "$dir" != "/" ]]; do
+  if [[ -d "$dir/.devcontainer" ]]; then
+    service_dir="$dir/.devcontainer"
+    break
+  fi
+  dir="$(dirname "$dir")"
+done
+
+[[ -n "$service_dir" ]] || {
+  echo "dev-exec: no .devcontainer/ found in $PWD or any parent" >&2
+  exit 1
+}
+
+# --- workspace = git root (so it matches what dev-up used) ---
+project_root="$(git -C "$service_dir" rev-parse --show-toplevel 2>/dev/null)" ||
+  project_root="$(dirname "$service_dir")"
+
+config="$service_dir/devcontainer.json"
+[[ -f "$config" ]] || {
+  echo "dev-exec: $config not found \u2014 run dev-up first" >&2
+  exit 1
+}
+
+exec devcontainer exec \
+  --workspace-folder "$project_root" \
+  --config "$config" \
+  "$@"
