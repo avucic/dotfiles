@@ -1,7 +1,16 @@
 session_name: cardbin
-start_directory: ~/Work/tabz
+start_directory: ~/Work/tabz/services/cardbin
+options:
+  status-left: "#[fg=#282c34,bg=#ffb86c,bold] #S #{prefix_highlight}#[fg=#ffb86c,bg=#282c34,nobold,nounderscore,noitalics]"
+  status-left-length: "100"
 windows:
   - window_name: cardbin
-    layout: even-horizontal
+    layout: main-horizontal
+    options:
+      main-pane-height: "80%"
     panes:
-      - shell_command: dev-exec zsh
+      - focus: true
+      - shell_command:
+          - dev-exec zsh
+      - shell_command:
+          - dev-exec zsh

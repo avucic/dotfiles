@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# dev-install: scaffold .devcontainer/{devcontainer.json,compose.yml}.
+# Build the dev image with `dev-build --from <base> --tag <name>`,
+# then point the IMAGE placeholder in compose.yml at it.
+set -euo pipefail
+
+target=".devcontainer"
+name="$(basename "$PWD")"
+
+mkdir -p "$target"
+
+write_if_new() {
+  local file="$1"
+  if [[ -e "$file" ]]; then
+    echo "skip:  $file (exists)"
+    cat >/dev/null
+    return
+  fi
+  cat > "$file"
+  echo "wrote: $file"
+}
+
+write_if_new "$target/devcontainer.json" <<EOF
+{
+  "name": "$name",
+  "dockerComposeFile": "compose.yml",
+  "service": "dev",
+  "workspaceFolder": "/app"
+}
+EOF
+
+write_if_new "$target/compose.yml" <<EOF
+include:
+  - \${HOME}/.dotfiles/devcontainer/compose.yml
+
+services:
+  dev:
+    image: $name-dev   # build with: dev-build --from <base> --tag $name-dev
+    volumes:
+      - ..:/app
+      # language-specific shared caches, e.g.:
+      # - tabz-cargo:/root/.cargo
+      # - tabz-pnpm:/root/.local/share/pnpm
+    working_dir: /app
+
+# add named volumes referenced above, e.g.:
+# volumes:
+#   tabz-cargo: { name: tabz-cargo }
+EOF

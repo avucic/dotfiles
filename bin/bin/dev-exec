@@ -18,9 +18,8 @@ done
   exit 1
 }
 
-# --- workspace = git root (so it matches what dev-up used) ---
-project_root="$(git -C "$service_dir" rev-parse --show-toplevel 2>/dev/null)" ||
-  project_root="$(dirname "$service_dir")"
+# --- workspace = directory containing .devcontainer/ (matches dev-up) ---
+project_root="$(dirname "$service_dir")"
 
 config="$service_dir/devcontainer.json"
 [[ -f "$config" ]] || {

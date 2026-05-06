@@ -12,7 +12,6 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
       curl unzip ca-certificates sudo \
       build-essential \
       sqlite3 libsqlite3-dev \
-      rustc cargo \
       postgresql-client \
       openssh-client && \
     ln -sf "$(which fdfind)" /usr/local/bin/fd && \
@@ -56,8 +55,8 @@ RUN ARCH=$(dpkg --print-architecture) && \
     eza --version | head -1
 
 
-# # ── Dotfiles + install ───────────────────────────────────────────────────────
-# COPY --from=dotfiles . /root/.dotfiles
+# ── Dotfiles + install ───────────────────────────────────────────────────────
+COPY --from=dotfiles . /root/.dotfiles
 
 RUN mkdir -p /root/.ssh && ssh-keyscan github.com gitlab.com >> /root/.ssh/known_hosts
 

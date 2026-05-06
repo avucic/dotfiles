@@ -8,11 +8,9 @@ return {
   opts = function(_, opts)
     -- opts variable is the default configuration table for the setup function call
     -- local null_ls = require "null-ls"
-
     -- Check supported formatters and linters
     -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/formatting
     -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
-
     -- Only insert new sources, do not replace the existing ones
     -- (If you wish to replace, use `opts.sources = {}` instead of the `list_insert_unique` function)
     opts.sources = require("astrocore").list_insert_unique(opts.sources, {
@@ -20,5 +18,14 @@ return {
       -- null_ls.builtins.formatting.stylua,
       -- null_ls.builtins.formatting.prettier,
     })
+
+    -- Filter out sources disabled by per-project .nvim.lua config
+    local disabled = (vim.g.project or {}).disable_formatters or {}
+    if #disabled > 0 then
+      opts.sources = vim.tbl_filter(
+        function(source) return not vim.tbl_contains(disabled, source.name) end,
+        opts.sources
+      )
+    end
   end,
 }

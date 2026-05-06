@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# dev-down: stop the devcontainer for the project rooted at $PWD.
+#   -v|--volumes   also remove project-local named volumes
+#   --rmi          remove the dev image as well
+set -euo pipefail
+
+extra_args=()
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -v|--volumes) extra_args+=("--volumes"); shift ;;
+    --rmi)        extra_args+=("--rmi" "local"); shift ;;
+    -h|--help)
+      echo "Usage: dev-down [-v|--volumes] [--rmi]"
+      exit 0 ;;
+    *) extra_args+=("$1"); shift ;;
+  esac
+done
+
+# --- find nearest .devcontainer walking up from cwd ---
+service_dir=""
+dir="$PWD"
+while [[ "$dir" != "/" ]]; do
+  if [[ -d "$dir/.devcontainer" ]]; then
+    service_dir="$dir/.devcontainer"
+    break
+  fi
+  dir="$(dirname "$dir")"
+done
+
+[[ -n "$service_dir" ]] || {
+  echo "dev-down: no .devcontainer/ found in $PWD or any parent" >&2
+  exit 1
+}
+
+# devcontainer CLI sets compose project to <parent-dir-of-.devcontainer>_devcontainer
+project_name="$(basename "$(dirname "$service_dir")")_devcontainer"
+
+echo "dev-down: stopping $project_name"
+
+exec docker compose \
+  -p "$project_name" \
+  -f "$service_dir/compose.yml" \
+  down "${extra_args[@]}"

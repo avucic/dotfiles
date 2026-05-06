@@ -1,0 +1,35 @@
+# Base devcontainer compose, merged into each project via `include:`.
+# Holds only personal config and editor state — no language toolchains.
+# Each project declares its own language-specific volumes (cargo, pnpm, ...).
+
+services:
+  dev:
+    environment:
+      DEVCONTAINER: "true"
+      SHELL: /bin/zsh
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    volumes:
+      - ${HOME}/.config/github-copilot:/root/.config/github-copilot:ro
+      - ${HOME}/.dotfiles:/root/.dotfiles
+      - ${HOME}/.dotfiles/git/.gitconfig:/root/.gitconfig:ro
+      - ${HOME}/.dotfiles/git/.gitignore:/root/.gitignore:ro
+      - ${HOME}/.ssh:/root/.ssh:ro
+      - ${HOME}/.supermaven:/root/.supermaven
+      - ${HOME}/Documents/Notes:/root/Notes
+      - tabz-nvim-cache:/root/.cache/nvim
+      - tabz-nvim-data:/root/.local/share/nvim
+      - tabz-nvim-state:/root/.local/state/nvim
+      - tabz-zoxide:/root/.local/share/zoxide
+      - tabz-znap:/root/.znap
+    command: sleep infinity
+
+# Universal volumes shared across all projects.
+# `external: true` — volumes live outside any compose project's lifecycle.
+# `dev-up` ensures they exist via `docker volume create` before bringing up.
+volumes:
+  tabz-nvim-cache: { external: true }
+  tabz-nvim-data:  { external: true }
+  tabz-nvim-state: { external: true }
+  tabz-zoxide:     { external: true }
+  tabz-znap:       { external: true }

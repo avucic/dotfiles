@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-# ~/.dotfiles/bin/dev-up
+# dev-up: start the devcontainer for the project rooted at $PWD.
+# devcontainer.json references the base compose at
+#   ${HOME}/.dotfiles/devcontainer/compose.yml
+# via the dockerComposeFile array, so no merging happens here.
 set -euo pipefail
 
 # --- find nearest .devcontainer walking up from cwd ---
@@ -13,71 +16,32 @@ while [[ "$dir" != "/" ]]; do
   dir="$(dirname "$dir")"
 done
 
-if [[ -z "$service_dir" ]]; then
+[[ -n "$service_dir" ]] || {
   echo "dev-up: no .devcontainer/ found in $PWD or any parent" >&2
   exit 1
-fi
+}
 
-workspace="$(dirname "$service_dir")"
-service="$(basename "$workspace")"
+[[ -f "$service_dir/devcontainer.json" ]] || {
+  echo "dev-up: missing $service_dir/devcontainer.json" >&2
+  exit 1
+}
 
-base="$HOME/.dotfiles/devcontainer/base.json"
-overrides="$service_dir/devcontainer.json"
-out="$service_dir/devcontainer.json"
+# workspace = directory containing .devcontainer/  (e.g. services/epl)
+project_root="$(dirname "$service_dir")"
 
-# --- sanity checks ---
-for f in "$base" "$overrides"; do
-  [[ -f "$f" ]] || {
-    echo "dev-up: missing $f" >&2
-    exit 1
-  }
-  t="$(jq -r 'type' "$f" 2>&1)" || {
-    echo "dev-up: invalid JSON in $f"
-    echo "$t" >&2
-    exit 1
-  }
-  [[ "$t" == "object" ]] || {
-    echo "dev-up: $f must be a JSON object (got: $t)" >&2
-    exit 1
-  }
+# Ensure shared volumes exist (compose has them as `external: true`).
+# Idempotent — `docker volume create X` on existing volume is a no-op.
+for vol in \
+    tabz-nvim-cache tabz-nvim-data tabz-nvim-state \
+    tabz-zoxide tabz-znap \
+    tabz-cargo tabz-rustup tabz-pnpm tabz-npm tabz-bundle; do
+  docker volume create "$vol" >/dev/null
 done
 
-# --- merge: objects recurse, arrays concat+dedupe, scalars from overrides win ---
-jq -n \
-  --slurpfile base "$base" \
-  --slurpfile overrides "$overrides" \
-  '
-  def deepmerge(a; b):
-    if b == null then a
-    elif a == null then b
-    elif (a|type) == "object" and (b|type) == "object" then
-      reduce ((a|keys_unsorted) + (b|keys_unsorted) | unique)[] as $k
-        ({}; .[$k] = deepmerge(a[$k]; b[$k]))
-    elif (a|type) == "array" and (b|type) == "array" then
-      (a + b) | unique_by(tostring)
-    else b end;
-  deepmerge($base[0]; $overrides[0])
-  ' >"$out.tmp"
-mv "$out.tmp" "$out"
-echo "dev-up: wrote $out"
-
-# --- launch ---
-export BASE_IMAGE="${BASE_IMAGE:-tabz-${service}-dev}"
-
-# after locating service_dir (the .devcontainer to use)
-project_root="$(git -C "$service_dir" rev-parse --show-toplevel 2>/dev/null)"
-[[ -n "$project_root" ]] || project_root="$(dirname "$service_dir")"
-
-echo "dev-up: starting devcontainer for '$service' at $project_root (BASE_IMAGE=$BASE_IMAGE)"
+echo "dev-up: starting devcontainer for $project_root"
 
 exec devcontainer up \
   --workspace-folder "$project_root" \
   --config "$service_dir/devcontainer.json" \
   --remove-existing-container \
   "$@"
-
-# exec devcontainer up \
-#   --workspace-folder "$workspace" \
-#   --config "$service_dir/devcontainer.json" \
-#   --remove-existing-container \
-#   "$@"

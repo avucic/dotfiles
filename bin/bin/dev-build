@@ -1,49 +1,66 @@
 #!/usr/bin/env bash
-# ~/.dotfiles/bin/dev-build
+# dev-build: build a personal dev image by layering ~/.dotfiles/devcontainer/Dockerfile
+# on top of any base image.
+#
+#   dev-build                                      # debian:trixie-slim → dotfiles-box
+#   dev-build --from tabz-api --tag tabz-api-dev   # tabz-api → tabz-api-dev (with toolbox on top)
 set -euo pipefail
 
-# --- find nearest .devcontainer walking up from cwd ---
-service_dir=""
-dir="$PWD"
-while [[ "$dir" != "/" ]]; do
-  if [[ -d "$dir/.devcontainer" ]]; then
-    service_dir="$dir/.devcontainer"
-    break
-  fi
-  dir="$(dirname "$dir")"
+from_image=""
+tag=""
+
+usage() {
+  cat <<'EOF'
+Usage: dev-build --from <image> --tag <name>
+
+  --from   base image to layer the toolbox on top of   (required)
+  --tag    output image name                           (required)
+
+Examples:
+  dev-build --from debian:trixie-slim       --tag dotfiles-box        # bootstrap base
+  dev-build --from tabz-dashboard           --tag tabz-dashboard-dev  # project image
+  dev-build --from rust:1.93-slim-bookworm  --tag rust-1.93-dev       # language image
+EOF
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --from)    from_image="$2"; shift 2 ;;
+    --tag)     tag="$2"; shift 2 ;;
+    -h|--help) usage; exit 0 ;;
+    *) echo "dev-build: unknown arg: $1" >&2; usage >&2; exit 1 ;;
+  esac
 done
 
-[[ -n "$service_dir" ]] || {
-  echo "dev-build: no .devcontainer/ found in $PWD or any parent" >&2
-  exit 1
-}
+[[ -n "$from_image" ]] || { echo "dev-build: --from is required" >&2; usage >&2; exit 1; }
+[[ -n "$tag"        ]] || { echo "dev-build: --tag is required"  >&2; usage >&2; exit 1; }
 
-overrides="$service_dir/devcontainer.json"
-[[ -f "$overrides" ]] || {
-  echo "dev-build: missing $overrides" >&2
-  exit 1
-}
+# --- check the base image is apt-compatible (the toolbox Dockerfile uses apt) ---
+if ! docker image inspect "$from_image" >/dev/null 2>&1; then
+  echo "dev-build: pulling $from_image to inspect..." >&2
+  docker pull "$from_image" >/dev/null || { echo "dev-build: failed to pull $from_image" >&2; exit 1; }
+fi
+os_id="$(docker run --rm --entrypoint sh "$from_image" -c \
+  'sed -n "s/^ID=//p" /etc/os-release 2>/dev/null | tr -d "\""' 2>/dev/null || true)"
+case "$os_id" in
+  debian|ubuntu) ;;
+  alpine)
+    echo "dev-build: '$from_image' is Alpine-based — toolbox Dockerfile uses apt, won't work." >&2
+    echo "Use a debian/ubuntu base instead (e.g. node:20-bookworm-slim, rust:1.93-slim-bookworm)." >&2
+    exit 1 ;;
+  "")
+    echo "dev-build: warning — could not detect OS of '$from_image' (no /etc/os-release). Proceeding." >&2 ;;
+  *)
+    echo "dev-build: warning — '$from_image' is '$os_id'-based (not debian/ubuntu). Build may fail." >&2 ;;
+esac
 
-# --- read tag/base from overrides ---
-# TAG = the image this service depends on (referenced as BASE_IMAGE in its Dockerfile)
-# BASE_IMAGE = the upstream image to build from (UPSTREAM key, default dotfiles-box)
-tag="$(jq -r '.build.args.BASE_IMAGE // empty' "$overrides")"
-[[ -n "$tag" ]] || {
-  echo "dev-build: overrides has no .build.args.BASE_IMAGE" >&2
-  exit 1
-}
-
-base_image="$(jq -r '.build.args.UPSTREAM // "dotfiles-box"' "$overrides")"
-
-# --- build ---
-echo "dev-build: BASE_IMAGE='$base_image' \u2192 TAG='$tag'"
+echo "dev-build: $from_image  →  $tag"
 
 ssh-add ~/.ssh/id_ed25519 2>/dev/null || true
 
 DOCKER_BUILDKIT=1 docker build \
-  --no-cache \
   --ssh default \
-  --build-arg BASE_IMAGE="$base_image" \
   --build-context dotfiles="$HOME/.dotfiles" \
+  --build-arg BASE_IMAGE="$from_image" \
   -t "$tag" \
   "$HOME/.dotfiles/devcontainer"

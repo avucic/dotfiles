@@ -8,6 +8,7 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     dependencies = {
+      "nvim-neotest/neotest-jest",
       "olimorris/neotest-rspec",
       {
         "mrcjkb/rustaceanvim",
@@ -71,6 +72,17 @@ return {
         opts.adapters,
         require "neotest-rspec" {
           rspec_cmd = function() return { "bundle", "exec", "rspec" } end,
+        }
+      )
+      table.insert(
+        opts.adapters,
+        require "neotest-jest" {
+          jestCommand = "npm test --",
+          -- jestArguments = function(defaultArguments, context) return defaultArguments end,
+          -- jestConfigFile = "custom.jest.config.ts",
+          env = { CI = true },
+          cwd = function(path) return vim.fn.getcwd() end,
+          isTestFile = require("neotest-jest.jest-util").defaultIsTestFile,
         }
       )
     end,
