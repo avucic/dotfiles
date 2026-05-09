@@ -9,14 +9,14 @@ return {
   --
   { import = "astrocommunity.pack.lua" },
   -- import/override with your plugins folder
-  { import = "astrocommunity.pack.rust" },
-  { import = "astrocommunity.pack.ruby" },
+  -- { import = "astrocommunity.pack.rust" },
+  -- { import = "astrocommunity.pack.ruby" },
   { import = "astrocommunity.pack.bash" },
   -- { import = "astrocommunity.pack.go" },
   -- -- { import = "astrocommunity.pack.html-css" },
   { import = "astrocommunity.pack.markdown" },
   -- -- { import = "astrocommunity.pack.tailwindcss" },
-  { import = "astrocommunity.pack.typescript" },
+  -- { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.full-dadbod" },
   -- { import = "astrocommunity.pack.biome" },
   -- { import = "astrocommunity.pack.html-css" },
