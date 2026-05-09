@@ -16,6 +16,22 @@ local function openrouter_models()
 end
 
 M.adapters = {
+  openrouter = function()
+    return require("codecompanion.adapters").extend("openai_compatible", {
+      env = {
+        url = "https://openrouter.ai/api/v1",
+        api_key = "OPENROUTER_API_KEY",
+        chat_url = "/chat/completions",
+      },
+
+      schema = {
+        model = {
+          default = "deepseek/deepseek-chat:free",
+        },
+      },
+    })
+  end,
+
   gemini = function()
     return require("codecompanion.adapters").extend("gemini", {
       env = {
@@ -70,6 +86,34 @@ M.adapters = {
       },
     })
   end,
+  -- openrouter_auto = function()
+  --   return require("codecompanion.adapters").extend("openai_compatible", {
+  --     env = {
+  --       api_key = "OPENROUTER_API_KEY",
+  --     },
+  --
+  --     name = "openrouter",
+  --     formatted_name = "Open Router Auto",
+  --
+  --     url = "https://openrouter.ai/api/v1/chat/completions",
+  --
+  --     headers = {
+  --       ["Authorization"] = "Bearer " .. os.getenv "OPENROUTER_API_KEY",
+  --       ["HTTP-Referer"] = "https://github.com",
+  --       ["X-Title"] = "Neovim",
+  --     },
+  --
+  --     parameters = {
+  --       stream = true,
+  --     },
+  --
+  --     schema = {
+  --       model = {
+  --         default = "deepseek/deepseek-chat-v3-0324:free",
+  --       },
+  --     },
+  --   })
+  -- end,
 
   openrouter_auto = function()
     return require("codecompanion.adapters").extend("openai_compatible", {
@@ -89,7 +133,7 @@ M.adapters = {
       },
 
       parameters = {
-        stream = true,
+        stream = false,
       },
 
       schema = {
