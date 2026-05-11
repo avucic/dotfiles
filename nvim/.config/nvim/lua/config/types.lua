@@ -7,3 +7,4 @@
 ---@field ai_adapter string
 ---@field custom_other_mappings string[]
 ---@field lsp LspConfig
+--lsp.disable_formatting string[]

@@ -25,24 +25,15 @@
 --       },
 --     },
 --   },
---
---   -- disable specific none-ls/conform formatters in this project
---   disable_formatters = { "prettierd", "rubocop" },
 -- }
 
 return {
   "AstroNvim/astrolsp",
+
   opts = function(_, opts)
     local project = vim.g.project or {}
     local lsp_cfg = project.lsp or {}
-
-    -- Disable formatting capability for specific servers
-    opts.formatting = opts.formatting or {}
-    opts.formatting.disabled = opts.formatting.disabled or {}
-
-    for _, server in ipairs(lsp_cfg.disable_formatting or {}) do
-      table.insert(opts.formatting.disabled, server)
-    end
+    opts = vim.tbl_deep_extend("force", opts, lsp_cfg)
 
     for server, server_opts in pairs(lsp_cfg.servers or {}) do
       local existing = opts.config[server] or {}

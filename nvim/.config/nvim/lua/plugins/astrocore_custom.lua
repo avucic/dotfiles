@@ -54,6 +54,34 @@ return {
           -- foldtext = "v:lua.vim.treesitter.foldtext()",
         },
       },
+      autocmds = {
+        no_null_ls_format = {
+          {
+            event = "LspAttach",
+            desc = "Strip formatting capability from null-ls",
+            callback = function(args)
+              local c = vim.lsp.get_client_by_id(args.data.client_id)
+              if not c then return end
+
+              local strip = (vim.g.project and vim.g.project.lsp and vim.g.project.lsp.disable_formatting) or {}
+
+              for _, name in ipairs(strip) do
+                if c.name == name or c.name == "null-ls" or c.name == "none-ls" then
+                  c.server_capabilities.documentFormattingProvider = false
+                  c.server_capabilities.documentRangeFormattingProvider = false
+                  return
+                end
+              end
+            end,
+          },
+        },
+        -- vim.api.nvim_create_autocmd("FileType", {
+        --   pattern = "markdown",
+        --   callback = function()
+        --     vim.opt_local.conceallevel = 2
+        --   end,
+        -- })
+      },
       -- commands = {
       --   EslintAll = {
       --     function()

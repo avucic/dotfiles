@@ -83,6 +83,7 @@ solargraph/*
 .cert/*
 .tasks.json
 .nvim.lua*
+.lazy.lua*
 Taskfile.yml
 docker-compose.override.yml
 .herb.yml
