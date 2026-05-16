@@ -25,6 +25,7 @@ return {
           mdx = "markdown",
           mjml = "eruby",
           cedarschema = "cedar",
+          jbuilder = "ruby",
         },
         filename = {
           [".foorc"] = "fooscript",

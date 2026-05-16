@@ -7,4 +7,5 @@
 ---@field ai_adapter string
 ---@field custom_other_mappings string[]
 ---@field lsp LspConfig
+---@field git_browse_main_branch string
 --lsp.disable_formatting string[]

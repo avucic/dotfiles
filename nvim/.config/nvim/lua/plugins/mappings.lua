@@ -113,11 +113,11 @@ maps.n["<leader>bD"] = { "<cmd>WipeWindowlessBufs<cr>", desc = "Wipeout all buff
 
 -- +Git
 maps.n["<Leader>gO"] = {
-  function() require("snacks").gitbrowse({branch= "master"}) end,
+  function() require("snacks").gitbrowse({branch= vim.g.project.git_browse_main_branch or "master"}) end,
   desc = "Git browse current file (master)"
 }
 maps.x["<Leader>gO"] = {
-  function() require("snacks").gitbrowse({branch= "master"}) end,
+  function() require("snacks").gitbrowse({branch= vim.g.project.git_browse_main_branch or "master"}) end,
   desc = "Git browse current file (master)"
 }
 -- maps.n["<Leader>gf"] = { "<cmd>Easypick changed_files<cr>", desc = "List changed files" }
