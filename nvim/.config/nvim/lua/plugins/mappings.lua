@@ -146,7 +146,8 @@ maps.n["<Leader>gS"] = false
 -- +Open
 maps.n["<Leader>o"] = { false, desc = "Open" }
 maps.n["<Leader>oN"] = { "<cmd>NoiceTelescope<cr>", desc = "Notifications" }
-maps.n["<Leader>ot"] = { "<cmd>ToggleTerm<cr>", desc = "Terminal" }
+maps.n["<Leader>o/"] = { "<cmd>ToggleTerm<cr>", desc = "Terminal" }
+maps.n["<Leader>ot"] = { false, desc = "Todos" }
 
 -- +Tasks
 maps.n["<Leader>t"] = { desc = "Tasks" }

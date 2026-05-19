@@ -21,6 +21,7 @@
   "devcontainer-cli.nvim": { "branch": "main", "commit": "a92bae84eedaadcef1a0fcabb9d58a3c2bc28ebc" },
   "dial.nvim": { "branch": "master", "commit": "f2634758455cfa52a8acea6f142dcd6271a1bf57" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
+  "dooing": { "branch": "main", "commit": "4beaedd7195e6df39f8c2a5bbae1db7eb6d952d3" },
   "flash.nvim": { "branch": "main", "commit": "fcea7ff883235d9024dc41e638f164a450c14ca2" },
   "friendly-snippets": { "branch": "main", "commit": "6cd7280adead7f586db6fccbd15d2cac7e2188b9" },
   "fzf": { "branch": "master", "commit": "263eb4732fc6268f9fb35cffb634903ea8e2a26b" },

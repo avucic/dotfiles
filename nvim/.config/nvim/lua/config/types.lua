@@ -1,11 +1,10 @@
--- lua/types.lua
-
 ---@class ProjectConfig
----@field astro_packs string[]
----@field mason_tools string[]
----@field disabled_plugins string[]
----@field ai_adapter string
----@field custom_other_mappings string[]
----@field lsp LspConfig
----@field git_browse_main_branch string
---lsp.disable_formatting string[]
+---@field astro_packs? string[]
+---@field mason_tools? string[]
+---@field lazy_plugins? table[]  -- List of lazy.nvim plugin specs
+---@field disabled_plugins? string[]
+---@field ai_adapter? string
+---@field custom_other_mappings? string[]
+---@field lsp? table
+---@field git_browse_main_branch? string
+---@field disable_formatters? string[]

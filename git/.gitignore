@@ -92,3 +92,4 @@ docker-compose.override.yml
 *.tsbuildinfo
 
 *.devcontainer/*
+dooing.json
