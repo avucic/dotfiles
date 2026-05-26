@@ -19,8 +19,10 @@ on-focus-changed = ['move-mouse window-lazy-center']
 
 [workspace-to-monitor-force-assignment]
 B = 'secondary'
+O = 'secondary'  # Screen Sharing
 T = 'secondary'  # iTerm too if you want
 M = 'main'  # Slack/Mail too if you want
+A = 'secondary'  # AI Claude, Cursor etc
 
 [gaps]
 inner.horizontal = 10
@@ -35,7 +37,8 @@ outer.right =      0
 # Layout
 shift-alt-slash = 'layout tiles horizontal vertical'
 shift-alt-comma = 'layout accordion horizontal vertical'
-shift-alt-f = 'fullscreen'
+# shift-alt-f = 'fullscreen'
+shift-alt-f = 'macos-native-fullscreen'
 
 # Focus
 shift-alt-h = 'focus left'
@@ -71,6 +74,7 @@ shift-alt-6 = 'workspace 6'
 shift-alt-7 = 'workspace 7'
 shift-alt-8 = 'workspace 8'
 shift-alt-9 = 'workspace 9'
+shift-alt-a = 'workspace A'
 shift-alt-b = 'workspace B'
 shift-alt-m = 'workspace M'
 shift-alt-t = 'workspace T'
@@ -86,6 +90,7 @@ shift-alt-cmd-6 = 'move-node-to-workspace 6'
 shift-alt-cmd-7 = 'move-node-to-workspace 7'
 shift-alt-cmd-8 = 'move-node-to-workspace 8'
 shift-alt-cmd-9 = 'move-node-to-workspace 9'
+shift-alt-cmd-a = 'move-node-to-workspace A'
 shift-alt-cmd-b = 'move-node-to-workspace B'
 shift-alt-cmd-m = 'move-node-to-workspace M'
 shift-alt-cmd-t = 'move-node-to-workspace T'
@@ -93,7 +98,7 @@ shift-alt-cmd-o = 'move-node-to-workspace O'
 
 # Navigate
 shift-alt-tab = 'workspace-back-and-forth'
-shift-alt-cmd-tab = 'move-workspace-to-monitor --wrap-around next'
+# shift-alt-cmd-tab = 'move-workspace-to-monitor --wrap-around next'
 shift-alt-n = 'focus --boundaries-action wrap-around-the-workspace dfs-next'
 shift-alt-p = 'focus --boundaries-action wrap-around-the-workspace dfs-prev'
 
@@ -139,7 +144,16 @@ if.app-id = 'com.apple.mail'
 check-further-callbacks = true
 run = "move-node-to-workspace M"
 
+[[on-window-detected]]
+if.app-id = 'com.apple.ScreenSharing'
+check-further-callbacks = true
+run = "move-node-to-workspace O"
 
 [[on-window-detected]]
+if.app-id = 'com.anthropic.claudefordesktop'
 check-further-callbacks = true
-run = 'layout tiles horizontal vertical'
+run = "move-node-to-workspace A"
+
+# [[on-window-detected]]
+# check-further-callbacks = true
+# run = 'layout tiles horizontal vertical'
