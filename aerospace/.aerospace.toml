@@ -1,0 +1,145 @@
+after-login-command = []
+after-startup-command = []
+
+start-at-login = false
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+accordion-padding = 30
+
+default-root-container-layout = 'tiles'
+# default-root-container-layout = 'accordion'
+default-root-container-orientation = 'auto'
+
+key-mapping.preset = 'qwerty'
+
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focus-changed = ['move-mouse window-lazy-center']
+
+[workspace-to-monitor-force-assignment]
+B = 'secondary'
+T = 'secondary'  # iTerm too if you want
+M = 'main'  # Slack/Mail too if you want
+
+[gaps]
+inner.horizontal = 10
+inner.vertical =   10
+outer.left =       10
+outer.bottom =     10
+outer.top =        10
+outer.right =      10
+
+[mode.main.binding]
+
+# Layout
+shift-alt-slash = 'layout tiles horizontal vertical'
+shift-alt-comma = 'layout accordion horizontal vertical'
+shift-alt-f = 'fullscreen'
+
+# Focus
+shift-alt-h = 'focus left'
+shift-alt-j = 'focus down'
+shift-alt-k = 'focus up'
+shift-alt-l = 'focus right'
+# shigt alt-h = ['focus left', 'move-mouse window-lazy-center']
+# shigt alt-j = ['focus down', 'move-mouse window-lazy-center']
+# shigt alt-k = ['focus up', 'move-mouse window-lazy-center']
+# shigt alt-l = ['focus right', 'move-mouse window-lazy-center']
+
+# Move
+shift-alt-cmd-h = 'move left'
+shift-alt-cmd-j = 'move down'
+shift-alt-cmd-k = 'move up'
+shift-alt-cmd-l = 'move right'
+
+shift-alt-cmd-left  = 'move-node-to-monitor --wrap-around --focus-follows-window prev'
+shift-alt-cmd-right = 'move-node-to-monitor --wrap-around --focus-follows-window next'
+
+# Resize
+shift-alt-minus = 'resize smart -50'   # shrink
+shift-alt-equal = 'resize smart +50'   # grow (= is + without shift)
+shift-alt-0     = 'balance-sizes'      # reset/balance (like gg or 0 going to start)
+
+# Workspaces
+# shift-alt-1 = 'workspace 1'
+# shift-alt-2 = 'workspace 2'
+# shift-alt-3 = 'workspace 3'
+# shift-alt-4 = 'workspace 4'
+# shift-alt-5 = 'workspace 5'
+# shift-alt-6 = 'workspace 6'
+# shift-alt-7 = 'workspace 7'
+# shift-alt-8 = 'workspace 8'
+# shift-alt-9 = 'workspace 9'
+shift-alt-b = 'workspace B'
+shift-alt-m = 'workspace M'
+shift-alt-t = 'workspace T'
+shift-alt-o = 'workspace O'
+
+# Move node to workspace
+# shift-alt-cmd-1 = 'move-node-to-workspace 1'
+# shift-alt-cmd-2 = 'move-node-to-workspace 2'
+# shift-alt-cmd-3 = 'move-node-to-workspace 3'
+# shift-alt-cmd-4 = 'move-node-to-workspace 4'
+# shift-alt-cmd-5 = 'move-node-to-workspace 5'
+# shift-alt-cmd-6 = 'move-node-to-workspace 6'
+# shift-alt-cmd-7 = 'move-node-to-workspace 7'
+# shift-alt-cmd-8 = 'move-node-to-workspace 8'
+# shift-alt-cmd-9 = 'move-node-to-workspace 9'
+shift-alt-cmd-b = 'move-node-to-workspace B'
+shift-alt-cmd-m = 'move-node-to-workspace M'
+shift-alt-cmd-t = 'move-node-to-workspace T'
+shift-alt-cmd-o = 'move-node-to-workspace O'
+
+# Navigate
+shift-alt-tab = 'workspace-back-and-forth'
+shift-alt-cmd-tab = 'move-workspace-to-monitor --wrap-around next'
+shift-alt-n = 'focus --boundaries-action wrap-around-the-workspace dfs-next'
+shift-alt-p = 'focus --boundaries-action wrap-around-the-workspace dfs-prev'
+
+# shift-alt-n = 'focus next --wrap-around --boundaries workspace'
+# shift-alt-p = 'focus prev --wrap-around --boundaries workspace'
+
+# Service mode
+shift-alt-semicolon = 'mode service'
+
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main']
+f = ['layout floating tiling', 'mode main']
+q = ['exec-and-forget killall AeroSpace && open -a AeroSpace', 'mode main']
+o = ['close-all-windows-but-current', 'mode main']
+
+# shift-alt-h = ['join-with left', 'mode main']
+# shift-alt-a = ['join-with down', 'mode main']
+# shift-alt-o = ['join-with up', 'mode main']
+# shift-alt-e = ['join-with right', 'mode main']
+h = ['join-with left', 'mode main']
+j = ['join-with down', 'mode main']
+k = ['join-with up', 'mode main']
+l = ['join-with right', 'mode main']
+
+[[on-window-detected]]
+if.app-id = 'com.brave.Browser'
+check-further-callbacks = true
+run = "move-node-to-workspace B"
+
+[[on-window-detected]]
+if.app-id = 'com.googlecode.iterm2'
+check-further-callbacks = true
+run = "move-node-to-workspace T"
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+check-further-callbacks = true
+run = "move-node-to-workspace M"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.mail'
+check-further-callbacks = true
+run = "move-node-to-workspace M"
+
+
+[[on-window-detected]]
+check-further-callbacks = true
+run = 'layout tiles horizontal vertical'
