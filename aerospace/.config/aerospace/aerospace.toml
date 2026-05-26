@@ -25,10 +25,10 @@ M = 'main'  # Slack/Mail too if you want
 [gaps]
 inner.horizontal = 10
 inner.vertical =   10
-outer.left =       10
-outer.bottom =     10
-outer.top =        10
-outer.right =      10
+outer.left =       0
+outer.bottom =     0
+outer.top =        0
+outer.right =      0
 
 [mode.main.binding]
 
@@ -62,30 +62,30 @@ shift-alt-equal = 'resize smart +50'   # grow (= is + without shift)
 shift-alt-0     = 'balance-sizes'      # reset/balance (like gg or 0 going to start)
 
 # Workspaces
-# shift-alt-1 = 'workspace 1'
-# shift-alt-2 = 'workspace 2'
-# shift-alt-3 = 'workspace 3'
-# shift-alt-4 = 'workspace 4'
-# shift-alt-5 = 'workspace 5'
-# shift-alt-6 = 'workspace 6'
-# shift-alt-7 = 'workspace 7'
-# shift-alt-8 = 'workspace 8'
-# shift-alt-9 = 'workspace 9'
+shift-alt-1 = 'workspace 1'
+shift-alt-2 = 'workspace 2'
+shift-alt-3 = 'workspace 3'
+shift-alt-4 = 'workspace 4'
+shift-alt-5 = 'workspace 5'
+shift-alt-6 = 'workspace 6'
+shift-alt-7 = 'workspace 7'
+shift-alt-8 = 'workspace 8'
+shift-alt-9 = 'workspace 9'
 shift-alt-b = 'workspace B'
 shift-alt-m = 'workspace M'
 shift-alt-t = 'workspace T'
 shift-alt-o = 'workspace O'
 
 # Move node to workspace
-# shift-alt-cmd-1 = 'move-node-to-workspace 1'
-# shift-alt-cmd-2 = 'move-node-to-workspace 2'
-# shift-alt-cmd-3 = 'move-node-to-workspace 3'
-# shift-alt-cmd-4 = 'move-node-to-workspace 4'
-# shift-alt-cmd-5 = 'move-node-to-workspace 5'
-# shift-alt-cmd-6 = 'move-node-to-workspace 6'
-# shift-alt-cmd-7 = 'move-node-to-workspace 7'
-# shift-alt-cmd-8 = 'move-node-to-workspace 8'
-# shift-alt-cmd-9 = 'move-node-to-workspace 9'
+shift-alt-cmd-1 = 'move-node-to-workspace 1'
+shift-alt-cmd-2 = 'move-node-to-workspace 2'
+shift-alt-cmd-3 = 'move-node-to-workspace 3'
+shift-alt-cmd-4 = 'move-node-to-workspace 4'
+shift-alt-cmd-5 = 'move-node-to-workspace 5'
+shift-alt-cmd-6 = 'move-node-to-workspace 6'
+shift-alt-cmd-7 = 'move-node-to-workspace 7'
+shift-alt-cmd-8 = 'move-node-to-workspace 8'
+shift-alt-cmd-9 = 'move-node-to-workspace 9'
 shift-alt-cmd-b = 'move-node-to-workspace B'
 shift-alt-cmd-m = 'move-node-to-workspace M'
 shift-alt-cmd-t = 'move-node-to-workspace T'
