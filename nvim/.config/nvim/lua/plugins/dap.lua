@@ -46,8 +46,6 @@ return {
           local debug_host = vim.env.DAP_HOST or "localhost"
           local debug_port = tonumber(vim.env.DAP_PORT) or 9229
 
-          print("debug_host", debug_host)
-
           dap.adapters["pwa-node"] = {
             type = "server",
             host = debug_host,

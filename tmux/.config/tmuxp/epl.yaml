@@ -11,6 +11,6 @@ windows:
     panes:
       - focus: true
       - shell_command:
-          - dev-exec zsh
+          - nvim
       - shell_command:
           - dev-exec zsh

@@ -93,3 +93,5 @@ docker-compose.override.yml
 
 *.devcontainer/*
 dooing.json
+
+**/.claude/settings.local.json

@@ -1,27 +1,5 @@
 return {
   {
-    dir = vim.fn.stdpath "config", -- dummy plugin root
-    name = "devcontainer-toggle",
-
-    config = function()
-      vim.api.nvim_create_user_command("DevToggle", function() require("plugins.custom.dev_container").toggle() end, {})
-    end,
-  },
-  {
-    "AstroNvim/astroui",
-    opts = function(_, opts)
-      local function devcontainer_status() return vim.env.DEVCONTAINER and "🐳 DEV" or "💻 HOST" end
-
-      -- ✅ Ensure structure exists
-      opts.statusline = opts.statusline or {}
-      opts.statusline.lualine_c = opts.statusline.lualine_c or {}
-
-      table.insert(opts.statusline.lualine_c, devcontainer_status)
-
-      return opts
-    end,
-  },
-  {
     "erichlf/devcontainer-cli.nvim",
     dependencies = { "akinsho/toggleterm.nvim" },
     init = function()

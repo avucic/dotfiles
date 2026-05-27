@@ -51,6 +51,14 @@ return {
           wrap = false, -- sets vim.opt.wrap
           conceallevel = 2,
           foldenable = false,
+          title = true,
+          titlestring = (function()
+            local parts = {}
+            if vim.env.REMOTE_NVIM then table.insert(parts, "📡 REMOTE") end
+            if vim.env.DEVCONTAINER then table.insert(parts, "🐳 DEV") end
+            table.insert(parts, "nvim — %t")
+            return table.concat(parts, " ")
+          end)(),
           -- foldexpr = "v:lua.vim.treesitter.foldexpr()",
           -- foldtext = "v:lua.vim.treesitter.foldtext()",
         },

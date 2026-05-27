@@ -12,8 +12,7 @@ windows:
     panes:
       - focus: true
         shell_command:
-          - sleep 0.5
-          - dev-exec zsh
+          - nvim
       - shell_command:
           - sleep 0.5
           - dev-exec zsh

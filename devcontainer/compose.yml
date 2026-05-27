@@ -9,6 +9,10 @@ services:
       SHELL: /bin/zsh
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      XDG_CONFIG_HOME: /root/.config
+      XDG_DATA_HOME: /root/.local/share
+      XDG_STATE_HOME: /root/.local/state
+      XDG_CACHE_HOME: /root/.cache
     volumes:
       - ${HOME}/.config/github-copilot:/root/.config/github-copilot:ro
       - ${HOME}/.dotfiles:/root/.dotfiles
@@ -22,6 +26,11 @@ services:
       - tabz-nvim-state:/root/.local/state/nvim
       - tabz-zoxide:/root/.local/share/zoxide
       - tabz-znap:/root/.znap
+    # Remote nvim UI server port. Dynamic host port (127.0.0.1::5555) so multiple
+    # project containers can run at once without colliding. The nvim plugin
+    # resolves the actual host port via `docker port <container> 5555`.
+    ports:
+      - "127.0.0.1::5555"
     command: sleep infinity
 
 # Universal volumes shared across all projects.
@@ -29,7 +38,7 @@ services:
 # `dev-up` ensures they exist via `docker volume create` before bringing up.
 volumes:
   tabz-nvim-cache: { external: true }
-  tabz-nvim-data:  { external: true }
+  tabz-nvim-data: { external: true }
   tabz-nvim-state: { external: true }
-  tabz-zoxide:     { external: true }
-  tabz-znap:       { external: true }
+  tabz-zoxide: { external: true }
+  tabz-znap: { external: true }

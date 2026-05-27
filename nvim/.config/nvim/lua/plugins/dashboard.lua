@@ -1,3 +1,29 @@
+-- Service name from the in-container cwd (/app/services/<svc> -> <svc>).
+local function service_name()
+  local cwd = vim.fn.getcwd()
+  return cwd:match "/services/([^/]+)" or vim.fn.fnamemodify(cwd, ":t")
+end
+
+-- Env badge as snacks dashboard text chunks (nil on host so nothing renders).
+local function env_badge()
+  local chunks = {}
+  if vim.env.REMOTE_NVIM then chunks[#chunks + 1] = { "📡 REMOTE", hl = "DashboardRemote" } end
+  if vim.env.DEVCONTAINER then
+    if #chunks > 0 then chunks[#chunks + 1] = { "    " } end
+    chunks[#chunks + 1] = { "🐳 DEV(" .. service_name() .. ")", hl = "DashboardDev" }
+  end
+  return #chunks > 0 and chunks or nil
+end
+
+local function dashboard_sections()
+  local sections = { { section = "header" } }
+  local badge = env_badge()
+  if badge then sections[#sections + 1] = { text = badge, align = "center", padding = 1 } end
+  sections[#sections + 1] = { section = "keys", gap = 1, padding = 1 }
+  sections[#sections + 1] = { section = "startup" }
+  return sections
+end
+
 return {
   "folke/snacks.nvim",
   ---@type snacks.Config
@@ -33,6 +59,7 @@ return {
         }, "\n"),
         keys = {},
       },
+      sections = dashboard_sections(),
     },
   },
 }
