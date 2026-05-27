@@ -57,7 +57,7 @@ return {
 
     {
       mode = { "n" },
-      "<leader>Dd",
+      "<leader>De",
       function() vim.cmd "detach" end,
       desc = "Remote: detach UI",
     },
