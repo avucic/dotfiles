@@ -11,6 +11,6 @@ windows:
     panes:
       - focus: true
       - shell_command:
-          - nvim
+          - nvim -c 'RemoteStart'
       - shell_command:
           - dev-exec zsh

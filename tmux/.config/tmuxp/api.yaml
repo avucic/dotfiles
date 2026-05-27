@@ -12,7 +12,7 @@ windows:
     panes:
       - focus: true
         shell_command:
-          - nvim
+          - nvim -c 'RemoteStart'
       - shell_command:
           - sleep 0.5
           - dev-exec zsh

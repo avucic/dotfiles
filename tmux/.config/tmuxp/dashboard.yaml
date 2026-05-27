@@ -7,4 +7,4 @@ windows:
   - window_name: dashboard
     layout: even-horizontal
     panes:
-      - shell_command: nvim
+      - shell_command: nvim -c 'RemoteStart'
