@@ -169,7 +169,7 @@ end, desc = "Toggle diff mode" }
 
 
 -- + Run
-maps.n["<Leader>r"] = { desc = "Run and execute" }
+-- maps.n["<Leader>r"] = { desc = "Run and execute" }
 
 -- + Local language mappings
 maps.n["<Leader>m"] = { desc = "Local language mappings" }

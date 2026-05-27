@@ -1,7 +1,7 @@
 return {
   dir = vim.fn.stdpath "config",
   name = "remote-ui",
-  cmd = { "RemoteStart", "RemoteStop", "RemoteQuit", "RemoteInfo" },
+  cmd = { "RemoteStart", "RemotePick", "RemoteStop", "RemoteQuit", "RemoteInfo" },
   -- runs on startup even while the plugin stays lazy; only remote instances
   -- register the greeting, shown when the remote-ui client attaches (UIEnter).
   init = function()
@@ -24,33 +24,40 @@ return {
   keys = {
     {
       mode = { "n" },
-      "<leader>rs",
+      "<leader>Dc",
       function() vim.cmd "RemoteStart" end,
-      desc = "Remote: start/attach",
+      desc = "Remote: connect (auto)",
     },
 
     {
       mode = { "n" },
-      "<leader>rq",
+      "<leader>Dp",
+      function() vim.cmd "RemotePick" end,
+      desc = "Remote: pick container",
+    },
+
+    {
+      mode = { "n" },
+      "<leader>Ds",
       function() vim.cmd "RemoteStop" end,
       desc = "Remote: stop",
     },
     {
       mode = { "n" },
-      "<leader>r1",
+      "<leader>Dq",
       function() vim.cmd "RemoteStop" end,
       desc = "Remote: Quit",
     },
     {
       mode = { "n" },
-      "<leader>ri",
+      "<leader>Di",
       function() vim.cmd "RemoteInfo" end,
       desc = "Remote: info",
     },
 
     {
       mode = { "n" },
-      "<leader>rd",
+      "<leader>Dd",
       function() vim.cmd "detach" end,
       desc = "Remote: detach UI",
     },
@@ -61,7 +68,13 @@ return {
     vim.api.nvim_create_user_command(
       "RemoteStart",
       function() require("plugins.custom.remote_ui").start() end,
-      { desc = "Connect remote-ui to a container's nvim server" }
+      { desc = "Auto-connect remote-ui to the current workspace's devcontainer" }
+    )
+
+    vim.api.nvim_create_user_command(
+      "RemotePick",
+      function() require("plugins.custom.remote_ui").pick() end,
+      { desc = "Connect remote-ui to a container picked from all running ones" }
     )
 
     vim.api.nvim_create_user_command(

@@ -85,42 +85,78 @@ local function respawn_pane(cmd)
   return true
 end
 
-function M.start()
-  pick_container(function(container)
-    if not container then return end
+-- Bring up (if needed) and attach the host UI to the nvim server in `container`.
+local function connect(container)
+  if not container then return end
 
-    local hp = host_port(container, config.port)
-    if not hp then
-      notify(
-        ('Port %d not published from %s. Add \'ports: ["%d:%d"]\' (or "%d") to compose.'):format(
-          config.port,
-          container,
-          config.port,
-          config.port,
-          config.port
-        ),
-        vim.log.levels.ERROR
-      )
+  local hp = host_port(container, config.port)
+  if not hp then
+    notify(
+      ('Port %d not published from %s. Add \'ports: ["%d:%d"]\' (or "%d") to compose.'):format(
+        config.port,
+        container,
+        config.port,
+        config.port,
+        config.port
+      ),
+      vim.log.levels.ERROR
+    )
+    return
+  end
+
+  if not server_listening(hp) then
+    notify(("Starting headless nvim in %s …"):format(container))
+    start_nvim(container)
+    if not vim.wait(10000, function() return server_listening(hp) end, 200) then
+      notify("Timed out waiting for nvim to start in " .. container, vim.log.levels.ERROR)
       return
     end
+  end
 
-    if not server_listening(hp) then
-      notify(("Starting headless nvim in %s …"):format(container))
-      start_nvim(container)
-      if not vim.wait(10000, function() return server_listening(hp) end, 200) then
-        notify("Timed out waiting for nvim to start in " .. container, vim.log.levels.ERROR)
-        return
-      end
-    end
+  -- Toggle feel: after the remote UI exits (detach/quit), cd back to the dir the
+  -- host nvim was launched from and relaunch host nvim. When that nvim quits,
+  -- drop to an interactive shell so the tmux pane survives instead of closing.
+  local cwd = vim.fn.shellescape(vim.fn.getcwd())
+  respawn_pane(
+    ('nvim --server 127.0.0.1:%d --remote-ui; cd %s; nvim; exec "${SHELL:-/bin/zsh}"'):format(hp, cwd)
+  )
+end
 
-    -- Toggle feel: after the remote UI exits (detach/quit), cd back to the dir the
-    -- host nvim was launched from and relaunch host nvim. When that nvim quits,
-    -- drop to an interactive shell so the tmux pane survives instead of closing.
-    local cwd = vim.fn.shellescape(vim.fn.getcwd())
-    respawn_pane(
-      ('nvim --server 127.0.0.1:%d --remote-ui; cd %s; nvim; exec "${SHELL:-/bin/zsh}"'):format(hp, cwd)
-    )
-  end)
+-- Manual: choose from every running container.
+function M.pick() pick_container(connect) end
+
+-- Resolve the container(s) for the current workspace by reusing devcontainer-cli's
+-- discovery: find the project's .devcontainer root, then match the label the CLI
+-- stamps on the container it brings up (devcontainer.config_file=<abs path>).
+local function workspace_containers()
+  local ok_fu, folder_utils = pcall(require, "devcontainer-cli.folder_utils")
+  local ok_cfg, dc_config = pcall(require, "devcontainer-cli.config")
+  if not (ok_fu and ok_cfg) then return nil, "devcontainer-cli.nvim not loaded" end
+
+  local root = folder_utils.get_root(dc_config.toplevel)
+  if not root then return nil, "no .devcontainer found above " .. vim.fn.getcwd() end
+
+  local label = "devcontainer.config_file=" .. root .. "/.devcontainer/devcontainer.json"
+  local names = vim.fn.systemlist { "docker", "ps", "--filter", "label=" .. label, "--format", "{{.Names}}" }
+  if vim.v.shell_error ~= 0 then return nil, "docker ps failed" end
+  names = vim.tbl_filter(function(s) return s ~= "" end, names)
+  if #names == 0 then return nil, "no running devcontainer for " .. root .. " — try :DevcontainerUp" end
+  return names
+end
+
+-- Auto: connect to the devcontainer for the current workspace, no picker needed.
+function M.start()
+  if in_container() then
+    notify("Run this from host nvim — no docker available here", vim.log.levels.WARN)
+    return
+  end
+  local names, err = workspace_containers()
+  if not names then
+    notify(err, vim.log.levels.WARN)
+    return
+  end
+  if #names == 1 then return connect(names[1]) end
+  vim.ui.select(names, { prompt = "Devcontainer:" }, connect)
 end
 
 function M.quit() vim.cmd "qa!" end
