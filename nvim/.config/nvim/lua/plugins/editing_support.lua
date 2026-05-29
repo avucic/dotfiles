@@ -41,13 +41,16 @@ return {
 
         let g:VM_leader = ','
         let g:VM_maps = {}
-        let g:VM_maps['Find Under'] = '<M-n>'
+        let g:VM_maps['Find Under'] = '<C-n>'
         let g:VM_maps['Skip Region'] = '<C-x>'
-        let g:VM_maps['Remove Region'] = '<M-p>'
+        let g:VM_maps['Remove Region'] = '<C-p>'
 
-        let g:VM_maps['Select Cursor Down'] = '<M-S-j>'
-        let g:VM_maps['Select Cursor Up']   = '<M-S-k>'
-        let g:VM_maps['Select Cursor Up'] = '<M-k>'
+        "let g:VM_maps['Select Cursor Down'] = '<M-S-j>'
+        "let g:VM_maps['Select Cursor Up']   = '<M-S-k>'
+        "let g:VM_maps['Select Cursor Up'] = '<M-k>'
+
+        "let g:VM_maps['Select Cursor Down'] = ',j'
+        "let g:VM_maps['Select Cursor Up']   = ',k'
         " let g:VM_maps = {}
         " let g:VM_maps["Add Cursor At Pos"]            = '<c-c>'
         " let g:VM_maps['Visual Add']                   = '<c-c>'
@@ -55,19 +58,50 @@ return {
         " let g:VM_maps['Visual All']                   = '<c-a>'
       ]]
     end,
-    -- dependencies = {
-    --   {
-    --     "AstroNvim/astrocore",
-    --     opts = function(_, opts)
-    --       local maps = opts.mappings
-    --       -- maps.n["<C-n>"] = "<Nop>"
-    --       -- maps.n["<C-p>"] = "<Nop>"
-    --       maps.n["<M-j>"] = { "<Plug>(VM-Add-Cursor-Down)" }
-    --       maps.n["<M-k>"] = { "<Plug>(VM-Add-Cursor-up)" }
-    --       maps.n["<M-n>"] = { "<Plug>(VM-Find-Under)" }
-    --       maps.x["<M-n>"] = { "<Plug>(VM-Find-Subword-Under)" }
-    --     end,
-    --   },
-    -- },
+    config = function()
+      local Hydra = require "hydra"
+      local wk = require "which-key"
+
+      wk.add {
+        { ",", group = "Visual Multi" },
+        { ",p", desc = "Remove Region" },
+        { ",j", desc = "Add Cursor Down" },
+        { ",k", desc = "Add Cursor Up" },
+      }
+
+      Hydra {
+        name = "Multi Cursor",
+        hint = false,
+        mode = "n",
+        body = ",j",
+        config = {
+          exit = false,
+        },
+        heads = {
+          { "j", "<Plug>(VM-Add-Cursor-Down)", { remap = true } },
+          { "k", "<Plug>(VM-Add-Cursor-Up)", { remap = true } },
+          { "p", "<Plug>(VM-Remove-Region)", { remap = true } },
+          { "<Esc>", nil, { exit = true } },
+        },
+      }
+    end,
+    dependencies = {
+      {
+        "nvimtools/hydra.nvim",
+      },
+
+      {
+        "AstroNvim/astrocore",
+        opts = function(_, opts)
+          local maps = opts.mappings
+          -- maps.n["<C-n>"] = "<Nop>"
+          -- maps.n["<C-p>"] = "<Nop>"
+          -- maps.n["<M-j>"] = { "<Plug>(VM-Add-Cursor-Down)" }
+          -- maps.n["<M-k>"] = { "<Plug>(VM-Add-Cursor-up)" }
+          -- maps.n["<M-n>"] = { "<Plug>(VM-Find-Under)" }
+          -- maps.x["<M-n>"] = { "<Plug>(VM-Find-Subword-Under)" }
+        end,
+      },
+    },
   },
 }

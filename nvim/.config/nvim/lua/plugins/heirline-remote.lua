@@ -13,12 +13,26 @@ return {
         2,
         status.component.builder {
           {
-            provider = function() return vim.env.REMOTE_NVIM and " 󰢹 REMOTE " or "" end,
-            hl = "DashboardRemote",
+            provider = function() return (vim.env.DEVCONTAINER or vim.env.REMOTE_NVIM) and " " or "" end,
           },
           {
-            provider = function() return vim.env.DEVCONTAINER and "  DEV(" .. svc .. ") " or "" end,
-            hl = "DashboardDev",
+            provider = function() return vim.env.DEVCONTAINER and " DEV " or "" end,
+            hl = "StatuslineDev",
+          },
+          {
+            provider = function() return vim.env.DEVCONTAINER and "" or "" end,
+            hl = "StatuslineDevArrow",
+          },
+          {
+            provider = function() return vim.env.DEVCONTAINER and " " .. svc .. " " or "" end,
+            hl = "StatuslineDevText",
+          },
+          {
+            provider = function() return (not vim.env.DEVCONTAINER and vim.env.REMOTE_NVIM and "REMOTE ") or "" end,
+            hl = "StatuslineRemote",
+          },
+          {
+            provider = function() return (vim.env.DEVCONTAINER or vim.env.REMOTE_NVIM) and " " or "" end,
           },
         }
       )

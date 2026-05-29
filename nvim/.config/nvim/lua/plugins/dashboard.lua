@@ -6,13 +6,11 @@ end
 
 -- Env badge as snacks dashboard text chunks (nil on host so nothing renders).
 local function env_badge()
-  local chunks = {}
-  if vim.env.REMOTE_NVIM then chunks[#chunks + 1] = { "📡 REMOTE", hl = "DashboardRemote" } end
   if vim.env.DEVCONTAINER then
-    if #chunks > 0 then chunks[#chunks + 1] = { "    " } end
-    chunks[#chunks + 1] = { "🐳 DEV(" .. service_name() .. ")", hl = "DashboardDev" }
+    return { { "DEV ", hl = "DashboardDev" }, { service_name(), hl = "DashboardDevText" } }
   end
-  return #chunks > 0 and chunks or nil
+  if vim.env.REMOTE_NVIM then return { { "REMOTE", hl = "DashboardRemote" } } end
+  return nil
 end
 
 local function dashboard_sections()

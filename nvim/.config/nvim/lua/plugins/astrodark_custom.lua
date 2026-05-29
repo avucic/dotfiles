@@ -285,8 +285,12 @@ return {
             -- hl["@MarkdownTagItem"] = { link = "@constant" }
             -- hl["@MarkdownHorizontalLine"] = { fg = C.syntax.red, bg = C.syntax.mute }
 
-            hl["DashboardDev"] = { fg = C.ui.blue }
-            hl["DashboardRemote"] = { fg = C.ui.yellow }
+            hl["DashboardDev"] = { fg = C.ui.blue, bold = true }
+            hl["DashboardDevText"] = { fg = C.ui.text }
+            hl["StatuslineDev"] = { fg = C.bg, bg = C.ui.blue, bold = true }
+            hl["StatuslineDevArrow"] = { fg = C.ui.blue }
+            hl["StatuslineDevText"] = { bg = C.ui.selection }
+            hl["StatuslineRemote"] = { fg = C.bg, bg = C.ui.yellow, bold = true }
             hl["SpellBad"] = { sp = "red", undercurl = true }
             hl["SpellCap"] = { sp = "yellow", undercurl = true }
             hl["SpellRare"] = { sp = "blue", undercurl = true }

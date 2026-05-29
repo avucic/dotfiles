@@ -35,79 +35,85 @@ outer.right =      0
 
 [mode.main.binding]
 
+# Service mode
+alt-semicolon = 'mode service'
+
 # Layout
-shift-alt-slash = 'layout tiles horizontal vertical'
-shift-alt-comma = 'layout accordion horizontal vertical'
-# shift-alt-f = 'fullscreen'
-shift-alt-f = 'macos-native-fullscreen'
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
+# alt-f = 'fullscreen'
+alt-f = 'macos-native-fullscreen'
 
 # Focus
-shift-alt-h = 'focus left'
-shift-alt-j = 'focus down'
-shift-alt-k = 'focus up'
-shift-alt-l = 'focus right'
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
 # shigt alt-h = ['focus left', 'move-mouse window-lazy-center']
 # shigt alt-j = ['focus down', 'move-mouse window-lazy-center']
 # shigt alt-k = ['focus up', 'move-mouse window-lazy-center']
 # shigt alt-l = ['focus right', 'move-mouse window-lazy-center']
 
 # Move
-shift-alt-cmd-h = 'move left'
-shift-alt-cmd-j = 'move down'
-shift-alt-cmd-k = 'move up'
-shift-alt-cmd-l = 'move right'
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
 
-shift-alt-cmd-left  = 'move-node-to-monitor --wrap-around --focus-follows-window prev'
-shift-alt-cmd-right = 'move-node-to-monitor --wrap-around --focus-follows-window next'
+alt-shift-left  = 'move-node-to-monitor --wrap-around --focus-follows-window prev'
+alt-shift-right = 'move-node-to-monitor --wrap-around --focus-follows-window next'
 
 # Resize
-shift-alt-minus = 'resize smart -50'   # shrink
-shift-alt-equal = 'resize smart +50'   # grow (= is + without shift)
-shift-alt-0     = 'balance-sizes'      # reset/balance (like gg or 0 going to start)
+alt-minus = 'resize smart -50'   # shrink
+alt-equal = 'resize smart +50'   # grow (= is + without shift)
+alt-0     = 'balance-sizes'      # reset/balance (like gg or 0 going to start)
+
+alt-cmd-h = ['join-with left', 'mode main']
+alt-cmd-a = ['join-with down', 'mode main']
+alt-cmd-o = ['join-with up', 'mode main']
+alt-cmd-e = ['join-with right', 'mode main']
 
 # Workspaces
-shift-alt-1 = 'workspace 1'
-shift-alt-2 = 'workspace 2'
-shift-alt-3 = 'workspace 3'
-shift-alt-4 = 'workspace 4'
-shift-alt-5 = 'workspace 5'
-shift-alt-6 = 'workspace 6'
-shift-alt-7 = 'workspace 7'
-shift-alt-8 = 'workspace 8'
-shift-alt-9 = 'workspace 9'
-shift-alt-c = 'workspace C'
-shift-alt-b = 'workspace B'
-shift-alt-m = 'workspace M'
-shift-alt-t = 'workspace T'
-shift-alt-o = 'workspace O'
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
+alt-c = 'workspace C'
+alt-b = 'workspace B'
+alt-m = 'workspace M'
+alt-t = 'workspace T'
+alt-o = 'workspace O'
 
 # Move node to workspace
-shift-alt-cmd-1 = 'move-node-to-workspace 1'
-shift-alt-cmd-2 = 'move-node-to-workspace 2'
-shift-alt-cmd-3 = 'move-node-to-workspace 3'
-shift-alt-cmd-4 = 'move-node-to-workspace 4'
-shift-alt-cmd-5 = 'move-node-to-workspace 5'
-shift-alt-cmd-6 = 'move-node-to-workspace 6'
-shift-alt-cmd-7 = 'move-node-to-workspace 7'
-shift-alt-cmd-8 = 'move-node-to-workspace 8'
-shift-alt-cmd-9 = 'move-node-to-workspace 9'
-shift-alt-cmd-c = 'move-node-to-workspace C'
-shift-alt-cmd-b = 'move-node-to-workspace B'
-shift-alt-cmd-m = 'move-node-to-workspace M'
-shift-alt-cmd-t = 'move-node-to-workspace T'
-shift-alt-cmd-o = 'move-node-to-workspace O'
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
+alt-shift-c = 'move-node-to-workspace C'
+alt-shift-b = 'move-node-to-workspace B'
+alt-shift-m = 'move-node-to-workspace M'
+alt-shift-t = 'move-node-to-workspace T'
+alt-shift-o = 'move-node-to-workspace O'
 
 # Navigate
-shift-alt-tab = 'workspace-back-and-forth'
-shift-alt-cmd-tab = 'move-workspace-to-monitor --wrap-around next'
-shift-alt-n = 'focus --boundaries-action wrap-around-the-workspace dfs-next'
-shift-alt-p = 'focus --boundaries-action wrap-around-the-workspace dfs-prev'
+alt-tab = 'workspace-back-and-forth'
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+alt-n = 'focus --boundaries-action wrap-around-the-workspace dfs-next'
+alt-p = 'focus --boundaries-action wrap-around-the-workspace dfs-prev'
 
-# shift-alt-n = 'focus next --wrap-around --boundaries workspace'
-# shift-alt-p = 'focus prev --wrap-around --boundaries workspace'
+# alt-n = 'focus next --wrap-around --boundaries workspace'
+# alt-p = 'focus prev --wrap-around --boundaries workspace'
 
-# Service mode
-shift-alt-semicolon = 'mode service'
 
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
@@ -115,15 +121,6 @@ r = ['flatten-workspace-tree', 'mode main']
 f = ['layout floating tiling', 'mode main']
 q = ['exec-and-forget killall AeroSpace && open -a AeroSpace', 'mode main']
 o = ['close-all-windows-but-current', 'mode main']
-
-# shift-alt-h = ['join-with left', 'mode main']
-# shift-alt-a = ['join-with down', 'mode main']
-# shift-alt-o = ['join-with up', 'mode main']
-# shift-alt-e = ['join-with right', 'mode main']
-h = ['join-with left', 'mode main']
-j = ['join-with down', 'mode main']
-k = ['join-with up', 'mode main']
-l = ['join-with right', 'mode main']
 
 [[on-window-detected]]
 if.app-id = 'com.brave.Browser'
