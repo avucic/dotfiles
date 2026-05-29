@@ -107,7 +107,11 @@ alt-shift-o = 'move-node-to-workspace O'
 
 # Navigate
 alt-tab = 'workspace-back-and-forth'
-alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+# alt-shift-left  = 'move-node-to-monitor --wrap-around --focus-follows-window prev'
+# alt-shift-right = 'move-node-to-monitor --wrap-around --focus-follows-window next'
+alt-cmd-left  = 'move-workspace-to-monitor --wrap-around prev'
+alt-cmd-right = 'move-workspace-to-monitor --wrap-around next'
+
 alt-n = 'focus --boundaries-action wrap-around-the-workspace dfs-next'
 alt-p = 'focus --boundaries-action wrap-around-the-workspace dfs-prev'
 
@@ -150,6 +154,11 @@ run = "move-node-to-workspace M"
 [[on-window-detected]]
 if.app-id = 'inc.wonder.roam'
 run = "move-node-to-workspace M"
+
+[[on-window-detected]]
+if.app-id = 'com.AvivINC.Tab-for-Google-Translate'
+run = 'layout floating'
+
 
 # [[on-window-detected]]
 # check-further-callbacks = true
