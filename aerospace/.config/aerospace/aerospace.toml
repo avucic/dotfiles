@@ -19,18 +19,18 @@ on-focus-changed = ['move-mouse window-lazy-center']
 
 [workspace-to-monitor-force-assignment]
 B = 'secondary'
-O = 'secondary'  # Screen Sharing
-T = 'secondary'  # iTerm too if you want
-M = 'main'  # Slack/Mail too if you want
-C = 'secondary'  # AI Claude, Cursor etc
+O = 'secondary' # Screen Sharing
+T = 'secondary' # iTerm too if you want
+M = 'main'      # Slack/Mail too if you want
+C = 'secondary' # AI Claude, Cursor etc
 
 [gaps]
 inner.horizontal = 10
-inner.vertical =   10
-outer.left =       0
-outer.bottom =     0
-outer.top =        0
-outer.right =      0
+inner.vertical = 10
+outer.left = 0
+outer.bottom = 0
+outer.top = 0
+outer.right = 0
 
 
 [mode.main.binding]
@@ -61,13 +61,13 @@ alt-shift-j = 'move down'
 alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
-alt-shift-left  = 'move-node-to-monitor --wrap-around --focus-follows-window prev'
+alt-shift-left = 'move-node-to-monitor --wrap-around --focus-follows-window prev'
 alt-shift-right = 'move-node-to-monitor --wrap-around --focus-follows-window next'
 
 # Resize
-alt-minus = 'resize smart -50'   # shrink
-alt-equal = 'resize smart +50'   # grow (= is + without shift)
-alt-0     = 'balance-sizes'      # reset/balance (like gg or 0 going to start)
+alt-minus = 'resize smart -50' # shrink
+alt-equal = 'resize smart +50' # grow (= is + without shift)
+alt-0 = 'balance-sizes'        # reset/balance (like gg or 0 going to start)
 
 alt-cmd-h = ['join-with left', 'mode main']
 alt-cmd-a = ['join-with down', 'mode main']
@@ -110,7 +110,7 @@ alt-shift-o = 'move-node-to-workspace O'
 alt-tab = 'workspace-back-and-forth'
 # alt-shift-left  = 'move-node-to-monitor --wrap-around --focus-follows-window prev'
 # alt-shift-right = 'move-node-to-monitor --wrap-around --focus-follows-window next'
-alt-cmd-left  = 'move-workspace-to-monitor --wrap-around prev'
+alt-cmd-left = 'move-workspace-to-monitor --wrap-around prev'
 alt-cmd-right = 'move-workspace-to-monitor --wrap-around next'
 
 alt-n = 'focus --boundaries-action wrap-around-the-workspace dfs-next'
@@ -150,6 +150,10 @@ run = "move-node-to-workspace M"
 
 [[on-window-detected]]
 if.app-id = 'com.apple.mail'
+run = "move-node-to-workspace M"
+
+[[on-window-detected]]
+if.app-id = 'com.viber.osx'
 run = "move-node-to-workspace M"
 
 [[on-window-detected]]
