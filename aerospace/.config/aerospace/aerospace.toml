@@ -43,6 +43,7 @@ alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 # alt-f = 'fullscreen'
 alt-f = 'macos-native-fullscreen'
+alt-shift-f = 'layout floating'
 
 # Focus
 alt-h = 'focus left'
