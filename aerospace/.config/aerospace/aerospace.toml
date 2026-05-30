@@ -143,6 +143,9 @@ run = "move-node-to-workspace O"
 if.app-id = 'com.anthropic.claudefordesktop'
 run = "move-node-to-workspace C"
 
+[[on-window-detected]]
+if.app-id = 'com.openai.codex'
+run = "move-node-to-workspace C"
 # M
 [[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
@@ -164,6 +167,10 @@ run = "move-node-to-workspace M"
 if.app-id = 'com.AvivINC.Tab-for-Google-Translate'
 run = 'layout floating'
 
+# callbacks
+[[on-window-detected]]
+if.workspace = 'M'
+run = 'layout accordion'
 
 # [[on-window-detected]]
 # check-further-callbacks = true
