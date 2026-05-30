@@ -43,13 +43,12 @@ M.adapters = {
   end,
   ollama = function()
     return require("codecompanion.adapters").extend("ollama", {
-      -- Remove or change this line: name = "qwen",
       parameters = {
         sync = true,
       },
       schema = {
         model = {
-          default = "deepseek-coder", -- This is the model that should be used
+          default = "qwen3:8b",
         },
       },
     })

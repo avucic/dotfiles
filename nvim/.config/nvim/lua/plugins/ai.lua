@@ -48,7 +48,7 @@ return {
     config = function()
       ---@type ProjectConfig
       local project = vim.g.project or {}
-      local adapter = project.ai_adapter or "copilot"
+      local adapter = project.ai_adapter or "ollama"
 
       require("codecompanion").setup {
         strategies = {
