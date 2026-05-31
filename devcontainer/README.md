@@ -245,6 +245,8 @@ services:
 
 ### Project with docker dev image
 
+Just run dev-up
+
 ```yaml
 include:
   - ${HOME}/.dotfiles/devcontainer/compose.yml
