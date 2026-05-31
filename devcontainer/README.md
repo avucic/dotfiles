@@ -32,12 +32,12 @@ and named caches at runtime.
 
 ## CLI commands
 
-| Command       | Purpose                                                                                      |
-| ------------- | -------------------------------------------------------------------------------------------- |
-| `dev-build`   | Build a dev image. Layers the toolbox Dockerfile on top of any base.                         |
-| `dev-install` | Scaffold `.devcontainer/{devcontainer.json,compose.yml}` in `$PWD`.                          |
-| `dev-up`      | Start the devcontainer for the project rooted at `$PWD` (walks up to find `.devcontainer/`). |
-| `dev-exec`    | Exec into the running devcontainer for `$PWD`.                                               |
+| Command       | Purpose                                                                                       |
+| ------------- | --------------------------------------------------------------------------------------------- |
+| `dev-build`   | Build a dev image. Layers the toolbox Dockerfile on top of any base.                          |
+| `dev-install` | Scaffold `.devcontainer/{devcontainer.json,compose.yml}` in `$PWD`.                           |
+| `dev-up`      | Start the devcontainer for the project rooted at `$PWD` (walks up to find `.devcontainer/`).  |
+| `dev-exec`    | Exec into the running devcontainer for `$PWD`.                                                |
 | `dev-down`    | Stop the devcontainer for `$PWD`. `-v` also removes project-local volumes; `--rmi` the image. |
 
 ## Quick start
@@ -149,7 +149,7 @@ services:
       - tabz-rustup:/root/.rustup
 
 volumes:
-  tabz-cargo:  { external: true }
+  tabz-cargo: { external: true }
   tabz-rustup: { external: true }
 ```
 
@@ -181,7 +181,7 @@ services:
 
 volumes:
   svc-target:
-  tabz-cargo:  { external: true }
+  tabz-cargo: { external: true }
   tabz-rustup: { external: true }
 ```
 
@@ -196,6 +196,9 @@ dev-build --from tabz-api --tag api-dev
 Edit `compose.yml`:
 
 ```yaml
+include:
+  - ${HOME}/.dotfiles/devcontainer/compose.yml
+
 services:
   dev:
     image: api-dev
@@ -213,6 +216,9 @@ volumes:
 Skip `dev-build` entirely. In `compose.yml`:
 
 ```yaml
+include:
+  - ${HOME}/.dotfiles/devcontainer/compose.yml
+
 services:
   dev:
     image: dotfiles-box
@@ -226,12 +232,38 @@ services:
 Skip `dev-build` entirely. In `compose.yml`:
 
 ```yaml
+include:
+  - ${HOME}/.dotfiles/devcontainer/compose.yml
+
 services:
   dev:
     image: base-image-dev
     volumes:
       - ..:/app
     working_dir: /app
+```
+
+### Project with docker dev image
+
+```yaml
+include:
+  - ${HOME}/.dotfiles/devcontainer/compose.yml
+
+services:
+  dev:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile.dev
+      args:
+        BASE_IMAGE: dotfiles-box
+        BIN_DATA: tests/fixtures/example.csv
+    volumes:
+      - ../../..:/app # whole repo, so .git is reachable
+    working_dir: /app
+
+volumes:
+  epl-target:
+  epl-data:
 ```
 
 ## Gotchas
