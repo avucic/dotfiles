@@ -20,9 +20,9 @@ services:
       - ${HOME}/.dotfiles/git/.gitignore:/root/.gitignore:ro
       - ${HOME}/.ssh:/root/.ssh:ro
       - ${HOME}/.supermaven:/root/.supermaven
+      - ${HOME}/.local/share/nvim:/root/.local/share/nvim
       - ${HOME}/Documents/Notes:/root/Notes
       - tabz-nvim-cache:/root/.cache/nvim
-      - tabz-nvim-data:/root/.local/share/nvim
       - tabz-nvim-state:/root/.local/state/nvim
       - tabz-zoxide:/root/.local/share/zoxide
       - tabz-znap:/root/.znap
@@ -38,7 +38,6 @@ services:
 # `dev-up` ensures they exist via `docker volume create` before bringing up.
 volumes:
   tabz-nvim-cache: { external: true }
-  tabz-nvim-data: { external: true }
   tabz-nvim-state: { external: true }
   tabz-zoxide: { external: true }
   tabz-znap: { external: true }
