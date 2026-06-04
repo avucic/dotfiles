@@ -16,6 +16,19 @@ local function openrouter_models()
 end
 
 M.adapters = {
+  anthropic = function()
+    return require("codecompanion.adapters").extend("anthropic", {
+      env = {
+        api_key = "ANTHROPIC_API_KEY",
+      },
+      schema = {
+        model = {
+          default = "claude-sonnet-4-6",
+        },
+      },
+    })
+  end,
+
   openrouter = function()
     return require("codecompanion.adapters").extend("openai_compatible", {
       env = {

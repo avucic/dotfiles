@@ -1,12 +1,22 @@
 return {
+
   "atiladefreitas/dooing",
-  config = function()
-    require("dooing").setup {
-      keymaps = {
-        toggle_window = "<leader>ott", -- Toggle global todos
-        open_project_todo = "<leader>otT", -- Toggle project-specific todos
-        show_due_notification = "<leader>otd", -- Show due items window
-      },
-    }
-  end,
+  cmd = { "Dooing", "DooingLocal", "DooingDue" },
+  keys = {
+    {
+      "<leader>ott",
+      "<cmd>Dooing<CR>",
+      desc = "Global todos",
+    },
+    {
+      "<leader>otT",
+      "<cmd>DooingLocal<CR>",
+      desc = "Project todos",
+    },
+    {
+      "<leader>otd",
+      "<cmd>DooingDue<CR>",
+      desc = "Due todos",
+    },
+  },
 }

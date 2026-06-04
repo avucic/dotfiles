@@ -48,7 +48,7 @@ return {
     config = function()
       ---@type ProjectConfig
       local project = vim.g.project or {}
-      local adapter = project.ai_adapter or "ollama"
+      local adapter = project.ai_adapter or "gemini"
 
       require("codecompanion").setup {
         strategies = {
@@ -62,6 +62,7 @@ return {
             openrouter_free = require("plugins.custom.codecompanion").adapters.openrouter_free,
             ollama = require("plugins.custom.codecompanion").adapters.ollama,
             gemini = require("plugins.custom.codecompanion").adapters.gemini,
+            anthropic = require("plugins.custom.codecompanion").adapters.anthropic,
           },
         },
         prompt_library = {
