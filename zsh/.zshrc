@@ -119,3 +119,8 @@ $IS_LINUX && ! $IS_DEVCONTAINER && [[ -f "$HOME/.zshrc.linux" ]] && source "$HOM
 [[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
 export PATH="$HOME/.devcontainers/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/vucinjo/.lmstudio/bin"
+# End of LM Studio CLI section
+

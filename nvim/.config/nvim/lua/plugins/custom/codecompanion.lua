@@ -58,10 +58,11 @@ M.adapters = {
     return require("codecompanion.adapters").extend("ollama", {
       parameters = {
         sync = true,
+        think = false,
       },
       schema = {
         model = {
-          default = "qwen3:8b",
+          default = os.getenv "OLLAMA_MODEL" or "qwen3-nothink",
         },
       },
     })

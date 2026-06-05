@@ -14,7 +14,7 @@ services:
       XDG_STATE_HOME: /root/.local/state
       XDG_CACHE_HOME: /root/.cache
     volumes:
-      - ${HOME}/.config/github-copilot:/root/.config/github-copilot:ro
+      # - ${HOME}/.config/github-copilot:/root/.config/github-copilot:ro
       - ${HOME}/.dotfiles:/root/.dotfiles
       - ${HOME}/.dotfiles/git/.gitconfig:/root/.gitconfig:ro
       - ${HOME}/.dotfiles/git/.gitignore:/root/.gitignore:ro
@@ -22,11 +22,11 @@ services:
       - ${HOME}/.supermaven:/root/.supermaven
       - ${HOME}/.local/share/nvim:/root/.local/share/nvim
       - ${HOME}/Documents/Notes:/root/Notes
-      - tabz-nvim-cache:/root/.cache/nvim
-      - tabz-nvim-data:/root/.local/share/nvim
-      - tabz-nvim-state:/root/.local/state/nvim
-      - tabz-zoxide:/root/.local/share/zoxide
-      - tabz-znap:/root/.znap
+      - nvim-cache:/root/.cache/nvim
+      - nvim-data:/root/.local/share/nvim
+      - nvim-state:/root/.local/state/nvim
+      - zoxide:/root/.local/share/zoxide
+      - znap:/root/.znap
     # Remote nvim UI server port. Dynamic host port (127.0.0.1::5555) so multiple
     # project containers can run at once without colliding. The nvim plugin
     # resolves the actual host port via `docker port <container> 5555`.
@@ -38,8 +38,8 @@ services:
 # `external: true` — volumes live outside any compose project's lifecycle.
 # `dev-up` ensures they exist via `docker volume create` before bringing up.
 volumes:
-  tabz-nvim-cache: { external: true }
-  tabz-nvim-data: { external: true }
-  tabz-nvim-state: { external: true }
-  tabz-zoxide: { external: true }
-  tabz-znap: { external: true }
+  nvim-cache:
+  nvim-data:
+  nvim-state:
+  zoxide:
+  znap:

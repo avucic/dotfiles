@@ -245,7 +245,16 @@ services:
 
 ### Project with docker dev image
 
-Just run dev-up
+Just run dev-up. Build must contain BASE_IMAGE arg
+
+Also Dockerfile.dev must contain 
+
+```Dockerfiile
+ARG BASE_IMAGE=dotfiles-box
+FROM ${BASE_IMAGE}
+```
+
+
 
 ```yaml
 include:
@@ -258,7 +267,6 @@ services:
       dockerfile: .devcontainer/Dockerfile.dev
       args:
         BASE_IMAGE: dotfiles-box
-        BIN_DATA: tests/fixtures/example.csv
     volumes:
       - ../../..:/app # whole repo, so .git is reachable
     working_dir: /app
