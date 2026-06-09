@@ -20,7 +20,6 @@ services:
       - ${HOME}/.dotfiles/git/.gitignore:/root/.gitignore:ro
       - ${HOME}/.ssh:/root/.ssh:ro
       - ${HOME}/.supermaven:/root/.supermaven
-      - ${HOME}/.local/share/nvim:/root/.local/share/nvim
       - ${HOME}/Documents/Notes:/root/Notes
       - nvim-cache:/root/.cache/nvim
       - nvim-data:/root/.local/share/nvim

@@ -247,14 +247,12 @@ services:
 
 Just run dev-up. Build must contain BASE_IMAGE arg
 
-Also Dockerfile.dev must contain 
+Also Dockerfile.dev must contain
 
 ```Dockerfiile
 ARG BASE_IMAGE=dotfiles-box
 FROM ${BASE_IMAGE}
 ```
-
-
 
 ```yaml
 include:
@@ -275,6 +273,38 @@ volumes:
   epl-target:
   epl-data:
 ```
+
+## FAQ
+
+### tree-sitter fails with `GLIBC_2.39 not found` inside the container
+
+**Root cause:** Mason installs tree-sitter-cli as a dependency of
+nvim-treesitter. Mason always fetches the latest pre-built binary, which is
+compiled against GLIBC 2.39. Bookworm (Debian 12) only ships GLIBC 2.36 —
+Trixie (Debian 13) has 2.39+.
+
+**Diagnose:** check the glibc version inside the container:
+
+```sh
+ldd --version | head -1
+# ldd (Debian GLIBC 2.36-...) 2.36  →  Bookworm, won't work
+# ldd (Debian GLIBC 2.39-...) 2.39  →  Trixie, works fine
+```
+
+**Fix:** use a Trixie-based upstream image — the toolbox Dockerfile already
+defaults to `debian:trixie-slim`, so this only bites when you pass a
+Bookworm-based image via `--from`:
+
+```sh
+# bad  — Bookworm base, GLIBC 2.36
+dev-build --from node:25-bookworm-slim --tag tabz-dashboard-dev
+
+# good — Trixie base, GLIBC 2.39
+dev-build --from node:25-trixie-slim --tag tabz-dashboard-dev
+```
+
+Other upstream images follow the same pattern: prefer `-trixie-slim` over
+`-bookworm-slim` (e.g. `ruby:3.x-trixie`, `python:3.x-slim-trixie`).
 
 ## Gotchas
 
