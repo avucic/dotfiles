@@ -1,0 +1,28 @@
+  # Catppuccin Mocha for tuxedo.
+  # Copy into ${XDG_CONFIG_HOME:-$HOME/.config}/tuxedo/themes/ and press T to select it.
+  name = Catppuccin Mocha
+  bg = #1e1e2e
+  panel = #181825
+  border = #313244
+  fg = #cdd6f4
+  dim = #6c7086
+  accent = #89b4fa
+  cursor = #45475a
+  selection = #313244
+  statusbar = #181825
+  status_fg = #a6adc8
+  mode_fg = #1e1e2e
+  mode_bg = #89b4fa
+  pri_a = #f38ba8
+  pri_b = #f9e2af
+  pri_c = #a6e3a1
+  pri_d = #89b4fa
+  pri_other = #cba6f7
+  project = #a6e3a1
+  context = #fab387
+  due = #f9e2af
+  overdue = #f38ba8
+  today = #fab387
+  done = #6c7086
+  selected = #313244
+  matched = #94e2d5

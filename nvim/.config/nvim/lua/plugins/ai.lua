@@ -1,78 +1,53 @@
 return {
-  {
-    "github/copilot.vim",
-    cmd = "Copilot",
-  },
+  -- ── codecompanion ────────────────────────────────────────────────────────────
   {
     "olimorris/codecompanion.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
+    cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
+    keys = {
+      { "<Leader>:", "<cmd>CodeCompanion<cr>", desc = "AI Prompt" },
+      { "<Leader>::", "<cmd>CodeCompanionChat<cr>", desc = "AI Chat" },
+      { "<Leader>:a", "<cmd>CodeCompanionActions<cr>", desc = "AI Actions" },
       {
-        "AstroNvim/astrocore",
-        opts = function(_, opts)
-          local maps = opts.mappings
-          maps.n["<leader>:"] = { desc = "AI" }
-
-          maps.n["<leader>:l"] = {
-            function() require("codecompanion").prompt "lsp" end,
-            desc = "Explain the LSP diagnostics for the selected code",
-          }
-
-          maps.v["<leader>:l"] = {
-            function() require("codecompanion").prompt "lsp" end,
-            desc = "Explain the LSP diagnostics for the selected code",
-          }
-
-          maps.n["<leader>::"] = {
-            "<cmd>CodeCompanionChat<cr>",
-            desc = "Chat",
-          }
-
-          maps.n["<leader>:a"] = {
-            "<cmd>CodeCompanionActions<cr>",
-            desc = "Actions",
-          }
-
-          maps.n["<leader>:"] = {
-            "<cmd>CodeCompanion<cr>",
-            desc = "Prompt",
-          }
-
-          maps.v["<leader>::"] = { ":CodeCompanion " }
+        "<Leader>:l",
+        function()
+          require("codecompanion").prompt("lsp")
         end,
+        desc = "Explain LSP diagnostics",
+      },
+      { "<Leader>::", ":CodeCompanion ", mode = "v", desc = "AI inline" },
+      {
+        "<Leader>:l",
+        function()
+          require("codecompanion").prompt("lsp")
+        end,
+        mode = "v",
+        desc = "Explain LSP diagnostics",
       },
     },
-    cmd = { "CodeCompanionChat", "CodeCompanionCmd", "CodeCompanion", "CodeCompanionActions" },
-
+    dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
     config = function()
-      ---@type ProjectConfig
-      local project = vim.g.project or {}
-      local adapter = project.ai_adapter or "gemini"
-
-      require("codecompanion").setup {
+      local adapters = require("plugins.custom.codecompanion_adapters")
+      require("codecompanion").setup({
         strategies = {
-          chat = { adapter = adapter },
-          inline = { adapter = adapter },
-          agent = { adapter = adapter },
+          chat = { adapter = (vim.g.project or {}).ai_adapter or "copilot" },
+          inline = { adapter = (vim.g.project or {}).ai_adapter or "copilot" },
+          agent = { adapter = (vim.g.project or {}).ai_adapter or "copilot" },
         },
         adapters = {
           http = {
-            openrouter_auto = require("plugins.custom.codecompanion").adapters.openrouter_auto,
-            openrouter_free = require("plugins.custom.codecompanion").adapters.openrouter_free,
-            ollama = require("plugins.custom.codecompanion").adapters.ollama,
-            gemini = require("plugins.custom.codecompanion").adapters.gemini,
-            anthropic = require("plugins.custom.codecompanion").adapters.anthropic,
+            gemini = adapters.gemini,
+            anthropic = adapters.anthropic,
+            -- githubmodels = adapters.githubmodels,
+            ollama = adapters.ollama,
+            openrouter_free = adapters.openrouter_free,
+            openrouter_auto = adapters.openrouter_auto,
           },
         },
         prompt_library = {
           ["My Commit Message"] = {
             strategy = "inline",
-            description = "Generate a commit message",
-            opts = {
-              auto_submit = true,
-              placement = "before|false",
-            },
+            description = "Generate a conventional commit message",
+            opts = { auto_submit = true, placement = "before|false" },
             prompts = {
               {
                 role = "user",
@@ -80,48 +55,52 @@ return {
                   return string.format(
                     [[You are an expert at following the Conventional Commit specification. Given the git diff listed below, please generate a commit message for me:
 
-                ` ` `diff
-                %s
-                ` ` `
+```diff
+%s
+```
 
-                When unsure about the module names to use in the commit message, you can refer to the last 20 commit messages in this repository:
+When unsure about the module names to use in the commit message, you can refer to the last 20 commit messages in this repository:
 
-                ` ` `
-                %s
-                ` ` `
-                Output only the commit message without any explanations and follow-up suggestions.
+```
+%s
+```
+Output only the commit message without any explanations and follow-up suggestions.
 
-                {List of details if necessary using bullets}
+{List of details if necessary using bullets}
 
-                Return the code only and no markdown codeblocks.
-                ]],
-                    vim.fn.system "git diff --no-ext-diff --staged",
-                    vim.fn.system 'git log --pretty=format:"%s" -n 20'
+Return the code only and no markdown codeblocks.]],
+                    vim.fn.system("git diff --no-ext-diff --staged"),
+                    vim.fn.system('git log --pretty=format:"%s" -n 20')
                   )
                 end,
-                opts = {
-                  contains_code = true,
-                },
+                opts = { contains_code = true },
               },
             },
           },
         },
-      }
+      })
     end,
   },
+
+  -- ── copilot ───────────────────────────────────────────────────────────────────
+  {
+    "github/copilot.vim",
+    cmd = "Copilot",
+  },
+
+  -- ── supermaven ────────────────────────────────────────────────────────────────
   {
     "supermaven-inc/supermaven-nvim",
     event = "InsertEnter",
     config = function()
-      require("supermaven-nvim").setup {
+      require("supermaven-nvim").setup({
         keymaps = {
           accept_suggestion = "<C-e>",
           clear_suggestion = "<C-c>",
           accept_word = "<C-f>",
         },
-        -- disable_inline_completion = false,
         disable_keymaps = false,
-      }
+      })
     end,
   },
 }

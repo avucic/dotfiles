@@ -1,0 +1,94 @@
+local Snacks = require "snacks"
+
+local function toggle_dim()
+  if vim.g.dim == nil then vim.g.dim = false end
+
+  if vim.g.dim then
+    Snacks.dim.disable()
+  else
+    Snacks.dim.enable()
+  end
+
+  vim.g.dim = not vim.g.dim
+end
+
+return {
+  {
+    "folke/snacks.nvim",
+    ---@type snacks.Config
+    keys = {
+      { "<leader>n.", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+      { "<leader>ns", function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+      {
+        "<leader>nS",
+        function()
+          Snacks.scratch {
+            name = "Global", -- shows in the window title
+            ft = "markdown",
+            filekey = {
+              cwd = false, -- 🔑 ignore current directory
+              branch = false, -- 🔑 ignore git branch
+              count = false, -- ignore vim.v.count1
+            },
+          }
+        end,
+        desc = "Select Global Scratch Buffer",
+      },
+      { "<c-w>Z", function() Snacks.zen.zen() end, desc = "Zen window" },
+      { "<c-w>z", function() Snacks.zen.zoom() end, desc = "Zoom window" },
+      { "<leader>f/", function() Snacks.picker.lines() end, desc = "Search buffer" },
+      { "<leader>z=", function() Snacks.picker.spelling() end, desc = "Spelling" },
+      { "<leader>f?", function() Snacks.picker.search_history() end, desc = "Search history" },
+      { "<leader>fw", function() Snacks.picker.grep() end, desc = "Grep" },
+      { "<leader>fW", function() Snacks.picker.grep_word() end, desc = "Grep Word" },
+      { "<leader>f<cr>", function() Snacks.picker.resume() end, desc = "Picker resume" },
+      { "<leader>f[", function() Snacks.explorer() end, desc = "File explorer" },
+
+      { "<leader>fw", function() Snacks.picker.grep_word() end, desc = "Grep Word", mode = { "v" } },
+
+      { "<leader>sb", function() Snacks.picker.buffers() end, desc = "Buffers" },
+      { "<leader>s<cr>", function() Snacks.picker.resume() end, desc = "Picker resume" },
+      { "<leader>sp", function() Snacks.picker() end, desc = "List Pickers" },
+      { "<leader>s;", function() Snacks.picker.command_history() end, desc = "List command history" },
+      { "<leader>u<tab>", toggle_dim, desc = "Dim" },
+    },
+    opts = {
+      scratch = {
+        ft = "markdown",
+      },
+      bigfile = { enabled = true },
+      words = { enabled = true },
+      scroll = { enabled = false },
+      statuscolumn = { enabled = true },
+      picker = {
+        exclude = { -- add folder names here to exclude
+          ".git",
+          "node_modules",
+        },
+        -- layout = "verti",
+        layout = "telescope",
+        win = {
+          wo = {
+            winblend = 0,
+            winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+          },
+          -- input window
+          input = {
+            keys = {
+              ["<C-l>"] = { "loclist", mode = { "n", "i" } },
+              -- ["<Esc>"] = { "close", mode = { "n" } },
+              -- ["<C-q>"] = { "close", mode = { "n", "i" } },
+              ["<C-c>"] = { "close", mode = { "n", "i" } },
+              ["g."] = { "toggle_hidden", mode = { "n" } },
+              ["gi"] = { "toggle_ignored", mode = { "n" } },
+              -- ["<c-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
+              -- ["<c-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
+
+              -- ["<c-tab>"] = { "cycle_win", mode = { "i", "n" } },
+            },
+          },
+        },
+      },
+    },
+  },
+}

@@ -68,7 +68,7 @@ local function start_nvim(container)
   local workdir = container_workdir(container) or config.workdir
   local cd = workdir and ("cd " .. workdir .. " 2>/dev/null; ") or ""
   local inner = string.format(
-    "%senv -u XDG_CONFIG_HOME REMOTE_NVIM=1 %s --headless --listen 0.0.0.0:%d",
+    '%senv -u XDG_CONFIG_HOME REMOTE_NVIM=1 %s --headless --listen 0.0.0.0:%d',
     cd,
     config.nvim_cmd,
     config.port
@@ -169,8 +169,13 @@ function M.stop()
       notify("No running nvim server in " .. container, vim.log.levels.WARN)
       return
     end
-    -- ask the remote nvim to quit (kills the server); host-side, no container tools
-    vim.fn.system { "nvim", "--server", "127.0.0.1:" .. hp, "--remote-send", "<C-\\><C-N>:qa!<CR>" }
+    local ok, chan = pcall(vim.fn.sockconnect, "tcp", "127.0.0.1:" .. hp, { rpc = true })
+    if not ok or type(chan) ~= "number" or chan <= 0 then
+      notify("Could not connect to server in " .. container, vim.log.levels.ERROR)
+      return
+    end
+    pcall(vim.rpcrequest, chan, "nvim_command", "qa!")
+    pcall(vim.fn.chanclose, chan)
     notify("Stopped nvim server in " .. container)
   end)
 end

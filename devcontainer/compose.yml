@@ -16,14 +16,18 @@ services:
     volumes:
       # - ${HOME}/.config/github-copilot:/root/.config/github-copilot:ro
       - ${HOME}/.dotfiles:/root/.dotfiles
+      - ${HOME}/.dotfiles/nvim/.config/nvim_astro:/root/.config/nvim_astro
       - ${HOME}/.dotfiles/git/.gitconfig:/root/.gitconfig:ro
       - ${HOME}/.dotfiles/git/.gitignore:/root/.gitignore:ro
       - ${HOME}/.ssh:/root/.ssh:ro
       - ${HOME}/.supermaven:/root/.supermaven
       - ${HOME}/Documents/Notes:/root/Notes
+      - ${HOME}/Documents/todo:/root/todo
+      - ${HOME}/.config/tuxedo/:/root/.config/tuxedo
       - nvim-cache:/root/.cache/nvim
       - nvim-data:/root/.local/share/nvim
       - nvim-state:/root/.local/state/nvim
+      - zoxide:/root/.local/share/zoxide
       - zoxide:/root/.local/share/zoxide
       - znap:/root/.znap
     # Remote nvim UI server port. Dynamic host port (127.0.0.1::5555) so multiple

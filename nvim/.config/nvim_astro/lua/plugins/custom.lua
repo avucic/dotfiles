@@ -1,5 +1,38 @@
 return {
   {
+    -- Generic floating terminal — use M.open({ cmd = "...", title = "..." })
+    -- Toggle behavior: calling open() again closes the window.
+    -- Keys: <C-q> (terminal mode) or q (normal mode) to force-close.
+    "avucic/float_term",
+    virtual = true,
+    dir = "./custom/float_term",
+    lazy = true,
+  },
+  {
+    -- Tuxedo in a lazydocker-style float
+    "avucic/tuxedo",
+    virtual = true,
+    dir = "./custom/float_term",
+    lazy = true,
+    dependencies = {
+      {
+        "AstroNvim/astrocore",
+        opts = function(_, opts)
+          local maps = opts.mappings
+          maps.n["<leader>ot"] = {
+            desc = "Todos",
+            function()
+              require("plugins.custom.float_term").open {
+                cmd = "tuxedo",
+                title = "Tuxedo",
+              }
+            end,
+          }
+        end,
+      },
+    },
+  },
+  {
     "avucic/window_picker",
     dir = "./custom/window_picker",
     virtual = true,

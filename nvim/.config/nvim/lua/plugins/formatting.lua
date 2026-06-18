@@ -1,66 +1,49 @@
 return {
-  "stevearc/conform.nvim",
-  opts = {
-    formatters_by_ft = {
-      lua = { "stylua" },
-      -- rust = { "rustfmt", lsp_format = "fallback" },
-      -- javascript = { "prettierd", "prettier", stop_after_first = true },
-    },
-    format_on_save = { timeout_ms = 1000, lsp_format = "fallback" },
+  -- ── conform (formatter) ───────────────────────────────────────────────────────
+  {
+    'stevearc/conform.nvim',
+    event = { 'BufReadPre', 'BufWritePre' },
+    config = function()
+      require('conform').setup({
+        formatters_by_ft = {
+          lua             = { 'stylua' },
+          javascript      = { 'prettier' },
+          typescript      = { 'prettier' },
+          javascriptreact = { 'prettier' },
+          typescriptreact = { 'prettier' },
+          json            = { 'prettier' },
+          jsonc           = { 'prettier' },
+          css             = { 'prettier' },
+          html            = { 'prettier' },
+          markdown        = { 'prettier' },
+          yaml            = { 'prettier' },
+          rust            = { 'rustfmt' },
+        },
+        format_on_save = function(_)
+          local project = vim.g.project or {}
+          if project.disable_format_on_save then return nil end
+          return { timeout_ms = 1000, lsp_format = 'fallback' }
+        end,
+      })
+    end,
+  },
+
+  -- ── nvim-lint ─────────────────────────────────────────────────────────────────
+  {
+    'mfussenegger/nvim-lint',
+    event = { 'BufReadPost', 'BufWritePost' },
+    config = function()
+      local lint = require('lint')
+      lint.linters_by_ft = {
+        ruby = { 'rubocop' },
+      }
+      lint.linters.rubocop = vim.tbl_extend('force', lint.linters.rubocop, {
+        cmd = 'bundle',
+        args = vim.list_extend({ 'exec', 'rubocop' }, lint.linters.rubocop.args or {}),
+      })
+      vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufReadPost', 'InsertLeave' }, {
+        callback = function() lint.try_lint() end,
+      })
+    end,
   },
 }
-
--- return {
---   {
---     "stevearc/conform.nvim",
---     -- optional = true,
---     config = function()
---       local util = require "conform.util"
---       require("conform").setup {
---         -- log_level = vim.log.levels.DEBUG,
---         format_on_save = function(bufnr)
---           if vim.g.disable_conform_on_save or vim.b[bufnr].disable_conform_on_save then return end
---           -- local disable_filetypes = { c = false, cpp = false }
---           return {
---             timeout_ms = 5000,
---             -- set here per filetype
---             -- lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
---             lsp_fallback = true,
---           }
---         end,
---         default_format_opts = {
---           lsp_format = "fallback",
---         },
---
---         format_after_save = {
---           lsp_format = "fallback",
---         },
---         formatters_by_ft = {
---           javascript = { "eslint" },
---           typescript = { "eslint" },
---           typescriptreact = { "eslint" },
---         },
---         formatters = {
---           biome = {
---             command = util.find_executable({
---               "node_modules/.bin/biome",
---               "biome",
---             }, "biome"),
---             args = { "format", "--stdin-file-path", "$FILENAME" },
---             stdin = true,
---             cwd = util.root_file { "biome.json", "package.json", ".git" },
---           },
---           -- eslint = {
---           --   command = util.find_executable({
---           --     "node_modules/.bin/eslint",
---           --     "eslint",
---           --   }, "eslint"),
---           --   args = { "format", "--stdin-filename", "$FILENAME" },
---           --   stdin = true,
---           --   cwd = util.root_file { "eslint.config.js", "package.json", ".git" },
---           -- },
---         },
---       }
---     end,
---   },
--- }

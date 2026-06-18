@@ -55,6 +55,19 @@ RUN ARCH=$(dpkg --print-architecture) && \
     eza --version | head -1
 
 
+# ── Tuxedo ───────────────────────────────────────────────────────────────────
+RUN ARCH=$(dpkg --print-architecture) && \
+    case "$ARCH" in \
+      amd64) TUXEDO_ARCH=x86_64-unknown-linux-gnu ;; \
+      arm64) TUXEDO_ARCH=aarch64-unknown-linux-gnu ;; \
+      *) echo "Unsupported arch: $ARCH"; exit 1 ;; \
+    esac && \
+    TUXEDO_VERSION=$(curl -fsSL https://api.github.com/repos/webstonehq/tuxedo/releases/latest \
+      | sed -n 's/.*"tag_name": *"v\([^"]*\)".*/\1/p') && \
+    curl -fsSL "https://github.com/webstonehq/tuxedo/releases/download/v${TUXEDO_VERSION}/tuxedo-v${TUXEDO_VERSION}-${TUXEDO_ARCH}.tar.gz" \
+    | tar -xz --strip-components=1 -C /usr/local/bin --wildcards "*/tuxedo" && \
+    tuxedo --version
+
 # ── Dotfiles + install ───────────────────────────────────────────────────────
 COPY --from=dotfiles . /root/.dotfiles
 
@@ -67,6 +80,9 @@ RUN --mount=type=ssh bash /root/.dotfiles/install-image.sh && \
 ENV DEVCONTAINER=true \
     ME_VAULT_DIR=/root/Notes/me \
     WORK_VAULT_DIR=/root/Notes/work \
-    ZK_NOTEBOOK_DIR=/root/Notes/me
+    ZK_NOTEBOOK_DIR=/root/Notes/me \
+    TODO_DIR=/root/todo \
+    TODO_FILE=/root/todo/todo.txt \
+    DONE_FILE=/root/todo/done.txt
 
 RUN npm install -g neovim

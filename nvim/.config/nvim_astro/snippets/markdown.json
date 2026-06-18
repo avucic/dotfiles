@@ -1,0 +1,22 @@
+{
+  "Ruby Code block": {
+    "prefix": ["rbcodeclock"],
+    "body": ["```ruby", "${1}", "```"]
+  },
+  "Go Code block": {
+    "prefix": ["gocodeclock"],
+    "body": ["```go", "${1}", "```"]
+  },
+  "Bash Code block": {
+    "prefix": ["bscodeclock"],
+    "body": ["```bash", "${1}", "```"]
+  },
+  "SQL Code block": {
+    "prefix": ["sqlcodeclock"],
+    "body": ["```sql", "${1}", "```"]
+  },
+  "Rust Code block": {
+    "prefix": ["rscodeclock"],
+    "body": ["```rust", "${1}", "```"]
+  }
+}

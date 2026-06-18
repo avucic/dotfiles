@@ -1,0 +1,11 @@
+{
+  "Print Line": {
+    "prefix": ["pl"],
+    "body": ["fmt.Println(${1:Object})"]
+  },
+
+  "Print Object": {
+    "prefix": ["pf"],
+    "body": ["fmt.Printf(\"%+v\", ${1:Object})"]
+  }
+}

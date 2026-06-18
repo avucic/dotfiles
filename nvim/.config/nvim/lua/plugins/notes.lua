@@ -1,162 +1,137 @@
-local Util = require "utils.core"
-
 return {
-  "obsidian-nvim/obsidian.nvim",
-  ft = "markdown",
-  cmd = { "Obsidian" },
-  dependencies = {
-    "nvim-telescope/telescope.nvim",
-    {
-      "AstroNvim/astrocore",
-      opts = function(_, opts)
-        local maps = opts.mappings
-        maps.n["<Leader>no"] = { "<cmd>Obsidian<cr>", desc = "Obsidian" }
-        maps.n["<Leader>nt"] = { "<cmd>Obsidian tags<cr>", desc = "Open" }
-        maps.n["<Leader>nn"] = { "<cmd>Obsidian new<cr>", desc = "Open" }
-        maps.n["<Leader>nN"] = { "<cmd>Obsidian new_from_template<cr>", desc = "New From Template" }
-        maps.n["<Leader>nf"] = { "<cmd>Obsidian search<cr>", desc = "Search" }
-        maps.n["<Leader>nd"] = { name = "Day" }
-        maps.n["<Leader>ni"] = {
-          function()
-            local dir = tostring(require("obsidian.api").resolve_workspace_dir())
-            local path = vim.fs.joinpath(dir, "01_Inbox", "Inbox.md")
-            vim.cmd("edit " .. path)
-          end,
-          desc = "Inbox",
-        }
-        maps.n["<Leader>nG"] = {
-          function()
-            local dir = require("obsidian.api").resolve_workspace_dir()
-            local path = vim.fs.joinpath(dir, "01_Inbox", "Inbox.md")
-            vim.cmd("edit " .. vim.fn.expand(path))
-          end,
-          desc = "Gtd",
-        }
-        maps.n["<Leader>nI"] = { name = "Index" }
-        maps.n["<Leader>ndt"] = { "<cmd>Obsidian today<cr>", desc = "Today" }
-        maps.n["<Leader>ndy"] = { "<cmd>Obsidian yesterday<cr>", desc = "Yesterday" }
-        maps.n["<Leader>np"] = { "<cmd>Obsidian workspace<CR>", desc = "Workspace" }
-      end,
-    },
-  },
-  -- config = function()
-  --   local client = require("obsidian.api").resolve_workspace_dir()
-  --   print(client)
-  -- end,
-  ---@module 'obsidian'
-  ---@type obsidian.config
-  opts = {
-    ui = {
-      enable = false,
-    },
-    legacy_commands = false,
-    -- note_id_func = node_id_function,
-    note_id_func = function(title)
-      -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
-      -- In this case a note with the title 'My new note' will be given an ID that looks
-      -- like '1657296016-my-new-note', and therefore the file name '1657296016-my-new-note.md'
-      local suffix = ""
-      if title ~= nil then
-        -- If title is given, transform it into valid file name.
-        suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-      else
-        -- If title is nil, just add 4 random uppercase letters to the suffix.
-        for _ = 1, 4 do
-          suffix = suffix .. string.char(math.random(65, 90))
-        end
-      end
-      return suffix
-    end,
-    link = {
-      format = "shortest",
-      style = "markdown",
-    },
-    workspaces = {
+  -- ── obsidian.nvim ─────────────────────────────────────────────────────────────
+  {
+    "obsidian-nvim/obsidian.nvim",
+    ft = { "markdown" },
+    cmd = { "Obsidian" },
+    keys = {
+      { "<Leader>no", "<cmd>Obsidian<cr>", desc = "Obsidian" },
+      { "<Leader>nt", "<cmd>Obsidian tags<cr>", desc = "Tags" },
+      { "<Leader>nn", "<cmd>Obsidian new<cr>", desc = "New note" },
+      { "<Leader>nN", "<cmd>Obsidian new_from_template<cr>", desc = "New from template" },
+      { "<Leader>nf", "<cmd>Obsidian search<cr>", desc = "Search notes" },
+      { "<Leader>np", "<cmd>Obsidian workspace<cr>", desc = "Workspace" },
+      { "<Leader>ndt", "<cmd>Obsidian today<cr>", desc = "Today" },
+      { "<Leader>ndy", "<cmd>Obsidian yesterday<cr>", desc = "Yesterday" },
       {
-        name = "work",
-        path = os.getenv("WORK_VAULT_DIR") or "~/Documents/Notes/work",
+        "<Leader>ni",
+        function()
+          local dir = tostring(require("obsidian.api").resolve_workspace_dir())
+          vim.cmd("edit " .. vim.fs.joinpath(dir, "01_Inbox", "Inbox.md"))
+        end,
+        desc = "Inbox",
       },
     },
-    completion = {
-      -- Set to false to disable completion.
-      blink = true,
-      nvim_cmp = false,
-      -- Trigger completion at 2 chars.
-      min_chars = 2,
-      -- match_case = true,
-      -- create_new = true,
-    },
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      local Util = require("utils.core")
+      require("obsidian").setup({
+        ui = { enable = false },
+        legacy_commands = false,
+        picker = { name = "snacks.picker" },
 
-    -- see below for full list of options 👇
-    -- Optional, determines how certain commands open notes. The valid options are:
-    -- 1. "current" (the default) - to always open in the current window
-    -- 2. "vsplit" - only open in a vertical split if a vsplit does not exist.
-    -- 3. "hsplit" - only open in a horizontal split if a hsplit does not exist.
-    -- 4. "vsplit_force" - always open a new vertical split if the file is not in the adjacent vsplit.
-    -- 5. "hsplit_force" - always open a new hori
-    open_notes_in = "current",
-    notes_subdir = "01_Inbox",
-    new_notes_location = "notes_subdir",
-    template = "default",
-    templates = {
-      date_format = "%Y-%m-%d-%a",
-      time_format = "%H:%M",
-      folder = "templates",
-      substitutions = {
-        year = function() return os.date("%Y", os.time()) end,
-        month = function() return os.date("%B", os.time()) end,
-        -- author = function() return os.capture("rg -N '(name = )(.*)' -or '$2' ~/.gitconfig | head -1", false) end,
-        fulldate = function() return os.date("%A %dth %B %Y", os.time()) end,
-        week = function() return os.date "W%V" end,
-      },
-      customizations = {
-        note = {
-          notes_subdir = "02_Notes",
-          -- note_id_func = node_id_function,
-        },
-        project = {
-          notes_subdir = "04_Projects",
-          -- note_id_func = node_id_function,
-        },
-      },
-    },
-    daily_notes = {
-      --   -- Optional, if you keep daily notes in a separate directory.
-      folder = "dailies",
-      --   -- Optional, if you want to change the date format for the ID of daily notes.
-      date_format = "%Y-%m-%d",
-      --   -- Optional, if you want to change the date format of the default alias of daily notes.
-      alias_format = "%B %-d, %Y",
-      --   -- Optional, default tags to add to each new daily note created.
-      default_tags = { "#daily-notes" },
-      --   -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
-      template = nil,
-    },
-    attachments = {
-      folder = "Assets/images",
-    },
-    callbacks = {
-      enter_note = function(note)
-        if note ~= nil then
-          local keymap_configs = {
-            { key = "gd", rhs = "<cmd>Obsidian follow_link<cr>", desc = "Follow link" },
-            { key = "<Leader>oh", rhs = "<cmd>Obsidian toggle_checkbox<cr>", desc = "c[H]eckbox" },
-            { key = "<Leader>oo", rhs = "<cmd>Obsidian open<CR>", desc = "[O]pen" },
-            { key = "<Leader>os", rhs = "<cmd>Obsidian quick_switch<CR>", desc = "[S]witch notes" },
-            { key = "<Leader>ob", rhs = "<cmd>Obsidian backlinks<CR>", desc = "[B]acklinks to current" },
-            { key = "<Leader>ol", rhs = "<cmd>Obsidian links<CR>", desc = "[L]inks" },
-            { key = "<Leader>ox", mode = "v", rhs = "<cmd>Obsidian extract_note<CR>", desc = "E[X]tract" },
-            { key = "<Leader>oi", rhs = "<cmd>Obsidian paste_img<CR>", desc = "[I]mg paste" },
-            { key = "<Leader>or", rhs = "<cmd>Obsidian rename<CR>", desc = "[R]ename" },
-            { key = "<Leader>oe", rhs = "<cmd>Obsidian template<CR>", desc = "Insert t[E]mplate" },
-            { key = "<Leader>ot", rhs = "<cmd>Obsidian toc<CR>", desc = "TO[C]" },
-            { key = "<Leader>oc", rhs = "<cmd>Obsidian check<CR>", desc = "Check" },
-            { key = "<Leader>of", rhs = "<cmd>Obsidian search<CR>", desc = "[F]ind" },
-          }
+        note_id_func = function(title)
+          local suffix = ""
+          if title then
+            suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+          else
+            for _ = 1, 4 do
+              suffix = suffix .. string.char(math.random(65, 90))
+            end
+          end
+          return suffix
+        end,
 
-          Util.setup_keymaps_and_help_popup(note.bufnr, keymap_configs, "Keymaps")
-        end
-      end,
-    },
+        link = { format = "shortest", style = "markdown" },
+        workspaces = {
+          { name = "work", path = os.getenv("WORK_VAULT_DIR") or "~/Documents/Notes/work" },
+        },
+
+        open_notes_in = "current",
+        notes_subdir = "01_Inbox",
+        new_notes_location = "notes_subdir",
+        template = "default",
+
+        templates = {
+          date_format = "%Y-%m-%d-%a",
+          time_format = "%H:%M",
+          folder = "templates",
+          substitutions = {
+            year = function()
+              return os.date("%Y", os.time())
+            end,
+            month = function()
+              return os.date("%B", os.time())
+            end,
+            fulldate = function()
+              return os.date("%A %dth %B %Y", os.time())
+            end,
+            week = function()
+              return os.date("W%V")
+            end,
+          },
+          customizations = {
+            note = { notes_subdir = "02_Notes" },
+            project = { notes_subdir = "04_Projects" },
+          },
+        },
+
+        daily_notes = {
+          folder = "dailies",
+          date_format = "%Y-%m-%d",
+          alias_format = "%B %-d, %Y",
+          default_tags = { "#daily-notes" },
+        },
+
+        attachments = { folder = "Assets/images" },
+
+        callbacks = {
+          enter_note = function(note)
+            if not note then
+              return
+            end
+            Util.setup_keymaps_and_help_popup(note.bufnr, {
+              { key = "gd", rhs = "<cmd>Obsidian follow_link<cr>", desc = "Follow link" },
+              { key = "<Leader>oh", rhs = "<cmd>Obsidian toggle_checkbox<cr>", desc = "Toggle checkbox" },
+              { key = "<Leader>oo", rhs = "<cmd>Obsidian open<cr>", desc = "Open in Obsidian" },
+              { key = "<Leader>os", rhs = "<cmd>Obsidian quick_switch<cr>", desc = "Switch notes" },
+              { key = "<Leader>ob", rhs = "<cmd>Obsidian backlinks<cr>", desc = "Backlinks" },
+              { key = "<Leader>ol", rhs = "<cmd>Obsidian links<cr>", desc = "Links" },
+              { key = "<Leader>ox", rhs = "<cmd>Obsidian extract_note<cr>", desc = "Extract", mode = "v" },
+              { key = "<Leader>oi", rhs = "<cmd>Obsidian paste_img<cr>", desc = "Paste image" },
+              { key = "<Leader>or", rhs = "<cmd>Obsidian rename<cr>", desc = "Rename" },
+              { key = "<Leader>oe", rhs = "<cmd>Obsidian template<cr>", desc = "Insert template" },
+              { key = "<Leader>oT", rhs = "<cmd>Obsidian toc<cr>", desc = "TOC" },
+              { key = "<Leader>of", rhs = "<cmd>Obsidian search<cr>", desc = "Find" },
+            }, "Obsidian keymaps")
+          end,
+        },
+      })
+    end,
+  },
+
+  -- ── zk-nvim ───────────────────────────────────────────────────────────────────
+  {
+    "zk-org/zk-nvim",
+    cmd = { "ZkNotes", "ZkTags", "ZkNew", "ZkMatch" },
+    config = function()
+      require("zk").setup({
+        picker = "snacks",
+        lsp = { config = { cmd = { "zk", "lsp" } } },
+      })
+    end,
+  },
+
+  -- ── render-markdown ───────────────────────────────────────────────────────────
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown", "codecompanion" },
+    config = function()
+      require("render-markdown").setup({
+        file_types = { "markdown", "codecompanion" },
+        render_modes = { "n", "c" },
+        code = { sign = false },
+      })
+    end,
   },
 }
