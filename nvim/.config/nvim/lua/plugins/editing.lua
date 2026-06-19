@@ -5,12 +5,16 @@ return {
     lazy = false,
     config = function()
       vim.g.tmux_navigator_no_mappings = 1
-      local map = function(lhs, rhs) vim.keymap.set({ 'n', 'x', 'i' }, lhs, rhs, { silent = true }) end
-      map('<C-h>', '<cmd>TmuxNavigateLeft<cr>')
-      map('<C-j>', '<cmd>TmuxNavigateDown<cr>')
-      map('<C-k>', '<cmd>TmuxNavigateUp<cr>')
-      map('<C-l>', '<cmd>TmuxNavigateRight<cr>')
-      map('<C-\\>', '<cmd>TmuxNavigatePrevious<cr>')
+      local in_tmux = os.getenv('TMUX') ~= nil
+      local map = function(lhs, rhs_tmux, rhs_nvim)
+        local rhs = in_tmux and rhs_tmux or rhs_nvim
+        vim.keymap.set({ 'n', 'x', 'i' }, lhs, rhs, { silent = true })
+      end
+      map('<C-h>', '<cmd>TmuxNavigateLeft<cr>',     '<C-w>h')
+      map('<C-j>', '<cmd>TmuxNavigateDown<cr>',     '<C-w>j')
+      map('<C-k>', '<cmd>TmuxNavigateUp<cr>',       '<C-w>k')
+      map('<C-l>', '<cmd>TmuxNavigateRight<cr>',    '<C-w>l')
+      map('<C-\\>', '<cmd>TmuxNavigatePrevious<cr>', '<C-w>p')
     end,
   },
 

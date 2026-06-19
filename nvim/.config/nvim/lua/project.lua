@@ -61,18 +61,28 @@ local function apply_lsp(project)
 end
 
 local function mason_install(tools)
+  -- mason is cmd-lazy; require it first so lazy loads it before the registry
+  pcall(require, "mason")
   local ok, registry = pcall(require, "mason-registry")
   if not ok then
+    vim.notify("[project] mason-registry not available", vim.log.levels.WARN)
     return
   end
-  registry.refresh(function()
+
+  local function do_install()
     for _, name in ipairs(tools) do
       local pkg_ok, pkg = pcall(registry.get_package, name)
-      if pkg_ok and not pkg:is_installed() then
+      if not pkg_ok then
+        vim.notify("[project] mason: unknown package '" .. name .. "'", vim.log.levels.WARN)
+      elseif not pkg:is_installed() then
         pkg:install()
       end
     end
-  end)
+  end
+
+  -- refresh callback is skipped when registry is already fresh; call directly too
+  registry.refresh(do_install)
+  do_install()
 end
 
 local function apply_mason(project)
