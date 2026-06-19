@@ -151,9 +151,13 @@ return {
       vim.api.nvim_create_user_command("NoteSync", sync_notes, { desc = "Sync notes to git" })
       vim.keymap.set("n", "<Leader>nS", sync_notes, { desc = "Sync notes" })
 
-      vim.api.nvim_create_autocmd("FocusGained", {
-        callback = sync_notes,
-      })
+      local function pull_notes()
+        local notes_dir = os.getenv("NOTES_DIR") or vim.fn.expand("~/Documents/Notes")
+        vim.fn.jobstart({ "git", "-C", notes_dir, "pull", "--rebase" })
+      end
+
+      vim.api.nvim_create_autocmd("VimEnter", { callback = pull_notes })
+      vim.api.nvim_create_autocmd("FocusGained", { callback = sync_notes })
     end,
   },
 
