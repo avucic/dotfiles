@@ -58,7 +58,7 @@ return {
       -- vim.lsp.enable() doesn't reliably trigger auto-start in nvim 0.12.2.
       -- Use installed servers dynamically so any MasonInstall'd server is picked up.
       -- Formatters that mason-lspconfig incorrectly maps as LSP servers.
-      local not_lsp = { stylua = true }
+      local not_lsp = { stylua = true, cssls = true, gopls = true, herb_ls = true, standardrb = true, tailwindcss = true, taplo = true, zk = true }
       local missing = {}
       for _, server in ipairs(require('mason-lspconfig').get_installed_servers()) do
         if not_lsp[server] then goto continue end
