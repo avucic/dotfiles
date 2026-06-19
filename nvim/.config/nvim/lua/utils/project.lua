@@ -18,9 +18,11 @@ function M.root() return root() end
 function M.has_eslint() return exists('eslint.config.js') end
 
 function M.find_tsconfig()
+  local name = vim.api.nvim_buf_get_name(0)
+  if name == "" then return nil end
   local results = vim.fs.find({ 'tsconfig.app.json', 'tsconfig.json' }, {
     upward = true,
-    path   = vim.api.nvim_buf_get_name(0),
+    path   = name,
   })
   return results[1]
 end
@@ -42,9 +44,11 @@ function M.workspace_root()
 end
 
 function M.find_eslint_config()
+  local name = vim.api.nvim_buf_get_name(0)
+  if name == "" then return nil end
   local result = vim.fs.find({
     'eslint.config.js', '.eslintrc.js', '.eslintrc.cjs', '.eslintrc.json',
-  }, { upward = true, path = vim.api.nvim_buf_get_name(0) })
+  }, { upward = true, path = name })
   return result[1]
 end
 
