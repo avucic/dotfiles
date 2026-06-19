@@ -8,7 +8,6 @@ return {
   end,
   settings = {
     workingDirectories = { mode = 'auto' },
-    experimental = { useFlatConfig = true },
   },
   on_attach = function(client, bufnr)
     vim.api.nvim_create_autocmd('BufWritePre', {
