@@ -51,7 +51,7 @@ return {
     dependencies = { 'mason-org/mason.nvim' },
     config = function()
       require('mason-lspconfig').setup({
-        ensure_installed = { 'lua_ls' },
+        ensure_installed = { 'lua_ls', 'jsonls', 'yamlls' },
         automatic_enable = false,
       })
 
