@@ -167,6 +167,10 @@ if.app-id = 'com.AvivINC.Tab-for-Google-Translate'
 run = 'layout floating'
 
 [[on-window-detected]]
+if.app-id = "com.apple.finder"
+run = ["layout floating"]
+
+[[on-window-detected]]
 if.app-id = 'com.philandro.anydesk'
 run = "move-node-to-workspace O"
 

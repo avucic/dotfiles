@@ -13,14 +13,6 @@ return {
       { "<Leader>np", "<cmd>Obsidian workspace<cr>", desc = "Workspace" },
       { "<Leader>ndt", "<cmd>Obsidian today<cr>", desc = "Today" },
       { "<Leader>ndy", "<cmd>Obsidian yesterday<cr>", desc = "Yesterday" },
-      {
-        "<Leader>ni",
-        function()
-          local dir = tostring(require("obsidian.api").resolve_workspace_dir())
-          vim.cmd("edit " .. vim.fs.joinpath(dir, "01_Inbox", "Inbox.md"))
-        end,
-        desc = "Inbox",
-      },
     },
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
@@ -43,49 +35,58 @@ return {
         end,
 
         link = { format = "shortest", style = "markdown" },
-        workspaces = {
-          { name = "work", path = os.getenv("WORK_VAULT_DIR") or "~/Documents/Notes/work" },
-        },
+        workspaces = (function()
+          local base = vim.fn.expand(os.getenv("NOTES_DIR") or "~/Documents/Notes")
+          return {
+            { name = "work", path = base .. "/work" },
+            { name = "me",   path = base .. "/me" },
+          }
+        end)(),
 
         open_notes_in = "current",
-        notes_subdir = "01_Inbox",
+        notes_subdir = "notes",
         new_notes_location = "notes_subdir",
-        template = "default",
 
         templates = {
-          date_format = "%Y-%m-%d-%a",
+          date_format = "%Y-%m-%d",
           time_format = "%H:%M",
           folder = "templates",
-          substitutions = {
-            year = function()
-              return os.date("%Y", os.time())
-            end,
-            month = function()
-              return os.date("%B", os.time())
-            end,
-            fulldate = function()
-              return os.date("%A %dth %B %Y", os.time())
-            end,
-            week = function()
-              return os.date("W%V")
-            end,
-          },
-          customizations = {
-            note = { notes_subdir = "02_Notes" },
-            project = { notes_subdir = "04_Projects" },
-          },
         },
 
         daily_notes = {
-          folder = "dailies",
+          folder = "daily",
           date_format = "%Y-%m-%d",
           alias_format = "%B %-d, %Y",
-          default_tags = { "#daily-notes" },
         },
 
-        attachments = { folder = "Assets/images" },
+        attachments = { folder = "assets" },
 
         callbacks = {
+          post_write_note = function(note)
+            local vault = tostring(require("obsidian.api").resolve_workspace_dir())
+            vim.fn.jobstart({
+              "git",
+              "-C",
+              vault,
+              "add",
+              "-A",
+            }, {
+              on_exit = function()
+                vim.fn.jobstart({
+                  "git",
+                  "-C",
+                  vault,
+                  "commit",
+                  "-m",
+                  "sync: " .. os.date("%Y-%m-%d %H:%M"),
+                }, {
+                  on_exit = function()
+                    vim.fn.jobstart({ "git", "-C", vault, "push" })
+                  end,
+                })
+              end,
+            })
+          end,
           enter_note = function(note)
             if not note then
               return
@@ -106,6 +107,52 @@ return {
             }, "Obsidian keymaps")
           end,
         },
+      })
+    end,
+  },
+
+  -- ── notes sync ───────────────────────────────────────────────────────────────
+  {
+    dir = "~",
+    lazy = false,
+    config = function()
+      local function sync_notes()
+        local notes_dir = os.getenv("NOTES_DIR") or vim.fn.expand("~/Documents/Notes")
+        -- pull first
+        vim.fn.jobstart({ "git", "-C", notes_dir, "pull", "--rebase" }, {
+          on_exit = function()
+            -- then push local changes if any
+            vim.fn.jobstart({ "git", "-C", notes_dir, "status", "--porcelain" }, {
+              stdout_buffered = true,
+              on_stdout = function(_, data)
+                local output = table.concat(data or {}, "")
+                if output ~= "" then
+                  vim.notify("Syncing notes...", vim.log.levels.INFO)
+                  vim.fn.jobstart({ "git", "-C", notes_dir, "add", "-A" }, {
+                    on_exit = function()
+                      vim.fn.jobstart({ "git", "-C", notes_dir, "commit", "-m", "sync: " .. os.date("%Y-%m-%d %H:%M") }, {
+                        on_exit = function()
+                          vim.fn.jobstart({ "git", "-C", notes_dir, "push" }, {
+                            on_exit = function()
+                              vim.notify("Notes synced", vim.log.levels.INFO)
+                            end,
+                          })
+                        end,
+                      })
+                    end,
+                  })
+                end
+              end,
+            })
+          end,
+        })
+      end
+
+      vim.api.nvim_create_user_command("NoteSync", sync_notes, { desc = "Sync notes to git" })
+      vim.keymap.set("n", "<Leader>nS", sync_notes, { desc = "Sync notes" })
+
+      vim.api.nvim_create_autocmd("FocusGained", {
+        callback = sync_notes,
       })
     end,
   },

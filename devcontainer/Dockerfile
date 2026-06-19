@@ -75,14 +75,3 @@ RUN mkdir -p /root/.ssh && ssh-keyscan github.com gitlab.com >> /root/.ssh/known
 
 RUN --mount=type=ssh bash /root/.dotfiles/install-image.sh && \
     rm -rf /root/.ssh/id_*
-
-
-ENV DEVCONTAINER=true \
-    ME_VAULT_DIR=/root/Notes/me \
-    WORK_VAULT_DIR=/root/Notes/work \
-    ZK_NOTEBOOK_DIR=/root/Notes/me \
-    TODO_DIR=/root/todo \
-    TODO_FILE=/root/todo/todo.txt \
-    DONE_FILE=/root/todo/done.txt
-
-RUN npm install -g neovim

@@ -238,6 +238,7 @@ return {
           { "<Leader>b", group = "Buffers", icon = "󰓩" },
           { "<Leader>d", group = "Debug", icon = "󰃤" },
           { "<Leader>c", group = "Container/Remote", icon = "󰡨" },
+          { "<Leader>rc", group = "DevContainer", icon = "󰡨" },
           { "<Leader>e", group = "Explorer", icon = "󰙅" },
           { "<Leader>f", group = "Files", icon = "󰈔" },
           { "<Leader>g", group = "Git", icon = "󰊢" },
@@ -581,6 +582,7 @@ return {
   {
     "stevearc/aerial.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = "BufReadPost",
     keys = {
       { "<Leader>os", "<cmd>AerialToggle<cr>", desc = "Symbols outline" },
     },
@@ -591,8 +593,16 @@ return {
           vim.keymap.set("n", "}", "<cmd>AerialNext<cr>", { buffer = bufnr, desc = "Next symbol" })
         end,
         layout = { max_width = { 40, 0.2 }, min_width = 25 },
-        attach_mode = "window",
+        attach_mode = "global",
+
+        open_automatic = function(bufnr)
+          return vim.api.nvim_buf_line_count(bufnr) > 100
+        end,
       })
+      -- Handle the buffer that triggered the load
+      if vim.api.nvim_buf_line_count(0) > 100 then
+        vim.defer_fn(function() vim.cmd("AerialOpen!") end, 200)
+      end
     end,
   },
 }

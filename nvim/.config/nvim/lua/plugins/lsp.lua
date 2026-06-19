@@ -51,7 +51,7 @@ return {
     dependencies = { 'mason-org/mason.nvim' },
     config = function()
       require('mason-lspconfig').setup({
-        ensure_installed = { 'lua_ls', 'ruby_lsp', 'ts_ls', 'eslint' },
+        ensure_installed = { 'lua_ls' },
         automatic_enable = false,
       })
 
@@ -87,11 +87,12 @@ return {
   -- ── Non-LSP tools (formatters, etc.) ─────────────────────────────────────────
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    event        = "VimEnter",
     dependencies = { "mason-org/mason.nvim" },
     opts = {
-      ensure_installed = { "stylua", "tree-sitter-cli", "prettier" },
+      ensure_installed = { "stylua", "tree-sitter-cli" },
       auto_update = false,
-      run_on_start = false,
+      run_on_start = true,
     },
   },
 

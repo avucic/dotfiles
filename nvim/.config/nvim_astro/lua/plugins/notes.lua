@@ -74,7 +74,11 @@ return {
     workspaces = {
       {
         name = "work",
-        path = os.getenv("WORK_VAULT_DIR") or "~/Documents/Notes/work",
+        path = os.getenv "WORK_VAULT_DIR" or "~/Documents/Notes/work",
+      },
+      {
+        name = "me",
+        path = os.getenv "WORK_VAULT_DIR" or "~/Documents/Notes/me",
       },
     },
     completion = {

@@ -7,6 +7,7 @@ return {
     keys  = {
       { '<Leader>e',  '<cmd>Oil<cr>',                                              desc = 'Explorer (oil)' },
       { '<Leader>fe', '<cmd>Oil<cr>',                                              desc = 'Explorer (oil)' },
+      { '<Leader>fE', function() require('oil').open(vim.uv.cwd()) end,                    desc = 'Explorer cwd (oil)' },
       { '-',          function() require('oil').open() end,                         desc = 'Oil parent dir' },
       { '_',          function() require('oil').open(vim.uv.cwd()) end,             desc = 'Oil cwd' },
     },

@@ -90,6 +90,17 @@ return {
           merge_tool   = { layout = 'diff3_horizontal', disable_diagnostics = true },
           file_history = { layout = 'diff2_horizontal' },
         },
+        keymaps = {
+          view = {
+            { 'n', 'q', '<cmd>DiffviewClose<cr>', { desc = 'Close diffview' } },
+          },
+          file_panel = {
+            { 'n', 'q', '<cmd>DiffviewClose<cr>', { desc = 'Close diffview' } },
+          },
+          file_history_panel = {
+            { 'n', 'q', '<cmd>DiffviewClose<cr>', { desc = 'Close diffview' } },
+          },
+        },
       })
     end,
   },

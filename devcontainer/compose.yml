@@ -13,6 +13,10 @@ services:
       XDG_DATA_HOME: /root/.local/share
       XDG_STATE_HOME: /root/.local/state
       XDG_CACHE_HOME: /root/.cache
+      NOTES_DIR: /root/Notes
+      TODO_DIR: /root/todo
+      TODO_FILE: /root/todo/todo.txt
+      DONE_FILE: /root/todo/done.txt
     volumes:
       # - ${HOME}/.config/github-copilot:/root/.config/github-copilot:ro
       - ${HOME}/.dotfiles:/root/.dotfiles

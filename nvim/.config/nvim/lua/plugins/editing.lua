@@ -33,6 +33,7 @@ return {
   {
     'folke/flash.nvim',
     keys = {
+      { 's',  function() require('flash').jump() end,       mode = { 'n', 'x', 'o' }, desc = 'Flash' },
       { 'gV', function() require('flash').jump() end,       mode = { 'n', 'x', 'o' }, desc = 'Flash' },
       { 'gR', function() require('flash').treesitter() end, mode = { 'n', 'x', 'o' }, desc = 'Flash Treesitter' },
       { 'r',  function() require('flash').remote() end,     mode = 'o',               desc = 'Remote Flash' },
@@ -109,6 +110,28 @@ return {
     end,
   },
 
+  -- ── nvim-toggler ──────────────────────────────────────────────────────────────
+  {
+    'nguyenvukhang/nvim-toggler',
+    keys = {
+      { '<Leader>i',  function() require('nvim-toggler').toggle() end, desc = 'Toggle word' },
+      { '<Leader>xt', function() require('nvim-toggler').toggle() end, desc = 'Toggle word' },
+    },
+    opts = {
+      inverses = {
+        ['true']     = 'false',
+        ['yes']      = 'no',
+        ['on']       = 'off',
+        ['if']       = 'unless',
+        ['required'] = 'optional',
+        ['after']    = 'before',
+        ['build']    = 'create',
+        ['key']      = 'value',
+      },
+      remove_default_keybinds = true,
+    },
+  },
+
   -- ── align.nvim ────────────────────────────────────────────────────────────────
   {
     'Vonr/align.nvim',
@@ -132,6 +155,7 @@ return {
       map('n', 'P',  '<Plug>(YankyPutBefore)')
       map('n', ']p', '<Plug>(YankyCycleForward)')
       map('n', '[p', '<Plug>(YankyCycleBackward)')
+      map({ 'n', 'v' }, '<Leader>yy', '<cmd>lua Snacks.picker.yanky()<cr>')
     end,
   },
 

@@ -29,9 +29,41 @@ return {
       local adapters = require("plugins.custom.codecompanion_adapters")
       require("codecompanion").setup({
         strategies = {
-          chat = { adapter = (vim.g.project or {}).ai_adapter or "copilot" },
-          inline = { adapter = (vim.g.project or {}).ai_adapter or "copilot" },
-          agent = { adapter = (vim.g.project or {}).ai_adapter or "copilot" },
+          chat = {
+            adapter = (vim.g.project or {}).ai_adapter or "copilot",
+            slash_commands = {
+              ["file"] = {
+                opts = { provider = "snacks" },
+              },
+              ["buffer"] = {
+                opts = { provider = "snacks" },
+              },
+            },
+          },
+          inline = {
+            adapter = (vim.g.project or {}).ai_adapter or "copilot",
+            slash_commands = {
+              ["file"] = {
+                opts = { provider = "snacks" },
+              },
+              ["buffer"] = {
+                opts = { provider = "snacks" },
+              },
+            },
+          },
+
+          agent = {
+            adapter = (vim.g.project or {}).ai_adapter or "copilot",
+
+            slash_commands = {
+              ["file"] = {
+                opts = { provider = "snacks" },
+              },
+              ["buffer"] = {
+                opts = { provider = "snacks" },
+              },
+            },
+          },
         },
         adapters = {
           http = {
