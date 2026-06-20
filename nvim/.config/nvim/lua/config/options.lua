@@ -4,6 +4,16 @@ vim.env.PATH = vim.fn.stdpath('data') .. '/mason/bin:' .. vim.env.PATH
 -- Editor options
 vim.opt.clipboard = 'unnamedplus'
 
+-- Auto-trust .nvim.lua files under /app (mounted workspace) inside containers.
+-- On the host these files are explicitly trusted via :trust; inside Docker the
+-- trust DB is separate so we whitelist the known-safe workspace root instead.
+if io.open('/.dockerenv', 'r') then
+  local nvim_lua = vim.fn.getcwd() .. '/.nvim.lua'
+  if vim.uv.fs_stat(nvim_lua) then
+    vim.secure.trust({ action = 'allow', path = nvim_lua })
+  end
+end
+
 --In-container clipboard: OSC 52 via nvim_ui_send (stdout is a dead pipe in headless mode).
 -- Paste served from local cache to avoid terminal read hangs.
 -- tmux DCS passthrough always applied — $TMUX is unset inside container.

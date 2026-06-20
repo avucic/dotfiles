@@ -20,6 +20,8 @@
 Create a `.nvim.lua` file in any project root. Neovim loads it automatically via `exrc`.
 LSP completions and type hints work inside `.nvim.lua` for any project that has one (lazydev activates automatically).
 
+Optionally, create `.nvim.devcontainer.lua` alongside it — loaded only inside Docker containers or remote-ui. Use the same `require('project').setup({})` API; it merges with `.nvim.lua`.
+
 ```lua
 -- .nvim.lua
 require('project').setup({
@@ -64,11 +66,8 @@ require('project').setup({
     },
   },
 
-  -- Mason tools to auto-install on host
+  -- Mason tools to auto-install
   mason_tools = { 'prettierd', 'eslint-lsp' },
-
-  -- Mason tools to auto-install inside devcontainer/remote (skipped on host)
-  container_tools = { 'eslint-lsp' },
 })
 ```
 
@@ -92,4 +91,3 @@ Use `lsp.enable` only for servers **without** a mason-lspconfig mapping (e.g. `e
 | `lsp.disable_formatting` | `project` → LspAttach | VimEnter |
 | `lsp.servers` | `project` → `vim.lsp.config()` | VimEnter |
 | `mason_tools` | `project` → mason-registry | VimEnter |
-| `container_tools` | `project` → mason-registry (in container only) | VimEnter |

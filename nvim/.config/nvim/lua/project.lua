@@ -36,8 +36,7 @@
 ---@field formatters?             table<string,string[]> Override conform formatters_by_ft
 ---@field linters?                table<string,string[]> Override nvim-lint linters_by_ft
 ---@field lsp?                    ProjectLspConfig
----@field mason_tools?            string[]               Mason tools to install on host (skipped in container/remote)
----@field container_tools?        string[]               Mason tools to install in devcontainer/remote (skipped on host)
+---@field mason_tools?            string[]               Mason tools to auto-install via Mason
 ---@field disable_formatters?     string[]               Formatter names to remove from all filetypes
 ---@field custom_other_mappings?  (string|table)[]       Extra other.nvim file mappings (preset name or mapping table)
 
@@ -114,21 +113,28 @@ local function mason_install(tools)
     return
   end
 
-  vim.schedule(function()
+  local function install_all()
     for _, name in ipairs(tools) do
       local pkg_ok, pkg = pcall(registry.get_package, name)
       if not pkg_ok then
         vim.notify("[project] mason: unknown package '" .. name .. "'", vim.log.levels.WARN)
       elseif not pkg:is_installed() then
+        vim.notify("[project] mason: installing " .. name, vim.log.levels.INFO)
         pkg:install()
       end
     end
+  end
+
+  registry.refresh(function(success)
+    if not success then
+      -- registry already cached — proceed anyway
+    end
+    vim.schedule(install_all)
   end)
 end
 
 local function apply_mason(project)
-  local in_remote = vim.env.DEVCONTAINER ~= nil or vim.env.REMOTE_CONTAINERS ~= nil or vim.env.REMOTE_NVIM ~= nil
-  local tools = in_remote and (project.container_tools or {}) or (project.mason_tools or {})
+  local tools = project.mason_tools or {}
   if #tools == 0 then return end
   mason_install(tools)
 end

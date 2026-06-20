@@ -48,9 +48,19 @@ require('plugins.custom.open_in_finder').setup()
 
 -- Apply project config after exrc (.nvim.lua) has run.
 -- exrc fires after init.lua completes, so VimEnter is the earliest safe point.
+-- In container/remote-ui, also load .nvim.devcontainer.lua (if present) so it
+-- can call require('project').setup({}) to extend the host config before apply().
 vim.api.nvim_create_autocmd('VimEnter', {
   once     = true,
   callback = function()
+    local in_container = io.open('/.dockerenv', 'r') ~= nil or vim.env.REMOTE_NVIM ~= nil
+    if in_container then
+      local f = vim.fn.getcwd() .. '/.nvim.devcontainer.lua'
+      if vim.uv.fs_stat(f) then
+        vim.secure.trust({ action = 'allow', path = f })
+        dofile(f)
+      end
+    end
     vim.schedule(function() require('project').apply() end)
   end,
 })
