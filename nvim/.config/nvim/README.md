@@ -34,7 +34,10 @@ require('project').setup({
 
   -- Override formatters per filetype
   formatters = {
-    typescript = { 'prettierd' },
+    javascript      = { 'prettierd' },
+    typescript      = { 'prettierd' },
+    javascriptreact = { 'prettierd' },
+    typescriptreact = { 'prettierd' },
   },
 
   -- Override linters per filetype
@@ -42,12 +45,18 @@ require('project').setup({
     javascript = { 'eslint_d' },
   },
 
-  -- LSP tweaks
   lsp = {
-    -- Strip formatting capability from these servers (so conform is used instead)
-    disable_formatting = { 'ts_ls' },
+    -- Enable servers that automatic_enable doesn't cover (no mason-lspconfig mapping)
+    -- e.g. eslint: Mason package is 'eslint-lsp' but mason-lspconfig has no entry for it
+    enable = { 'eslint' },
 
-    -- Per-server settings, merged via vim.lsp.config()
+    -- Disable globally-started servers for this project
+    disable = { 'ts_ls' },
+
+    -- Keep server running but strip formatting capability
+    disable_formatting = { 'vtsls', 'eslint' },
+
+    -- Per-server settings merged via vim.lsp.config()
     servers = {
       ts_ls = {
         settings = { typescript = { inlayHints = { enabled = 'all' } } },
@@ -55,13 +64,19 @@ require('project').setup({
     },
   },
 
-  -- Extra Mason tools to auto-install when opening this project
+  -- Mason tools to auto-install on host
   mason_tools = { 'prettierd', 'eslint-lsp' },
 
-  -- Extra LSP servers to enable (must have a built-in or lsp/<name>.lua config)
-  lsp_servers = { 'eslint' },
+  -- Mason tools to auto-install inside devcontainer/remote (skipped on host)
+  container_tools = { 'eslint-lsp' },
 })
 ```
+
+### LSP — how servers start
+
+All Mason-installed servers with a mason-lspconfig mapping start automatically (`automatic_enable = true`). Their `root_dir` scopes when they actually attach — e.g. `ts_ls` only attaches if a `tsconfig.json` or `package.json` is found.
+
+Use `lsp.enable` only for servers **without** a mason-lspconfig mapping (e.g. `eslint` — Mason package `eslint-lsp` has no mason-lspconfig entry).
 
 ### How it works
 
@@ -70,9 +85,11 @@ require('project').setup({
 | `ai_adapter` | `plugins/ai.lua` | on CodeCompanion load |
 | `git_browse_main_branch` | `config/keymaps.lua` | on keymap trigger |
 | `disable_format_on_save` | `plugins/formatting.lua` | on each BufWritePre |
-| `lsp.disable_formatting` | `config/autocmds.lua` | on each LspAttach |
-| `lsp.servers` | `project` → `vim.lsp.config()` | VimEnter |
-| `lsp_servers` | `project` → `vim.lsp.enable()` | VimEnter |
-| `mason_tools` | `project` → mason-tool-installer | VimEnter |
 | `formatters` | `project` → conform | VimEnter or LazyLoad |
 | `linters` | `project` → nvim-lint | VimEnter or LazyLoad |
+| `lsp.enable` | `project` → FileType autocmd + `vim.lsp.start()` | VimEnter |
+| `lsp.disable` | `project` → `client:stop()` + LspAttach guard | VimEnter |
+| `lsp.disable_formatting` | `project` → LspAttach | VimEnter |
+| `lsp.servers` | `project` → `vim.lsp.config()` | VimEnter |
+| `mason_tools` | `project` → mason-registry | VimEnter |
+| `container_tools` | `project` → mason-registry (in container only) | VimEnter |

@@ -2,7 +2,7 @@ local M = {}
 
 local function root()
   return vim.fs.root(0, {
-    'eslint.config.js',
+    'eslint.config.js', 'eslint.config.mjs', 'eslint.config.cjs',
     'package.json',
     'pnpm-workspace.yaml',
     '.git',
@@ -15,7 +15,9 @@ local function exists(file)
 end
 
 function M.root() return root() end
-function M.has_eslint() return exists('eslint.config.js') end
+function M.has_eslint()
+  return exists('eslint.config.js') or exists('eslint.config.mjs') or exists('eslint.config.cjs')
+end
 
 function M.find_tsconfig()
   local name = vim.api.nvim_buf_get_name(0)
@@ -47,7 +49,8 @@ function M.find_eslint_config()
   local name = vim.api.nvim_buf_get_name(0)
   if name == "" then return nil end
   local result = vim.fs.find({
-    'eslint.config.js', '.eslintrc.js', '.eslintrc.cjs', '.eslintrc.json',
+    'eslint.config.js', 'eslint.config.mjs', 'eslint.config.cjs',
+    '.eslintrc.js', '.eslintrc.cjs', '.eslintrc.json',
   }, { upward = true, path = name })
   return result[1]
 end

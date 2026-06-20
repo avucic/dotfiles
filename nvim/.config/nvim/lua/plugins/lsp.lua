@@ -49,39 +49,10 @@ return {
     'mason-org/mason-lspconfig.nvim',
     lazy         = false,
     dependencies = { 'mason-org/mason.nvim' },
-    config = function()
-      require('mason-lspconfig').setup({
-        ensure_installed = { 'lua_ls', 'jsonls', 'yamlls' },
-        automatic_enable = false,
-      })
-
-      -- vim.lsp.enable() doesn't reliably trigger auto-start in nvim 0.12.2.
-      -- Use installed servers dynamically so any MasonInstall'd server is picked up.
-      -- Formatters that mason-lspconfig incorrectly maps as LSP servers.
-      local not_lsp = { stylua = true, cssls = true, gopls = true, herb_ls = true, standardrb = true, tailwindcss = true, taplo = true, zk = true }
-      local missing = {}
-      for _, server in ipairs(require('mason-lspconfig').get_installed_servers()) do
-        if not_lsp[server] then goto continue end
-        local cfg = vim.lsp.config[server]
-        if cfg and cfg.filetypes then
-          vim.api.nvim_create_autocmd('FileType', {
-            pattern  = cfg.filetypes,
-            callback = function()
-              vim.lsp.start(vim.lsp.config[server])
-            end,
-          })
-        else
-          table.insert(missing, server)
-        end
-        ::continue::
-      end
-      if #missing > 0 then
-        vim.notify(
-          'LSP: missing config for: ' .. table.concat(missing, ', ') .. '\nCreate lsp/<server>.lua with cmd + filetypes.',
-          vim.log.levels.WARN
-        )
-      end
-    end,
+    opts = {
+      ensure_installed = { 'lua_ls', 'jsonls', 'yamlls' },
+      automatic_enable = true,
+    },
   },
 
   -- ── Non-LSP tools (formatters, etc.) ─────────────────────────────────────────

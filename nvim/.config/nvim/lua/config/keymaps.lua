@@ -19,6 +19,12 @@ map('n', '<Esc><Esc>', function()
   vim.defer_fn(function() vim.b.snacks_words = nil end, 300)
 end)
 
+-- Window navigation
+map({ 'n', 'x' }, '<C-h>', '<C-w>h')
+map({ 'n', 'x' }, '<C-j>', '<C-w>j')
+map({ 'n', 'x' }, '<C-k>', '<C-w>k')
+map({ 'n', 'x' }, '<C-l>', '<C-w>l')
+
 -- saving
 map('n', '<Leader>W', '<cmd>:noa w<cr>', { desc = 'Save without format' })
 map('n', '<Leader>w', '<cmd>:w<cr>', { desc = 'Save' })

@@ -88,6 +88,23 @@ vim.api.nvim_create_autocmd('BufReadPre', {
   end,
 })
 
+-- :LspInfo — show active LSP clients for current buffer
+vim.api.nvim_create_user_command('LspInfo', function()
+  local clients = vim.lsp.get_clients({ bufnr = 0 })
+  if #clients == 0 then
+    vim.notify('No LSP clients attached to this buffer', vim.log.levels.INFO)
+    return
+  end
+  local lines = { 'LSP clients for ' .. vim.fn.expand('%:t') .. ':', '' }
+  for _, c in ipairs(clients) do
+    local fmt = c.server_capabilities.documentFormattingProvider and 'yes' or 'no'
+    table.insert(lines, string.format('  %-20s root: %s', c.name, c.root_dir or '?'))
+    table.insert(lines, string.format('  %-20s formatting: %s', '', fmt))
+    table.insert(lines, '')
+  end
+  vim.notify(table.concat(lines, '\n'), vim.log.levels.INFO)
+end, {})
+
 -- Wrap and spell in text files
 vim.api.nvim_create_autocmd('FileType', {
   group = augroup('text_wrap_spell'),
