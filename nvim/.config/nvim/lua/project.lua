@@ -31,6 +31,7 @@
 
 ---@class ProjectConfig
 ---@field ai_adapter?             string                 CodeCompanion adapter ('anthropic', 'gemini', …)
+---@field ai_model?               string                 Override default model for the chosen adapter
 ---@field git_browse_main_branch? string                 Branch for <Leader>gO (default: 'master')
 ---@field disable_format_on_save? boolean                Disable conform format-on-save
 ---@field formatters?             table<string,string[]> Override conform formatters_by_ft

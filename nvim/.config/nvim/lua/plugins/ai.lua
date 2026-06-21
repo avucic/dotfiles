@@ -27,10 +27,34 @@ return {
     dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
     config = function()
       local adapters = require("plugins.custom.codecompanion_adapters")
+      local project      = vim.g.project or {}
+      local adapter_name = project.ai_adapter or "copilot"
+      local ai_model     = project.ai_model
+
+      -- If a model override is set, register a patched adapter under a fixed name
+      local http_adapters = {
+        gemini          = adapters.gemini,
+        anthropic       = adapters.anthropic,
+        ollama          = adapters.ollama,
+        openrouter_free = adapters.openrouter_free,
+        openrouter_auto = adapters.openrouter_auto,
+      }
+      local strategy_adapter = adapter_name
+      if ai_model and adapters[adapter_name] then
+        http_adapters["project_adapter"] = function()
+          local a = adapters[adapter_name]()
+          if a.schema and a.schema.model then
+            a.schema.model.default = ai_model
+          end
+          return a
+        end
+        strategy_adapter = "project_adapter"
+      end
+
       require("codecompanion").setup({
         strategies = {
           chat = {
-            adapter = (vim.g.project or {}).ai_adapter or "copilot",
+            adapter = strategy_adapter,
             slash_commands = {
               ["file"] = {
                 opts = { provider = "snacks" },
@@ -41,7 +65,7 @@ return {
             },
           },
           inline = {
-            adapter = (vim.g.project or {}).ai_adapter or "copilot",
+            adapter = strategy_adapter,
             slash_commands = {
               ["file"] = {
                 opts = { provider = "snacks" },
@@ -53,7 +77,7 @@ return {
           },
 
           agent = {
-            adapter = (vim.g.project or {}).ai_adapter or "copilot",
+            adapter = strategy_adapter,
 
             slash_commands = {
               ["file"] = {
@@ -65,16 +89,7 @@ return {
             },
           },
         },
-        adapters = {
-          http = {
-            gemini = adapters.gemini,
-            anthropic = adapters.anthropic,
-            -- githubmodels = adapters.githubmodels,
-            ollama = adapters.ollama,
-            openrouter_free = adapters.openrouter_free,
-            openrouter_auto = adapters.openrouter_auto,
-          },
-        },
+        adapters = { http = http_adapters },
         prompt_library = {
           ["My Commit Message"] = {
             strategy = "inline",
