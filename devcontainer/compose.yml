@@ -14,9 +14,9 @@ services:
       XDG_STATE_HOME: /root/.local/state
       XDG_CACHE_HOME: /root/.cache
       NOTES_DIR: /root/Notes
-      TODO_DIR: /root/todo
-      TODO_FILE: /root/todo/todo.txt
-      DONE_FILE: /root/todo/done.txt
+      TODO_DIR: /root/Notes/todos
+      TODO_FILE: /root/Notes/todos/todo.txt
+      DONE_FILE: /root/Notes/todos/done.txt
     volumes:
       # - ${HOME}/.config/github-copilot:/root/.config/github-copilot:ro
       - ${HOME}/.dotfiles:/root/.dotfiles
@@ -26,7 +26,6 @@ services:
       - ${HOME}/.ssh:/root/.ssh:ro
       - ${HOME}/.supermaven:/root/.supermaven
       - ${HOME}/Documents/Notes:/root/Notes
-      - ${HOME}/Documents/todo:/root/todo
       - ${HOME}/.config/tuxedo/:/root/.config/tuxedo
       - nvim-cache:/root/.cache/nvim
       - nvim-data:/root/.local/share/nvim

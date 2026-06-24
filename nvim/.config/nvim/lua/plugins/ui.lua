@@ -584,9 +584,41 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = "BufReadPost",
     keys = {
-      { "<Leader>os", "<cmd>AerialToggle<cr>", desc = "Symbols outline" },
+      {
+        "<Leader>os",
+        function()
+          local aerial = require("aerial")
+          local aerial_open = false
+          for _, win in ipairs(vim.api.nvim_list_wins()) do
+            if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == "aerial" then
+              aerial_open = true
+              break
+            end
+          end
+          if aerial_open then
+            aerial.close()
+          else
+            aerial.open({ focus = false })
+          end
+        end,
+        desc = "Symbols outline",
+      },
+      {
+        "<Leader>oS",
+        function()
+          vim.g.aerial_auto_open = not vim.g.aerial_auto_open
+          if vim.g.aerial_auto_open then
+            vim.cmd("AerialOpen!")
+          else
+            vim.cmd("AerialClose")
+          end
+          vim.notify("Aerial auto-open: " .. (vim.g.aerial_auto_open and "on" or "off"))
+        end,
+        desc = "Toggle aerial auto-open",
+      },
     },
     config = function()
+      vim.g.aerial_auto_open = true
       require("aerial").setup({
         on_attach = function(bufnr)
           vim.keymap.set("n", "{", "<cmd>AerialPrev<cr>", { buffer = bufnr, desc = "Prev symbol" })
@@ -596,10 +628,9 @@ return {
         attach_mode = "global",
 
         open_automatic = function(bufnr)
-          return vim.api.nvim_buf_line_count(bufnr) > 100
+          return vim.g.aerial_auto_open and vim.api.nvim_buf_line_count(bufnr) > 100
         end,
       })
-      -- Handle the buffer that triggered the load
       if vim.api.nvim_buf_line_count(0) > 100 then
         vim.defer_fn(function() vim.cmd("AerialOpen!") end, 200)
       end
