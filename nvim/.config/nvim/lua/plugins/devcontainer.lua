@@ -1,7 +1,7 @@
 return {
   {
     'erichlf/devcontainer-cli.nvim',
-    cmd  = { 'DevcontainerUp', 'DevcontainerDown', 'DevcontainerExec' },
+    cmd  = { 'DevcontainerUp', 'DevcontainerDown', 'DevcontainerExec', 'RemoteStart', 'RemotePick', 'RemoteStop', 'RemoteQuit', 'RemoteInfo' },
     keys = {
       { '<Leader>rcu', '<cmd>DevcontainerUp<cr>',                                          desc = 'DevContainer up' },
       { '<Leader>rcd', '<cmd>DevcontainerDown<cr>',                                        desc = 'DevContainer down' },
