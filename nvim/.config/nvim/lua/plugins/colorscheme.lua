@@ -63,6 +63,7 @@ return {
       hl(0, "DashboardDev", { fg = c.blue, bold = true })
       hl(0, "DashboardDevText", { fg = c.text })
       hl(0, "DashboardRemote", { fg = c.green, bold = true })
+      hl(0, "DashboardLocal", { fg = c.mauve, bold = true })
 
       hl(0, "NormalFloat", { bg = c.mantle })
       hl(0, "FloatBorder", { fg = c.mantle, bg = c.mantle })

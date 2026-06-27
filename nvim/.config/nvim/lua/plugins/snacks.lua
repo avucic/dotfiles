@@ -14,9 +14,9 @@ return {
           return { { 'DEV ', hl = 'DashboardDev' }, { service_name(), hl = 'DashboardDevText' } }
         end
         if vim.env.REMOTE_NVIM then
-          return { { 'REMOTE', hl = 'DashboardRemote' } }
+          return { { 'REMOTE ', hl = 'DashboardRemote' }, { service_name(), hl = 'DashboardDevText' } }
         end
-        return nil
+        return { { ' ', hl = 'DashboardLocal' }, { service_name(), hl = 'DashboardDevText' } }
       end
 
       local function startup_text()
@@ -152,6 +152,18 @@ local function dashboard_sections()
       map('n', '<Leader>s;',  function() Snacks.picker.command_history() end,    { desc = 'Command history' })
       map('n', '<Leader>lR',  function() Snacks.picker.lsp_references() end,     { desc = 'LSP references' })
       map('n', '<Leader>oN',  function() Snacks.picker.notifications() end,      { desc = 'Notifications' })
+      map('n', '<Leader>oh', function()
+        if vim.bo.filetype == 'snacks_dashboard' then
+          local alt = vim.fn.bufnr('#')
+          if alt ~= -1 and vim.bo[alt].buflisted then
+            vim.cmd('buffer #')
+          else
+            vim.cmd('enew')
+          end
+        else
+          Snacks.dashboard()
+        end
+      end, { desc = 'Toggle home dashboard' })
 
       map('n', '<Leader>ff', function() Snacks.picker.files() end,                    { desc = 'Find files' })
       map('n', '<Leader>fF', function() Snacks.picker.git_files() end,                { desc = 'Git files' })

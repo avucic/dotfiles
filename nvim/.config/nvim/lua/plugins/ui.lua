@@ -454,23 +454,32 @@ return {
       }
 
       local EnvBadge = {
-        condition = function()
-          return vim.env.DEVCONTAINER or vim.env.REMOTE_NVIM
+        update = { "DirChanged", "BufEnter" },
+        init = function(self)
+          local cwd = vim.fn.getcwd()
+          self.svc = cwd:match("/services/([^/]+)") or vim.fn.fnamemodify(cwd, ":t")
         end,
-        provider = function()
+        provider = function(self)
           if vim.env.DEVCONTAINER then
-            local cwd = vim.fn.getcwd()
-            local svc = cwd:match("/services/([^/]+)") or vim.fn.fnamemodify(cwd, ":t")
-            return " DEV:" .. svc .. " "
+            return " DEV:" .. self.svc .. " "
+          elseif vim.env.REMOTE_NVIM then
+            return " SSH:" .. self.svc .. " "
+          else
+            return "  " .. self.svc .. " "
           end
-          return " REMOTE "
         end,
         hl = function()
-          return { fg = p.mantle, bg = vim.env.DEVCONTAINER and p.blue or p.peach, bold = true }
+          if vim.env.DEVCONTAINER then
+            return { fg = p.mantle, bg = p.blue, bold = true }
+          elseif vim.env.REMOTE_NVIM then
+            return { fg = p.mantle, bg = p.peach, bold = true }
+          else
+            return { fg = p.base, bg = p.mauve, bold = true }
+          end
         end,
       }
 
-      local Ruler = { provider = " %l:%c ", hl = { fg = p.subtext0 } }
+local Ruler = { provider = " %l:%c ", hl = { fg = p.subtext0 } }
       local ScrollBar = {
         static = { sbar = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" } },
         provider = function(self)
