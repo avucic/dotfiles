@@ -93,7 +93,7 @@ return {
             end
             Util.setup_keymaps_and_help_popup(note.bufnr, {
               { key = "gd", rhs = "<cmd>Obsidian follow_link<cr>", desc = "Follow link" },
-              { key = "<Leader>oh", rhs = "<cmd>Obsidian toggle_checkbox<cr>", desc = "Toggle checkbox" },
+              { key = "<C-Space>", rhs = "<cmd>Obsidian toggle_checkbox<cr>", desc = "Toggle checkbox" },
               { key = "<Leader>oo", rhs = "<cmd>Obsidian open<cr>", desc = "Open in Obsidian" },
               { key = "<Leader>os", rhs = "<cmd>Obsidian quick_switch<cr>", desc = "Switch notes" },
               { key = "<Leader>ob", rhs = "<cmd>Obsidian backlinks<cr>", desc = "Backlinks" },

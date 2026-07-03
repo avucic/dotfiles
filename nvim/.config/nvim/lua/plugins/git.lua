@@ -79,8 +79,9 @@ return {
     keys = {
       { '<Leader>gd', '<cmd>DiffviewOpen<cr>',          desc = 'Diff view' },
       { '<Leader>gD', '<cmd>DiffviewClose<cr>',         desc = 'Close diff view' },
-      { '<Leader>gh', '<cmd>DiffviewFileHistory %<cr>', desc = 'File history' },
-      { '<Leader>gH', '<cmd>DiffviewFileHistory<cr>',   desc = 'Repo history' },
+      { '<Leader>gh', '<cmd>DiffviewFileHistory %<cr>',         desc = 'File history' },
+      { '<Leader>gH', '<cmd>DiffviewFileHistory<cr>',           desc = 'Repo history' },
+      { '<Leader>gH', ":'<,'>DiffviewFileHistory<cr>", mode = 'v', desc = 'Selection history' },
     },
     config = function()
       require('diffview').setup({
@@ -96,6 +97,18 @@ return {
           },
           file_panel = {
             { 'n', 'q', '<cmd>DiffviewClose<cr>', { desc = 'Close diffview' } },
+            { 'n', 'o', function()
+                local view = require('diffview.lib').get_current_view()
+                if not view or not view.panel then return end
+                local entry = view.panel:get_item_at_cursor()
+                if not entry or not entry.path then return end
+                local path = entry.path
+                if not vim.startswith(path, '/') and view.adapter then
+                  local root = (view.adapter.ctx or {}).toplevel or vim.fn.getcwd()
+                  path = root .. '/' .. path
+                end
+                vim.cmd('tabnew ' .. vim.fn.fnameescape(path))
+              end, { desc = 'Open file in new tab' } },
           },
           file_history_panel = {
             { 'n', 'q', '<cmd>DiffviewClose<cr>', { desc = 'Close diffview' } },

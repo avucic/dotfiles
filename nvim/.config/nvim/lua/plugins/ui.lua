@@ -258,6 +258,13 @@ return {
           { "<Leader>xa", group = "Align", mode = "v" },
           { "<Leader>z", group = "Spelling", icon = "󰓆" },
           { "<Leader>:", group = "AI", icon = "󱙺" },
+          -- Visual mode groups
+          { "<Leader>f", group = "Files", icon = "󰈔", mode = "v" },
+          { "<Leader>g", group = "Git", icon = "󰊢", mode = "v" },
+          { "<Leader>l", group = "LSP", icon = "󰒓", mode = "v" },
+          { "<Leader>x", group = "Text", icon = "󰉿", mode = "v" },
+          { "<Leader>y", group = "Yank", icon = "󰆏", mode = "v" },
+          { "<Leader>:", group = "AI", icon = "󱙺", mode = "v" },
           { "<C-w>", group = "Windows", icon = "󱒕" },
           { "<C-w>t", group = "Tabs", icon = "󰓩" },
           { ",", group = "Multi-cursor", icon = "󰆿" },
@@ -606,8 +613,10 @@ local Ruler = { provider = " %l:%c ", hl = { fg = p.subtext0 } }
           end
           if aerial_open then
             aerial.close()
+            vim.g.aerial_auto_open = false
           else
             aerial.open({ focus = false })
+            vim.g.aerial_auto_open = true
           end
         end,
         desc = "Symbols outline",
