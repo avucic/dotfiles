@@ -39,7 +39,7 @@ return {
           local base = vim.fn.expand(os.getenv("NOTES_DIR") or "~/Documents/Notes")
           return {
             { name = "work", path = base .. "/work" },
-            { name = "me",   path = base .. "/me" },
+            { name = "me", path = base .. "/me" },
           }
         end)(),
 
@@ -130,15 +130,18 @@ return {
                   vim.notify("Syncing notes...", vim.log.levels.INFO)
                   vim.fn.jobstart({ "git", "-C", notes_dir, "add", "-A" }, {
                     on_exit = function()
-                      vim.fn.jobstart({ "git", "-C", notes_dir, "commit", "-m", "sync: " .. os.date("%Y-%m-%d %H:%M") }, {
-                        on_exit = function()
-                          vim.fn.jobstart({ "git", "-C", notes_dir, "push" }, {
-                            on_exit = function()
-                              vim.notify("Notes synced", vim.log.levels.INFO)
-                            end,
-                          })
-                        end,
-                      })
+                      vim.fn.jobstart(
+                        { "git", "-C", notes_dir, "commit", "-m", "sync: " .. os.date("%Y-%m-%d %H:%M") },
+                        {
+                          on_exit = function()
+                            vim.fn.jobstart({ "git", "-C", notes_dir, "push" }, {
+                              on_exit = function()
+                                vim.notify("Notes synced", vim.log.levels.INFO)
+                              end,
+                            })
+                          end,
+                        }
+                      )
                     end,
                   })
                 end

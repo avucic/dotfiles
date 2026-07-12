@@ -86,6 +86,7 @@ return {
     config = function()
       require('diffview').setup({
         enhanced_diff_hl = true,
+        watch_index = false,
         view = {
           default      = { layout = 'diff2_horizontal' },
           merge_tool   = { layout = 'diff3_horizontal', disable_diagnostics = true },
@@ -107,8 +108,30 @@ return {
                   local root = (view.adapter.ctx or {}).toplevel or vim.fn.getcwd()
                   path = root .. '/' .. path
                 end
-                vim.cmd('tabnew ' .. vim.fn.fnameescape(path))
-              end, { desc = 'Open file in new tab' } },
+                -- Find first non-diffview tab, fallback to new tab
+                local target_tab = nil
+                for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
+                  local wins = vim.api.nvim_tabpage_list_wins(tab)
+                  local is_diffview = false
+                  for _, win in ipairs(wins) do
+                    local buf = vim.api.nvim_win_get_buf(win)
+                    if vim.bo[buf].filetype:match('[Dd]iffview') then
+                      is_diffview = true
+                      break
+                    end
+                  end
+                  if not is_diffview then
+                    target_tab = tab
+                    break
+                  end
+                end
+                if target_tab then
+                  vim.api.nvim_set_current_tabpage(target_tab)
+                  vim.cmd('edit ' .. vim.fn.fnameescape(path))
+                else
+                  vim.cmd('tabnew ' .. vim.fn.fnameescape(path))
+                end
+              end, { desc = 'Open file' } },
           },
           file_history_panel = {
             { 'n', 'q', '<cmd>DiffviewClose<cr>', { desc = 'Close diffview' } },
