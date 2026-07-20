@@ -297,7 +297,7 @@ Bookworm-based image via `--from`:
 
 ```sh
 # bad  — Bookworm base, GLIBC 2.36
-dev-build --from node:25-bookworm-slim --tag tabz-dashboard-dev
+dev-build --from node:25-trixie-slim --tag tabz-dashboard-dev
 
 # good — Trixie base, GLIBC 2.39
 dev-build --from node:25-trixie-slim --tag tabz-dashboard-dev

@@ -46,6 +46,7 @@ return {
 		opts = {
 			keymaps = {
 				useDefaults = true,
+				disabledDefaults = { "L" }, -- conflicts with <S-l> (`$`) remap in operator-pending mode
 			},
 		},
 	},

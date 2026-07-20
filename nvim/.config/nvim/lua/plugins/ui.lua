@@ -16,7 +16,8 @@ return {
             return "indent"
           end
           local has_parser = pcall(vim.treesitter.get_parser, bufnr, filetype)
-          local has_folds = has_parser and vim.treesitter.query.get(filetype, "folds") ~= nil
+          local ok, folds = pcall(vim.treesitter.query.get, filetype, "folds")
+          local has_folds = has_parser and ok and folds ~= nil
           return has_folds and { "lsp", "treesitter" } or { "lsp", "indent" }
         end,
         fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate)
@@ -646,10 +647,12 @@ local Ruler = { provider = " %l:%c ", hl = { fg = p.subtext0 } }
         attach_mode = "global",
 
         open_automatic = function(bufnr)
-          return vim.g.aerial_auto_open and vim.api.nvim_buf_line_count(bufnr) > 100
+          return vim.g.aerial_auto_open
+              and vim.api.nvim_buf_line_count(bufnr) > 100
+              and vim.o.columns > 160
         end,
       })
-      if vim.api.nvim_buf_line_count(0) > 100 then
+      if vim.api.nvim_buf_line_count(0) > 100 and vim.o.columns > 160 then
         vim.defer_fn(function() vim.cmd("AerialOpen!") end, 200)
       end
     end,

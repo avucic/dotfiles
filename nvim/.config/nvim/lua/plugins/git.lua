@@ -27,6 +27,7 @@ return {
           map('n', '<Leader>ghS', gs.stage_buffer,  { desc = 'Stage buffer' })
           map('n', '<Leader>ghR', gs.reset_buffer,  { desc = 'Reset buffer' })
           map('n', '<Leader>ghp', gs.preview_hunk,  { desc = 'Preview hunk' })
+          map('n', '<Leader>ghq', gs.setqflist,     { desc = 'Hunks to quickfix' })
           map('n', '<Leader>ghb', function() gs.blame_line({ full = true }) end, { desc = 'Blame line' })
           map('n', '<Leader>ghd', gs.diffthis,       { desc = 'Diff this' })
           map('n', '<Leader>gl',  gs.blame_line,                               { desc = 'Blame line' })
