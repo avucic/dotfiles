@@ -97,3 +97,4 @@ dooing.json
 
 **/.claude/settings.local.json
 .cursor/*
+.ruby/*

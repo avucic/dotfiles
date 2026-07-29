@@ -18,11 +18,11 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 on-focus-changed = ['move-mouse window-lazy-center']
 
 [workspace-to-monitor-force-assignment]
-B = 'secondary'
-O = 'secondary' # Screen Sharing
-T = 'secondary' # iTerm too if you want
-M = 'main'      # Slack/Mail too if you want
-C = 'secondary' # AI Claude, Cursor etc
+B = ['Studio Display', 'DELL.*']
+O = ['Studio Display', 'DELL.*']         # Screen Sharing
+T = ['Studio Display', 'DELL.*']         # iTerm too if you want
+M = 'Built-in Retina Display'            # Slack/Mail too if you want
+C = ['Studio Display', 'DELL.*']         # AI Claude, Cursor etc
 
 [gaps]
 inner.horizontal = 10
