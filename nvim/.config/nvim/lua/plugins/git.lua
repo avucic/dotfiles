@@ -85,6 +85,22 @@ return {
       { '<Leader>gH', ":'<,'>DiffviewFileHistory<cr>", mode = 'v', desc = 'Selection history' },
     },
     config = function()
+      -- Find first non-diffview tab, fallback to nil
+      local function find_target_tab()
+        for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
+          local wins = vim.api.nvim_tabpage_list_wins(tab)
+          local is_diffview = false
+          for _, win in ipairs(wins) do
+            local buf = vim.api.nvim_win_get_buf(win)
+            if vim.bo[buf].filetype:match('[Dd]iffview') then
+              is_diffview = true
+              break
+            end
+          end
+          if not is_diffview then return tab end
+        end
+      end
+
       require('diffview').setup({
         enhanced_diff_hl = true,
         watch_index = false,
@@ -109,23 +125,7 @@ return {
                   local root = (view.adapter.ctx or {}).toplevel or vim.fn.getcwd()
                   path = root .. '/' .. path
                 end
-                -- Find first non-diffview tab, fallback to new tab
-                local target_tab = nil
-                for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
-                  local wins = vim.api.nvim_tabpage_list_wins(tab)
-                  local is_diffview = false
-                  for _, win in ipairs(wins) do
-                    local buf = vim.api.nvim_win_get_buf(win)
-                    if vim.bo[buf].filetype:match('[Dd]iffview') then
-                      is_diffview = true
-                      break
-                    end
-                  end
-                  if not is_diffview then
-                    target_tab = tab
-                    break
-                  end
-                end
+                local target_tab = find_target_tab()
                 if target_tab then
                   vim.api.nvim_set_current_tabpage(target_tab)
                   vim.cmd('edit ' .. vim.fn.fnameescape(path))
@@ -136,6 +136,40 @@ return {
           },
           file_history_panel = {
             { 'n', 'q', '<cmd>DiffviewClose<cr>', { desc = 'Close diffview' } },
+            { 'n', 'o', function()
+                local view = require('diffview.lib').get_current_view()
+                if not view or not view.panel then return end
+                local item = view.panel:get_item_at_cursor()
+                if not item then return end
+
+                local file_entry = item.files and item.files[1] or item
+                local rev = file_entry and file_entry.revs and file_entry.revs.b
+                if not file_entry or not file_entry.path or not rev or not rev.commit then return end
+
+                local root = (view.adapter and view.adapter.ctx or {}).toplevel or vim.fn.getcwd()
+                local path, sha = file_entry.path, rev.commit
+                local lines = vim.fn.systemlist({ 'git', '-C', root, 'show', sha .. ':' .. path })
+                if vim.v.shell_error ~= 0 then
+                  vim.notify('Could not read ' .. path .. ' @ ' .. sha:sub(1, 7), vim.log.levels.ERROR)
+                  return
+                end
+
+                local target_tab = find_target_tab()
+                if target_tab then
+                  vim.api.nvim_set_current_tabpage(target_tab)
+                  vim.cmd('enew')
+                else
+                  vim.cmd('tabnew')
+                end
+
+                local buf = vim.api.nvim_get_current_buf()
+                vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+                vim.api.nvim_buf_set_name(buf, string.format('%s @ %s', path, sha:sub(1, 7)))
+                vim.bo[buf].buftype = 'nofile'
+                vim.bo[buf].swapfile = false
+                vim.bo[buf].modified = false
+                vim.bo[buf].filetype = vim.filetype.match({ filename = path }) or ''
+              end, { desc = 'Open file version in tab' } },
           },
         },
       })
