@@ -11,6 +11,7 @@ STOW_PACKAGES=(
   tmux
   git
   lazygit
+  bin
 )
 
 STOW_CONFLICTS=(

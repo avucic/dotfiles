@@ -13,7 +13,8 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
       build-essential \
       sqlite3 libsqlite3-dev \
       postgresql-client \
-      openssh-client && \
+      openssh-client \
+      xclip xsel && \
     ln -sf "$(which fdfind)" /usr/local/bin/fd && \
     rm -rf /var/lib/apt/lists/*
 
