@@ -151,6 +151,10 @@ if.app-id = 'com.tinyspeck.slackmacgap'
 run = "move-node-to-workspace M"
 
 [[on-window-detected]]
+if.app-id = 'org.telegram.desktop'
+run = "move-node-to-workspace M"
+
+[[on-window-detected]]
 if.app-id = 'com.apple.mail'
 run = "move-node-to-workspace M"
 
