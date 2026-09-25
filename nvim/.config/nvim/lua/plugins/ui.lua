@@ -487,6 +487,33 @@ return {
         end,
       }
 
+      local Worktree = {
+        update = { "DirChanged", "BufEnter" },
+        init = function(self)
+          self.name = nil
+          local git_path = vim.fs.find(".git", { upward = true, path = vim.fn.getcwd() })[1]
+          if not git_path then
+            return
+          end
+          local stat = vim.uv.fs_stat(git_path)
+          if not stat or stat.type ~= "file" then
+            return
+          end
+          local f = io.open(git_path, "r")
+          if not f then
+            return
+          end
+          local line = f:read("*l")
+          f:close()
+          local gitdir = line and line:match("gitdir:%s*(.+)%s*$")
+          self.name = gitdir and vim.fn.fnamemodify(gitdir, ":t") or nil
+        end,
+        provider = function(self)
+          return self.name and (" WT:" .. self.name .. " ") or ""
+        end,
+        hl = { fg = p.base, bg = p.teal, bold = true },
+      }
+
 local Ruler = { provider = " %l:%c ", hl = { fg = p.subtext0 } }
       local ScrollBar = {
         static = { sbar = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" } },
@@ -510,6 +537,7 @@ local Ruler = { provider = " %l:%c ", hl = { fg = p.subtext0 } }
         hl = { bg = p.mantle, fg = p.text },
         Mode,
         EnvBadge,
+        Worktree,
         Space,
         FileType,
         FileFlags,
