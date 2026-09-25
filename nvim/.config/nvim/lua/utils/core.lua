@@ -73,8 +73,11 @@ function M.setup_keymaps_and_help_popup(bufnr, keymap_configs, help_title)
 end
 
 function M.open_scratch_float()
-  local file = os.getenv('SCRATCHPAD_FILE') or vim.fn.expand('~/Dropbox/Notes/scratchpad.md')
-  if vim.fn.filereadable(file) == 0 then vim.fn.writefile({}, file) end
+  local file = os.getenv('SCRATCHPAD_FILE') or vim.fn.expand('~/Notes/scratchpad.md')
+  if vim.fn.filereadable(file) == 0 then
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ':h'), 'p')
+    vim.fn.writefile({}, file)
+  end
 
   local buf = vim.fn.bufnr(file, true)
   vim.fn.bufload(buf)
