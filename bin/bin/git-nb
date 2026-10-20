@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# git nb [TICKET] description words...  ->  av/<TICKET|noticket>/description-words
+set -euo pipefail
+
+if [[ $# -eq 0 ]]; then
+  read -rp "Ticket (enter = noticket): " t
+  read -rp "Description: " d
+  set -- $t $d
+fi
+
+if [[ ${1:-} =~ ^[A-Za-z]+-[0-9]+$ ]]; then
+  ticket=$(tr '[:lower:]' '[:upper:]' <<<"$1"); shift
+else
+  ticket=noticket
+fi
+[[ $# -gt 0 ]] || { echo "usage: git nb [PTS-123] description" >&2; exit 1; }
+
+slug=$(tr '[:upper:]' '[:lower:]' <<<"$*" | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g')
+git switch -c "av/$ticket/$slug"
